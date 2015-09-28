@@ -10,3 +10,11 @@ handle some of these things for you.
 # Working on the app
 
 Coming soon.
+
+# Running in the emulator
+
+Make sure you have the tools directory for the Android SDK in your path, e.g. `/Users/your-user-name/Library/Android/sdk/tools`.
+
+* Run the Android Virutal Device Manager: `android avd`
+* Run your Android virtual device (you should have created one via Android Setup directions linked above)
+* In your React Native project, when your virtual device is ready, run `react-native run-android`
