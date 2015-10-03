@@ -6,8 +6,11 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,6 +30,15 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        ImageView verseImage = (ImageView) findViewById(R.id.verse_image);
+        verseImage.setImageResource(R.drawable.icon_76);
+
+        TextView verseTitle = (TextView) findViewById(R.id.verse_title);
+        verseTitle.setText("Matthew 21:22");
+
+        TextView verseText = (TextView) findViewById(R.id.verse_text);
+        verseText.setText("And whatever you ask in prayer, you will receive, if you have faith.\"");
     }
 
     @Override
