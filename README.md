@@ -1,4 +1,4 @@
-# Ceaseless for Android
+# Ceaseless for Android [![Build Status](https://travis-ci.org/ceaseless-prayer/CeaselessAndroid.svg?branch=master)](https://travis-ci.org/ceaseless-prayer/CeaselessAndroid)
 The Ceaseless Prayer app for Android will be built natively using material design.
 
 # Android Setup
