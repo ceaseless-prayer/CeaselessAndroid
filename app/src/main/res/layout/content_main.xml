@@ -54,12 +54,14 @@
                             android:id="@+id/verse_title"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
+                            android:textColor="#515151"
                             android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/verse_text"
                             android:layout_width="fill_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:textColor="#444444" />
 
                     </LinearLayout>
 
@@ -69,8 +71,8 @@
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
                         android:gravity="top|right"
-                        android:text="@string/verse_share" />
-
+                        android:text="@string/verse_share"
+                        />
                 </LinearLayout>
 
             </LinearLayout>
@@ -102,6 +104,7 @@
                     android:gravity="center|left"
                     android:paddingLeft="10dp"
                     android:text="@string/pray_for_people"
+                    android:textColor="#ccc"
                     android:textSize="20dp" />
 
                 <ListView
