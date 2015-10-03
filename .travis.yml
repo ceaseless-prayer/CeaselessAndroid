@@ -7,3 +7,6 @@ android:
 
 script:
   - gradle build
+
+notifications:
+  slack: c4tk:fG1DeWPKKTkJtv59G4eFtbGk
