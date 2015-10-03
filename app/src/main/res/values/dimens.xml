@@ -6,8 +6,10 @@
     <dimen name="activity_horizontal_margin">12dp</dimen>
     <dimen name="activity_vertical_margin">12dp</dimen>
 
-    <dimen name="card_height">250dp</dimen>
+    <dimen name="verse_card_height">250dp</dimen>
     <dimen name="verse_image_height">175dp</dimen>
     <dimen name="verse_text_height">75dp</dimen>
     <dimen name="verse_text_padding">8dp</dimen>
+
+    <dimen name="pray_for_people_card_height">300dp</dimen>
 </resources>
