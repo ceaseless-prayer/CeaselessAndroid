@@ -24,9 +24,8 @@ import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 
 import java.util.ArrayList;
-import java.util.List;
-
 import java.util.Calendar;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity
         // asynchronous fetchers
         new ScriptureFetcher().execute();
         new ImageFetcher().execute();
-        // Notification service code. 
+        // notification service code
         alarmMethod();
     }
 
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity
 
         Intent myIntent = new Intent(this , NotificationService.class);
         PendingIntent pendingIntent = PendingIntent.getService(this, 0, myIntent, PendingIntent.FLAG_NO_CREATE);
-        //FLAG_NO_CREATE means this will return null if there is already a pending intent
+        // FLAG_NO_CREATE means this will return null if there is already a pending intent
         if (pendingIntent == null) {
             pendingIntent = PendingIntent.getService(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             Log.d(TAG, "Setting reminder notification alarm");

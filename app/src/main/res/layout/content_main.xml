@@ -119,7 +119,7 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="2dp"
-                    android:background="@android:color/darker_gray" />
+                    android:background="@color/lightGray" />
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -128,8 +128,8 @@
                     android:text="@string/view_and_pray"
                     android:textAllCaps="true"
                     android:textColor="#4A90E2"
-                    android:textStyle="bold"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
