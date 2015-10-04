@@ -49,7 +49,7 @@ public class ScriptureServiceImpl implements ScriptureService {
 
         // HTTP Get
         try {
-            URL url = new URL(HTTP_API_VOTD);
+            URL url = new URL(HTTP_API_VOTD + "?language=" + Locale.getDefault().toString());
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             in = new BufferedInputStream(urlConnection.getInputStream());
         } catch (Exception e) {
