@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#00012F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="lightGray">#CCC</color>
+    <color name="progressButton">#F5F5F5</color>
+    <color name="progressButtonShadow">#000</color>
 </resources>

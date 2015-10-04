@@ -19,6 +19,9 @@
     <string name="verse_share">Share</string>
     <string name="pray_for_people">Pray for People</string>
     <string name="view_and_pray">View &amp; Pray</string>
+    <string name="progress">Progress</string>
+    <string name="load_and_play_for_more">LOAD &amp; PRAY FOR MORE</string>
+    <string name="prayer_settings">PRAYER SETTINGS</string>
     <string name="title_activity_people_view">PeopleViewActivity</string>
 
     <string name="title_section1">Section 1</string>

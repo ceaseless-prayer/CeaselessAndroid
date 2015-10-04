@@ -13,4 +13,9 @@
 
     <dimen name="pray_for_people_card_height">300dp</dimen>
     <dimen name="pray_for_people_image_dimension">75dp</dimen>
+    <dimen name="pray_for_person_image_padding">15dp</dimen>
+
+    <dimen name="progress_card_buttons_height">50dp</dimen>
+    <dimen name="progress_card_buttons_width">250dp</dimen>
+    <dimen name="progress_card_buttons_margin">10dp</dimen>
 </resources>
