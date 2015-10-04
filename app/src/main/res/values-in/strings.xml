@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Ceaseless</string>
+
+    <string name="nav_home">Tempat Asal</string>
+    <string name="nav_people">Orang-Orang</string>
+    <string name="nav_verse">Ayat</string>
+
+    <string name="nav_settings">Pengaturan</string>
+    <string name="nav_help">Membantu</string>
+    <string name="nav_contact_us">Hubungi kami</string>
+
+    <string name="nav_rate_this_app">Nilai Aplikasi ini</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="reminder_notification_title">doa Pengingat</string>
+    <string name="reminder_notification_message">Doa untuk orang lain hari ini</string>
+
+    <string name="action_settings">Pengaturan</string>
+
+    <string name="verse_share">Bagikan</string>
+    <string name="pray_for_people">Berdoalah Untuk Orang</string>
+    <string name="view_and_pray">Lihat dan Berdoa</string>
+    <string name="progress">kemajuan</string>
+    <string name="prayed_for">Anda telah berdoa untuk \u0025s dari \u0025s orang-orang</string>
+    <string name="load_and_play_for_more">memuat dan berdoa selama lebih</string>
+    <string name="prayer_settings">Pengaturan</string>
+
+    <string name="loading">pemuatan...</string>
+    <string name="default_verse_title">Matius 21&#58;22</string>
+    <string name="default_verse_text">Dan apa saja yang kamu minta dalam doa dengan penuh kepercayaan, kamu akan menerimanya.&#34;</string>
+
+    <string name="prayer_reminders">peringatan:</string>
+    <string name="reminder_time_picker_title">Waktu sholat pengingat:</string>
+    <string name="reminder_time_picker_dialog_title">Waktu mengedit pengingat:</string>
+    <string name="reminder_time_picker_cancel">BATAL</string>
+    <string name="reminder_time_picker_ok">oke</string>
+    <string name="reminders_on_text">Pengingat yang</string>
+    <string name="reminders_off_text">Pengingat adalah off</string>
+    <string name="default_notification_time">08:30</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_tabbed">TabbedActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+</resources>
