@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,204 +9,210 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/verse_card"
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            card_view:cardCornerRadius="4dp"
-            card_view:cardElevation="4dp">
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/verse_card"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/verse_image"
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/verse_image_height" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp">
 
                 <LinearLayout
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/verse_text_padding"
-                    android:layout_marginRight="@dimen/verse_text_padding"
-                    android:layout_marginTop="@dimen/verse_text_padding"
-                    android:orientation="horizontal">
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/verse_image"
+                        android:layout_width="fill_parent"
+                        android:layout_height="@dimen/verse_image_height" />
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/verse_text_padding"
+                        android:layout_marginRight="@dimen/verse_text_padding"
+                        android:layout_marginTop="@dimen/verse_text_padding"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/verse_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5"
+                            android:gravity="center|left"
+                            android:textColor="#515151"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/verse_share"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/verse_share" />
+
+                    </LinearLayout>
 
                     <TextView
-                        android:id="@+id/verse_title"
-                        android:layout_width="0dp"
+                        android:id="@+id/verse_text"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="5"
-                        android:gravity="center|left"
-                        android:textColor="#515151"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/verse_share"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="@string/verse_share" />
+                        android:layout_marginBottom="@dimen/verse_text_padding"
+                        android:layout_marginLeft="@dimen/verse_text_padding"
+                        android:layout_marginRight="@dimen/verse_text_padding"
+                        android:ellipsize="end"
+                        android:maxLines="5"
+                        android:textColor="#444444" />
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/verse_text"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/verse_text_padding"
-                    android:layout_marginLeft="@dimen/verse_text_padding"
-                    android:layout_marginRight="@dimen/verse_text_padding"
-                    android:ellipsize="end"
-                    android:maxLines="5"
-                    android:textColor="#444444" />
-
-            </LinearLayout>
-
-        </android.support.v7.widget.CardView>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/activity_vertical_margin"
-            android:orientation="vertical" />
-
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/pray_for_people_card"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            card_view:cardCornerRadius="4dp"
-            card_view:cardElevation="4dp">
+            </android.support.v7.widget.CardView>
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="@dimen/activity_vertical_margin"
+                android:orientation="vertical" />
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="60dp"
-                    android:background="#00B9E6"
-                    android:gravity="center|left"
-                    android:paddingLeft="10dp"
-                    android:text="@string/pray_for_people"
-                    android:textColor="#fcfcfc"
-                    android:textSize="20dp" />
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/pray_for_people_card"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp">
 
                 <LinearLayout
-                    android:id="@+id/pray_for_people_list"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+                    android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@color/lightGray" />
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="60dp"
+                        android:background="#00B9E6"
+                        android:gravity="center|left"
+                        android:paddingLeft="10dp"
+                        android:text="@string/pray_for_people"
+                        android:textColor="#fcfcfc"
+                        android:textSize="20dp" />
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:text="@string/view_and_pray"
-                    android:textAllCaps="true"
-                    android:textColor="#4A90E2"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
+                    <LinearLayout
+                        android:id="@+id/pray_for_people_list"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@color/lightGray" />
 
-        </android.support.v7.widget.CardView>
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:text="@string/view_and_pray"
+                        android:textAllCaps="true"
+                        android:textColor="#4A90E2"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="@dimen/activity_vertical_margin"
-            android:orientation="vertical" />
+                </LinearLayout>
 
-        <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/progress_card"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            card_view:cardCornerRadius="4dp"
-            card_view:cardElevation="4dp">
+            </android.support.v7.widget.CardView>
 
             <LinearLayout
                 android:layout_width="fill_parent"
+                android:layout_height="@dimen/activity_vertical_margin"
+                android:orientation="vertical" />
+
+            <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/progress_card"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_gravity="center"
+                card_view:cardCornerRadius="4dp"
+                card_view:cardElevation="4dp">
 
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="60dp"
-                    android:background="#00B9E6"
-                    android:gravity="center|left"
-                    android:paddingLeft="10dp"
-                    android:text="@string/progress"
-                    android:textColor="#fcfcfc"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:id="@+id/prayed_for_text"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dp"
-                    android:gravity="center"
-                    android:text="You have prayed for" />
-
-                <ProgressBar
-                    android:id="@+id/prayer_progress"
-                    style="?android:attr/progressBarStyleHorizontal"
+                <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/progress_bar_margin"
-                    android:layout_marginRight="@dimen/progress_bar_margin"
-                    android:progress="60"
-                    android:progressBackgroundTint="@color/progressBackgroundTint"
-                    android:progressTint="@color/progressTint" />
+                    android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/load_and_pray_for_more"
-                    android:layout_width="@dimen/progress_card_buttons_width"
-                    android:layout_height="@dimen/progress_card_buttons_height"
-                    android:layout_gravity="center"
-                    android:layout_margin="@dimen/progress_card_buttons_margin"
-                    android:background="@color/progressButton"
-                    android:gravity="center"
-                    android:shadowColor="@color/progressButtonShadow"
-                    android:shadowDx="@integer/progress_card_buttons_shadow_dx"
-                    android:shadowDy="@integer/progress_card_buttons_shadow_dy"
-                    android:shadowRadius="@integer/progress_card_buttons_shadow_radius"
-                    android:text="@string/load_and_play_for_more" />
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="60dp"
+                        android:background="#00B9E6"
+                        android:gravity="center|left"
+                        android:paddingLeft="10dp"
+                        android:text="@string/progress"
+                        android:textColor="#fcfcfc"
+                        android:textSize="20dp" />
 
-                <Button
-                    android:id="@+id/prayer_settings"
-                    android:layout_width="@dimen/progress_card_buttons_width"
-                    android:layout_height="@dimen/progress_card_buttons_height"
-                    android:layout_gravity="center"
-                    android:layout_margin="@dimen/progress_card_buttons_margin"
-                    android:background="@color/progressButton"
-                    android:gravity="center"
-                    android:shadowColor="@color/progressButtonShadow"
-                    android:shadowDx="@integer/progress_card_buttons_shadow_dx"
-                    android:shadowDy="@integer/progress_card_buttons_shadow_dy"
-                    android:shadowRadius="@integer/progress_card_buttons_shadow_radius"
-                    android:text="@string/prayer_settings" />
+                    <TextView
+                        android:id="@+id/prayed_for_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="40dp"
+                        android:gravity="center"
+                        android:text="You have prayed for" />
 
-            </LinearLayout>
+                    <ProgressBar
+                        android:id="@+id/prayer_progress"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/progress_bar_margin"
+                        android:layout_marginRight="@dimen/progress_bar_margin"
+                        android:progress="60"
+                        android:progressBackgroundTint="@color/progressBackgroundTint"
+                        android:progressTint="@color/progressTint" />
 
-        </android.support.v7.widget.CardView>
+                    <Button
+                        android:id="@+id/load_and_pray_for_more"
+                        android:layout_width="@dimen/progress_card_buttons_width"
+                        android:layout_height="@dimen/progress_card_buttons_height"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/progress_card_buttons_margin"
+                        android:background="@color/progressButton"
+                        android:gravity="center"
+                        android:shadowColor="@color/progressButtonShadow"
+                        android:shadowDx="@integer/progress_card_buttons_shadow_dx"
+                        android:shadowDy="@integer/progress_card_buttons_shadow_dy"
+                        android:shadowRadius="@integer/progress_card_buttons_shadow_radius"
+                        android:text="@string/load_and_play_for_more" />
 
-    </LinearLayout>
+                    <Button
+                        android:id="@+id/prayer_settings"
+                        android:layout_width="@dimen/progress_card_buttons_width"
+                        android:layout_height="@dimen/progress_card_buttons_height"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/progress_card_buttons_margin"
+                        android:background="@color/progressButton"
+                        android:gravity="center"
+                        android:shadowColor="@color/progressButtonShadow"
+                        android:shadowDx="@integer/progress_card_buttons_shadow_dx"
+                        android:shadowDy="@integer/progress_card_buttons_shadow_dy"
+                        android:shadowRadius="@integer/progress_card_buttons_shadow_radius"
+                        android:text="@string/prayer_settings" />
 
-</ScrollView>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
