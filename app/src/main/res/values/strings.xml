@@ -25,6 +25,8 @@
     <string name="prayer_settings">PRAYER SETTINGS</string>
 
     <string name="loading">Loading...</string>
+    <string name="default_verse_title">Matthew 21&#58;22</string>
+    <string name="default_verse_text">And whatever you ask in prayer, you will receive, if you have faith.&#34;</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -158,8 +158,8 @@ public class MainFragment extends Fragment {
                 verseText.setText(scripture.getText());
             } else {
                 Log.e(TAG, "Could not fetch scripture!");
-                verseTitle.setText("Matthew 21:22");
-                verseText.setText("And whatever you ask in prayer, you will receive, if you have faith.\"");
+                verseTitle.setText(getString(R.string.default_verse_title));
+                verseText.setText(getString(R.string.default_verse_text));
             }
         }
     }
