@@ -34,11 +34,11 @@
                 android:textSize="20sp" />
 
             <Button
+                android:id="@+id/verse_share_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/verse_share"
-                android:id="@+id/verse_share_button"
-                android:layout_gravity="right" />
+                android:layout_gravity="right"
+                android:text="@string/verse_share" />
 
         </LinearLayout>
 

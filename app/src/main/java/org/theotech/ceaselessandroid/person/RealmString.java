@@ -15,8 +15,6 @@ public class RealmString extends RealmObject {
     public RealmString() {
     }
 
-    ;
-
     public String getString() {
         return string;
     }
