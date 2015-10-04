@@ -77,10 +77,10 @@ public class PersonFragment extends Fragment {
 
         ListView notes = (ListView) view.findViewById(R.id.person_notes);
         notes.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
-                new String[]{"This is a note about the fact that this persons needs notes. Notes can be short or long. " +
-                        "In this case, it's probably medium sized.", "This is one of those long notes I had to make up " +
-                        "in order to see how it looks. I'm not even sure what to type here in order to fill up the content. " +
-                        "As a matter of fact, I've somehow managed to do what I thought I couldn't do."}));
+                new String[]{"Pray that this person truly seeks the will of God in their life. Pray " +
+                        "that they would get better soon and be able to go to work without any interruptions.",
+                        "Mid-terms coming up. Mom is not doing well. Has a missions trip coming up soon. Pray " +
+                                "that they find their joy in Jesus."}));
 
         return view;
     }
