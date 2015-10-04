@@ -7,7 +7,8 @@
     <ImageView
         android:id="@+id/pray_for_person_image"
         android:layout_width="@dimen/pray_for_people_image_dimension"
-        android:layout_height="@dimen/pray_for_people_image_dimension" />
+        android:layout_height="@dimen/pray_for_people_image_dimension"
+        android:padding="20dp" />
 
     <TextView
         android:id="@+id/pray_for_person_name"

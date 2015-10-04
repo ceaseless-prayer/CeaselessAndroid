@@ -12,5 +12,5 @@
     <dimen name="verse_text_padding">8dp</dimen>
 
     <dimen name="pray_for_people_card_height">300dp</dimen>
-    <dimen name="pray_for_people_image_dimension">50dp</dimen>
+    <dimen name="pray_for_people_image_dimension">75dp</dimen>
 </resources>
