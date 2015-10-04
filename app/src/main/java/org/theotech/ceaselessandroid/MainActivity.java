@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_home) {
             MainFragment fragment = new MainFragment();
-            getFragmentManager().beginTransaction().replace(R.id.fragment, fragment).commit();
+            getFragmentManager().beginTransaction().replace(R.id.main_fragment, fragment).commit();
         } else if (id == R.id.nav_people) {
             Intent peopleIntent = new Intent(this, PeopleTabbedActivity.class);
             startActivity(peopleIntent);

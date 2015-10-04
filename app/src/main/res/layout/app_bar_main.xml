@@ -22,7 +22,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <fragment
-        android:id="@+id/fragment"
+        android:id="@+id/main_fragment"
         android:name="org.theotech.ceaselessandroid.MainFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
