@@ -2,10 +2,12 @@ package org.theotech.ceaselessandroid.fragment;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.theotech.ceaselessandroid.R;
@@ -26,6 +28,8 @@ public class VerseFragment extends Fragment {
     TextView verseViewTitle;
     @Bind(R.id.verse_view_text)
     TextView verseViewText;
+    @Bind(R.id.verse_share_button)
+    Button verseShareButton;
 
     private CacheManager<LocalCacheData> cacheManager = null;
 
@@ -47,9 +51,27 @@ public class VerseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_verse, container, false);
         ButterKnife.bind(this, view);
 
-        LocalCacheData cacheData = cacheManager.getCacheData();
+        final LocalCacheData cacheData = cacheManager.getCacheData();
         verseViewTitle.setText(cacheData.getScriptureCitation());
         verseViewText.setText(cacheData.getScriptureText());
+
+        View.OnClickListener shareListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ( cacheData != null  &&
+                        cacheData.getScriptureText() != null &&
+                        !cacheData.getScriptureText().isEmpty() &&
+                        cacheData.getScriptureCitation() != null &&
+                        !cacheData.getScriptureCitation().isEmpty())  {
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, cacheData.getScriptureCitation() + "\n" + cacheData.getScriptureText());
+                    sendIntent.setType("text/plain");
+                    startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.verse_share)));
+                }
+            }
+        };
+        verseShareButton.setOnClickListener(shareListener);
 
         return view;
     }
