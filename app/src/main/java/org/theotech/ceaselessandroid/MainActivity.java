@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.theotech.ceaselessandroid.contact.ContactEntity;
 import org.theotech.ceaselessandroid.image.ImageURLServiceImpl;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
