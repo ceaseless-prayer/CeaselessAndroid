@@ -126,6 +126,7 @@
                     android:text="@string/view_and_pray"
                     android:textAllCaps="true"
                     android:textColor="#4A90E2"
+                    android:textStyle="bold"
                     android:textSize="15dp" />
 
             </LinearLayout>
