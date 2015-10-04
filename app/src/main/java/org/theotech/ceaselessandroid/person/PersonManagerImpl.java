@@ -19,7 +19,7 @@ import io.realm.RealmResults;
  */
 public class PersonManagerImpl implements PersonManager {
 
-    private static final String TAG = "PersonManagerImpl";
+    private static final String TAG = PersonManagerImpl.class.getSimpleName();
     private static PersonManager instance;
     private Context context;
     private Realm realm;
@@ -145,7 +145,7 @@ public class PersonManagerImpl implements PersonManager {
         int added = 0;
         int updated = 0;
         try {
-            cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, ContactsContract.Contacts.DISPLAY_NAME);
+            cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
 
 
             while (cursor.moveToNext()) {
