@@ -1,4 +1,4 @@
-package org.theotech.ceaselessandroid;
+package org.theotech.ceaselessandroid.prefs;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,6 +7,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import org.theotech.ceaselessandroid.R;
 
 /**
  * Created by jprobert on 10/4/2015.
@@ -18,6 +20,10 @@ public class TimePickerDialogPreference extends DialogPreference {
     private int lastMinute=0;
     private TimePicker picker=null;
 
+    public TimePickerDialogPreference(Context ctxt, AttributeSet attrs) {
+        super(ctxt, attrs);
+    }
+
     public static int getHour(String time) {
         String[] pieces=time.split(":");
 
@@ -28,10 +34,6 @@ public class TimePickerDialogPreference extends DialogPreference {
         String[] pieces=time.split(":");
 
         return(Integer.parseInt(pieces[1]));
-    }
-
-    public TimePickerDialogPreference(Context ctxt, AttributeSet attrs) {
-        super(ctxt, attrs);
     }
 
     @Override

@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
-import org.theotech.ceaselessandroid.PrefsFragment;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.fragment.ContactUsFragment;
 import org.theotech.ceaselessandroid.fragment.HelpFragment;

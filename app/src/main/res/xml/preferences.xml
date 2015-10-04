@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <SwitchPreference android:title="Prayer reminders:"
+    <SwitchPreference
         android:defaultValue="true"
-        android:summaryOn="Reminders are set."
+        android:key="showNotifications"
         android:summaryOff="No reminders."
-        android:key="showNotifications"/>
-    <org.theotech.ceaselessandroid.TimePickerDialogPreference
-        android:title="Prayer reminder time:"
-        android:key="notificationTime"
+        android:summaryOn="Reminders are set."
+        android:title="Prayer reminders:" />
+    <org.theotech.ceaselessandroid.prefs.TimePickerDialogPreference
         android:defaultValue="@string/default_notification_time"
         android:dialogTitle="Edit reminder time:"
+        android:key="notificationTime"
         android:negativeButtonText="Cancel"
         android:positiveButtonText="OK"
+        android:title="Prayer reminder time:"
         android:widgetLayout="@layout/notification_time_display"/>
 </PreferenceScreen>
