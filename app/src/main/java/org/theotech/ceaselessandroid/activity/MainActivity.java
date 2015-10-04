@@ -12,8 +12,12 @@ import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.fragment.ContactUsFragment;
+import org.theotech.ceaselessandroid.fragment.HelpFragment;
 import org.theotech.ceaselessandroid.fragment.MainFragment;
 import org.theotech.ceaselessandroid.fragment.PeopleFragment;
+import org.theotech.ceaselessandroid.fragment.SettingsFragment;
+import org.theotech.ceaselessandroid.fragment.VerseFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -80,22 +84,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         Fragment fragment = null;
+        String title = null;
         if (id == R.id.nav_home) {
             fragment = new MainFragment();
+            title = getString(R.string.app_name);
         } else if (id == R.id.nav_people) {
             fragment = new PeopleFragment();
+            title = getString(R.string.nav_people);
         } else if (id == R.id.nav_verse) {
-
+            fragment = new VerseFragment();
+            title = getString(R.string.nav_verse);
         } else if (id == R.id.nav_settings) {
-
+            fragment = new SettingsFragment();
+            title = getString(R.string.nav_settings);
         } else if (id == R.id.nav_help) {
-
+            fragment = new HelpFragment();
+            title = getString(R.string.nav_help);
         } else if (id == R.id.nav_contact_us) {
-
+            fragment = new ContactUsFragment();
+            title = getString(R.string.nav_contact_us);
         }
         // replace fragment
         if (fragment != null) {
             getFragmentManager().beginTransaction().replace(R.id.fragment, fragment).commit();
+            setTitle(title);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
