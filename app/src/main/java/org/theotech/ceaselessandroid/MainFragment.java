@@ -73,7 +73,7 @@ public class MainFragment extends Fragment {
         for (int i = 0; i < persons.size(); i++) {
             View row = getActivity().getLayoutInflater().inflate(R.layout.pray_for_people_list, null);
             TextView textView = (TextView) row.findViewById(R.id.pray_for_person_name);
-            textView.setText(persons.get(i).toString());
+            textView.setText(persons.get(i).getName());
             ImageView imageView = (ImageView) row.findViewById(R.id.pray_for_person_image);
             imageView.setImageResource(R.drawable.icon_76);
             prayForPeopleList.addView(row);
