@@ -58,11 +58,11 @@ public class VerseFragment extends Fragment {
         View.OnClickListener shareListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ( cacheData != null  &&
+                if (cacheData != null &&
                         cacheData.getScriptureText() != null &&
                         !cacheData.getScriptureText().isEmpty() &&
                         cacheData.getScriptureCitation() != null &&
-                        !cacheData.getScriptureCitation().isEmpty())  {
+                        !cacheData.getScriptureCitation().isEmpty()) {
                     Intent sendIntent = new Intent();
                     sendIntent.setAction(Intent.ACTION_SEND);
                     sendIntent.putExtra(Intent.EXTRA_TEXT, cacheData.getScriptureCitation() + "\n" + cacheData.getScriptureText());

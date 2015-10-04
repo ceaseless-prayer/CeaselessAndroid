@@ -73,7 +73,7 @@ public class PersonManagerImpl implements PersonManager {
         Collections.shuffle(allPeople);
 
         // Get N people, and set last prayed and the prayed flag
-        if(allPeople.size() < 1) {
+        if (allPeople.size() < 1) {
             return people;
         }
 
