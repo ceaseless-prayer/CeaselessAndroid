@@ -1,5 +1,8 @@
 package org.theotech.ceaselessandroid;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -21,6 +24,8 @@ import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 
 import java.util.ArrayList;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -52,6 +57,32 @@ public class MainActivity extends AppCompatActivity
         // asynchronous fetchers
         new ScriptureFetcher().execute();
         new ImageFetcher().execute();
+        // Notification service code. 
+        alarmMethod();
+    }
+
+    private void alarmMethod(){
+        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
+
+        Intent myIntent = new Intent(this , NotificationService.class);
+        PendingIntent pendingIntent = PendingIntent.getService(this, 0, myIntent, PendingIntent.FLAG_NO_CREATE);
+        //FLAG_NO_CREATE means this will return null if there is already a pending intent
+        if (pendingIntent == null) {
+            pendingIntent = PendingIntent.getService(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            Log.d(TAG, "Setting reminder notification alarm");
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.SECOND, 0);
+            //calendar.add(Calendar.SECOND, 3);
+            calendar.set(Calendar.MINUTE, 30);
+            calendar.set(Calendar.HOUR, 8);
+            calendar.set(Calendar.AM_PM, Calendar.AM);
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+
+            alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24, pendingIntent);
+        } else {
+            Log.d(TAG, "Not setting reminder notification alarm. Already set.");
+            //PendingIntent.getService(this, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        }
     }
 
     @Override
