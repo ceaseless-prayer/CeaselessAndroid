@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <ImageView
+        android:id="@+id/pray_for_person_image"
         android:layout_width="@dimen/pray_for_people_image_dimension"
         android:layout_height="@dimen/pray_for_people_image_dimension" />
 
     <TextView
+        android:id="@+id/pray_for_person_name"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/pray_for_people_image_dimension" />
+        android:layout_height="@dimen/pray_for_people_image_dimension"
+        android:gravity="center|left" />
 
 </LinearLayout>

@@ -13,9 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
+import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.theotech.ceaselessandroid.image.ImageURLServiceImpl;
@@ -24,6 +24,7 @@ import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import java.util.Calendar;
 
@@ -50,9 +51,7 @@ public class MainActivity extends AppCompatActivity
         ImageView verseImage = (ImageView) findViewById(R.id.verse_image);
         verseImage.setImageResource(R.drawable.icon_76);
 
-        ListView prayForPeopleList = (ListView) findViewById(R.id.pray_for_people_list);
-        prayForPeopleList.setAdapter(new ArrayAdapter<Person>(this,
-                R.layout.pray_for_people_list, new ArrayList<Person>()));
+        populatePrayForPeopleList();
 
         // asynchronous fetchers
         new ScriptureFetcher().execute();
@@ -82,6 +81,22 @@ public class MainActivity extends AppCompatActivity
         } else {
             Log.d(TAG, "Not setting reminder notification alarm. Already set.");
             //PendingIntent.getService(this, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        }
+    }
+
+    private void populatePrayForPeopleList() {
+        List<Person> persons = new ArrayList<Person>();
+        persons.add(new Person("ID1", "1NAME"));
+        persons.add(new Person("ID2", "2NAME"));
+        persons.add(new Person("ID3", "3NAME"));
+        LinearLayout prayForPeopleList = (LinearLayout) findViewById(R.id.pray_for_people_list);
+        for (int i = 0; i < persons.size(); i++) {
+            View row = getLayoutInflater().inflate(R.layout.pray_for_people_list, null);
+            TextView textView = (TextView) row.findViewById(R.id.pray_for_person_name);
+            textView.setText(persons.get(i).toString());
+            ImageView imageView = (ImageView) row.findViewById(R.id.pray_for_person_image);
+            imageView.setImageResource(R.drawable.icon_76);
+            prayForPeopleList.addView(row);
         }
     }
 
