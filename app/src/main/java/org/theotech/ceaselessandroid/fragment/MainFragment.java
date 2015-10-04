@@ -14,9 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.image.ImageURLService;
 import org.theotech.ceaselessandroid.image.ImageURLServiceImpl;
 import org.theotech.ceaselessandroid.notification.NotificationService;
 import org.theotech.ceaselessandroid.person.Person;
@@ -44,8 +48,13 @@ public class MainFragment extends Fragment {
     TextView verseTitle;
     @Bind(R.id.verse_text)
     TextView verseText;
+    @Bind(R.id.prayer_progress)
+    ProgressBar progress;
+    @Bind(R.id.prayed_for_text)
+    TextView prayedFor;
 
     private PersonManager personManager = null;
+    private ImageURLService imageService = null;
 
     public MainFragment() {
         // Required empty public constructor
@@ -55,6 +64,7 @@ public class MainFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         personManager = PersonManagerImpl.getInstance(getActivity().getApplicationContext());
+        imageService = ImageURLServiceImpl.getInstance();
     }
 
     @Override
@@ -63,9 +73,10 @@ public class MainFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
 
-        verseImage.setImageResource(R.drawable.icon_76);
-
+        // populate prayer list
         populatePrayForPeopleList();
+        // update progress bar
+        updateProgressBar();
 
         // asynchronous fetchers
         new ScriptureFetcher().execute();
@@ -75,6 +86,31 @@ public class MainFragment extends Fragment {
         alarmMethod();
 
         return view;
+    }
+
+    private void populatePrayForPeopleList() {
+        List<Person> persons = null;
+        try {
+            persons = personManager.getNextPeopleToPrayFor(3);
+        } catch (PrayedForAllContacts prayedForAllContacts) {
+            prayedForAllContacts.printStackTrace();
+        }
+        for (int i = 0; i < persons.size(); i++) {
+            View row = getActivity().getLayoutInflater().inflate(R.layout.pray_for_people_list, null);
+            TextView textView = (TextView) row.findViewById(R.id.pray_for_person_name);
+            textView.setText(persons.get(i).getName());
+            ImageView imageView = (ImageView) row.findViewById(R.id.pray_for_person_image);
+            imageView.setImageResource(R.drawable.icon_76);
+            prayForPeopleList.addView(row);
+        }
+    }
+
+    private void updateProgressBar() {
+        long numPrayed = personManager.getNumPrayed();
+        long numPeople = personManager.getNumPeople();
+        prayedFor.setText(String.format(getString(R.string.prayed_for), numPrayed, numPeople));
+        progress.setProgress((int) ((float) numPrayed / numPeople * 100.0f));
+        progress.requestLayout();
     }
 
     private void alarmMethod() {
@@ -99,23 +135,6 @@ public class MainFragment extends Fragment {
         } else {
             Log.d(TAG, "Not setting reminder notification alarm. Already set.");
             //PendingIntent.getService(this, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        }
-    }
-
-    private void populatePrayForPeopleList() {
-        List<Person> persons = null;
-        try {
-            persons = personManager.getNextPeopleToPrayFor(3);
-        } catch (PrayedForAllContacts prayedForAllContacts) {
-            prayedForAllContacts.printStackTrace();
-        }
-        for (int i = 0; i < persons.size(); i++) {
-            View row = getActivity().getLayoutInflater().inflate(R.layout.pray_for_people_list, null);
-            TextView textView = (TextView) row.findViewById(R.id.pray_for_person_name);
-            textView.setText(persons.get(i).getName());
-            ImageView imageView = (ImageView) row.findViewById(R.id.pray_for_person_image);
-            imageView.setImageResource(R.drawable.icon_76);
-            prayForPeopleList.addView(row);
         }
     }
 
@@ -148,7 +167,7 @@ public class MainFragment extends Fragment {
 
         @Override
         protected String doInBackground(String... params) {
-            return new ImageURLServiceImpl().getImageURL();
+            return imageService.getImageURL();
         }
 
         @Override
@@ -156,7 +175,7 @@ public class MainFragment extends Fragment {
             if (imageUrl != null) {
                 Log.d(TAG, "imageUrl = " + imageUrl);
 
-                // TODO: Download the image and display using picasso
+                Picasso.with(getActivity()).load(imageUrl).into(verseImage);
             } else {
                 Log.e(TAG, "Could not fetch scripture!");
             }

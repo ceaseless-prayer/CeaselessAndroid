@@ -20,6 +20,7 @@
     <string name="pray_for_people">Pray for People</string>
     <string name="view_and_pray">View &amp; Pray</string>
     <string name="progress">Progress</string>
+    <string name="prayed_for">You have prayed for \u0025s of \u0025s people</string>
     <string name="load_and_play_for_more">LOAD &amp; PRAY FOR MORE</string>
     <string name="prayer_settings">PRAYER SETTINGS</string>
 
