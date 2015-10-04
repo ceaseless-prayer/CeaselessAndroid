@@ -1,8 +1,11 @@
 package org.theotech.ceaselessandroid.fragment;
 
 
-import android.app.ProgressDialog;
+import android.content.ContentUris;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,30 +52,55 @@ public class PersonFragment extends Fragment {
         int index = getArguments().getInt(ARG_SECTION_NUMBER);
         // get data from cache
         Person person = cacheManager.getCacheData().getPeopleToPrayFor().get(index);
+        Uri personPhotoUri = getPhotoUri(person.getId());
 
         TextView personName = (TextView) view.findViewById(R.id.person_name);
         personName.setText(person.getName());
-        ImageView personImage = (ImageView) view.findViewById(R.id.person_image);
-        final ProgressDialog dialog = new ProgressDialog(getActivity());
-        dialog.setMessage(getString(R.string.loading));
-        dialog.show();
-        Picasso.with(getActivity()).load(R.drawable.icon_76_2x).fit().centerCrop().into(personImage, new Callback() {
+        final ImageView personImage = (ImageView) view.findViewById(R.id.person_image);
+        Callback callback = new Callback() {
             @Override
             public void onSuccess() {
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
-                }
             }
 
             @Override
             public void onError() {
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
-                }
+                Picasso.with(getActivity()).load(R.drawable.icon_76_2x).fit().centerCrop().into(personImage);
             }
-        });
+        };
+        if (personPhotoUri != null) {
+            Picasso.with(getActivity()).load(personPhotoUri).fit().centerCrop().into(personImage, callback);
+        } else {
+            Picasso.with(getActivity()).load(R.drawable.icon_76_2x).fit().centerCrop().into(personImage);
+        }
 
         return view;
+    }
+
+    /**
+     * @return the contact's photo URI
+     */
+    private Uri getPhotoUri(String personId) {
+        try {
+            Cursor cur = getActivity().getApplicationContext().getContentResolver().query(
+                    ContactsContract.Data.CONTENT_URI,
+                    null,
+                    ContactsContract.Data.CONTACT_ID + "=" + personId + " AND "
+                            + ContactsContract.Data.MIMETYPE + "='"
+                            + ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE + "'", null,
+                    null);
+            if (cur != null) {
+                if (!cur.moveToFirst()) {
+                    return null; // no photo
+                }
+            } else {
+                return null; // error in cursor process
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        Uri person = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long
+                .parseLong(personId));
+        return Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
     }
 
 

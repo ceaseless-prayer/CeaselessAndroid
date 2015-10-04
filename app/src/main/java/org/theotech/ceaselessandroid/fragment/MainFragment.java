@@ -209,14 +209,17 @@ public class MainFragment extends Fragment {
             }
         }
         for (int i = 0; persons != null && !persons.isEmpty() && i < persons.size(); i++) {
-            View row = getActivity().getLayoutInflater().inflate(R.layout.pray_for_people_list, null);
+            final View row = getActivity().getLayoutInflater().inflate(R.layout.pray_for_people_list, null);
             TextView textView = (TextView) row.findViewById(R.id.pray_for_person_name);
             textView.setText(persons.get(i).getName());
 
-            Uri u = getPhotoUri(persons.get(i).getId());
-            ImageView imageView = (ImageView) row.findViewById(R.id.pray_for_person_image);
+            final Uri u = getPhotoUri(persons.get(i).getId());
+            final ImageView imageView = (ImageView) row.findViewById(R.id.pray_for_person_image);
             if (u != null) {
                 imageView.setImageURI(u);
+                if (imageView.getDrawable() == null) {
+                    imageView.setImageResource(R.drawable.icon_76);
+                }
             } else {
                 imageView.setImageResource(R.drawable.icon_76);
             }
@@ -227,12 +230,12 @@ public class MainFragment extends Fragment {
     /**
      * @return the contact's photo URI
      */
-    private Uri getPhotoUri(String person_id) {
+    private Uri getPhotoUri(String personId) {
         try {
             Cursor cur = getActivity().getApplicationContext().getContentResolver().query(
                     ContactsContract.Data.CONTENT_URI,
                     null,
-                    ContactsContract.Data.CONTACT_ID + "=" + person_id + " AND "
+                    ContactsContract.Data.CONTACT_ID + "=" + personId + " AND "
                             + ContactsContract.Data.MIMETYPE + "='"
                             + ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE + "'", null,
                     null);
@@ -244,11 +247,10 @@ public class MainFragment extends Fragment {
                 return null; // error in cursor process
             }
         } catch (Exception e) {
-            e.printStackTrace();
             return null;
         }
         Uri person = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long
-                .parseLong(person_id));
+                .parseLong(personId));
         return Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
     }
 
