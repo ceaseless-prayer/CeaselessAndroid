@@ -28,8 +28,8 @@ public class NotificationService extends Service {
         Intent intent1 = new Intent(this.getApplicationContext(), MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent1, 0);
         Notification mNotify = new Builder(this)
-                .setContentTitle("Prayer reminder")
-                .setContentText("Pray for your friends today.")
+                .setContentTitle(getString(R.string.reminder_notification_title))
+                .setContentText(getString(R.string.reminder_notification_message))
                 .setSmallIcon(R.drawable.ic_notification_dove)
                 .setContentIntent(pIntent)
                 .setAutoCancel(true)
