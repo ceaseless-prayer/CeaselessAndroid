@@ -11,10 +11,13 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import org.theotech.ceaselessandroid.R;
-import org.theotech.ceaselessandroid.prefs.TimePickerDialogPreference;
 import org.theotech.ceaselessandroid.notification.NotificationService;
+import org.theotech.ceaselessandroid.prefs.TimePickerDialogPreference;
 
 import java.util.Calendar;
 
@@ -38,6 +41,13 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        getActivity().setTitle(getString(R.string.nav_settings));
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
