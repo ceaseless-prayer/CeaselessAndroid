@@ -44,6 +44,7 @@
                 android:id="@+id/person_notes_title"
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:gravity="center"
                 android:text="@string/person_notes"
                 android:textColor="#515151"
@@ -53,7 +54,7 @@
             <ListView
                 android:id="@+id/person_notes"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="250dp" />
 
         </LinearLayout>
 

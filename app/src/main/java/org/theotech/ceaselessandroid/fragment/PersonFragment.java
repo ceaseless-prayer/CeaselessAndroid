@@ -10,7 +10,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
@@ -72,6 +74,13 @@ public class PersonFragment extends Fragment {
         } else {
             Picasso.with(getActivity()).load(R.drawable.icon_76_2x).fit().centerCrop().into(personImage);
         }
+
+        ListView notes = (ListView) view.findViewById(R.id.person_notes);
+        notes.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
+                new String[]{"This is a note about the fact that this persons needs notes. Notes can be short or long. " +
+                        "In this case, it's probably medium sized.", "This is one of those long notes I had to make up " +
+                        "in order to see how it looks. I'm not even sure what to type here in order to fill up the content. " +
+                        "As a matter of fact, I've somehow managed to do what I thought I couldn't do."}));
 
         return view;
     }
