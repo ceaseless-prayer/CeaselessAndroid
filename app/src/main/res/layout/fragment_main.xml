@@ -53,6 +53,7 @@
                             android:textColor="#515151"
                             android:textStyle="bold" />
 
+                        <!-- TODO wire this up later
                         <TextView
                             android:id="@+id/verse_share"
                             android:layout_width="0dp"
@@ -60,6 +61,7 @@
                             android:layout_weight="1"
                             android:gravity="center"
                             android:text="@string/verse_share" />
+                        -->
 
                     </LinearLayout>
 
@@ -178,6 +180,7 @@
                         android:progressBackgroundTint="@color/progressBackgroundTint"
                         android:progressTint="@color/progressTint" />
 
+                    <!-- TODO add back later when we have time to wire it up
                     <Button
                         android:id="@+id/load_and_pray_for_more"
                         android:layout_width="@dimen/progress_card_buttons_width"
@@ -191,6 +194,7 @@
                         android:shadowDy="@integer/progress_card_buttons_shadow_dy"
                         android:shadowRadius="@integer/progress_card_buttons_shadow_radius"
                         android:text="@string/load_and_play_for_more" />
+                    -->
 
                     <Button
                         android:id="@+id/prayer_settings"

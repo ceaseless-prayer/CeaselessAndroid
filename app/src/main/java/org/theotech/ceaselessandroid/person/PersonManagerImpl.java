@@ -73,7 +73,11 @@ public class PersonManagerImpl implements PersonManager {
         Collections.shuffle(allPeople);
 
         // Get N people, and set last prayed and the prayed flag
-        for (int i = 0; i < n; i++) {
+        if(allPeople.size() < 1) {
+            return people;
+        }
+
+        for (int i = 0; i < Math.min(n, allPeople.size()); i++) {
             realm.beginTransaction();
             Person person = allPeople.get(i);
             person.setLastPrayed(new Date());
