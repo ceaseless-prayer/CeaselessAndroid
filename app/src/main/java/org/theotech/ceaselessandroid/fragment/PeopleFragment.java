@@ -3,6 +3,7 @@ package org.theotech.ceaselessandroid.fragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.util.Constants;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,8 +33,7 @@ public class PeopleFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_people, container, false);
         ButterKnife.bind(this, view);
 
-        Log.d("Peeps", "creating");
-        viewPager.setAdapter(new FragmentPagerAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager()) {
+        viewPager.setAdapter(new  FragmentStatePagerAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager()) {
             @Override
             public android.support.v4.app.Fragment getItem(int position) {
                 return PersonFragment.newInstance(position);
@@ -40,10 +41,9 @@ public class PeopleFragment extends Fragment {
 
             @Override
             public int getCount() {
-                return 3;
+                return Constants.NUM_PERSONS;
             }
         });
-        viewPager.requestLayout();
 
         return view;
     }

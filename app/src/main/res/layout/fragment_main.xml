@@ -119,6 +119,7 @@
                         android:background="@color/lightGray" />
 
                     <TextView
+                        android:id="@+id/view_and_pray"
                         android:layout_width="fill_parent"
                         android:layout_height="50dp"
                         android:gravity="center"

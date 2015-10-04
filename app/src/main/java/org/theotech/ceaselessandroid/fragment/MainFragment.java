@@ -40,6 +40,7 @@ import org.theotech.ceaselessandroid.person.Persons;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.scripture.ScriptureService;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
+import org.theotech.ceaselessandroid.util.Constants;
 
 import java.util.Calendar;
 import java.util.List;
@@ -60,6 +61,8 @@ public class MainFragment extends Fragment {
     TextView verseTitle;
     @Bind(R.id.verse_text)
     TextView verseText;
+    @Bind(R.id.view_and_pray)
+    TextView viewAndPray;
     @Bind(R.id.prayer_progress)
     ProgressBar progress;
     @Bind(R.id.prayed_for_text)
@@ -111,6 +114,15 @@ public class MainFragment extends Fragment {
         verseText.setOnClickListener(verseCardOnClickListener);
         // populate prayer list
         populatePrayForPeopleList();
+        // view and pray onclick listener
+        viewAndPray.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = getString(R.string.nav_people);
+                getFragmentManager().beginTransaction().replace(R.id.fragment, new PeopleFragment(),
+                        title).addToBackStack(null).commit();
+            }
+        });
         // update progress bar
         updateProgressBar();
         // prayer settings onclick listener
@@ -183,7 +195,7 @@ public class MainFragment extends Fragment {
             persons = Persons.convert(cacheData.getPeopleToPrayFor());
         } else {
             try {
-                persons = personManager.getNextPeopleToPrayFor(3);
+                persons = personManager.getNextPeopleToPrayFor(Constants.NUM_PERSONS);
                 LocalCacheData localCacheData = new LocalCacheData();
                 localCacheData.setCreationDate(LocalDailyCacheManagerImpl.generateCreationDate());
                 localCacheData.setPeopleToPrayFor(Persons.convert(persons));
