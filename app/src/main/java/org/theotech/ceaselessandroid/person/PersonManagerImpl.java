@@ -51,7 +51,6 @@ public class PersonManagerImpl implements PersonManager {
     public List<Person> getNextPeopleToPrayFor(int n) throws AlreadyPrayedForAllContactsException {
         List<Person> people = new ArrayList<Person>();
         RealmResults<Person> results = realm.where(Person.class).equalTo("ignored", false).findAllSorted("lastPrayed");
-        Collections.shuffle(results);
 
         // if all people are prayed for, then reset and throw exception
         if (getNumPeople() > 0 && results.size() == 0) {
@@ -66,10 +65,17 @@ public class PersonManagerImpl implements PersonManager {
             throw new AlreadyPrayedForAllContactsException(getNumPeople());
         }
 
+        // shuffle the list of people
+        List<Person> allPeople = new ArrayList<Person>();
+        for (int i = 0; i < results.size(); i++) {
+            allPeople.add(results.get(i));
+        }
+        Collections.shuffle(allPeople);
+
         // Get N people, and set last prayed and the prayed flag
         for (int i = 0; i < n; i++) {
             realm.beginTransaction();
-            Person person = results.get(i);
+            Person person = allPeople.get(i);
             person.setLastPrayed(new Date());
             person.setPrayed(true);
             realm.commitTransaction();
