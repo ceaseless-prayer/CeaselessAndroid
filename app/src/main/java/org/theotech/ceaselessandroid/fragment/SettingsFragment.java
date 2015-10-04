@@ -59,8 +59,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         }
 
         if ("showNotifications".equals(s)) {
-            if (sharedPreferences.getBoolean("showNotifications", true))
-            {
+            if (sharedPreferences.getBoolean("showNotifications", true)) {
                 updateTime(sharedPreferences);
             } else {
                 cancelTimer();
@@ -78,7 +77,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         alarmManager.cancel(pendingIntent);
     }
 
-    private void updateTime(SharedPreferences sharedPreferences)  {
+    private void updateTime(SharedPreferences sharedPreferences) {
         Context context = getActivity();
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 

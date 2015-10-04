@@ -29,7 +29,6 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.R;
-import org.theotech.ceaselessandroid.prefs.TimePickerDialogPreference;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalCacheData;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
@@ -41,6 +40,7 @@ import org.theotech.ceaselessandroid.person.Person;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.person.Persons;
+import org.theotech.ceaselessandroid.prefs.TimePickerDialogPreference;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.scripture.ScriptureService;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
