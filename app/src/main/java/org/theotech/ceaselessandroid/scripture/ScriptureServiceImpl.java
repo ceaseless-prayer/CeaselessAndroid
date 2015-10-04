@@ -23,6 +23,15 @@ public class ScriptureServiceImpl implements ScriptureService {
     private static final String HTTP_API_VOTD = "http://api.ceaselessprayer.com/v1/votd";
     private static final String HTTP_API_GET_SCRIPTURE = "http://api.ceaselessprayer.com/v1/getScripture";
 
+    private static ScriptureService instance;
+
+    public ScriptureService getInstance() {
+        if (instance == null) {
+            instance = new ScriptureServiceImpl();
+        }
+        return instance;
+    }
+
     @Override
     public ScriptureData getScripture() {
         ScriptureReference ref = getVerseOfTheDay();
