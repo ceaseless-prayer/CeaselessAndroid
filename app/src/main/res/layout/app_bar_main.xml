@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/main_fragment"
-        android:name="org.theotech.ceaselessandroid.MainFragment"
+        android:name="org.theotech.ceaselessandroid.fragment.MainFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="?attr/actionBarSize" />

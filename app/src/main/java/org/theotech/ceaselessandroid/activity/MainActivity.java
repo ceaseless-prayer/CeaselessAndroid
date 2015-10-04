@@ -1,4 +1,4 @@
-package org.theotech.ceaselessandroid;
+package org.theotech.ceaselessandroid.activity;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -12,6 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+
+import org.theotech.ceaselessandroid.PeopleTabbedActivity;
+import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.fragment.MainFragment;
+import org.theotech.ceaselessandroid.notification.NotificationService;
 
 import java.util.Calendar;
 

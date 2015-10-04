@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
@@ -26,7 +26,9 @@
             android:label="@string/title_activity_people_view" >
         </activity>
 
-        <service android:name=".NotificationService" android:enabled="true" />
+        <service
+            android:name=".notification.NotificationService"
+            android:enabled="true" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
