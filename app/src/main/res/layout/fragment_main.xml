@@ -103,7 +103,7 @@
                         android:paddingLeft="10dp"
                         android:text="@string/pray_for_people"
                         android:textColor="#fcfcfc"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
 
                     <LinearLayout
                         android:id="@+id/pray_for_people_list"
@@ -125,7 +125,7 @@
                         android:text="@string/view_and_pray"
                         android:textAllCaps="true"
                         android:textColor="#4A90E2"
-                        android:textSize="15dp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -157,7 +157,7 @@
                         android:paddingLeft="10dp"
                         android:text="@string/progress"
                         android:textColor="#fcfcfc"
-                        android:textSize="20dp" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/prayed_for_text"

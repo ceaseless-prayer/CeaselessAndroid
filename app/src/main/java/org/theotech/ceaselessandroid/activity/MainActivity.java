@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigation.setNavigationItemSelectedListener(this);
 
+        // load the main fragment
         getFragmentManager().beginTransaction().add(R.id.fragment, new MainFragment()).commit();
 
     }

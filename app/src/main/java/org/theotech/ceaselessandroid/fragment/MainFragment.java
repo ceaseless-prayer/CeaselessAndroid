@@ -44,8 +44,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainFragment extends Fragment {
-
     private static final String TAG = MainFragment.class.getSimpleName();
+
     private final boolean useCache;
 
     @Bind(R.id.verse_image)
@@ -90,6 +90,17 @@ public class MainFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
 
+        // verse card onclick listeners
+        View.OnClickListener verseCardOnClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().replace(R.id.fragment, new VerseFragment()).commit();
+                getActivity().setTitle(getString(R.string.nav_verse));
+            }
+        };
+        verseImage.setOnClickListener(verseCardOnClickListener);
+        verseTitle.setOnClickListener(verseCardOnClickListener);
+        verseText.setOnClickListener(verseCardOnClickListener);
         // populate prayer list
         populatePrayForPeopleList();
         // update progress bar
