@@ -208,12 +208,18 @@ public class MainFragment extends Fragment {
                 // TODO: Celebrate!
             }
         }
-        for (int i = 0; i < persons.size(); i++) {
+        for (int i = 0; persons != null && !persons.isEmpty() && i < persons.size(); i++) {
             View row = getActivity().getLayoutInflater().inflate(R.layout.pray_for_people_list, null);
             TextView textView = (TextView) row.findViewById(R.id.pray_for_person_name);
             textView.setText(persons.get(i).getName());
+
+            Uri u = getPhotoUri(persons.get(i).getId());
             ImageView imageView = (ImageView) row.findViewById(R.id.pray_for_person_image);
-            imageView.setImageResource(R.drawable.icon_76);
+            if (u != null) {
+                imageView.setImageURI(u);
+            } else {
+                imageView.setImageResource(R.drawable.icon_76);
+            }
             prayForPeopleList.addView(row);
         }
     }
