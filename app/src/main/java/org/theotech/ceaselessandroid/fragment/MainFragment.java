@@ -7,8 +7,10 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.TimePickerDialogPreference;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalCacheData;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
@@ -209,26 +212,30 @@ public class MainFragment extends Fragment {
 
     private void alarmMethod() {
         Context context = getActivity();
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if (preferences.getBoolean("showNotifications", true)) {
+            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        Intent myIntent = new Intent(getActivity(), NotificationService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(context, 0, myIntent, PendingIntent.FLAG_NO_CREATE);
-        // FLAG_NO_CREATE means this will return null if there is already a pending intent
-        if (pendingIntent == null) {
-            pendingIntent = PendingIntent.getService(context, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            Log.d(TAG, "Setting reminder notification alarm");
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.SECOND, 0);
-            //calendar.add(Calendar.SECOND, 3);
-            calendar.set(Calendar.MINUTE, 30);
-            calendar.set(Calendar.HOUR, 8);
-            calendar.set(Calendar.AM_PM, Calendar.AM);
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            Intent myIntent = new Intent(getActivity(), NotificationService.class);
+            PendingIntent pendingIntent = PendingIntent.getService(context, 0, myIntent, PendingIntent.FLAG_NO_CREATE);
+            // FLAG_NO_CREATE means this will return null if there is not already a pending intent
+            if (pendingIntent == null) {
+                String time = preferences.getString("notificationTime", "08:30");
+                pendingIntent = PendingIntent.getService(context, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                Log.d(TAG, "Setting reminder notification alarm");
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(Calendar.SECOND, 0);
+                //calendar.add(Calendar.SECOND, 3);
+                calendar.set(Calendar.MINUTE, TimePickerDialogPreference.getMinute(time));
+                calendar.set(Calendar.HOUR, TimePickerDialogPreference.getHour(time));
+                calendar.set(Calendar.AM_PM, Calendar.AM);
+                calendar.add(Calendar.DAY_OF_MONTH, 1);
 
-            alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24, pendingIntent);
-        } else {
-            Log.d(TAG, "Not setting reminder notification alarm. Already set.");
-            //PendingIntent.getService(this, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24, pendingIntent);
+            } else {
+                Log.d(TAG, "Not setting reminder notification alarm. Already set.");
+                //PendingIntent.getService(this, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+            }
         }
     }
 

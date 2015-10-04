@@ -1,12 +1,15 @@
-package org.theotech.ceaselessandroid.prefs;
+package org.theotech.ceaselessandroid;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import org.w3c.dom.Text;
 
 import org.theotech.ceaselessandroid.R;
 
@@ -16,9 +19,11 @@ import org.theotech.ceaselessandroid.R;
  * https://github.com/commonsguy/cw-lunchlist/blob/master/19-Alarm/LunchList/src/apt/tutorial/TimePreference.java
  */
 public class TimePickerDialogPreference extends DialogPreference {
-    private int lastHour = 0;
-    private int lastMinute = 0;
-    private TimePicker picker = null;
+    private static final String TAG = TimePickerDialogPreference.class.getSimpleName();
+
+    private int lastHour=0;
+    private int lastMinute=0;
+    private TimePicker picker=null;
     private TextView timeView = null;
 
     public TimePickerDialogPreference(Context ctxt, AttributeSet attrs) {
@@ -67,7 +72,7 @@ public class TimePickerDialogPreference extends DialogPreference {
             lastHour = picker.getCurrentHour();
             lastMinute = picker.getCurrentMinute();
 
-            String time = String.valueOf(lastHour) + ":" + String.valueOf(lastMinute);
+            String time=String.format("%02d", lastHour)+":"+String.format("%02d", lastMinute);
 
             if (callChangeListener(time)) {
                 persistString(time);
@@ -87,10 +92,8 @@ public class TimePickerDialogPreference extends DialogPreference {
         String time = null;
 
         if (restoreValue) {
-            if (defaultValue == null) {
-                time = getPersistedString("00:00");
-            } else {
-                time = getPersistedString(defaultValue.toString());
+            if (defaultValue==null) {
+                time=getPersistedString("00:00");
             }
         } else {
             time = defaultValue.toString();

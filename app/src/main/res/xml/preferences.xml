@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <SwitchPreference
+    <SwitchPreference android:title="Reminder"
         android:defaultValue="true"
         android:key="showNotifications"
         android:summaryOff="@string/reminders_off_text"
