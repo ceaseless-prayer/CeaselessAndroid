@@ -20,6 +20,10 @@ android {
     lintOptions {
           abortOnError false
     }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
 }
 
 dependencies {
@@ -31,5 +35,5 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:22.2.1'
     compile 'io.realm:realm-android:0.82.2'
     compile 'com.squareup.picasso:picasso:2.5.2'
-
+    compile 'com.jakewharton:butterknife:7.0.1'
 }

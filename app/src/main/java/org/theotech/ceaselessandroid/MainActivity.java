@@ -1,6 +1,7 @@
 package org.theotech.ceaselessandroid;
 
 import android.app.AlarmManager;
+import android.app.Fragment;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -27,18 +28,23 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
+
+    @Bind(R.id.toolbar) Toolbar toolbar;
+    @Bind(R.id.drawer_layout) DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -47,16 +53,11 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ImageView verseImage = (ImageView) findViewById(R.id.verse_image);
-        verseImage.setImageResource(R.drawable.icon_76);
-
-        populatePrayForPeopleList();
-
-        // asynchronous fetchers
-        new ScriptureFetcher().execute();
-        new ImageFetcher().execute();
         // notification service code
         alarmMethod();
+
+        MainFragment fragment = new MainFragment();
+        //getFragmentManager().beginTransaction().add(R.id.fragment, fragment).commit();
     }
 
     private void alarmMethod(){
@@ -80,22 +81,6 @@ public class MainActivity extends AppCompatActivity
         } else {
             Log.d(TAG, "Not setting reminder notification alarm. Already set.");
             //PendingIntent.getService(this, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        }
-    }
-
-    private void populatePrayForPeopleList() {
-        List<Person> persons = new ArrayList<Person>();
-        persons.add(new Person("ID1", "1NAME"));
-        persons.add(new Person("ID2", "2NAME"));
-        persons.add(new Person("ID3", "3NAME"));
-        LinearLayout prayForPeopleList = (LinearLayout) findViewById(R.id.pray_for_people_list);
-        for (int i = 0; i < persons.size(); i++) {
-            View row = getLayoutInflater().inflate(R.layout.pray_for_people_list, null);
-            TextView textView = (TextView) row.findViewById(R.id.pray_for_person_name);
-            textView.setText(persons.get(i).toString());
-            ImageView imageView = (ImageView) row.findViewById(R.id.pray_for_person_image);
-            imageView.setImageResource(R.drawable.icon_76);
-            prayForPeopleList.addView(row);
         }
     }
 
@@ -149,53 +134,5 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    private class ScriptureFetcher extends AsyncTask<String, Void, ScriptureData> {
-
-        @Override
-        protected ScriptureData doInBackground(String... params) {
-            return new ScriptureServiceImpl().getScripture();
-        }
-
-        @Override
-        protected void onPostExecute(ScriptureData scripture) {
-            if (scripture != null) {
-                Log.d(TAG, "scripture = " + scripture.getJson());
-
-                TextView verseTitle = (TextView) findViewById(R.id.verse_title);
-                verseTitle.setText(scripture.getCitation());
-
-                TextView verseText = (TextView) findViewById(R.id.verse_text);
-                verseText.setText(scripture.getText());
-            } else {
-                Log.e(TAG, "Could not fetch scripture!");
-
-                TextView verseTitle = (TextView) findViewById(R.id.verse_title);
-                verseTitle.setText("Matthew 21:22");
-
-                TextView verseText = (TextView) findViewById(R.id.verse_text);
-                verseText.setText("And whatever you ask in prayer, you will receive, if you have faith.\"");
-            }
-        }
-    }
-
-    private class ImageFetcher extends AsyncTask<String, Void, String> {
-
-            @Override
-            protected String doInBackground(String... params) {
-                return new ImageURLServiceImpl().getImageURL();
-            }
-
-            @Override
-            protected void onPostExecute(String imageUrl) {
-                if (imageUrl != null) {
-                    Log.d(TAG, "imageUrl = " + imageUrl);
-
-                    // TODO: Download the image and display using picasso
-                } else {
-                    Log.e(TAG, "Could not fetch scripture!");
-                }
-            }
     }
 }
