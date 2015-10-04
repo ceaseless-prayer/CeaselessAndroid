@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.fragment.MainFragment;
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawer;
     @Bind(R.id.nav_view)
     NavigationView navigation;
+    @Bind(R.id.fragment)
+    RelativeLayout fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigation.setNavigationItemSelectedListener(this);
 
+        getFragmentManager().beginTransaction().add(R.id.fragment, new MainFragment()).commit();
 
     }
 
