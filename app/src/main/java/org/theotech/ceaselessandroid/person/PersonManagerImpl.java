@@ -7,6 +7,7 @@ import android.provider.ContactsContract;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -47,11 +48,12 @@ public class PersonManagerImpl implements PersonManager {
     }
 
     @Override
-    public List<Person> getNextPeopleToPrayFor(int n) throws PrayedForAllContacts {
+    public List<Person> getNextPeopleToPrayFor(int n) throws AlreadyPrayedForAllContactsException {
         List<Person> people = new ArrayList<Person>();
         RealmResults<Person> results = realm.where(Person.class).equalTo("ignored", false).findAllSorted("lastPrayed");
+        Collections.shuffle(results);
 
-        // if all people are prayed for, then reset and celebrate!
+        // if all people are prayed for, then reset and throw exception
         if (getNumPeople() > 0 && results.size() == 0) {
             // Reset all the prayed flags
             realm.beginTransaction();
@@ -61,7 +63,7 @@ public class PersonManagerImpl implements PersonManager {
             }
             realm.commitTransaction();
             // Throw Exception
-            throw new PrayedForAllContacts(getNumPeople());
+            throw new AlreadyPrayedForAllContactsException(getNumPeople());
         }
 
         // Get N people, and set last prayed and the prayed flag

@@ -77,7 +77,7 @@
 //        for (Person p : personManager.getNextPeopleToPrayFor(3)) {
 //        Log.d(TAG, String.format("prayed for person = '%s'", personToString(p)));
 //        }
-//        } catch (PrayedForAllContacts e) {
+//        } catch (AlreadyPrayedForAllContactsException e) {
 //        Log.e(TAG, "You've prayed for all your contacts! Hallelujah!");
 //        }
 //        Log.d(TAG, String.format("getNumPrayed = '%d'", personManager.getNumPrayed()));

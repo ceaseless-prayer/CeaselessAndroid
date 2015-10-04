@@ -11,7 +11,7 @@ public interface PersonManager {
 
     void setRealm(Realm realm);
 
-    List<Person> getNextPeopleToPrayFor(int n) throws PrayedForAllContacts;
+    List<Person> getNextPeopleToPrayFor(int n) throws AlreadyPrayedForAllContactsException;
 
     List<Person> getAllPeople();
 

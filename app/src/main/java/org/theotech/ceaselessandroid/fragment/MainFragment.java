@@ -23,10 +23,10 @@ import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.image.ImageURLService;
 import org.theotech.ceaselessandroid.image.ImageURLServiceImpl;
 import org.theotech.ceaselessandroid.notification.NotificationService;
+import org.theotech.ceaselessandroid.person.AlreadyPrayedForAllContactsException;
 import org.theotech.ceaselessandroid.person.Person;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
-import org.theotech.ceaselessandroid.person.PrayedForAllContacts;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 
@@ -92,8 +92,8 @@ public class MainFragment extends Fragment {
         List<Person> persons = null;
         try {
             persons = personManager.getNextPeopleToPrayFor(3);
-        } catch (PrayedForAllContacts prayedForAllContacts) {
-            prayedForAllContacts.printStackTrace();
+        } catch (AlreadyPrayedForAllContactsException e) {
+            // TODO: Celebrate!
         }
         for (int i = 0; i < persons.size(); i++) {
             View row = getActivity().getLayoutInflater().inflate(R.layout.pray_for_people_list, null);
