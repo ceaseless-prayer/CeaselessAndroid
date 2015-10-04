@@ -2,19 +2,32 @@ package org.theotech.ceaselessandroid.person;
 
 import java.util.List;
 
+import io.realm.Realm;
+
 /**
  * Created by Ben Johnson on 10/3/15.
  */
 public interface PersonManager {
-    List<Person> getNextPeopleToPrayFor(int n);
+
+    void setRealm(Realm realm);
+
+    List<Person> getNextPeopleToPrayFor(int n) throws PrayedForAllContacts;
 
     List<Person> getAllPeople();
 
+    long getNumPrayed();
+
+    long getNumPeople();
+
     Person getPerson(String id);
 
-    boolean removePerson(String id);
+    boolean ignorePerson(String id);
 
-    boolean favoritePerson();
+    boolean unignorePerson(String id);
 
-    boolean unfavoritePerson();
+    boolean favoritePerson(String i);
+
+    boolean unfavoritePerson(String i);
+
+    void populateContacts();
 }

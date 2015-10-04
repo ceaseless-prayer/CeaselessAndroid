@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import org.theotech.ceaselessandroid.image.ImageURLServiceImpl;
 import org.theotech.ceaselessandroid.person.Person;
+import org.theotech.ceaselessandroid.person.PersonManager;
+import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity
 
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.drawer_layout) DrawerLayout drawer;
+
+    private PersonManager personManager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,8 @@ public class MainActivity extends AppCompatActivity
 
         MainFragment fragment = new MainFragment();
         //getFragmentManager().beginTransaction().add(R.id.fragment, fragment).commit();
+
+        personManager = PersonManagerImpl.getInstance(getApplicationContext());
     }
 
     private void alarmMethod(){
