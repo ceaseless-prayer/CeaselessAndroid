@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.theotech.ceaselessandroid.contact.ContactEntity;
+import org.theotech.ceaselessandroid.image.ImageURLService;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.scripture.ScriptureService;
 
@@ -23,7 +24,6 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
     private static final String TAG = "ben";
 
     @Override

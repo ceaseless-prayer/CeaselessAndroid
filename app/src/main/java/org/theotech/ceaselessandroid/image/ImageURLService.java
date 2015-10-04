@@ -1,4 +1,4 @@
-package org.theotech.ceaselessandroid;
+package org.theotech.ceaselessandroid.image;
 
 import android.util.Log;
 
