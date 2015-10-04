@@ -1,9 +1,6 @@
 package org.theotech.ceaselessandroid.person;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.TimeZone;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -14,6 +11,15 @@ import io.realm.annotations.PrimaryKey;
 
 public class Person extends RealmObject {
 
+    @PrimaryKey
+    private String id;
+    private String name;
+    private String source;
+    private Date lastPrayed;
+    private boolean favorite;
+    private boolean ignored;
+    private boolean prayed;
+
     public Person(){}
 
     public Person(String id, String name){
@@ -21,21 +27,16 @@ public class Person extends RealmObject {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return name;
-    }
-
     public String getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
@@ -81,14 +82,5 @@ public class Person extends RealmObject {
     public void setPrayed(boolean prayed) {
         this.prayed = prayed;
     }
-
-    @PrimaryKey
-    private String id;
-    private String name;
-    private String source;
-    private Date lastPrayed;
-    private boolean favorite;
-    private boolean ignored;
-    private boolean prayed;
 
 }
