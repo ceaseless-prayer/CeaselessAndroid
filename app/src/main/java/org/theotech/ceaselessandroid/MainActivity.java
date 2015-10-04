@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.theotech.ceaselessandroid.image.ImageURLServiceImpl;
+import org.theotech.ceaselessandroid.person.Person;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 
@@ -45,11 +46,11 @@ public class MainActivity extends AppCompatActivity
         verseImage.setImageResource(R.drawable.icon_76);
 
         ListView prayForPeopleList = (ListView) findViewById(R.id.pray_for_people_list);
-        prayForPeopleList.setAdapter(new ArrayAdapter<ContactEntity>(this,
-                R.layout.pray_for_people_list, new ArrayList<ContactEntity>()));
+        prayForPeopleList.setAdapter(new ArrayAdapter<Person>(this,
+                R.layout.pray_for_people_list, new ArrayList<Person>()));
 
+        // asynchronous fetchers
         new ScriptureFetcher().execute();
-
         new ImageFetcher().execute();
     }
 
