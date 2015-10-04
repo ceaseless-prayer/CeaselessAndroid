@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity
         verseImage.setImageResource(R.drawable.icon_76);
 
         new ScriptureFetcher().execute();
+
+        new ImageFetcher().execute();
     }
 
     @Override
@@ -118,5 +120,24 @@ public class MainActivity extends AppCompatActivity
                 verseText.setText("And whatever you ask in prayer, you will receive, if you have faith.\"");
             }
         }
+    }
+
+    private class ImageFetcher extends AsyncTask<String, Void, String> {
+
+            @Override
+            protected String doInBackground(String... params) {
+                return new ImageURLService().getImageURL();
+            }
+
+            @Override
+            protected void onPostExecute(String imageUrl) {
+                if (imageUrl != null) {
+                    Log.d(TAG, "imageUrl = " + imageUrl);
+
+                    // TODO: Download the image and display using picasso
+                } else {
+                    Log.e(TAG, "Could not fetch scripture!");
+                }
+            }
     }
 }
