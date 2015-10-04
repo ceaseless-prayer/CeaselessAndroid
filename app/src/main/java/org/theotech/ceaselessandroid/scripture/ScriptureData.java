@@ -1,4 +1,4 @@
-package org.theotech.ceaselessandroid;
+package org.theotech.ceaselessandroid.scripture;
 
 /**
  * Created by Ben Johnson on 10/3/15.

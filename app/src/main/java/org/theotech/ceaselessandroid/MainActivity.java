@@ -7,12 +7,19 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import org.theotech.ceaselessandroid.contact.ContactEntity;
+import org.theotech.ceaselessandroid.scripture.ScriptureData;
+import org.theotech.ceaselessandroid.scripture.ScriptureService;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,6 +44,10 @@ public class MainActivity extends AppCompatActivity
 
         ImageView verseImage = (ImageView) findViewById(R.id.verse_image);
         verseImage.setImageResource(R.drawable.icon_76);
+
+        ListView prayForPeopleList = (ListView) findViewById(R.id.pray_for_people_list);
+        prayForPeopleList.setAdapter(new ArrayAdapter<ContactEntity>(this,
+                R.layout.pray_for_people_list, new ArrayList<ContactEntity>()));
 
         new ScriptureFetcher().execute();
 
