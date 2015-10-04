@@ -1,9 +1,9 @@
 package org.theotech.ceaselessandroid;
 
 
+import android.app.Fragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,10 +14,12 @@ import android.widget.TextView;
 
 import org.theotech.ceaselessandroid.image.ImageURLServiceImpl;
 import org.theotech.ceaselessandroid.person.Person;
+import org.theotech.ceaselessandroid.person.PersonManager;
+import org.theotech.ceaselessandroid.person.PersonManagerImpl;
+import org.theotech.ceaselessandroid.person.PrayedForAllContacts;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -32,6 +34,8 @@ public class MainFragment extends Fragment {
     @Bind(R.id.verse_title) TextView verseTitle;
     @Bind(R.id.verse_text) TextView verseText;
 
+    private PersonManager personManager = null;
+
     public MainFragment() {
         // Required empty public constructor
     }
@@ -39,6 +43,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        personManager = PersonManagerImpl.getInstance(getActivity().getApplicationContext());
     }
 
     @Override
@@ -59,10 +64,12 @@ public class MainFragment extends Fragment {
     }
 
     private void populatePrayForPeopleList() {
-        List<Person> persons = new ArrayList<Person>();
-        persons.add(new Person("ID1", "1NAME"));
-        persons.add(new Person("ID2", "2NAME"));
-        persons.add(new Person("ID3", "3NAME"));
+        List<Person> persons = null;
+        try {
+            persons = personManager.getNextPeopleToPrayFor(3);
+        } catch (PrayedForAllContacts prayedForAllContacts) {
+            prayedForAllContacts.printStackTrace();
+        }
         for (int i = 0; i < persons.size(); i++) {
             View row = getActivity().getLayoutInflater().inflate(R.layout.pray_for_people_list, null);
             TextView textView = (TextView) row.findViewById(R.id.pray_for_person_name);

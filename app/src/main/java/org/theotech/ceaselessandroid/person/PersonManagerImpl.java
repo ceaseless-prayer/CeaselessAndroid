@@ -8,15 +8,11 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import io.realm.RealmMigration;
-import io.realm.RealmQuery;
 import io.realm.RealmResults;
-import io.realm.annotations.RealmModule;
 
 /**
  * Created by Ben Johnson on 10/3/15.
@@ -24,6 +20,24 @@ import io.realm.annotations.RealmModule;
 public class PersonManagerImpl implements PersonManager {
 
     private static final String TAG = "PersonManagerImpl";
+    private static PersonManager instance;
+    private Context context;
+    private Realm realm;
+    private ContentResolver contentResolver;
+    private List<Person> people = null;
+
+    private PersonManagerImpl(Context context) {
+        this.context = context;
+        RealmConfiguration config = new RealmConfiguration.Builder(context)
+                .name("org.theotech.ceaselessandroid")
+                .schemaVersion(0)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(config);
+        this.realm = Realm.getDefaultInstance();
+        this.contentResolver = context.getContentResolver();
+        populateContacts();
+    }
 
     public static PersonManager getInstance(Context context){
         if (instance == null) {
@@ -33,7 +47,7 @@ public class PersonManagerImpl implements PersonManager {
     }
 
     @Override
-    public List<Person> getNextPeopleToPrayFor(int n) throws PrayedForAllContacts{
+    public List<Person> getNextPeopleToPrayFor(int n) throws PrayedForAllContacts {
         List<Person> people = new ArrayList<Person>();
         RealmResults<Person> results = realm.where(Person.class).equalTo("ignored", false).findAllSorted("lastPrayed");
 
@@ -42,7 +56,7 @@ public class PersonManagerImpl implements PersonManager {
             // Reset all the prayed flags
             realm.beginTransaction();
             RealmResults<Person> resultsToReset = realm.where(Person.class).equalTo("ignored", false).findAll();
-            for (int i = 0; i < resultsToReset.size(); i ++) {
+            for (int i = 0; i < resultsToReset.size(); i++) {
                 resultsToReset.get(i).setPrayed(false);
             }
             realm.commitTransaction();
@@ -69,12 +83,12 @@ public class PersonManagerImpl implements PersonManager {
     }
 
     @Override
-    public long getNumPrayed(){
+    public long getNumPrayed() {
         return realm.where(Person.class).equalTo("ignored", false).equalTo("prayed", true).count();
     }
 
     @Override
-    public long getNumPeople(){
+    public long getNumPeople() {
         return realm.where(Person.class).equalTo("ignored", false).count();
     }
 
@@ -121,25 +135,6 @@ public class PersonManagerImpl implements PersonManager {
 
     public void setRealm(Realm realm) {
         this.realm = realm;
-    }
-
-    private Context context;
-    private Realm realm;
-    private ContentResolver contentResolver;
-    private static PersonManager instance;
-    private List<Person> people = null;
-
-    private PersonManagerImpl(Context context){
-        this.context = context;
-        RealmConfiguration config = new RealmConfiguration.Builder(context)
-                .name("org.theotech.ceaselessandroid")
-                .schemaVersion(0)
-                .deleteRealmIfMigrationNeeded()
-                .build();
-        Realm.setDefaultConfiguration(config);
-        this.realm = Realm.getDefaultInstance();
-        this.contentResolver = context.getContentResolver();
-        populateContacts();
     }
 
     @Override

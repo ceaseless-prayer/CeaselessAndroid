@@ -1,10 +1,8 @@
 package org.theotech.ceaselessandroid;
 
 import android.app.AlarmManager;
-import android.app.Fragment;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,33 +12,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import org.theotech.ceaselessandroid.image.ImageURLServiceImpl;
-import org.theotech.ceaselessandroid.person.Person;
-import org.theotech.ceaselessandroid.person.PersonManager;
-import org.theotech.ceaselessandroid.person.PersonManagerImpl;
-import org.theotech.ceaselessandroid.scripture.ScriptureData;
-import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
-
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-    private static final String TAG = "MainActivity";
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private static final String TAG = MainActivity.class.getSimpleName();
 
     @Bind(R.id.toolbar) Toolbar toolbar;
     @Bind(R.id.drawer_layout) DrawerLayout drawer;
-
-    private PersonManager personManager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +41,6 @@ public class MainActivity extends AppCompatActivity
 
         // notification service code
         alarmMethod();
-
-        MainFragment fragment = new MainFragment();
-        //getFragmentManager().beginTransaction().add(R.id.fragment, fragment).commit();
-
-        personManager = PersonManagerImpl.getInstance(getApplicationContext());
     }
 
     private void alarmMethod(){
@@ -122,8 +99,8 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            Intent homeIntent = new Intent(this, MainActivity.class);
-            startActivity(homeIntent);
+            MainFragment fragment = new MainFragment();
+            getFragmentManager().beginTransaction().replace(R.id.fragment, fragment).commit();
         } else if (id == R.id.nav_people) {
             Intent peopleIntent = new Intent(this, PeopleTabbedActivity.class);
             startActivity(peopleIntent);
