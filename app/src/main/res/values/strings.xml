@@ -31,6 +31,13 @@
     <string name="default_verse_title">Matthew 21&#58;22</string>
     <string name="default_verse_text">And whatever you ask in prayer, you will receive, if you have faith.&#34;</string>
 
+    <string name="prayer_reminders">Prayer reminders:</string>
+    <string name="reminder_time_picker_title">Prayer reminder time:</string>
+    <string name="reminder_time_picker_dialog_title">Edit reminder time:</string>
+    <string name="reminder_time_picker_cancel">CANCEL</string>
+    <string name="reminder_time_picker_ok">OK</string>
+    <string name="reminders_on_text">Reminders are on</string>
+    <string name="reminders_off_text">Reminders are off</string>
     <string name="default_notification_time">08:30</string>
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -3,15 +3,15 @@
     <SwitchPreference
         android:defaultValue="true"
         android:key="showNotifications"
-        android:summaryOff="No reminders."
-        android:summaryOn="Reminders are set."
-        android:title="Prayer reminders:" />
+        android:summaryOff="@string/reminders_off_text"
+        android:summaryOn="@string/reminders_on_text"
+        android:title="@string/prayer_reminders" />
     <org.theotech.ceaselessandroid.prefs.TimePickerDialogPreference
         android:defaultValue="@string/default_notification_time"
-        android:dialogTitle="Edit reminder time:"
+        android:dialogTitle="@string/reminder_time_picker_dialog_title"
         android:key="notificationTime"
-        android:negativeButtonText="Cancel"
-        android:positiveButtonText="OK"
-        android:title="Prayer reminder time:"
+        android:negativeButtonText="@string/reminder_time_picker_cancel"
+        android:positiveButtonText="@string/reminder_time_picker_ok"
+        android:title="@string/reminder_time_picker_title"
         android:widgetLayout="@layout/notification_time_display" />
 </PreferenceScreen>
