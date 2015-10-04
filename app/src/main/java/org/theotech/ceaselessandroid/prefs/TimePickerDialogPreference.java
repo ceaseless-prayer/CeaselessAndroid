@@ -16,31 +16,32 @@ import org.theotech.ceaselessandroid.R;
  * https://github.com/commonsguy/cw-lunchlist/blob/master/19-Alarm/LunchList/src/apt/tutorial/TimePreference.java
  */
 public class TimePickerDialogPreference extends DialogPreference {
-    private int lastHour=0;
-    private int lastMinute=0;
-    private TimePicker picker=null;
+    private int lastHour = 0;
+    private int lastMinute = 0;
+    private TimePicker picker = null;
+    private TextView timeView = null;
 
     public TimePickerDialogPreference(Context ctxt, AttributeSet attrs) {
         super(ctxt, attrs);
     }
 
     public static int getHour(String time) {
-        String[] pieces=time.split(":");
+        String[] pieces = time.split(":");
 
-        return(Integer.parseInt(pieces[0]));
+        return Integer.parseInt(pieces[0]);
     }
 
     public static int getMinute(String time) {
-        String[] pieces=time.split(":");
+        String[] pieces = time.split(":");
 
-        return(Integer.parseInt(pieces[1]));
+        return Integer.parseInt(pieces[1]);
     }
 
     @Override
     protected View onCreateDialogView() {
-        picker=new TimePicker(getContext());
+        picker = new TimePicker(getContext());
 
-        return(picker);
+        return picker;
     }
 
     @Override
@@ -52,12 +53,10 @@ public class TimePickerDialogPreference extends DialogPreference {
     }
 
     @Override
-    protected  void onBindView(View v) {
+    protected void onBindView(View v) {
         super.onBindView(v);
-        TextView time = (TextView) v.findViewById(R.id.timeTextView);
-        //Default is being set in multiple places. Maybe they should both point
-        //to a string resource. Here and in preferences.xml
-        time.setText(getPersistedString(getContext().getString(R.string.default_notification_time)));
+        timeView = (TextView) v.findViewById(R.id.timeTextView);
+        timeView.setText(getPersistedString(getContext().getString(R.string.default_notification_time)));
     }
 
     @Override
@@ -65,39 +64,39 @@ public class TimePickerDialogPreference extends DialogPreference {
         super.onDialogClosed(positiveResult);
 
         if (positiveResult) {
-            lastHour=picker.getCurrentHour();
-            lastMinute=picker.getCurrentMinute();
+            lastHour = picker.getCurrentHour();
+            lastMinute = picker.getCurrentMinute();
 
-            String time=String.valueOf(lastHour)+":"+String.valueOf(lastMinute);
+            String time = String.valueOf(lastHour) + ":" + String.valueOf(lastMinute);
 
             if (callChangeListener(time)) {
                 persistString(time);
             }
+
+            timeView.setText(getPersistedString(getContext().getString(R.string.default_notification_time)));
         }
     }
 
     @Override
     protected Object onGetDefaultValue(TypedArray a, int index) {
-        return(a.getString(index));
+        return (a.getString(index));
     }
 
     @Override
     protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
-        String time=null;
+        String time = null;
 
         if (restoreValue) {
-            if (defaultValue==null) {
-                time=getPersistedString("00:00");
+            if (defaultValue == null) {
+                time = getPersistedString("00:00");
+            } else {
+                time = getPersistedString(defaultValue.toString());
             }
-            else {
-                time=getPersistedString(defaultValue.toString());
-            }
-        }
-        else {
-            time=defaultValue.toString();
+        } else {
+            time = defaultValue.toString();
         }
 
-        lastHour=getHour(time);
-        lastMinute=getMinute(time);
+        lastHour = getHour(time);
+        lastMinute = getMinute(time);
     }
 }

@@ -13,5 +13,5 @@
         android:negativeButtonText="Cancel"
         android:positiveButtonText="OK"
         android:title="Prayer reminder time:"
-        android:widgetLayout="@layout/notification_time_display"/>
+        android:widgetLayout="@layout/notification_time_display" />
 </PreferenceScreen>
