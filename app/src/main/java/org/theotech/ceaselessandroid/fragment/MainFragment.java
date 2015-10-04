@@ -4,6 +4,7 @@ package org.theotech.ceaselessandroid.fragment;
 import android.app.AlarmManager;
 import android.app.Fragment;
 import android.app.PendingIntent;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -17,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.R;
@@ -28,6 +30,7 @@ import org.theotech.ceaselessandroid.person.Person;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
+import org.theotech.ceaselessandroid.scripture.ScriptureService;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 
 import java.util.Calendar;
@@ -53,6 +56,7 @@ public class MainFragment extends Fragment {
     @Bind(R.id.prayed_for_text)
     TextView prayedFor;
 
+    private ScriptureService scriptureService = null;
     private PersonManager personManager = null;
     private ImageURLService imageService = null;
 
@@ -63,6 +67,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        scriptureService = ScriptureServiceImpl.getInstance();
         personManager = PersonManagerImpl.getInstance(getActivity().getApplicationContext());
         imageService = ImageURLServiceImpl.getInstance();
     }
@@ -142,28 +147,31 @@ public class MainFragment extends Fragment {
 
         @Override
         protected ScriptureData doInBackground(String... params) {
-            return new ScriptureServiceImpl().getScripture();
+            return scriptureService.getScripture();
         }
 
         @Override
         protected void onPostExecute(ScriptureData scripture) {
             if (scripture != null) {
                 Log.d(TAG, "scripture = " + scripture.getJson());
-
                 verseTitle.setText(scripture.getCitation());
-
                 verseText.setText(scripture.getText());
             } else {
                 Log.e(TAG, "Could not fetch scripture!");
-
                 verseTitle.setText("Matthew 21:22");
-
                 verseText.setText("And whatever you ask in prayer, you will receive, if you have faith.\"");
             }
         }
     }
 
     private class ImageFetcher extends AsyncTask<String, Void, String> {
+        private ProgressDialog dialog = new ProgressDialog(getActivity());
+
+        @Override
+        protected void onPreExecute() {
+            dialog.setMessage(getString(R.string.loading));
+            dialog.show();
+        }
 
         @Override
         protected String doInBackground(String... params) {
@@ -174,8 +182,21 @@ public class MainFragment extends Fragment {
         protected void onPostExecute(String imageUrl) {
             if (imageUrl != null) {
                 Log.d(TAG, "imageUrl = " + imageUrl);
+                Picasso.with(getActivity()).load(imageUrl).fit().centerCrop().into(verseImage, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        if (dialog.isShowing()) {
+                            dialog.dismiss();
+                        }
+                    }
 
-                Picasso.with(getActivity()).load(imageUrl).fit().centerCrop().into(verseImage);
+                    @Override
+                    public void onError() {
+                        if (dialog.isShowing()) {
+                            dialog.dismiss();
+                        }
+                    }
+                });
             } else {
                 Log.e(TAG, "Could not fetch scripture!");
             }

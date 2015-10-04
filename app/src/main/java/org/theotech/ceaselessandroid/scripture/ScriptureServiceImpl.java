@@ -25,7 +25,7 @@ public class ScriptureServiceImpl implements ScriptureService {
 
     private static ScriptureService instance;
 
-    public ScriptureService getInstance() {
+    public static ScriptureService getInstance() {
         if (instance == null) {
             instance = new ScriptureServiceImpl();
         }
