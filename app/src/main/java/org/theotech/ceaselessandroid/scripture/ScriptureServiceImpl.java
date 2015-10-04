@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Locale;
 
 /**
  * Created by Ben Johnson on 10/3/15.
@@ -97,7 +98,10 @@ public class ScriptureServiceImpl implements ScriptureService {
 
         // HTTP Post
         try {
-            byte[] postDataBytes = ref.getJson().getBytes("UTF-8");
+            JSONObject json = new JSONObject(ref.getJson());
+            json.put("language", Locale.getDefault().toString());
+            Log.d("LANG", json.toString());
+            byte[] postDataBytes = json.toString().getBytes("UTF-8");
             URL url = new URL(HTTP_API_GET_SCRIPTURE);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
