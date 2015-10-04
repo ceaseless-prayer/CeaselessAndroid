@@ -111,16 +111,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_contact_us) {
             fragment = new ContactUsFragment();
             title = getString(R.string.nav_contact_us);
-        } else if (id == R.id.nav_rate_this_app) {
-            fragment = new MainFragment(false);
-            title = getString(R.string.app_name) + "-";
         }
-        // replace fragment if it's not already visible
-        Fragment currentFragment = getFragmentManager().findFragmentByTag(title);
-        if (fragment != null && (currentFragment == null || (currentFragment != null && !currentFragment.isVisible()))) {
-            getFragmentManager().beginTransaction().replace(R.id.fragment, fragment, title).addToBackStack(null).commit();
+        if (id == R.id.nav_rate_this_app) { // hack option to load home fragment without using cache data
+            getFragmentManager().beginTransaction().replace(R.id.fragment, new MainFragment(false),
+                    "Hack").addToBackStack(null).commit();
         } else {
-            Log.d(TAG, String.format("Required fragment %s already visible, not reloading", title));
+            // replace fragment if it's not already visible
+            Fragment currentFragment = getFragmentManager().findFragmentByTag(title);
+            if (fragment != null && (currentFragment == null || (currentFragment != null && !currentFragment.isVisible()))) {
+                getFragmentManager().beginTransaction().replace(R.id.fragment, fragment, title).addToBackStack(null).commit();
+            } else {
+                Log.d(TAG, String.format("Required fragment %s already visible, not reloading", title));
+            }
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
