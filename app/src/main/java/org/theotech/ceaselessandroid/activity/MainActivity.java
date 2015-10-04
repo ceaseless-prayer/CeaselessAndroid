@@ -94,7 +94,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }
         // replace fragment
-        getFragmentManager().beginTransaction().replace(R.id.fragment, fragment).commit();
+        if (fragment != null) {
+            getFragmentManager().beginTransaction().replace(R.id.fragment, fragment).commit();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
