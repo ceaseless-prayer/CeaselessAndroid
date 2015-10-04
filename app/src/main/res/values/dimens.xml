@@ -6,6 +6,8 @@
     <dimen name="activity_horizontal_margin">12dp</dimen>
     <dimen name="activity_vertical_margin">12dp</dimen>
 
+    <dimen name="card_vertical_margin">9dp</dimen>
+    <dimen name="card_horizontal_margin">18dp</dimen>
     <dimen name="verse_card_height">250dp</dimen>
     <dimen name="verse_image_height">175dp</dimen>
     <dimen name="verse_text_height">100dp</dimen>
