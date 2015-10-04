@@ -1,8 +1,6 @@
 package org.theotech.ceaselessandroid.activity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Intent;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,14 +8,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.fragment.MainFragment;
-import org.theotech.ceaselessandroid.notification.NotificationService;
-
-import java.util.Calendar;
+import org.theotech.ceaselessandroid.fragment.PeopleFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -44,32 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         navigation.setNavigationItemSelectedListener(this);
 
-        // notification service code
-        alarmMethod();
-    }
 
-    private void alarmMethod(){
-        AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
-
-        Intent myIntent = new Intent(this , NotificationService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(this, 0, myIntent, PendingIntent.FLAG_NO_CREATE);
-        // FLAG_NO_CREATE means this will return null if there is already a pending intent
-        if (pendingIntent == null) {
-            pendingIntent = PendingIntent.getService(this, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            Log.d(TAG, "Setting reminder notification alarm");
-            Calendar calendar = Calendar.getInstance();
-            calendar.set(Calendar.SECOND, 0);
-            //calendar.add(Calendar.SECOND, 3);
-            calendar.set(Calendar.MINUTE, 30);
-            calendar.set(Calendar.HOUR, 8);
-            calendar.set(Calendar.AM_PM, Calendar.AM);
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
-
-            alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24, pendingIntent);
-        } else {
-            Log.d(TAG, "Not setting reminder notification alarm. Already set.");
-            //PendingIntent.getService(this, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-        }
     }
 
     @Override
@@ -103,11 +73,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        Fragment fragment = null;
         if (id == R.id.nav_home) {
-            MainFragment fragment = new MainFragment();
-            getFragmentManager().beginTransaction().replace(R.id.main_fragment, fragment).commit();
+            fragment = new MainFragment();
         } else if (id == R.id.nav_people) {
-
+            fragment = new PeopleFragment();
         } else if (id == R.id.nav_verse) {
 
         } else if (id == R.id.nav_settings) {
@@ -117,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_contact_us) {
 
         }
+        // replace fragment
+        getFragmentManager().beginTransaction().replace(R.id.fragment, fragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

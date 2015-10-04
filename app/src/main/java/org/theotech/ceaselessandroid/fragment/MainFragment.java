@@ -1,7 +1,11 @@
 package org.theotech.ceaselessandroid.fragment;
 
 
+import android.app.AlarmManager;
 import android.app.Fragment;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +18,7 @@ import android.widget.TextView;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.image.ImageURLServiceImpl;
+import org.theotech.ceaselessandroid.notification.NotificationService;
 import org.theotech.ceaselessandroid.person.Person;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
@@ -21,6 +26,7 @@ import org.theotech.ceaselessandroid.person.PrayedForAllContacts;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.Bind;
@@ -50,7 +56,7 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_main, container);
+        final View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
 
         verseImage.setImageResource(R.drawable.icon_76);
@@ -61,7 +67,35 @@ public class MainFragment extends Fragment {
         new ScriptureFetcher().execute();
         new ImageFetcher().execute();
 
+        // notification service code
+        alarmMethod();
+
         return view;
+    }
+
+    private void alarmMethod() {
+        Context context = getActivity();
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        Intent myIntent = new Intent(getActivity(), NotificationService.class);
+        PendingIntent pendingIntent = PendingIntent.getService(context, 0, myIntent, PendingIntent.FLAG_NO_CREATE);
+        // FLAG_NO_CREATE means this will return null if there is already a pending intent
+        if (pendingIntent == null) {
+            pendingIntent = PendingIntent.getService(context, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            Log.d(TAG, "Setting reminder notification alarm");
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.SECOND, 0);
+            //calendar.add(Calendar.SECOND, 3);
+            calendar.set(Calendar.MINUTE, 30);
+            calendar.set(Calendar.HOUR, 8);
+            calendar.set(Calendar.AM_PM, Calendar.AM);
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+
+            alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24, pendingIntent);
+        } else {
+            Log.d(TAG, "Not setting reminder notification alarm. Already set.");
+            //PendingIntent.getService(this, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        }
     }
 
     private void populatePrayForPeopleList() {
