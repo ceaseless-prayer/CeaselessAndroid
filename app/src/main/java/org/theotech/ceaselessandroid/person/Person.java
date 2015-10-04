@@ -2,6 +2,7 @@ package org.theotech.ceaselessandroid.person;
 
 import java.util.Date;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -15,6 +16,7 @@ public class Person extends RealmObject {
     private String id;
     private String name;
     private String source;
+    private RealmList<RealmString> notes;
     private Date lastPrayed;
     private boolean favorite;
     private boolean ignored;
@@ -66,6 +68,14 @@ public class Person extends RealmObject {
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    public RealmList<RealmString> getNotes() {
+        return notes;
+    }
+
+    public void setNotes(RealmList<RealmString> notes) {
+        this.notes = notes;
     }
 
     public boolean isIgnored() {

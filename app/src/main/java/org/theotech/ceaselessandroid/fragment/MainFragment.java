@@ -65,8 +65,8 @@ public class MainFragment extends Fragment {
     TextView verseTitle;
     @Bind(R.id.verse_text)
     TextView verseText;
-    @Bind(R.id.verse_share)
-    TextView shareVerse;
+    //@Bind(R.id.verse_share)
+    //TextView shareVerse;
     @Bind(R.id.view_and_pray)
     TextView viewAndPray;
     @Bind(R.id.prayer_progress)
@@ -158,25 +158,25 @@ public class MainFragment extends Fragment {
             new ScriptureFetcher().execute();
         }
 
-        View.OnClickListener shareVerseOnClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                if (useCache && cacheData != null  &&
-                        cacheData.getScriptureText() != null &&
-                        !cacheData.getScriptureText().isEmpty() &&
-                        cacheData.getScriptureCitation() != null &&
-                        !cacheData.getScriptureCitation().isEmpty())  {
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, cacheData.getScriptureCitation() + "\n" + cacheData.getScriptureText());
-                } else {
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, verseTitle.getText() + "\n" + verseText.getText());
-                }
-                sendIntent.setType("text/plain");
-                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.verse_share)));
-            }
-        };
-        shareVerse.setOnClickListener(shareVerseOnClickListener);
+//        View.OnClickListener shareVerseOnClickListener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent sendIntent = new Intent();
+//                sendIntent.setAction(Intent.ACTION_SEND);
+//                if (useCache && cacheData != null  &&
+//                        cacheData.getScriptureText() != null &&
+//                        !cacheData.getScriptureText().isEmpty() &&
+//                        cacheData.getScriptureCitation() != null &&
+//                        !cacheData.getScriptureCitation().isEmpty())  {
+//                    sendIntent.putExtra(Intent.EXTRA_TEXT, cacheData.getScriptureCitation() + "\n" + cacheData.getScriptureText());
+//                } else {
+//                    sendIntent.putExtra(Intent.EXTRA_TEXT, verseTitle.getText() + "\n" + verseText.getText());
+//                }
+//                sendIntent.setType("text/plain");
+//                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.verse_share)));
+//            }
+//        };
+//        shareVerse.setOnClickListener(shareVerseOnClickListener);
         if (useCache && cacheData != null &&
                 cacheData.getVerseImageURL() != null &&
                 !cacheData.getVerseImageURL().isEmpty()) {
