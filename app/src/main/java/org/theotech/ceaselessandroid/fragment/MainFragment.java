@@ -175,7 +175,7 @@ public class MainFragment extends Fragment {
             if (imageUrl != null) {
                 Log.d(TAG, "imageUrl = " + imageUrl);
 
-                Picasso.with(getActivity()).load(imageUrl).into(verseImage);
+                Picasso.with(getActivity()).load(imageUrl).fit().centerCrop().into(verseImage);
             } else {
                 Log.e(TAG, "Could not fetch scripture!");
             }
