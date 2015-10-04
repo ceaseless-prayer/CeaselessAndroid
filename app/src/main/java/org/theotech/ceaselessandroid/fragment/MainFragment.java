@@ -87,6 +87,7 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        getActivity().setTitle(getString(R.string.app_name));
         final View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
 
@@ -94,8 +95,9 @@ public class MainFragment extends Fragment {
         View.OnClickListener verseCardOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().replace(R.id.fragment, new VerseFragment()).commit();
-                getActivity().setTitle(getString(R.string.nav_verse));
+                String title = getString(R.string.nav_verse);
+                getFragmentManager().beginTransaction().replace(R.id.fragment, new VerseFragment(),
+                        title).addToBackStack(null).commit();
             }
         };
         verseImage.setOnClickListener(verseCardOnClickListener);

@@ -25,6 +25,7 @@ public class PeopleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        getActivity().setTitle(getString(R.string.nav_people));
         return inflater.inflate(R.layout.fragment_people, container, false);
     }
 

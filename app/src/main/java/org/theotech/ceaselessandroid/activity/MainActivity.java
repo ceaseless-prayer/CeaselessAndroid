@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
@@ -49,7 +50,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigation.setNavigationItemSelectedListener(this);
 
         // load the main fragment
-        getFragmentManager().beginTransaction().add(R.id.fragment, new MainFragment()).commit();
+        getFragmentManager().beginTransaction().add(R.id.fragment, new MainFragment(),
+                getString(R.string.app_name)).commit();
 
     }
 
@@ -59,7 +61,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (getFragmentManager().getBackStackEntryCount() > 0) {
+                getFragmentManager().popBackStack();
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 
@@ -106,12 +112,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             title = getString(R.string.nav_contact_us);
         } else if (id == R.id.nav_rate_this_app) {
             fragment = new MainFragment(false);
-            title = getString(R.string.app_name);
+            title = getString(R.string.app_name) + "-";
         }
-        // replace fragment
-        if (fragment != null) {
-            getFragmentManager().beginTransaction().replace(R.id.fragment, fragment).commit();
-            setTitle(title);
+        // replace fragment if it's not already visible
+        Fragment currentFragment = getFragmentManager().findFragmentByTag(title);
+        if (fragment != null && (currentFragment == null || (currentFragment != null && !currentFragment.isVisible()))) {
+            getFragmentManager().beginTransaction().replace(R.id.fragment, fragment, title).addToBackStack(null).commit();
+        } else {
+            Log.d(TAG, String.format("Required fragment %s already visible, not reloading", title));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
