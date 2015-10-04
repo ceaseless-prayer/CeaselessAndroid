@@ -117,9 +117,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-
+            Intent homeIntent = new Intent(this, MainActivity.class);
+            startActivity(homeIntent);
         } else if (id == R.id.nav_people) {
-
+            Intent peopleIntent = new Intent(this, PeopleTabbedActivity.class);
+            startActivity(peopleIntent);
         } else if (id == R.id.nav_verse) {
 
         } else if (id == R.id.nav_settings) {
