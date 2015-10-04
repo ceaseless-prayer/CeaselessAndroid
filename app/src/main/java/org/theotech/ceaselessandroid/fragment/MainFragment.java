@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -60,6 +61,8 @@ public class MainFragment extends Fragment {
     ProgressBar progress;
     @Bind(R.id.prayed_for_text)
     TextView prayedFor;
+    @Bind(R.id.prayer_settings)
+    Button prayerSettings;
 
     private ScriptureService scriptureService = null;
     private PersonManager personManager = null;
@@ -107,6 +110,15 @@ public class MainFragment extends Fragment {
         populatePrayForPeopleList();
         // update progress bar
         updateProgressBar();
+        // prayer settings onclick listener
+        prayerSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String title = getString(R.string.nav_settings);
+                getFragmentManager().beginTransaction().replace(R.id.fragment, new SettingsFragment(),
+                        title).addToBackStack(null).commit();
+            }
+        });
 
         // attempt to retrieve data from cache, otherwise kick off asynchronous fetchers
         LocalCacheData cacheData = cacheManager.getCacheData();
