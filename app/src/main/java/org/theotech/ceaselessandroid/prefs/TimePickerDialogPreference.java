@@ -1,4 +1,4 @@
-package org.theotech.ceaselessandroid;
+package org.theotech.ceaselessandroid.prefs;
 
 import android.content.Context;
 import android.content.res.TypedArray;

@@ -11,12 +11,9 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import org.theotech.ceaselessandroid.R;
-import org.theotech.ceaselessandroid.TimePickerDialogPreference;
+import org.theotech.ceaselessandroid.prefs.TimePickerDialogPreference;
 import org.theotech.ceaselessandroid.notification.NotificationService;
 
 import java.util.Calendar;
@@ -37,6 +34,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
     }
 
 
@@ -78,12 +77,12 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         PendingIntent pendingIntent = PendingIntent.getService(context, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Log.d(TAG, "Setting reminder notification alarm");
         Calendar calendar = Calendar.getInstance();
-        //calendar.set(Calendar.SECOND, 0);
-        calendar.add(Calendar.SECOND, 3);
-        //calendar.set(Calendar.MINUTE, TimePickerDialogPreference.getMinute(time));
-        //calendar.set(Calendar.HOUR, TimePickerDialogPreference.getHour(time));
-        //calendar.set(Calendar.AM_PM, Calendar.AM);
-        //calendar.add(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.SECOND, 0);
+        //calendar.add(Calendar.SECOND, 3);
+        calendar.set(Calendar.MINUTE, TimePickerDialogPreference.getMinute(time));
+        calendar.set(Calendar.HOUR, TimePickerDialogPreference.getHour(time));
+        calendar.set(Calendar.AM_PM, Calendar.AM);
+        calendar.add(Calendar.DAY_OF_MONTH, 1);
 
         alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24, pendingIntent);
     }
