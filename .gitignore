@@ -23,7 +23,7 @@ build/
 # Idea
 .idea/
 *.iml
-**/*.iml
+app/app.iml
 
 # Local configuration file (sdk path, etc)
 local.properties
