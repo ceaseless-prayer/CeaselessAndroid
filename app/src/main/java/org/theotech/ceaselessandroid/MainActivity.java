@@ -16,15 +16,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.theotech.ceaselessandroid.contact.ContactEntity;
-import org.theotech.ceaselessandroid.image.ImageURLService;
+import org.theotech.ceaselessandroid.image.ImageURLServiceImpl;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
-import org.theotech.ceaselessandroid.scripture.ScriptureService;
+import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private static final String TAG = "ben";
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         protected ScriptureData doInBackground(String... params) {
-            return new ScriptureService().getScripture();
+            return new ScriptureServiceImpl().getScripture();
         }
 
         @Override
@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity
 
             @Override
             protected String doInBackground(String... params) {
-                return new ImageURLService().getImageURL();
+                return new ImageURLServiceImpl().getImageURL();
             }
 
             @Override
