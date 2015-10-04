@@ -18,9 +18,18 @@ import java.net.URL;
  */
 public class ImageURLServiceImpl implements ImageURLService {
 
-    private static final String TAG = "ScriptureServiceImpl";
+    private static final String TAG = ImageURLServiceImpl.class.getSimpleName();
 
     private static final String HTTP_API_IMAGE = "http://api.ceaselessprayer.com/v1/getAScriptureImage";
+
+    private static ImageURLService instance;
+
+    public static ImageURLService getInstance() {
+        if (instance == null) {
+            instance = new ImageURLServiceImpl();
+        }
+        return instance;
+    }
 
     @Override
     public String getImageURL() {
