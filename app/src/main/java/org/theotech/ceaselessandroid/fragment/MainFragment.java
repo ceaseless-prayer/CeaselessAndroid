@@ -36,10 +36,14 @@ public class MainFragment extends Fragment {
 
     private final String TAG = MainFragment.class.getSimpleName();
 
-    @Bind(R.id.verse_image) ImageView verseImage;
-    @Bind(R.id.pray_for_people_list) LinearLayout prayForPeopleList;
-    @Bind(R.id.verse_title) TextView verseTitle;
-    @Bind(R.id.verse_text) TextView verseText;
+    @Bind(R.id.verse_image)
+    ImageView verseImage;
+    @Bind(R.id.pray_for_people_list)
+    LinearLayout prayForPeopleList;
+    @Bind(R.id.verse_title)
+    TextView verseTitle;
+    @Bind(R.id.verse_text)
+    TextView verseText;
 
     private PersonManager personManager = null;
 

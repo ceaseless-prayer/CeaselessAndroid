@@ -43,7 +43,9 @@ public class ImageURLServiceImpl implements ImageURLService {
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             StringBuilder sb = new StringBuilder();
             String line;
-            while ((line = reader.readLine()) != null) {sb.append(line);}
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
             json = sb.toString();
         } catch (IOException e) {
             Log.e(TAG, "ERROR", e);

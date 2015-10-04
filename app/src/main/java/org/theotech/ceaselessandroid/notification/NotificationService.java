@@ -24,7 +24,7 @@ public class NotificationService extends Service {
 
     @Override
     public void onCreate() {
-        NotificationManager mNM = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+        NotificationManager mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         Intent intent1 = new Intent(this.getApplicationContext(), MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent1, 0);
         Notification mNotify = new Builder(this)

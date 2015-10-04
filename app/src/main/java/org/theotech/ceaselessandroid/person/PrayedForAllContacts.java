@@ -5,13 +5,13 @@ package org.theotech.ceaselessandroid.person;
  */
 public class PrayedForAllContacts extends Throwable {
 
-    public long getNumPeople() {
-        return numPeople;
-    }
-
     long numPeople;
 
     public PrayedForAllContacts(long numPeople) {
         this.numPeople = numPeople;
+    }
+
+    public long getNumPeople() {
+        return numPeople;
     }
 }

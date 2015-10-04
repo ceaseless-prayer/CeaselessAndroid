@@ -39,7 +39,7 @@ public class PersonManagerImpl implements PersonManager {
         populateContacts();
     }
 
-    public static PersonManager getInstance(Context context){
+    public static PersonManager getInstance(Context context) {
         if (instance == null) {
             instance = new PersonManagerImpl(context);
         }
