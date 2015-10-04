@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
-import org.theotech.ceaselessandroid.PeopleTabbedActivity;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.fragment.MainFragment;
 import org.theotech.ceaselessandroid.notification.NotificationService;
@@ -108,8 +107,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             MainFragment fragment = new MainFragment();
             getFragmentManager().beginTransaction().replace(R.id.main_fragment, fragment).commit();
         } else if (id == R.id.nav_people) {
-            Intent peopleIntent = new Intent(this, PeopleTabbedActivity.class);
-            startActivity(peopleIntent);
+
         } else if (id == R.id.nav_verse) {
 
         } else if (id == R.id.nav_settings) {

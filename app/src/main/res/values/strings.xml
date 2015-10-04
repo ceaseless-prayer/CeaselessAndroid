@@ -22,11 +22,5 @@
     <string name="progress">Progress</string>
     <string name="load_and_play_for_more">LOAD &amp; PRAY FOR MORE</string>
     <string name="prayer_settings">PRAYER SETTINGS</string>
-    <string name="title_activity_people_view">PeopleViewActivity</string>
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-
-    <string name="hello_world">Hello world!</string>
 </resources>

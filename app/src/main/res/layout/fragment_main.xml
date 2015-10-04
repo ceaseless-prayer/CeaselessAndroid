@@ -160,11 +160,20 @@
                 <TextView
                     android:id="@+id/prayed_for_text"
                     android:layout_width="fill_parent"
-                    android:layout_height="40dp" />
+                    android:layout_height="40dp"
+                    android:gravity="center"
+                    android:text="You have prayed for" />
 
                 <ProgressBar
+                    android:id="@+id/prayer_progress"
+                    style="?android:attr/progressBarStyleHorizontal"
                     android:layout_width="fill_parent"
-                    android:layout_height="10dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/progress_bar_margin"
+                    android:layout_marginRight="@dimen/progress_bar_margin"
+                    android:progress="60"
+                    android:progressBackgroundTint="@color/progressBackgroundTint"
+                    android:progressTint="@color/progressTint" />
 
                 <Button
                     android:id="@+id/load_and_pray_for_more"

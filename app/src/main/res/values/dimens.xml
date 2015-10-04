@@ -18,4 +18,5 @@
     <dimen name="progress_card_buttons_height">50dp</dimen>
     <dimen name="progress_card_buttons_width">250dp</dimen>
     <dimen name="progress_card_buttons_margin">10dp</dimen>
+    <dimen name="progress_bar_margin">25dp</dimen>
 </resources>
