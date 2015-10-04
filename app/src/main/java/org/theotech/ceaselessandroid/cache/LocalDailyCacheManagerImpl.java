@@ -34,13 +34,16 @@ public class LocalDailyCacheManagerImpl implements CacheManager<LocalCacheData> 
         return instance;
     }
 
-    @Override
-    public LocalCacheData getCacheData() {
+    public static String generateCreationDate() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        return realm.where(LocalCacheData.class).equalTo("creationDate",
-                String.format("%s-%s-%s", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
-                        cal.get(Calendar.DAY_OF_MONTH))).findFirst();
+        return String.format("%s-%s-%s", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH));
+    }
+
+    @Override
+    public LocalCacheData getCacheData() {
+        return realm.where(LocalCacheData.class).equalTo("creationDate", generateCreationDate()).findFirst();
     }
 
     @Override
@@ -50,21 +53,23 @@ public class LocalDailyCacheManagerImpl implements CacheManager<LocalCacheData> 
         LocalCacheData cacheData = realm.where(LocalCacheData.class).equalTo("creationDate", data.getCreationDate()).findFirst();
         if (cacheData == null) {
             cacheData = realm.createObject(LocalCacheData.class);
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(new Date());
-
-            cacheData.setCreationDate(String.format("%s-%s-%s", cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)));
-            cacheData.setPeopleToPrayFor(data.getPeopleToPrayFor());
-            cacheData.setScriptureCitation(data.getScriptureCitation());
-            cacheData.setScriptureText(data.getScriptureText());
-            cacheData.setVerseImageURL(data.getVerseImageURL());
-        } else {
-            cacheData.setPeopleToPrayFor(data.getPeopleToPrayFor());
-            cacheData.setScriptureCitation(data.getScriptureCitation());
-            cacheData.setScriptureText(data.getScriptureText());
-            cacheData.setVerseImageURL(data.getVerseImageURL());
+            cacheData.setCreationDate(generateCreationDate());
         }
+        populateCacheData(cacheData, data);
 
         realm.commitTransaction();
+    }
+
+    private void populateCacheData(LocalCacheData realmCacheData, LocalCacheData data) {
+        if (data.getPeopleToPrayFor() != null)
+            realmCacheData.setPeopleToPrayFor(data.getPeopleToPrayFor());
+        if (data.getScriptureCitation() != null)
+            realmCacheData.setScriptureCitation(data.getScriptureCitation());
+        if (data.getScriptureText() != null)
+            realmCacheData.setScriptureText(data.getScriptureText());
+        if (data.getScriptureJson() != null)
+            realmCacheData.setScriptureJson(data.getScriptureJson());
+        if (data.getVerseImageURL() != null)
+            realmCacheData.setVerseImageURL(data.getVerseImageURL());
     }
 }

@@ -103,6 +103,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_contact_us) {
             fragment = new ContactUsFragment();
             title = getString(R.string.nav_contact_us);
+        } else if (id == R.id.nav_rate_this_app) {
+            fragment = new MainFragment(false);
+            title = getString(R.string.app_name);
         }
         // replace fragment
         if (fragment != null) {
