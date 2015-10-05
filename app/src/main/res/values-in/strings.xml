@@ -5,8 +5,8 @@
     <string name="nav_people">Orang-Orang</string>
     <string name="nav_verse">Ayat</string>
 
-    <string name="nav_settings">Pengaturan</string>
-    <string name="nav_help">Membantu</string>
+    <string name="nav_settings">Konfigurasi</string>
+    <string name="nav_help">Bantuan</string>
     <string name="nav_contact_us">Hubungi kami</string>
 
     <string name="nav_rate_this_app">Nilai Aplikasi ini</string>
@@ -14,7 +14,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="reminder_notification_title">doa Pengingat</string>
+    <string name="reminder_notification_title">Waktu berdoa </string>
     <string name="reminder_notification_message">Doa untuk orang lain hari ini</string>
 
     <string name="action_settings">Pengaturan</string>
@@ -22,12 +22,12 @@
     <string name="verse_share">Bagikan</string>
     <string name="pray_for_people">Berdoalah Untuk Orang</string>
     <string name="view_and_pray">Lihat dan Berdoa</string>
-    <string name="progress">kemajuan</string>
-    <string name="prayed_for">Anda telah berdoa untuk \u0025s dari \u0025s orang-orang</string>
+    <string name="progress">Progres</string>
+    <string name="prayed_for">Anda telah berdoa untuk \u0025s dari \u0025s orang</string>
     <string name="load_and_play_for_more">memuat dan berdoa selama lebih</string>
-    <string name="prayer_settings">Pengaturan</string>
+    <string name="prayer_settings">Konfigurasi</string>
 
-    <string name="loading">pemuatan...</string>
+    <string name="loading">Sebentar...</string>
     <string name="default_verse_title">Matius 21&#58;22</string>
     <string name="default_verse_text">Dan apa saja yang kamu minta dalam doa dengan penuh kepercayaan, kamu akan menerimanya.&#34;</string>
 
