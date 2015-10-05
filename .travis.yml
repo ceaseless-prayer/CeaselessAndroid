@@ -9,4 +9,7 @@ script:
   - gradle build
 
 notifications:
-  slack: c4tk:fG1DeWPKKTkJtv59G4eFtbGk
+  slack:
+    rooms:
+      - c4tk:fG1DeWPKKTkJtv59G4eFtbGk
+      - theotech:8ohw5Y0oeSjwtLsDp4bnyZwB
