@@ -3,6 +3,8 @@ package org.theotech.ceaselessandroid;
 import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
+import com.squareup.picasso.OkHttpDownloader;
+import com.squareup.picasso.Picasso;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -13,6 +15,13 @@ public class CeaselessApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        // crashlytics
         Fabric.with(this, new Crashlytics());
+        // picasso
+        Picasso.Builder builder = new Picasso.Builder(this);
+        builder.downloader(new OkHttpDownloader(this, Integer.MAX_VALUE));
+        Picasso built = builder.build();
+        built.setIndicatorsEnabled(true);
+        Picasso.setSingletonInstance(built);
     }
 }

@@ -28,6 +28,7 @@ import org.theotech.ceaselessandroid.person.Person;
  * A simple {@link Fragment} subclass.
  */
 public class PersonFragment extends Fragment {
+    private static final String TAG = PersonFragment.class.getSimpleName();
     private static final String ARG_SECTION_NUMBER = "section_number";
 
     private CacheManager<LocalCacheData> cacheManager;
