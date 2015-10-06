@@ -6,6 +6,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".CeaselessApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -22,6 +23,10 @@
         <service
             android:name=".notification.NotificationService"
             android:enabled="true" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="35238d8ee6233285febbb5eb6178e2ce7b2e866d" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
