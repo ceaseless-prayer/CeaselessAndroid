@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
 
+import org.codechimp.apprater.AppRater;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.fragment.ContactUsFragment;
 import org.theotech.ceaselessandroid.fragment.HelpFragment;
@@ -53,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getFragmentManager().beginTransaction().add(R.id.fragment, new MainFragment(),
                 getString(R.string.app_name)).commit();
 
+        // rate my app dialog
+        AppRater.app_launched(this);
     }
 
     @Override
