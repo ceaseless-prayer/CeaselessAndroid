@@ -11,5 +11,4 @@ script:
 notifications:
   slack:
     rooms:
-      - c4tk:fG1DeWPKKTkJtv59G4eFtbGk
       - theotech:8ohw5Y0oeSjwtLsDp4bnyZwB
