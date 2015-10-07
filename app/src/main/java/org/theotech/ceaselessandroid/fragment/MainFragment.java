@@ -82,7 +82,6 @@ public class MainFragment extends Fragment {
     private CacheManager<LocalCacheData> cacheManager = null;
 
     public MainFragment() {
-        // Required empty public constructor
         useCache = true;
     }
 
@@ -102,6 +101,7 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         getActivity().setTitle(getString(R.string.app_name));
         final View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);

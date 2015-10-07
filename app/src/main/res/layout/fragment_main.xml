@@ -202,12 +202,12 @@
                         android:layout_height="@dimen/progress_card_buttons_height"
                         android:layout_gravity="center"
                         android:layout_margin="@dimen/progress_card_buttons_margin"
-                        android:background="@color/progressButton"
+                        android:background="@color/buttonDefault"
                         android:gravity="center"
-                        android:shadowColor="@color/progressButtonShadow"
-                        android:shadowDx="@integer/progress_card_buttons_shadow_dx"
-                        android:shadowDy="@integer/progress_card_buttons_shadow_dy"
-                        android:shadowRadius="@integer/progress_card_buttons_shadow_radius"
+                        android:shadowColor="@color/buttonDefaultShadow"
+                        android:shadowDx="@integer/button_default_shadow_dx"
+                        android:shadowDy="@integer/button_default_shadow_dy"
+                        android:shadowRadius="@integer/button_default_shadow_radius"
                         android:text="@string/prayer_settings" />
 
                 </LinearLayout>

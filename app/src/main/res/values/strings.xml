@@ -42,6 +42,11 @@
 
     <string name="person_notes">Notes</string>
 
+    <string name="contact_us_message">
+        We appreciate your feedback about the Ceaseless Prayer app.  Please send us an email.
+    </string>
+    <string name="contact_us_button">Email Ceaseless</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Not implemented yet</string>
     <string name="title_activity_tabbed">TabbedActivity</string>

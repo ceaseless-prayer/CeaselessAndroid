@@ -3,9 +3,12 @@
     <color name="colorPrimary">#00012F</color>
     <color name="colorPrimaryDark">#00012F</color>
     <color name="colorAccent">#FF4081</color>
+
     <color name="lightGray">#CCC</color>
-    <color name="progressButton">#F5F5F5</color>
-    <color name="progressButtonShadow">#000</color>
+
+    <color name="buttonDefault">#F5F5F5</color>
+    <color name="buttonDefaultShadow">#000</color>
+
     <color name="progressBackgroundTint">#D8D8D8</color>
     <color name="progressTint">#16FA4C</color>
 </resources>

@@ -1,14 +1,39 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="org.theotech.ceaselessandroid.fragment.ContactUsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/hello_blank_fragment" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="9dp"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="9dp"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:text="@string/contact_us_message" />
+
+        <Button
+            android:id="@+id/contact_us_button"
+            android:layout_width="@dimen/contact_us_button_width"
+            android:layout_height="@dimen/contact_us_button_height"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/contact_us_button_margin"
+            android:background="@color/buttonDefault"
+            android:gravity="center"
+            android:shadowColor="@color/buttonDefaultShadow"
+            android:shadowDx="@integer/button_default_shadow_dx"
+            android:shadowDy="@integer/button_default_shadow_dy"
+            android:shadowRadius="@integer/button_default_shadow_radius"
+            android:text="@string/contact_us_button" />
+
+    </LinearLayout>
+
+</RelativeLayout>
