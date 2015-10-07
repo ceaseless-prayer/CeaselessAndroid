@@ -265,8 +265,10 @@ public class MainFragment extends Fragment {
                     null);
             if (cur != null) {
                 if (!cur.moveToFirst()) {
+                    cur.close();
                     return null; // no photo
                 }
+                cur.close();
             } else {
                 return null; // error in cursor process
             }

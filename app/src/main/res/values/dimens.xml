@@ -8,12 +8,9 @@
 
     <dimen name="card_vertical_margin">9dp</dimen>
     <dimen name="card_horizontal_margin">18dp</dimen>
-    <dimen name="verse_card_height">250dp</dimen>
     <dimen name="verse_image_height">175dp</dimen>
-    <dimen name="verse_text_height">100dp</dimen>
     <dimen name="verse_text_padding">8dp</dimen>
 
-    <dimen name="pray_for_people_card_height">300dp</dimen>
     <dimen name="pray_for_people_image_dimension">75dp</dimen>
     <dimen name="pray_for_person_image_padding">15dp</dimen>
 

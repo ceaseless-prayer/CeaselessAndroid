@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.theotech.ceaselessandroid">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:name=".CeaselessApplication"
         android:allowBackup="true"
@@ -28,7 +31,4 @@
             android:name="io.fabric.ApiKey"
             android:value="35238d8ee6233285febbb5eb6178e2ce7b2e866d" />
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
 </manifest>
