@@ -30,7 +30,6 @@ import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
-import org.theotech.ceaselessandroid.cache.LocalCacheData;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.image.ImageURLService;
 import org.theotech.ceaselessandroid.image.ImageURLServiceImpl;
@@ -39,7 +38,6 @@ import org.theotech.ceaselessandroid.person.AlreadyPrayedForAllContactsException
 import org.theotech.ceaselessandroid.person.Person;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
-import org.theotech.ceaselessandroid.person.Persons;
 import org.theotech.ceaselessandroid.prefs.TimePickerDialogPreference;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.scripture.ScriptureService;
@@ -79,7 +77,7 @@ public class MainFragment extends Fragment {
     private ScriptureService scriptureService = null;
     private PersonManager personManager = null;
     private ImageURLService imageService = null;
-    private CacheManager<LocalCacheData> cacheManager = null;
+    private CacheManager cacheManager = null;
 
     public MainFragment() {
         useCache = true;
@@ -144,16 +142,10 @@ public class MainFragment extends Fragment {
         });
 
         // attempt to retrieve data from cache, otherwise kick off asynchronous fetchers
-        final LocalCacheData cacheData = cacheManager.getCacheData();
-        if (useCache && cacheData != null &&
-                cacheData.getScriptureJson() != null &&
-                !cacheData.getScriptureJson().isEmpty() &&
-                cacheData.getScriptureText() != null &&
-                !cacheData.getScriptureText().isEmpty() &&
-                cacheData.getScriptureCitation() != null &&
-                !cacheData.getScriptureCitation().isEmpty()) {
+        ScriptureData scriptureData = cacheManager.getCachedScripture();
+        if (useCache && scriptureData != null) {
             Log.d(TAG, "Retrieving scripture from local daily cache");
-            populateVerse(cacheData.getScriptureCitation(), cacheData.getScriptureText());
+            populateVerse(scriptureData.getCitation(), scriptureData.getText());
         } else {
             new ScriptureFetcher().execute();
         }
@@ -177,14 +169,13 @@ public class MainFragment extends Fragment {
 //            }
 //        };
 //        shareVerse.setOnClickListener(shareVerseOnClickListener);
-        if (useCache && cacheData != null &&
-                cacheData.getVerseImageURL() != null &&
-                !cacheData.getVerseImageURL().isEmpty()) {
+        String verseImageURL = cacheManager.getCachedVerseImageURL();
+        if (useCache && verseImageURL != null) {
             Log.d(TAG, "Retrieving verse imageUrl from local daily cache");
             final ProgressDialog dialog = new ProgressDialog(getActivity());
             dialog.setMessage(getString(R.string.loading));
             dialog.show();
-            Picasso.with(getActivity()).load(cacheData.getVerseImageURL()).fit().centerCrop().into(verseImage,
+            Picasso.with(getActivity()).load(verseImageURL).fit().centerCrop().into(verseImage,
                     new Callback() {
                         @Override
                         public void onSuccess() {
@@ -217,17 +208,13 @@ public class MainFragment extends Fragment {
 
     private void populatePrayForPeopleList() {
         List<Person> persons = null;
-        LocalCacheData cacheData = cacheManager.getCacheData();
-        if (useCache && cacheData != null && cacheData.getPeopleToPrayFor() != null) {
+        if (useCache && cacheManager.getCachedPeopleToPrayFor() != null) {
             Log.d(TAG, "Retrieving prayForPeople list from local daily cache");
-            persons = Persons.convert(cacheData.getPeopleToPrayFor());
+            persons = cacheManager.getCachedPeopleToPrayFor();
         } else {
             try {
                 persons = personManager.getNextPeopleToPrayFor(Constants.NUM_PERSONS);
-                LocalCacheData localCacheData = new LocalCacheData();
-                localCacheData.setCreationDate(LocalDailyCacheManagerImpl.generateCreationDate());
-                localCacheData.setPeopleToPrayFor(Persons.convert(persons));
-                cacheManager.cacheData(localCacheData);
+                cacheManager.cachePeopleToPrayFor(persons);
             } catch (AlreadyPrayedForAllContactsException e) {
                 // TODO: Celebrate!
             }
@@ -330,12 +317,7 @@ public class MainFragment extends Fragment {
                 Log.d(TAG, "scripture = " + scripture.getJson());
                 populateVerse(scripture.getCitation(), scripture.getText());
                 // cache
-                LocalCacheData cacheData = new LocalCacheData();
-                cacheData.setCreationDate(LocalDailyCacheManagerImpl.generateCreationDate());
-                cacheData.setScriptureCitation(scripture.getCitation());
-                cacheData.setScriptureText(scripture.getText());
-                cacheData.setScriptureJson(scripture.getJson());
-                cacheManager.cacheData(cacheData);
+                cacheManager.cacheScripture(scripture);
             } else {
                 Log.e(TAG, "Could not fetch scripture!");
                 populateVerse(getString(R.string.default_verse_title), getString(R.string.default_verse_text));
@@ -377,10 +359,7 @@ public class MainFragment extends Fragment {
                     }
                 });
                 // cache
-                LocalCacheData cacheData = new LocalCacheData();
-                cacheData.setCreationDate(LocalDailyCacheManagerImpl.generateCreationDate());
-                cacheData.setVerseImageURL(imageUrl);
-                cacheManager.cacheData(cacheData);
+                cacheManager.cacheVerseImageURL(imageUrl);
             } else {
                 Log.e(TAG, "Could not fetch scripture!");
             }

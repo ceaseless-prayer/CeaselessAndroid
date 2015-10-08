@@ -16,10 +16,10 @@ public class CeaselessApplication extends Application {
     public void onCreate() {
         super.onCreate();
         // crashlytics
-        if(!BuildConfig.DEBUG) {
+        if (!BuildConfig.DEBUG) {
             Fabric.with(this, new Crashlytics());
         }
-        
+
         // picasso
         Picasso.Builder builder = new Picasso.Builder(this);
         builder.downloader(new OkHttpDownloader(this, Integer.MAX_VALUE));

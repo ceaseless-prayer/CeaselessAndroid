@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
-import org.theotech.ceaselessandroid.cache.LocalCacheData;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
+import org.theotech.ceaselessandroid.scripture.ScriptureData;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -31,7 +31,7 @@ public class VerseFragment extends Fragment {
     @Bind(R.id.verse_share_button)
     Button verseShareButton;
 
-    private CacheManager<LocalCacheData> cacheManager = null;
+    private CacheManager cacheManager = null;
 
     public VerseFragment() {
         // Required empty public constructor
@@ -51,24 +51,20 @@ public class VerseFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_verse, container, false);
         ButterKnife.bind(this, view);
 
-        final LocalCacheData cacheData = cacheManager.getCacheData();
-        verseViewTitle.setText(cacheData.getScriptureCitation());
-        verseViewText.setText(cacheData.getScriptureText());
+        ScriptureData scriptureData = cacheManager.getCachedScripture();
+        final String citation = scriptureData.getCitation();
+        final String text = scriptureData.getText();
+        verseViewTitle.setText(citation);
+        verseViewText.setText(text);
 
         View.OnClickListener shareListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (cacheData != null &&
-                        cacheData.getScriptureText() != null &&
-                        !cacheData.getScriptureText().isEmpty() &&
-                        cacheData.getScriptureCitation() != null &&
-                        !cacheData.getScriptureCitation().isEmpty()) {
-                    Intent sendIntent = new Intent();
-                    sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, cacheData.getScriptureCitation() + "\n" + cacheData.getScriptureText());
-                    sendIntent.setType("text/plain");
-                    startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.verse_share)));
-                }
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, citation + "\n" + text);
+                sendIntent.setType("text/plain");
+                startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.verse_share)));
             }
         };
         verseShareButton.setOnClickListener(shareListener);

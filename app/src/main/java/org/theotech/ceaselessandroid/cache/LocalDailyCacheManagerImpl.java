@@ -2,8 +2,13 @@ package org.theotech.ceaselessandroid.cache;
 
 import android.content.Context;
 
+import org.theotech.ceaselessandroid.person.Person;
+import org.theotech.ceaselessandroid.person.Persons;
+import org.theotech.ceaselessandroid.scripture.ScriptureData;
+
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -11,7 +16,7 @@ import io.realm.RealmConfiguration;
 /**
  * Created by uberx on 10/4/15.
  */
-public class LocalDailyCacheManagerImpl implements CacheManager<LocalCacheData> {
+public class LocalDailyCacheManagerImpl implements CacheManager {
     private static final String TAG = LocalDailyCacheManagerImpl.class.getSimpleName();
 
     private static LocalDailyCacheManagerImpl instance = null;
@@ -42,34 +47,96 @@ public class LocalDailyCacheManagerImpl implements CacheManager<LocalCacheData> 
     }
 
     @Override
-    public LocalCacheData getCacheData() {
-        return realm.where(LocalCacheData.class).equalTo("creationDate", generateCreationDate()).findFirst();
+    public ScriptureData getCachedScripture() {
+        LocalCacheData cacheData = getCacheData();
+        if (cacheData != null &&
+                cacheData.getScriptureText() != null && !cacheData.getScriptureText().isEmpty() &&
+                cacheData.getScriptureCitation() != null && !cacheData.getScriptureCitation().isEmpty() &&
+                cacheData.getScriptureJson() != null && !cacheData.getScriptureJson().isEmpty()) {
+            return new ScriptureData(cacheData.getScriptureText(), cacheData.getScriptureCitation(), cacheData.getScriptureJson());
+        }
+        return null;
     }
 
     @Override
-    public void cacheData(LocalCacheData data) {
+    public void cacheScripture(ScriptureData scriptureData) {
+        if (scriptureData != null &&
+                scriptureData.getText() != null && !scriptureData.getText().isEmpty() &&
+                scriptureData.getCitation() != null && !scriptureData.getCitation().isEmpty() &&
+                scriptureData.getJson() != null && !scriptureData.getJson().isEmpty()) {
+            LocalCacheData cacheData = new LocalCacheData();
+            cacheData.setScriptureText(scriptureData.getText());
+            cacheData.setScriptureCitation(scriptureData.getCitation());
+            cacheData.setScriptureJson(scriptureData.getJson());
+            cacheData(cacheData);
+        }
+    }
+
+    @Override
+    public String getCachedVerseImageURL() {
+        LocalCacheData cacheData = getCacheData();
+        if (cacheData != null &&
+                cacheData.getVerseImageURL() != null && !cacheData.getVerseImageURL().isEmpty()) {
+            return cacheData.getVerseImageURL();
+        }
+        return null;
+    }
+
+    @Override
+    public void cacheVerseImageURL(String verseImageURL) {
+        if (verseImageURL != null && !verseImageURL.isEmpty()) {
+            LocalCacheData cacheData = new LocalCacheData();
+            cacheData.setVerseImageURL(verseImageURL);
+            cacheData(cacheData);
+        }
+    }
+
+    @Override
+    public List<Person> getCachedPeopleToPrayFor() {
+        LocalCacheData cacheData = getCacheData();
+        if (cacheData != null &&
+                cacheData.getPeopleToPrayFor() != null && !cacheData.getPeopleToPrayFor().isEmpty()) {
+            return cacheData.getPeopleToPrayFor();
+        }
+        return null;
+    }
+
+    @Override
+    public void cachePeopleToPrayFor(List<Person> peopleToPrayFor) {
+        if (peopleToPrayFor != null && !peopleToPrayFor.isEmpty()) {
+            LocalCacheData cacheData = new LocalCacheData();
+            cacheData.setPeopleToPrayFor(Persons.convert(peopleToPrayFor));
+            cacheData(cacheData);
+        }
+    }
+
+    private LocalCacheData getCacheData() {
+        return realm.where(LocalCacheData.class).equalTo("creationDate", generateCreationDate()).findFirst();
+    }
+
+    private void cacheData(LocalCacheData data) {
         realm.beginTransaction();
 
-        LocalCacheData cacheData = realm.where(LocalCacheData.class).equalTo("creationDate", data.getCreationDate()).findFirst();
-        if (cacheData == null) {
-            cacheData = realm.createObject(LocalCacheData.class);
-            cacheData.setCreationDate(generateCreationDate());
+        LocalCacheData newCacheData = getCacheData();
+        if (newCacheData == null) {
+            newCacheData = realm.createObject(LocalCacheData.class);
         }
-        populateCacheData(cacheData, data);
+        populateCacheData(newCacheData, data);
 
         realm.commitTransaction();
     }
 
-    private void populateCacheData(LocalCacheData realmCacheData, LocalCacheData data) {
-        if (data.getPeopleToPrayFor() != null)
-            realmCacheData.setPeopleToPrayFor(data.getPeopleToPrayFor());
-        if (data.getScriptureCitation() != null)
-            realmCacheData.setScriptureCitation(data.getScriptureCitation());
-        if (data.getScriptureText() != null)
-            realmCacheData.setScriptureText(data.getScriptureText());
-        if (data.getScriptureJson() != null)
-            realmCacheData.setScriptureJson(data.getScriptureJson());
-        if (data.getVerseImageURL() != null)
-            realmCacheData.setVerseImageURL(data.getVerseImageURL());
+    private void populateCacheData(LocalCacheData newCacheData, LocalCacheData existingCacheData) {
+        newCacheData.setCreationDate(generateCreationDate());
+        if (existingCacheData.getPeopleToPrayFor() != null)
+            newCacheData.setPeopleToPrayFor(existingCacheData.getPeopleToPrayFor());
+        if (existingCacheData.getScriptureCitation() != null)
+            newCacheData.setScriptureCitation(existingCacheData.getScriptureCitation());
+        if (existingCacheData.getScriptureText() != null)
+            newCacheData.setScriptureText(existingCacheData.getScriptureText());
+        if (existingCacheData.getScriptureJson() != null)
+            newCacheData.setScriptureJson(existingCacheData.getScriptureJson());
+        if (existingCacheData.getVerseImageURL() != null)
+            newCacheData.setVerseImageURL(existingCacheData.getVerseImageURL());
     }
 }

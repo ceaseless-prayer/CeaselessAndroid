@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.theotech.ceaselessandroid.R;
-import org.theotech.ceaselessandroid.activity.MainActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

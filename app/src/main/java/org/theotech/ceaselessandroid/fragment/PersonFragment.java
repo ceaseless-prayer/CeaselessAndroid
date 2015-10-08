@@ -20,7 +20,6 @@ import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
-import org.theotech.ceaselessandroid.cache.LocalCacheData;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.person.Person;
 
@@ -31,7 +30,7 @@ public class PersonFragment extends Fragment {
     private static final String TAG = PersonFragment.class.getSimpleName();
     private static final String ARG_SECTION_NUMBER = "section_number";
 
-    private CacheManager<LocalCacheData> cacheManager;
+    private CacheManager cacheManager;
 
     public PersonFragment() {
         // Required empty public constructor
@@ -54,7 +53,7 @@ public class PersonFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_person, container, false);
         int index = getArguments().getInt(ARG_SECTION_NUMBER);
         // get data from cache
-        Person person = cacheManager.getCacheData().getPeopleToPrayFor().get(index);
+        Person person = cacheManager.getCachedPeopleToPrayFor().get(0);
         Uri personPhotoUri = getPhotoUri(person.getId());
 
         TextView personName = (TextView) view.findViewById(R.id.person_name);
