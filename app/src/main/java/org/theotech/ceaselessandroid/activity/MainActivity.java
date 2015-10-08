@@ -115,6 +115,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             title = getString(R.string.nav_contact_us);
         }
         if (id == R.id.nav_rate_this_app) { // hack option to load home fragment without using cache data
+            // TODO: Remove this easter egg
             getFragmentManager().beginTransaction().replace(R.id.fragment, new MainFragment(false),
                     "Hack").addToBackStack(null).commit();
         } else {
