@@ -196,7 +196,7 @@ public class MainFragment extends Fragment {
         }
 
         // notification service code
-        alarmMethod();
+        setPrayerReminder();
 
         return view;
     }
@@ -275,10 +275,10 @@ public class MainFragment extends Fragment {
         progress.requestLayout();
     }
 
-    private void alarmMethod() {
+    private void setPrayerReminder() {
         Context context = getActivity();
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if (preferences.getBoolean("showNotifications", true)) {
+        if (preferences.getBoolean("showNotifications", false)) {
             AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
             Intent myIntent = new Intent(getActivity(), NotificationService.class);
@@ -287,19 +287,15 @@ public class MainFragment extends Fragment {
             if (pendingIntent == null) {
                 String time = preferences.getString("notificationTime", "08:30");
                 pendingIntent = PendingIntent.getService(context, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                Log.d(TAG, "Setting reminder notification alarm");
                 Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.SECOND, 0);
-                //calendar.add(Calendar.SECOND, 3);
                 calendar.set(Calendar.MINUTE, TimePickerDialogPreference.getMinute(time));
                 calendar.set(Calendar.HOUR, TimePickerDialogPreference.getHour(time));
-                calendar.set(Calendar.AM_PM, Calendar.AM);
                 calendar.add(Calendar.DAY_OF_MONTH, 1);
 
-                alarmManager.setRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), 1000 * 60 * 60 * 24, pendingIntent);
+                Log.d(TAG, "Setting reminder notification alarm for time (starting the next day): " + time);
+                alarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
             } else {
                 Log.d(TAG, "Not setting reminder notification alarm. Already set.");
-                //PendingIntent.getService(this, 0, myIntent, PendingIntent.FLAG_CANCEL_CURRENT);
             }
         }
     }
