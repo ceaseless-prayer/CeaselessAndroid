@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
+import android.support.design.widget.NavigationView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +43,7 @@ import org.theotech.ceaselessandroid.prefs.TimePickerDialogPreference;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.scripture.ScriptureService;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
+import org.theotech.ceaselessandroid.util.ActivityUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 
 import java.util.Calendar;
@@ -74,6 +76,8 @@ public class MainFragment extends Fragment {
     @Bind(R.id.prayer_settings)
     Button prayerSettings;
 
+    NavigationView navigation;
+
     private ScriptureService scriptureService = null;
     private PersonManager personManager = null;
     private ImageURLService imageService = null;
@@ -103,6 +107,7 @@ public class MainFragment extends Fragment {
         getActivity().setTitle(getString(R.string.app_name));
         final View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
+        navigation = (NavigationView) getActivity().findViewById(R.id.nav_view);
 
         // verse card onclick listeners
         View.OnClickListener verseCardOnClickListener = new View.OnClickListener() {
@@ -110,7 +115,8 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 String title = getString(R.string.nav_verse);
                 getFragmentManager().beginTransaction().replace(R.id.fragment, new VerseFragment(),
-                        title).addToBackStack(null).commit();
+                        title).addToBackStack(getActivity().getTitle().toString()).commit();
+                navigation.setCheckedItem(ActivityUtils.getNavigationItemResourceIdForFragmentName(getActivity(), title));
             }
         };
         verseImage.setOnClickListener(verseCardOnClickListener);
@@ -126,7 +132,8 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 String title = getString(R.string.nav_people);
                 getFragmentManager().beginTransaction().replace(R.id.fragment, new PeopleFragment(),
-                        title).addToBackStack(null).commit();
+                        title).addToBackStack(getActivity().getTitle().toString()).commit();
+                navigation.setCheckedItem(ActivityUtils.getNavigationItemResourceIdForFragmentName(getActivity(), title));
             }
         });
         // update progress bar
@@ -137,7 +144,8 @@ public class MainFragment extends Fragment {
             public void onClick(View v) {
                 String title = getString(R.string.nav_settings);
                 getFragmentManager().beginTransaction().replace(R.id.fragment, new SettingsFragment(),
-                        title).addToBackStack(null).commit();
+                        title).addToBackStack(getActivity().getTitle().toString()).commit();
+                navigation.setCheckedItem(ActivityUtils.getNavigationItemResourceIdForFragmentName(getActivity(), title));
             }
         });
 

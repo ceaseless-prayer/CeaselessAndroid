@@ -14,12 +14,8 @@ import android.widget.RelativeLayout;
 
 import org.codechimp.apprater.AppRater;
 import org.theotech.ceaselessandroid.R;
-import org.theotech.ceaselessandroid.fragment.ContactUsFragment;
-import org.theotech.ceaselessandroid.fragment.HelpFragment;
 import org.theotech.ceaselessandroid.fragment.MainFragment;
-import org.theotech.ceaselessandroid.fragment.PeopleFragment;
-import org.theotech.ceaselessandroid.fragment.SettingsFragment;
-import org.theotech.ceaselessandroid.fragment.VerseFragment;
+import org.theotech.ceaselessandroid.util.ActivityUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -48,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        navigation.setCheckedItem(R.id.nav_home);
         navigation.setNavigationItemSelectedListener(this);
 
         // load the main fragment
@@ -64,7 +61,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            // if there are fragments in the stack
             if (getFragmentManager().getBackStackEntryCount() > 0) {
+                // update the navigation checked item
+                String fragmentName = getFragmentManager()
+                        .getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1)
+                        .getName();
+                navigation.setCheckedItem(ActivityUtils.getNavigationItemResourceIdForFragmentName(this, fragmentName));
+                // go back to the previous fragment in the stack
                 getFragmentManager().popBackStack();
             } else {
                 super.onBackPressed();
@@ -93,36 +97,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        Fragment fragment = null;
-        String title = null;
-        if (id == R.id.nav_home) {
-            fragment = new MainFragment();
-            title = getString(R.string.app_name);
-        } else if (id == R.id.nav_people) {
-            fragment = new PeopleFragment();
-            title = getString(R.string.nav_people);
-        } else if (id == R.id.nav_verse) {
-            fragment = new VerseFragment();
-            title = getString(R.string.nav_verse);
-        } else if (id == R.id.nav_settings) {
-            fragment = new SettingsFragment();
-            title = getString(R.string.nav_settings);
-        } else if (id == R.id.nav_help) {
-            fragment = new HelpFragment();
-            title = getString(R.string.nav_help);
-        } else if (id == R.id.nav_contact_us) {
-            fragment = new ContactUsFragment();
-            title = getString(R.string.nav_contact_us);
-        }
+        Fragment fragment = ActivityUtils.getFragmentForNavigationItemId(id);
+        String title = ActivityUtils.getTitleForNavigationItemId(this, id);
         if (id == R.id.nav_rate_this_app) { // hack option to load home fragment without using cache data
             // TODO: Remove this easter egg
             getFragmentManager().beginTransaction().replace(R.id.fragment, new MainFragment(false),
-                    "Hack").addToBackStack(null).commit();
+                    "Hack").addToBackStack(getTitle().toString()).commit();
         } else {
             // replace fragment if it's not already visible
             Fragment currentFragment = getFragmentManager().findFragmentByTag(title);
             if (fragment != null && (currentFragment == null || (currentFragment != null && !currentFragment.isVisible()))) {
-                getFragmentManager().beginTransaction().replace(R.id.fragment, fragment, title).addToBackStack(null).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fragment, fragment, title)
+                        .addToBackStack(getTitle().toString()).commit();
             } else {
                 Log.d(TAG, String.format("Required fragment %s already visible, not reloading", title));
             }
