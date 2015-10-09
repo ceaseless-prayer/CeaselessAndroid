@@ -8,6 +8,13 @@
 
     <dimen name="card_vertical_margin">9dp</dimen>
     <dimen name="card_horizontal_margin">18dp</dimen>
+    <dimen name="card_corner_radius">4dp</dimen>
+    <dimen name="card_elevation">4dp</dimen>
+    <dimen name="card_label_height">60dp</dimen>
+    <dimen name="card_label_left_margin">10dp</dimen>
+    <dimen name="card_label_text_size">20sp</dimen>
+    <dimen name="card_separator_height">2dp</dimen>
+    <dimen name="card_separator_margin">20dp</dimen>
     <dimen name="verse_image_height">175dp</dimen>
     <dimen name="verse_text_padding">8dp</dimen>
 
@@ -22,4 +29,5 @@
     <dimen name="contact_us_button_height">50dp</dimen>
     <dimen name="contact_us_button_width">250dp</dimen>
     <dimen name="contact_us_button_margin">10dp</dimen>
+    <dimen name="contact_us_message_height">40dp</dimen>
 </resources>

@@ -23,8 +23,8 @@
                 android:layout_marginLeft="@dimen/card_horizontal_margin"
                 android:layout_marginRight="@dimen/card_horizontal_margin"
                 android:layout_marginTop="@dimen/card_vertical_margin"
-                card_view:cardCornerRadius="4dp"
-                card_view:cardElevation="4dp">
+                card_view:cardCornerRadius="@dimen/card_corner_radius"
+                card_view:cardElevation="@dimen/card_elevation">
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -49,8 +49,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
-                            android:gravity="center|left"
-                            android:textColor="#515151"
+                            android:gravity="center|start"
+                            android:textColor="@color/verseTitleColor"
                             android:textStyle="bold" />
 
                         <!-- TODO wire this up later
@@ -74,7 +74,7 @@
                         android:layout_marginRight="@dimen/verse_text_padding"
                         android:ellipsize="end"
                         android:maxLines="5"
-                        android:textColor="#444444" />
+                        android:textColor="@color/verseTextColor" />
 
                 </LinearLayout>
 
@@ -85,12 +85,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="9dp"
-                android:layout_marginLeft="18dp"
-                android:layout_marginRight="18dp"
-                android:layout_marginTop="9dp"
-                card_view:cardCornerRadius="4dp"
-                card_view:cardElevation="4dp">
+                android:layout_marginBottom="@dimen/card_vertical_margin"
+                android:layout_marginLeft="@dimen/card_horizontal_margin"
+                android:layout_marginRight="@dimen/card_horizontal_margin"
+                android:layout_marginTop="@dimen/card_vertical_margin"
+                card_view:cardCornerRadius="@dimen/card_corner_radius"
+                card_view:cardElevation="@dimen/card_elevation">
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -99,13 +99,15 @@
 
                     <TextView
                         android:layout_width="fill_parent"
-                        android:layout_height="60dp"
-                        android:background="#00B9E6"
-                        android:gravity="center|left"
-                        android:paddingLeft="10dp"
+                        android:layout_height="@dimen/card_label_height"
+                        android:background="@color/cardLabel"
+                        android:gravity="center|start"
+                        android:paddingEnd="@dimen/card_label_left_margin"
+                        android:paddingLeft="@dimen/card_label_left_margin"
+                        android:paddingStart="@dimen/card_label_left_margin"
                         android:text="@string/pray_for_people"
-                        android:textColor="#fcfcfc"
-                        android:textSize="20sp" />
+                        android:textColor="@color/cardLabelText"
+                        android:textSize="@dimen/card_label_text_size" />
 
                     <LinearLayout
                         android:id="@+id/pray_for_people_list"
@@ -115,9 +117,9 @@
 
                     <LinearLayout
                         android:layout_width="fill_parent"
-                        android:layout_height="2dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="20dp"
+                        android:layout_height="@dimen/card_separator_height"
+                        android:layout_marginLeft="@dimen/card_separator_margin"
+                        android:layout_marginRight="@dimen/card_separator_margin"
                         android:background="@color/lightGray" />
 
                     <TextView
@@ -140,12 +142,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="9dp"
-                android:layout_marginLeft="18dp"
-                android:layout_marginRight="18dp"
-                android:layout_marginTop="9dp"
-                card_view:cardCornerRadius="4dp"
-                card_view:cardElevation="4dp">
+                android:layout_marginBottom="@dimen/card_vertical_margin"
+                android:layout_marginLeft="@dimen/card_horizontal_margin"
+                android:layout_marginRight="@dimen/card_horizontal_margin"
+                android:layout_marginTop="@dimen/card_vertical_margin"
+                card_view:cardCornerRadius="@dimen/card_corner_radius"
+                card_view:cardElevation="@dimen/card_elevation">
 
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -154,13 +156,15 @@
 
                     <TextView
                         android:layout_width="fill_parent"
-                        android:layout_height="60dp"
-                        android:background="#00B9E6"
-                        android:gravity="center|left"
-                        android:paddingLeft="10dp"
+                        android:layout_height="@dimen/card_label_height"
+                        android:background="@color/cardLabel"
+                        android:gravity="center|start"
+                        android:paddingEnd="@dimen/card_label_left_margin"
+                        android:paddingLeft="@dimen/card_label_left_margin"
+                        android:paddingStart="@dimen/card_label_left_margin"
                         android:text="@string/progress"
-                        android:textColor="#fcfcfc"
-                        android:textSize="20sp" />
+                        android:textColor="@color/cardLabelText"
+                        android:textSize="@dimen/card_label_text_size" />
 
                     <TextView
                         android:id="@+id/prayed_for_text"
