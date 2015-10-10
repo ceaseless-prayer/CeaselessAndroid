@@ -3,14 +3,20 @@ package org.theotech.ceaselessandroid.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import org.theotech.ceaselessandroid.R;
+
+import java.net.URL;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,6 +28,12 @@ public class ContactUsFragment extends Fragment {
 
     @Bind(R.id.contact_us_button)
     TextView contactUsButton;
+
+    @Bind(R.id.fb_image)
+    ImageView fbImage;
+
+    @Bind(R.id.twitter_image)
+    ImageView twitterImage;
 
     public ContactUsFragment() {
         // Required empty public constructor
@@ -50,6 +62,26 @@ public class ContactUsFragment extends Fragment {
         // add click listener to contact us button
         contactUsButton.setOnClickListener(contactUsOnClickListener);
 
+        Picasso.with(getActivity()).load(R.drawable.fb_blue_512).fit().into(fbImage);
+
+        // click listener for FB button
+        fbImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startWebIntent("https://facebook.com/ceaselesspraying");
+            }
+        });
+
+        Picasso.with(getActivity()).load(R.drawable.twitter_logo_844).fit().into(twitterImage);
+
+        // click listener for Twitter button
+        twitterImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startWebIntent("https://twitter.com/ceaselessprayer");
+            }
+        });
+
         return view;
     }
 
@@ -65,8 +97,16 @@ public class ContactUsFragment extends Fragment {
         try {
             startActivity(Intent.createChooser(i, "Send mail..."));
         } catch (android.content.ActivityNotFoundException ex) {
-            // TODO
             Toast.makeText(getActivity(), "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void startWebIntent(String url) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        try {
+            startActivity(browserIntent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(getActivity(), "Unable to open web browser.", Toast.LENGTH_SHORT).show();
         }
     }
 
