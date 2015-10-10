@@ -42,13 +42,9 @@
 
     <string name="person_notes">Notes</string>
 
-    <string name="contact_us_message">
-        We appreciate your feedback about the Ceaseless Prayer app.  Please send us an email.
-    </string>
+    <string name="contact_us_message">If you have any questions or feedback about Ceaseless, we\'d love to hear from you.</string>
 
-    <string name="contact_us_social">
-        You may also contact us and leave feedback via social media.
-    </string>
+    <string name="contact_us_social">You can also connect with us on social media.</string>
 
     <string name="contact_us_web">Visit us on the web: <a href="http://www.ceaselessprayer.com/">ceaselessprayer.com</a></string>
 
