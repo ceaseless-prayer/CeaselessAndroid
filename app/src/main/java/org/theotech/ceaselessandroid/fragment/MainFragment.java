@@ -113,10 +113,7 @@ public class MainFragment extends Fragment {
         View.OnClickListener verseCardOnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = getString(R.string.nav_verse);
-                getFragmentManager().beginTransaction().replace(R.id.fragment, new VerseFragment(),
-                        title).addToBackStack(getActivity().getTitle().toString()).commit();
-                navigation.setCheckedItem(ActivityUtils.getNavigationItemResourceIdForFragmentName(getActivity(), title));
+                ActivityUtils.loadFragment(getActivity(), getFragmentManager(), navigation, R.id.nav_verse);
             }
         };
         verseImage.setOnClickListener(verseCardOnClickListener);
@@ -130,10 +127,7 @@ public class MainFragment extends Fragment {
         viewAndPray.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = getString(R.string.nav_people);
-                getFragmentManager().beginTransaction().replace(R.id.fragment, new PeopleFragment(),
-                        title).addToBackStack(getActivity().getTitle().toString()).commit();
-                navigation.setCheckedItem(ActivityUtils.getNavigationItemResourceIdForFragmentName(getActivity(), title));
+                ActivityUtils.loadFragment(getActivity(), getFragmentManager(), navigation, R.id.nav_people);
             }
         });
         // update progress bar
@@ -142,10 +136,7 @@ public class MainFragment extends Fragment {
         prayerSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String title = getString(R.string.nav_settings);
-                getFragmentManager().beginTransaction().replace(R.id.fragment, new SettingsFragment(),
-                        title).addToBackStack(getActivity().getTitle().toString()).commit();
-                navigation.setCheckedItem(ActivityUtils.getNavigationItemResourceIdForFragmentName(getActivity(), title));
+                ActivityUtils.loadFragment(getActivity(), getFragmentManager(), navigation, R.id.nav_settings);
             }
         });
 
@@ -228,7 +219,16 @@ public class MainFragment extends Fragment {
             }
         }
         for (int i = 0; persons != null && !persons.isEmpty() && i < persons.size(); i++) {
-            final View row = getActivity().getLayoutInflater().inflate(R.layout.pray_for_people_list, null);
+            View row = getActivity().getLayoutInflater().inflate(R.layout.pray_for_people_list, null);
+            row.setTag(i);
+            row.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(Constants.PERSON_ARG_SECTION_NUMBER, (int) v.getTag());
+                    ActivityUtils.loadFragment(getActivity(), getFragmentManager(), bundle, navigation, R.id.nav_people);
+                }
+            });
             TextView textView = (TextView) row.findViewById(R.id.pray_for_person_name);
             textView.setText(persons.get(i).getName());
 

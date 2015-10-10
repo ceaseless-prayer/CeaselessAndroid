@@ -16,8 +16,6 @@ import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.R;
 
-import java.net.URL;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 

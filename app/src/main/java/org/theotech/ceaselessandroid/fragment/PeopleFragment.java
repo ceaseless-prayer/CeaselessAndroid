@@ -17,6 +17,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class PeopleFragment extends Fragment {
+    private static final String TAG = PeopleFragment.class.getSimpleName();
+
     private final Handler handler = new Handler();
     @Bind(R.id.person_viewer)
     ViewPager viewPager;
@@ -50,23 +52,16 @@ public class PeopleFragment extends Fragment {
                         return Constants.NUM_PERSONS;
                     }
                 });
+                Bundle bundle = getArguments();
+                if (bundle != null && bundle.containsKey(Constants.PERSON_ARG_SECTION_NUMBER)) {
+                    int itemIndex = bundle.getInt(Constants.PERSON_ARG_SECTION_NUMBER);
+                    viewPager.setCurrentItem(itemIndex);
+                }
             }
         };
         if (mCreated) {
             handler.post(runPager);
         }
-
-        viewPager.setAdapter(new FragmentStatePagerAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager()) {
-            @Override
-            public android.support.v4.app.Fragment getItem(int position) {
-                return PersonFragment.newInstance(position);
-            }
-
-            @Override
-            public int getCount() {
-                return Constants.NUM_PERSONS;
-            }
-        });
 
         return view;
     }
