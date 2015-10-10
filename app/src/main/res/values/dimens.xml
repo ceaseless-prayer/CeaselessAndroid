@@ -28,11 +28,11 @@
 
     <dimen name="contact_us_button_height">50dp</dimen>
     <dimen name="contact_us_button_width">250dp</dimen>
-    <dimen name="contact_us_button_margin">40dp</dimen>
+    <dimen name="contact_us_margin">30dp</dimen>
 
     <dimen name="fb_image_width">64dp</dimen>
     <dimen name="fb_image_height">64dp</dimen>
 
-    <dimen name="twitter_image_width">84dp</dimen>
-    <dimen name="twitter_image_height">84dp</dimen>
+    <dimen name="twitter_image_width">64dp</dimen>
+    <dimen name="twitter_image_height">64dp</dimen>
 </resources>
