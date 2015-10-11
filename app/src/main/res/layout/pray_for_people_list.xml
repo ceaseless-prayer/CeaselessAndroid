@@ -14,6 +14,6 @@
         android:id="@+id/pray_for_person_name"
         android:layout_width="match_parent"
         android:layout_height="@dimen/pray_for_people_image_dimension"
-        android:gravity="center|left" />
+        android:gravity="center|start" />
 
 </LinearLayout>

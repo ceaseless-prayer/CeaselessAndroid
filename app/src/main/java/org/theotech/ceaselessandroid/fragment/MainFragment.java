@@ -27,7 +27,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
@@ -45,6 +44,7 @@ import org.theotech.ceaselessandroid.scripture.ScriptureService;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 import org.theotech.ceaselessandroid.util.ActivityUtils;
 import org.theotech.ceaselessandroid.util.Constants;
+import org.theotech.ceaselessandroid.util.PicassoUtils;
 
 import java.util.Calendar;
 import java.util.List;
@@ -174,22 +174,21 @@ public class MainFragment extends Fragment {
             final ProgressDialog dialog = new ProgressDialog(getActivity());
             dialog.setMessage(getString(R.string.loading));
             dialog.show();
-            Picasso.with(getActivity()).load(verseImageURL).fit().centerCrop().into(verseImage,
-                    new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            if (dialog.isShowing()) {
-                                dialog.dismiss();
-                            }
-                        }
+            PicassoUtils.load(getActivity(), verseImage, verseImageURL, R.drawable.placeholder_rectangle_scene, new Callback() {
+                @Override
+                public void onSuccess() {
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+                }
 
-                        @Override
-                        public void onError() {
-                            if (dialog.isShowing()) {
-                                dialog.dismiss();
-                            }
-                        }
-                    });
+                @Override
+                public void onError() {
+                    if (dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+                }
+            });
         } else {
             new ImageFetcher().execute();
         }
@@ -234,14 +233,7 @@ public class MainFragment extends Fragment {
 
             final Uri u = getPhotoUri(persons.get(i).getId());
             final ImageView imageView = (ImageView) row.findViewById(R.id.pray_for_person_image);
-            if (u != null) {
-                imageView.setImageURI(u);
-                if (imageView.getDrawable() == null) {
-                    imageView.setImageResource(R.drawable.icon_76);
-                }
-            } else {
-                imageView.setImageResource(R.drawable.icon_76);
-            }
+            PicassoUtils.load(getActivity(), imageView, u, R.drawable.placeholder_user);
             prayForPeopleList.addView(row);
         }
     }
@@ -347,7 +339,7 @@ public class MainFragment extends Fragment {
         protected void onPostExecute(String imageUrl) {
             if (imageUrl != null) {
                 Log.d(TAG, "imageUrl = " + imageUrl);
-                Picasso.with(getActivity()).load(imageUrl).fit().centerCrop().into(verseImage, new Callback() {
+                PicassoUtils.load(getActivity(), verseImage, imageUrl, R.drawable.placeholder_rectangle_scene, new Callback() {
                     @Override
                     public void onSuccess() {
                         if (dialog.isShowing()) {

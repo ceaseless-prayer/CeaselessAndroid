@@ -24,13 +24,13 @@
             android:orientation="vertical">
 
             <TextView
-                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginBottom="40dp"
                 android:layout_marginTop="20dp"
-                android:text="@string/contact_us_message" />
+                android:gravity="center"
+                android:text="@string/contact_us_message"
+                android:textSize="20dp" />
 
             <Button
                 android:id="@+id/contact_us_button"
@@ -47,19 +47,19 @@
                 android:text="@string/contact_us_button" />
 
             <TextView
-                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="40dp"
                 android:gravity="center|start"
-                android:text="@string/contact_us_social" />
+                android:text="@string/contact_us_social"
+                android:textSize="20dp" />
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="40dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <ImageView
                     android:id="@+id/fb_image"
@@ -74,13 +74,13 @@
             </LinearLayout>
 
             <TextView
-                android:textSize="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:gravity="center|start"
                 android:autoLink="web"
-                android:text="@string/contact_us_web" />
+                android:gravity="center|start"
+                android:text="@string/contact_us_web"
+                android:textSize="20dp" />
 
         </LinearLayout>
     </ScrollView>

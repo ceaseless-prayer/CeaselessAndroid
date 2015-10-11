@@ -15,14 +15,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
-
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.person.Person;
 import org.theotech.ceaselessandroid.util.Constants;
+import org.theotech.ceaselessandroid.util.PicassoUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,21 +57,7 @@ public class PersonFragment extends Fragment {
         TextView personName = (TextView) view.findViewById(R.id.person_name);
         personName.setText(person.getName());
         final ImageView personImage = (ImageView) view.findViewById(R.id.person_image);
-        Callback callback = new Callback() {
-            @Override
-            public void onSuccess() {
-            }
-
-            @Override
-            public void onError() {
-                Picasso.with(getActivity()).load(R.drawable.icon_76_2x).fit().centerCrop().into(personImage);
-            }
-        };
-        if (personPhotoUri != null) {
-            Picasso.with(getActivity()).load(personPhotoUri).fit().centerCrop().into(personImage, callback);
-        } else {
-            Picasso.with(getActivity()).load(R.drawable.icon_76_2x).fit().centerCrop().into(personImage);
-        }
+        PicassoUtils.load(getActivity(), personImage, personPhotoUri, R.drawable.placeholder_user);
 
         ListView notes = (ListView) view.findViewById(R.id.person_notes);
         notes.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
