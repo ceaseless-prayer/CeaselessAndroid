@@ -53,7 +53,7 @@
                             android:textColor="@color/verseTitleColor"
                             android:textStyle="bold" />
 
-                        <!-- TODO wire this up later
+                        <!-- TODO: Wire this up later
                         <TextView
                             android:id="@+id/verse_share"
                             android:layout_width="0dp"
@@ -115,6 +115,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical" />
 
+                    <!-- TODO: Remove once we're sure we don't need this
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="@dimen/card_separator_height"
@@ -132,6 +133,7 @@
                         android:textColor="#4A90E2"
                         android:textSize="15sp"
                         android:textStyle="bold" />
+                    -->
 
                 </LinearLayout>
 
@@ -184,7 +186,7 @@
                         android:progressBackgroundTint="@color/progressBackgroundTint"
                         android:progressTint="@color/progressTint" />
 
-                    <!-- TODO add back later when we have time to wire it up
+                    <!-- TODO: Add back later when we have time to wire it up
                     <Button
                         android:id="@+id/load_and_pray_for_more"
                         android:layout_width="@dimen/progress_card_buttons_width"

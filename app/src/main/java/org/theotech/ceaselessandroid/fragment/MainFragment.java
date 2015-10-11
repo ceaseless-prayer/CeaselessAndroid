@@ -67,8 +67,8 @@ public class MainFragment extends Fragment {
     TextView verseText;
     //@Bind(R.id.verse_share)
     //TextView shareVerse;
-    @Bind(R.id.view_and_pray)
-    TextView viewAndPray;
+    //@Bind(R.id.view_and_pray)
+    //TextView viewAndPray;
     @Bind(R.id.prayer_progress)
     ProgressBar progress;
     @Bind(R.id.prayed_for_text)
@@ -124,12 +124,12 @@ public class MainFragment extends Fragment {
         // populate prayer list
         populatePrayForPeopleList();
         // view and pray onclick listener
-        viewAndPray.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ActivityUtils.loadFragment(getActivity(), getFragmentManager(), navigation, R.id.nav_people);
-            }
-        });
+//        viewAndPray.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ActivityUtils.loadFragment(getActivity(), getFragmentManager(), navigation, R.id.nav_people);
+//            }
+//        });
         // update progress bar
         updateProgressBar();
         // prayer settings onclick listener
