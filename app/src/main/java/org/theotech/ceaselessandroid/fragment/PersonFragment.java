@@ -18,7 +18,7 @@ import android.widget.TextView;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
-import org.theotech.ceaselessandroid.person.Person;
+import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.PicassoUtils;
 

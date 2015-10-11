@@ -1,5 +1,7 @@
 package org.theotech.ceaselessandroid.person;
 
+import org.theotech.ceaselessandroid.realm.Person;
+
 import java.util.List;
 
 import io.realm.Realm;

@@ -1,6 +1,4 @@
-package org.theotech.ceaselessandroid.cache;
-
-import org.theotech.ceaselessandroid.person.Person;
+package org.theotech.ceaselessandroid.realm;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
@@ -9,7 +7,7 @@ import io.realm.annotations.PrimaryKey;
 /**
  * Created by uberx on 10/4/15.
  */
-public class LocalCacheData extends RealmObject implements CacheData {
+public class LocalCacheData extends RealmObject {
     @PrimaryKey
     private String creationDate;
     private String scriptureCitation;

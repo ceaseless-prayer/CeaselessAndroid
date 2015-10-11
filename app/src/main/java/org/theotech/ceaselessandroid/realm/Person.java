@@ -1,4 +1,4 @@
-package org.theotech.ceaselessandroid.person;
+package org.theotech.ceaselessandroid.realm;
 
 import java.util.Date;
 

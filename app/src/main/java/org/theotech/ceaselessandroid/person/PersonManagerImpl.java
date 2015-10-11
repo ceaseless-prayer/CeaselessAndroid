@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import org.theotech.ceaselessandroid.realm.Person;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;

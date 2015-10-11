@@ -1,6 +1,6 @@
 package org.theotech.ceaselessandroid.cache;
 
-import org.theotech.ceaselessandroid.person.Person;
+import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
 
 import java.util.List;

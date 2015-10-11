@@ -2,8 +2,9 @@ package org.theotech.ceaselessandroid.cache;
 
 import android.content.Context;
 
-import org.theotech.ceaselessandroid.person.Person;
 import org.theotech.ceaselessandroid.person.Persons;
+import org.theotech.ceaselessandroid.realm.LocalCacheData;
+import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
 
 import java.util.Calendar;
