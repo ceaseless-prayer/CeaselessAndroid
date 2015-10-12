@@ -3,6 +3,7 @@ package org.theotech.ceaselessandroid.cache;
 import android.content.Context;
 
 import org.theotech.ceaselessandroid.realm.LocalCacheData;
+import org.theotech.ceaselessandroid.realm.RealmString;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.util.RealmUtils;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmList;
 
 /**
  * Created by uberx on 10/4/15.
@@ -128,8 +130,14 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
 
     private void populateCacheData(LocalCacheData newCacheData, LocalCacheData existingCacheData) {
         newCacheData.setCreationDate(generateCreationDate());
-        if (existingCacheData.getPersonIdsToPrayFor() != null)
-            newCacheData.setPersonIdsToPrayFor(existingCacheData.getPersonIdsToPrayFor());
+        if (existingCacheData.getPersonIdsToPrayFor() != null) {
+            RealmList<RealmString> personIdsToPrayFor = existingCacheData.getPersonIdsToPrayFor();
+            RealmList<RealmString> managedPersonIdsToPrayFor = new RealmList<RealmString>();
+            for (RealmString personIdToPrayFor : personIdsToPrayFor) {
+                managedPersonIdsToPrayFor.add(realm.copyToRealm(new RealmString(personIdToPrayFor.getString())));
+            }
+            newCacheData.setPersonIdsToPrayFor(managedPersonIdsToPrayFor);
+        }
         if (existingCacheData.getScriptureCitation() != null)
             newCacheData.setScriptureCitation(existingCacheData.getScriptureCitation());
         if (existingCacheData.getScriptureText() != null)

@@ -148,13 +148,12 @@ public class PersonManagerImpl implements PersonManager {
 
     @Override
     public void addNote(String personId, String text) {
-        Note note = new Note();
+        realm.beginTransaction();
+        Note note = realm.copyToRealm(new Note());
         note.setCreationDate(new Date());
         note.setLastUpdatedDate(new Date());
         note.setId(UUID.randomUUID().toString());
         note.setText(text);
-
-        realm.beginTransaction();
         Person person = getPerson(personId);
         RealmList<Note> notes = person.getNotes();
         notes.add(note);
