@@ -45,7 +45,9 @@ import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 import org.theotech.ceaselessandroid.util.ActivityUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.PicassoUtils;
+import org.theotech.ceaselessandroid.util.RealmUtils;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -205,17 +207,28 @@ public class MainFragment extends Fragment {
     }
 
     private void populatePrayForPeopleList() {
+        List<String> personIds = null;
         List<Person> persons = null;
-        if (useCache && cacheManager.getCachedPeopleToPrayFor() != null) {
+        if (useCache && cacheManager.getCachedPersonIdsToPrayFor() != null) {
             Log.d(TAG, "Retrieving prayForPeople list from local daily cache");
-            persons = cacheManager.getCachedPeopleToPrayFor();
+            personIds = cacheManager.getCachedPersonIdsToPrayFor();
+            persons = new ArrayList<Person>();
+            for (String personId : personIds) {
+                persons.add(personManager.getPerson(personId));
+            }
         } else {
             try {
                 persons = personManager.getNextPeopleToPrayFor(Constants.NUM_PERSONS);
-                cacheManager.cachePeopleToPrayFor(persons);
             } catch (AlreadyPrayedForAllContactsException e) {
                 // TODO: Celebrate!
+                try {
+                    persons = personManager.getNextPeopleToPrayFor(Constants.NUM_PERSONS);
+                } catch (AlreadyPrayedForAllContactsException e1) {
+                    // TODO: Something is really wrong if this happens, not sure what to do here
+                }
             }
+            personIds = RealmUtils.convertToIds(persons);
+            cacheManager.cachePersonIdsToPrayFor(personIds);
         }
         for (int i = 0; persons != null && !persons.isEmpty() && i < persons.size(); i++) {
             View row = getActivity().getLayoutInflater().inflate(R.layout.pray_for_people_list, null);

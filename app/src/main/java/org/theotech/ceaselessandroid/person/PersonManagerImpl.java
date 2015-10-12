@@ -6,12 +6,14 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import org.theotech.ceaselessandroid.realm.Note;
 import org.theotech.ceaselessandroid.realm.Person;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -52,7 +54,7 @@ public class PersonManagerImpl implements PersonManager {
     @Override
     public List<Person> getNextPeopleToPrayFor(int n) throws AlreadyPrayedForAllContactsException {
         List<Person> people = new ArrayList<Person>();
-        RealmResults<Person> results = realm.where(Person.class).equalTo("ignored", false).findAllSorted("lastPrayed");
+        RealmResults<Person> results = realm.where(Person.class).equalTo("ignored", false).equalTo("prayed", false).findAllSorted("lastPrayed");
 
         // if all people are prayed for, then reset and throw exception
         if (getNumPeople() > 0 && results.size() == 0) {
@@ -107,40 +109,85 @@ public class PersonManagerImpl implements PersonManager {
     }
 
     @Override
-    public Person getPerson(String id) {
-        return realm.where(Person.class).equalTo("id", id).findFirst();
+    public Person getPerson(String personId) {
+        return realm.where(Person.class).equalTo("id", personId).findFirst();
     }
 
     @Override
-    public boolean ignorePerson(String id) {
+    public boolean ignorePerson(String personId) {
         realm.beginTransaction();
-        getPerson(id).setIgnored(true);
+        getPerson(personId).setIgnored(true);
         realm.commitTransaction();
         return true;
     }
 
     @Override
-    public boolean unignorePerson(String id) {
+    public boolean unignorePerson(String personId) {
         realm.beginTransaction();
-        getPerson(id).setIgnored(false);
+        getPerson(personId).setIgnored(false);
         realm.commitTransaction();
         return true;
     }
 
     @Override
-    public boolean favoritePerson(String id) {
+    public boolean favoritePerson(String personId) {
         realm.beginTransaction();
-        getPerson(id).setFavorite(true);
+        getPerson(personId).setFavorite(true);
         realm.commitTransaction();
         return true;
     }
 
     @Override
-    public boolean unfavoritePerson(String id) {
+    public boolean unfavoritePerson(String personId) {
         realm.beginTransaction();
-        getPerson(id).setFavorite(false);
+        getPerson(personId).setFavorite(false);
         realm.commitTransaction();
         return false;
+    }
+
+    @Override
+    public void addNote(String personId, String title, String text) {
+        realm.beginTransaction();
+        Note note = realm.createObject(Note.class);
+        note.setCreationDate(new Date());
+        note.setLastUpdatedDate(new Date());
+        note.setId(UUID.randomUUID().toString());
+        note.setTitle(title);
+        note.setText(text);
+        getPerson(personId).getNotes().add(note);
+        realm.commitTransaction();
+    }
+
+    @Override
+    public void editNote(String noteId, String title, String text) {
+        realm.beginTransaction();
+        Note note = getNote(noteId);
+        note.setLastUpdatedDate(new Date());
+        note.setTitle(title);
+        note.setText(text);
+        realm.commitTransaction();
+    }
+
+    @Override
+    public void removeNote(String noteId) {
+        realm.beginTransaction();
+        getNote(noteId).removeFromRealm();
+        realm.commitTransaction();
+    }
+
+    @Override
+    public Note getNote(String noteId) {
+        return realm.where(Note.class).equalTo("id", noteId).findFirst();
+    }
+
+    @Override
+    public void tagNote(String noteId, String personId) {
+        // TODO: Implement
+    }
+
+    @Override
+    public void untagNote(String noteId, String personId) {
+        // TODO: Implement
     }
 
     public Realm getRealm() {
@@ -160,7 +207,6 @@ public class PersonManagerImpl implements PersonManager {
         int updated = 0;
         try {
             cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
-
 
             while (cursor.moveToNext()) {
                 if (isValidContact(cursor)) {

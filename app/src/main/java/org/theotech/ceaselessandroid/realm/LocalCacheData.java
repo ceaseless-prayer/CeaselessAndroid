@@ -14,7 +14,7 @@ public class LocalCacheData extends RealmObject {
     private String scriptureText;
     private String scriptureJson;
     private String verseImageURL;
-    private RealmList<Person> peopleToPrayFor;
+    private RealmList<RealmString> personIdsToPrayFor;
 
     public String getCreationDate() {
         return creationDate;
@@ -56,11 +56,11 @@ public class LocalCacheData extends RealmObject {
         this.verseImageURL = verseImageURL;
     }
 
-    public RealmList<Person> getPeopleToPrayFor() {
-        return peopleToPrayFor;
+    public RealmList<RealmString> getPersonIdsToPrayFor() {
+        return personIdsToPrayFor;
     }
 
-    public void setPeopleToPrayFor(RealmList<Person> peopleToPrayFor) {
-        this.peopleToPrayFor = peopleToPrayFor;
+    public void setPersonIdsToPrayFor(RealmList<RealmString> personIdsToPrayFor) {
+        this.personIdsToPrayFor = personIdsToPrayFor;
     }
 }

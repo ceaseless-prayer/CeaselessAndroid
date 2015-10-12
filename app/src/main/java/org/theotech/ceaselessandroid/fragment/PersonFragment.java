@@ -18,9 +18,14 @@ import android.widget.TextView;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
+import org.theotech.ceaselessandroid.person.PersonManager;
+import org.theotech.ceaselessandroid.person.PersonManagerImpl;
+import org.theotech.ceaselessandroid.realm.Note;
 import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.PicassoUtils;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,10 +34,12 @@ public class PersonFragment extends Fragment {
     private static final String TAG = PersonFragment.class.getSimpleName();
 
     private CacheManager cacheManager;
+    private PersonManager personManager;
 
     public PersonFragment() {
         // Required empty public constructor
         cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
+        personManager = PersonManagerImpl.getInstance(getActivity());
     }
 
     public static PersonFragment newInstance(int sectionNumber) {
@@ -51,7 +58,8 @@ public class PersonFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_person, container, false);
         int index = getArguments().getInt(Constants.PERSON_ARG_SECTION_NUMBER);
         // get data from cache
-        Person person = cacheManager.getCachedPeopleToPrayFor().get(index);
+        String personId = cacheManager.getCachedPersonIdsToPrayFor().get(index);
+        Person person = personManager.getPerson(personId);
         Uri personPhotoUri = getPhotoUri(person.getId());
 
         TextView personName = (TextView) view.findViewById(R.id.person_name);
@@ -60,11 +68,12 @@ public class PersonFragment extends Fragment {
         PicassoUtils.load(getActivity(), personImage, personPhotoUri, R.drawable.placeholder_user);
 
         ListView notes = (ListView) view.findViewById(R.id.person_notes);
-        notes.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1,
-                new String[]{"Pray that this person truly seeks the will of God in their life. Pray " +
-                        "that they would get better soon and be able to go to work without any interruptions.",
-                        "Mid-terms coming up. Mom is not doing well. Has a missions trip coming up soon. Pray " +
-                                "that they find their joy in Jesus."}));
+        List<Note> personNotes = person.getNotes();
+        String[] noteTexts = new String[personNotes.size()];
+        for (int i = 0; i < personNotes.size(); i++) {
+            noteTexts[i] = personNotes.get(i).getText();
+        }
+        notes.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, noteTexts));
 
         return view;
     }

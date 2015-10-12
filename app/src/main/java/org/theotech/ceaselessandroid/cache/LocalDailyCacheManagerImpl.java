@@ -2,10 +2,10 @@ package org.theotech.ceaselessandroid.cache;
 
 import android.content.Context;
 
-import org.theotech.ceaselessandroid.person.Persons;
 import org.theotech.ceaselessandroid.realm.LocalCacheData;
-import org.theotech.ceaselessandroid.realm.Person;
+import org.theotech.ceaselessandroid.realm.RealmString;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
+import org.theotech.ceaselessandroid.util.RealmUtils;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -13,6 +13,7 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmList;
 
 /**
  * Created by uberx on 10/4/15.
@@ -93,20 +94,20 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
     }
 
     @Override
-    public List<Person> getCachedPeopleToPrayFor() {
+    public List<String> getCachedPersonIdsToPrayFor() {
         LocalCacheData cacheData = getCacheData();
         if (cacheData != null &&
-                cacheData.getPeopleToPrayFor() != null && !cacheData.getPeopleToPrayFor().isEmpty()) {
-            return cacheData.getPeopleToPrayFor();
+                cacheData.getPersonIdsToPrayFor() != null && !cacheData.getPersonIdsToPrayFor().isEmpty()) {
+            return RealmUtils.convert(cacheData.getPersonIdsToPrayFor());
         }
         return null;
     }
 
     @Override
-    public void cachePeopleToPrayFor(List<Person> peopleToPrayFor) {
-        if (peopleToPrayFor != null && !peopleToPrayFor.isEmpty()) {
+    public void cachePersonIdsToPrayFor(List<String> personIdsToPrayFor) {
+        if (personIdsToPrayFor != null && !personIdsToPrayFor.isEmpty()) {
             LocalCacheData cacheData = new LocalCacheData();
-            cacheData.setPeopleToPrayFor(Persons.convert(peopleToPrayFor));
+            cacheData.setPersonIdsToPrayFor(RealmUtils.convert(personIdsToPrayFor));
             cacheData(cacheData);
         }
     }
@@ -129,8 +130,14 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
 
     private void populateCacheData(LocalCacheData newCacheData, LocalCacheData existingCacheData) {
         newCacheData.setCreationDate(generateCreationDate());
-        if (existingCacheData.getPeopleToPrayFor() != null)
-            newCacheData.setPeopleToPrayFor(existingCacheData.getPeopleToPrayFor());
+        if (existingCacheData.getPersonIdsToPrayFor() != null) {
+            RealmList<RealmString> personIdsToPrayFor = existingCacheData.getPersonIdsToPrayFor();
+            RealmList<RealmString> managedPersonIdsToPrayFor = new RealmList<RealmString>();
+            for (RealmString personIdToPrayFor : personIdsToPrayFor) {
+                managedPersonIdsToPrayFor.add(realm.copyToRealm(new RealmString(personIdToPrayFor.getString())));
+            }
+            newCacheData.setPersonIdsToPrayFor(managedPersonIdsToPrayFor);
+        }
         if (existingCacheData.getScriptureCitation() != null)
             newCacheData.setScriptureCitation(existingCacheData.getScriptureCitation());
         if (existingCacheData.getScriptureText() != null)
