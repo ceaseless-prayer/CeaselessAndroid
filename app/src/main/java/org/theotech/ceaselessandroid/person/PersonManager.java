@@ -36,7 +36,7 @@ public interface PersonManager {
 
     void editNote(String noteId, String title, String text);
 
-    void removeNote(String personId, String noteId);
+    void removeNote(String noteId);
 
     Note getNote(String noteId);
 

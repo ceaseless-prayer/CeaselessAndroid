@@ -17,7 +17,6 @@ import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
-import io.realm.RealmList;
 import io.realm.RealmResults;
 
 /**
@@ -149,16 +148,13 @@ public class PersonManagerImpl implements PersonManager {
     @Override
     public void addNote(String personId, String title, String text) {
         realm.beginTransaction();
-        Note note = realm.copyToRealm(new Note());
+        Note note = realm.createObject(Note.class);
         note.setCreationDate(new Date());
         note.setLastUpdatedDate(new Date());
         note.setId(UUID.randomUUID().toString());
         note.setTitle(title);
         note.setText(text);
-        Person person = getPerson(personId);
-        RealmList<Note> notes = person.getNotes();
-        notes.add(note);
-        person.setNotes(notes);
+        getPerson(personId).getNotes().add(note);
         realm.commitTransaction();
     }
 
@@ -173,17 +169,9 @@ public class PersonManagerImpl implements PersonManager {
     }
 
     @Override
-    public void removeNote(String personId, String noteId) {
+    public void removeNote(String noteId) {
         realm.beginTransaction();
-        Person person = getPerson(personId);
-        RealmList<Note> notes = person.getNotes();
-        RealmList<Note> newNotes = new RealmList<Note>();
-        for (Note note : notes) {
-            if (!note.getId().equals(noteId)) {
-                newNotes.add(note);
-            }
-        }
-        person.setNotes(newNotes);
+        getNote(noteId).removeFromRealm();
         realm.commitTransaction();
     }
 
@@ -194,12 +182,12 @@ public class PersonManagerImpl implements PersonManager {
 
     @Override
     public void tagNote(String noteId, String personId) {
-
+        // TODO: Implement
     }
 
     @Override
     public void untagNote(String noteId, String personId) {
-
+        // TODO: Implement
     }
 
     public Realm getRealm() {
