@@ -14,6 +14,7 @@ public class Note extends RealmObject {
     private String id;
     private Date creationDate;
     private Date lastUpdatedDate;
+    private String title;
     private String text;
     private RealmList<Person> peopleTagged;
 
@@ -42,6 +43,14 @@ public class Note extends RealmObject {
 
     public void setLastUpdatedDate(Date lastUpdatedDate) {
         this.lastUpdatedDate = lastUpdatedDate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getText() {

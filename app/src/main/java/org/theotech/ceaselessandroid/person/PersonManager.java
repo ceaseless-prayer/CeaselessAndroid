@@ -32,9 +32,9 @@ public interface PersonManager {
 
     boolean unfavoritePerson(String personId);
 
-    void addNote(String personId, String text);
+    void addNote(String personId, String title, String text);
 
-    void editNote(String noteId, String text);
+    void editNote(String noteId, String title, String text);
 
     void removeNote(String personId, String noteId);
 
