@@ -1,5 +1,6 @@
 package org.theotech.ceaselessandroid.person;
 
+import org.theotech.ceaselessandroid.realm.Note;
 import org.theotech.ceaselessandroid.realm.Person;
 
 import java.util.List;
@@ -21,15 +22,27 @@ public interface PersonManager {
 
     long getNumPeople();
 
-    Person getPerson(String id);
+    Person getPerson(String personId);
 
-    boolean ignorePerson(String id);
+    boolean ignorePerson(String personId);
 
-    boolean unignorePerson(String id);
+    boolean unignorePerson(String ipersonIdd);
 
-    boolean favoritePerson(String i);
+    boolean favoritePerson(String personId);
 
-    boolean unfavoritePerson(String i);
+    boolean unfavoritePerson(String personId);
+
+    void addNote(String personId, String text);
+
+    void editNote(String noteId, String text);
+
+    void removeNote(String personId, String noteId);
+
+    Note getNote(String noteId);
+
+    void tagNote(String noteId, String personId);
+
+    void untagNote(String noteId, String personId);
 
     void populateContacts();
 }

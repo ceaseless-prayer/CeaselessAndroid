@@ -16,7 +16,7 @@ public class Person extends RealmObject {
     private String id;
     private String name;
     private String source;
-    private RealmList<RealmString> notes;
+    private RealmList<Note> notes;
     private Date lastPrayed;
     private boolean favorite;
     private boolean ignored;
@@ -46,22 +46,6 @@ public class Person extends RealmObject {
         this.name = name;
     }
 
-    public Date getLastPrayed() {
-        return lastPrayed;
-    }
-
-    public void setLastPrayed(Date lastused) {
-        this.lastPrayed = lastused;
-    }
-
-    public boolean isFavorite() {
-        return favorite;
-    }
-
-    public void setFavorite(boolean favorite) {
-        this.favorite = favorite;
-    }
-
     public String getSource() {
         return source;
     }
@@ -70,12 +54,28 @@ public class Person extends RealmObject {
         this.source = source;
     }
 
-    public RealmList<RealmString> getNotes() {
+    public RealmList<Note> getNotes() {
         return notes;
     }
 
-    public void setNotes(RealmList<RealmString> notes) {
+    public void setNotes(RealmList<Note> notes) {
         this.notes = notes;
+    }
+
+    public Date getLastPrayed() {
+        return lastPrayed;
+    }
+
+    public void setLastPrayed(Date lastPrayed) {
+        this.lastPrayed = lastPrayed;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
     }
 
     public boolean isIgnored() {
@@ -93,5 +93,4 @@ public class Person extends RealmObject {
     public void setPrayed(boolean prayed) {
         this.prayed = prayed;
     }
-
 }

@@ -1,6 +1,5 @@
 package org.theotech.ceaselessandroid.cache;
 
-import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
 
 import java.util.List;
@@ -17,7 +16,7 @@ public interface CacheManager {
 
     void cacheVerseImageURL(String verseImageURL);
 
-    List<Person> getCachedPeopleToPrayFor();
+    List<String> getCachedPersonIdsToPrayFor();
 
-    void cachePeopleToPrayFor(List<Person> peopleToPrayFor);
+    void cachePersonIdsToPrayFor(List<String> personIdsToPrayFor);
 }

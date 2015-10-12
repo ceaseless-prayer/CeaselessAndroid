@@ -2,10 +2,9 @@ package org.theotech.ceaselessandroid.cache;
 
 import android.content.Context;
 
-import org.theotech.ceaselessandroid.person.Persons;
 import org.theotech.ceaselessandroid.realm.LocalCacheData;
-import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
+import org.theotech.ceaselessandroid.util.RealmUtils;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -93,20 +92,20 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
     }
 
     @Override
-    public List<Person> getCachedPeopleToPrayFor() {
+    public List<String> getCachedPersonIdsToPrayFor() {
         LocalCacheData cacheData = getCacheData();
         if (cacheData != null &&
-                cacheData.getPeopleToPrayFor() != null && !cacheData.getPeopleToPrayFor().isEmpty()) {
-            return cacheData.getPeopleToPrayFor();
+                cacheData.getPersonIdsToPrayFor() != null && !cacheData.getPersonIdsToPrayFor().isEmpty()) {
+            return RealmUtils.convert(cacheData.getPersonIdsToPrayFor());
         }
         return null;
     }
 
     @Override
-    public void cachePeopleToPrayFor(List<Person> peopleToPrayFor) {
-        if (peopleToPrayFor != null && !peopleToPrayFor.isEmpty()) {
+    public void cachePersonIdsToPrayFor(List<String> personIdsToPrayFor) {
+        if (personIdsToPrayFor != null && !personIdsToPrayFor.isEmpty()) {
             LocalCacheData cacheData = new LocalCacheData();
-            cacheData.setPeopleToPrayFor(Persons.convert(peopleToPrayFor));
+            cacheData.setPersonIdsToPrayFor(RealmUtils.convert(personIdsToPrayFor));
             cacheData(cacheData);
         }
     }
@@ -129,8 +128,8 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
 
     private void populateCacheData(LocalCacheData newCacheData, LocalCacheData existingCacheData) {
         newCacheData.setCreationDate(generateCreationDate());
-        if (existingCacheData.getPeopleToPrayFor() != null)
-            newCacheData.setPeopleToPrayFor(existingCacheData.getPeopleToPrayFor());
+        if (existingCacheData.getPersonIdsToPrayFor() != null)
+            newCacheData.setPersonIdsToPrayFor(existingCacheData.getPersonIdsToPrayFor());
         if (existingCacheData.getScriptureCitation() != null)
             newCacheData.setScriptureCitation(existingCacheData.getScriptureCitation());
         if (existingCacheData.getScriptureText() != null)
