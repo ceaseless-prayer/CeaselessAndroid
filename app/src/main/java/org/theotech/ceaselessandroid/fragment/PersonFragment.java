@@ -1,11 +1,8 @@
 package org.theotech.ceaselessandroid.fragment;
 
 
-import android.content.ContentUris;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
@@ -22,8 +21,8 @@ import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.realm.Note;
 import org.theotech.ceaselessandroid.realm.Person;
+import org.theotech.ceaselessandroid.util.ActivityUtils;
 import org.theotech.ceaselessandroid.util.Constants;
-import org.theotech.ceaselessandroid.util.PicassoUtils;
 
 import java.util.List;
 
@@ -60,12 +59,12 @@ public class PersonFragment extends Fragment {
         // get data from cache
         String personId = cacheManager.getCachedPersonIdsToPrayFor().get(index);
         Person person = personManager.getPerson(personId);
-        Uri personPhotoUri = getPhotoUri(person.getId());
+        Uri personPhotoUri = ActivityUtils.getContactPhotoUri(getActivity().getContentResolver(), person.getId(), true);
 
         TextView personName = (TextView) view.findViewById(R.id.person_name);
         personName.setText(person.getName());
         final ImageView personImage = (ImageView) view.findViewById(R.id.person_image);
-        PicassoUtils.load(getActivity(), personImage, personPhotoUri, R.drawable.placeholder_user);
+        Picasso.with(getActivity()).load(personPhotoUri).placeholder(R.drawable.placeholder_user).fit().centerInside().into(personImage);
 
         ListView notes = (ListView) view.findViewById(R.id.person_notes);
         List<Note> personNotes = person.getNotes();
@@ -77,35 +76,4 @@ public class PersonFragment extends Fragment {
 
         return view;
     }
-
-    /**
-     * @return the contact's photo URI
-     */
-    private Uri getPhotoUri(String personId) {
-        try {
-            Cursor cur = getActivity().getApplicationContext().getContentResolver().query(
-                    ContactsContract.Data.CONTENT_URI,
-                    null,
-                    ContactsContract.Data.CONTACT_ID + "=" + personId + " AND "
-                            + ContactsContract.Data.MIMETYPE + "='"
-                            + ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE + "'", null,
-                    null);
-            if (cur != null) {
-                if (!cur.moveToFirst()) {
-                    cur.close();
-                    return null; // no photo
-                }
-                cur.close();
-            } else {
-                return null; // error in cursor process
-            }
-        } catch (Exception e) {
-            return null;
-        }
-        Uri person = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long
-                .parseLong(personId));
-        return Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
-    }
-
-
 }

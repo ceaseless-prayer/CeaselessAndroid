@@ -12,8 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import org.theotech.ceaselessandroid.R;
-import org.theotech.ceaselessandroid.util.PicassoUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -59,7 +60,7 @@ public class ContactUsFragment extends Fragment {
         // add click listener to contact us button
         contactUsButton.setOnClickListener(contactUsOnClickListener);
 
-        PicassoUtils.load(getActivity(), fbImage, R.drawable.fb_blue_512, R.drawable.placeholder_square_scene);
+        Picasso.with(getActivity()).load(R.drawable.fb_blue_512).placeholder(R.drawable.placeholder_square_scene).fit().into(fbImage);
 
         // click listener for FB button
         fbImage.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +70,7 @@ public class ContactUsFragment extends Fragment {
             }
         });
 
-        PicassoUtils.load(getActivity(), twitterImage, R.drawable.twitter_logo_844, R.drawable.placeholder_square_scene);
+        Picasso.with(getActivity()).load(R.drawable.twitter_logo_844).placeholder(R.drawable.placeholder_square_scene).fit().into(twitterImage);
 
         // click listener for Twitter button
         twitterImage.setOnClickListener(new View.OnClickListener() {

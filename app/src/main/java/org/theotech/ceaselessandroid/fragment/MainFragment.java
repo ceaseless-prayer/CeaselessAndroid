@@ -4,17 +4,13 @@ package org.theotech.ceaselessandroid.fragment;
 import android.app.AlarmManager;
 import android.app.Fragment;
 import android.app.PendingIntent;
-import android.app.ProgressDialog;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,7 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
@@ -44,7 +40,6 @@ import org.theotech.ceaselessandroid.scripture.ScriptureService;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 import org.theotech.ceaselessandroid.util.ActivityUtils;
 import org.theotech.ceaselessandroid.util.Constants;
-import org.theotech.ceaselessandroid.util.PicassoUtils;
 import org.theotech.ceaselessandroid.util.RealmUtils;
 
 import java.util.ArrayList;
@@ -173,24 +168,7 @@ public class MainFragment extends Fragment {
         String verseImageURL = cacheManager.getCachedVerseImageURL();
         if (useCache && verseImageURL != null) {
             Log.d(TAG, "Retrieving verse imageUrl from local daily cache");
-            final ProgressDialog dialog = new ProgressDialog(getActivity());
-            dialog.setMessage(getString(R.string.loading));
-            dialog.show();
-            PicassoUtils.load(getActivity(), verseImage, verseImageURL, R.drawable.placeholder_rectangle_scene, new Callback() {
-                @Override
-                public void onSuccess() {
-                    if (dialog.isShowing()) {
-                        dialog.dismiss();
-                    }
-                }
-
-                @Override
-                public void onError() {
-                    if (dialog.isShowing()) {
-                        dialog.dismiss();
-                    }
-                }
-            });
+            Picasso.with(getActivity()).load(verseImageURL).placeholder(R.drawable.placeholder_rectangle_scene).fit().into(verseImage);
         } else {
             new ImageFetcher().execute();
         }
@@ -244,40 +222,11 @@ public class MainFragment extends Fragment {
             TextView textView = (TextView) row.findViewById(R.id.pray_for_person_name);
             textView.setText(persons.get(i).getName());
 
-            final Uri u = getPhotoUri(persons.get(i).getId());
-            final ImageView imageView = (ImageView) row.findViewById(R.id.pray_for_person_image);
-            PicassoUtils.load(getActivity(), imageView, u, R.drawable.placeholder_user);
+            Uri personPhotoUri = ActivityUtils.getContactPhotoUri(getActivity().getContentResolver(), persons.get(i).getId(), false);
+            ImageView imageView = (ImageView) row.findViewById(R.id.pray_for_person_image);
+            Picasso.with(getActivity()).load(personPhotoUri).placeholder(R.drawable.placeholder_user).fit().into(imageView);
             prayForPeopleList.addView(row);
         }
-    }
-
-    /**
-     * @return the contact's photo URI
-     */
-    private Uri getPhotoUri(String personId) {
-        try {
-            Cursor cur = getActivity().getApplicationContext().getContentResolver().query(
-                    ContactsContract.Data.CONTENT_URI,
-                    null,
-                    ContactsContract.Data.CONTACT_ID + "=" + personId + " AND "
-                            + ContactsContract.Data.MIMETYPE + "='"
-                            + ContactsContract.CommonDataKinds.Photo.CONTENT_ITEM_TYPE + "'", null,
-                    null);
-            if (cur != null) {
-                if (!cur.moveToFirst()) {
-                    cur.close();
-                    return null; // no photo
-                }
-                cur.close();
-            } else {
-                return null; // error in cursor process
-            }
-        } catch (Exception e) {
-            return null;
-        }
-        Uri person = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long
-                .parseLong(personId));
-        return Uri.withAppendedPath(person, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
     }
 
     private void updateProgressBar() {
@@ -335,14 +284,6 @@ public class MainFragment extends Fragment {
     }
 
     private class ImageFetcher extends AsyncTask<String, Void, String> {
-        private ProgressDialog dialog = new ProgressDialog(getActivity());
-
-        @Override
-        protected void onPreExecute() {
-            dialog.setMessage(getString(R.string.loading));
-            dialog.show();
-        }
-
         @Override
         protected String doInBackground(String... params) {
             return imageService.getImageURL();
@@ -352,21 +293,7 @@ public class MainFragment extends Fragment {
         protected void onPostExecute(String imageUrl) {
             if (imageUrl != null) {
                 Log.d(TAG, "imageUrl = " + imageUrl);
-                PicassoUtils.load(getActivity(), verseImage, imageUrl, R.drawable.placeholder_rectangle_scene, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        if (dialog.isShowing()) {
-                            dialog.dismiss();
-                        }
-                    }
-
-                    @Override
-                    public void onError() {
-                        if (dialog.isShowing()) {
-                            dialog.dismiss();
-                        }
-                    }
-                });
+                Picasso.with(getActivity()).load(imageUrl).placeholder(R.drawable.placeholder_rectangle_scene).fit().into(verseImage);
                 // cache
                 cacheManager.cacheVerseImageURL(imageUrl);
             } else {

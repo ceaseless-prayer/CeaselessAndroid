@@ -3,8 +3,12 @@ package org.theotech.ceaselessandroid.util;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
 import android.util.Log;
 
@@ -88,5 +92,14 @@ public class ActivityUtils {
             return R.id.nav_contact_us;
         }
         return null;
+    }
+
+    public static Uri getContactPhotoUri(ContentResolver cr, String contactId, boolean highRes) {
+        Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long.parseLong(contactId));
+        if (highRes) {
+            return Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.DISPLAY_PHOTO);
+        } else {
+            return Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
+        }
     }
 }
