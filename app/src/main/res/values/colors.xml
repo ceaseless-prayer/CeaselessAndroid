@@ -6,7 +6,7 @@
 
     <color name="lightGray">#CCC</color>
 
-    <color name="verseTitleColor">#515151</color>
+    <color name="titleColor">#515151</color>
     <color name="verseTextColor">#444444</color>
 
     <color name="cardLabel">#00B9E6</color>

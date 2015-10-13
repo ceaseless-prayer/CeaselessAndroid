@@ -72,7 +72,12 @@ public class PersonFragment extends Fragment {
         for (int i = 0; i < personNotes.size(); i++) {
             noteTexts[i] = personNotes.get(i).getText();
         }
-        notes.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, noteTexts));
+        if (personNotes.isEmpty()) {
+            ListView emptyNotes = (ListView) view.findViewById(R.id.empty_notes);
+            emptyNotes.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.empty_notes_list, new String[]{getString(R.string.empty_notes)}));
+        } else {
+            notes.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, noteTexts));
+        }
 
         return view;
     }

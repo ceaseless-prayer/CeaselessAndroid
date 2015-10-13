@@ -50,7 +50,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="5"
                             android:gravity="center|start"
-                            android:textColor="@color/verseTitleColor"
+                            android:textColor="@color/titleColor"
                             android:textStyle="bold" />
 
                         <!-- TODO: Wire this up later
