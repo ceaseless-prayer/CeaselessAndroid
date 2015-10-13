@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.viewpagerindicator.LinePageIndicator;
+
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.util.Constants;
 
@@ -34,7 +36,7 @@ public class PeopleFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         getActivity().setTitle(getString(R.string.nav_people));
-        View view = inflater.inflate(R.layout.fragment_people, container, false);
+        final View view = inflater.inflate(R.layout.fragment_people, container, false);
         ButterKnife.bind(this, view);
 
         runPager = new Runnable() {
@@ -56,6 +58,10 @@ public class PeopleFragment extends Fragment {
                 if (bundle != null && bundle.containsKey(Constants.PERSON_ARG_SECTION_NUMBER)) {
                     int itemIndex = bundle.getInt(Constants.PERSON_ARG_SECTION_NUMBER);
                     viewPager.setCurrentItem(itemIndex);
+                    // wire up the indicator
+                    LinePageIndicator indicator = (LinePageIndicator) view.findViewById(R.id.indicator);
+                    indicator.setViewPager(viewPager);
+                    indicator.setCurrentItem(itemIndex);
                 }
             }
         };
