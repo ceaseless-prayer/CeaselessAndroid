@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,13 +25,26 @@ import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.util.ActivityUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class PersonFragment extends Fragment {
     private static final String TAG = PersonFragment.class.getSimpleName();
+
+    @Bind(R.id.person_name)
+    TextView personName;
+    @Bind(R.id.person_image)
+    ImageView personImage;
+    @Bind(R.id.person_notes_list)
+    LinearLayout notes;
 
     private CacheManager cacheManager;
     private PersonManager personManager;
@@ -55,30 +69,42 @@ public class PersonFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_person, container, false);
+        ButterKnife.bind(this, view);
         int index = getArguments().getInt(Constants.PERSON_ARG_SECTION_NUMBER);
         // get data from cache
         String personId = cacheManager.getCachedPersonIdsToPrayFor().get(index);
         Person person = personManager.getPerson(personId);
         Uri personPhotoUri = ActivityUtils.getContactPhotoUri(getActivity().getContentResolver(), person.getId(), true);
 
-        TextView personName = (TextView) view.findViewById(R.id.person_name);
         personName.setText(person.getName());
-        final ImageView personImage = (ImageView) view.findViewById(R.id.person_image);
         Picasso.with(getActivity()).load(personPhotoUri).placeholder(R.drawable.placeholder_user).fit().centerInside().into(personImage);
 
-        ListView notes = (ListView) view.findViewById(R.id.person_notes);
-        List<Note> personNotes = person.getNotes();
-        String[] noteTexts = new String[personNotes.size()];
-        for (int i = 0; i < personNotes.size(); i++) {
-            noteTexts[i] = personNotes.get(i).getText();
+        List<Note> realmPersonNotes = person.getNotes();
+        List<Note> personNotes = new ArrayList<Note>();
+        for (Note realmNote : realmPersonNotes) {
+            personNotes.add(new Note(realmNote.getId(), realmNote.getCreationDate(),
+                    realmNote.getLastUpdatedDate(), realmNote.getTitle(), realmNote.getText(),
+                    realmNote.getPeopleTagged()));
         }
+        Collections.sort(personNotes, new Comparator<Note>() { // sort by latest first
+            @Override
+            public int compare(Note lhs, Note rhs) {
+                return -1 * lhs.getLastUpdatedDate().compareTo(rhs.getLastUpdatedDate());
+            }
+        });
         if (personNotes.isEmpty()) {
             ListView emptyNotes = (ListView) view.findViewById(R.id.empty_notes);
-            emptyNotes.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.empty_notes_list, new String[]{getString(R.string.empty_notes)}));
+            emptyNotes.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.empty_notes_list_item, new String[]{getString(R.string.empty_notes)}));
         } else {
-            notes.setAdapter(new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, noteTexts));
+            for (int i = 0; i < personNotes.size(); i++) {
+                View row = getActivity().getLayoutInflater().inflate(R.layout.person_notes_list_item, null);
+                TextView noteDate = (TextView) row.findViewById(R.id.note_date);
+                TextView noteText = (TextView) row.findViewById(R.id.note_text);
+                noteDate.setText(personNotes.get(i).getLastUpdatedDate().toString());
+                noteText.setText(personNotes.get(i).getText());
+                notes.addView(row);
+            }
         }
-
         return view;
     }
 }

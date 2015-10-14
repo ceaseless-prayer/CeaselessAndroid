@@ -7,12 +7,17 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.viewpagerindicator.LinePageIndicator;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.cache.CacheManager;
+import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.util.Constants;
 
 import butterknife.Bind;
@@ -22,13 +27,25 @@ public class PeopleFragment extends Fragment {
     private static final String TAG = PeopleFragment.class.getSimpleName();
 
     private final Handler handler = new Handler();
+
     @Bind(R.id.person_viewer)
     ViewPager viewPager;
+    @Bind(R.id.indicator)
+    LinePageIndicator indicator;
+
+    private CacheManager cacheManager;
     private Runnable runPager;
     private boolean mCreated = false;
 
     public PeopleFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -55,8 +72,8 @@ public class PeopleFragment extends Fragment {
                     }
                 });
                 // wire up the indicator
-                LinePageIndicator indicator = (LinePageIndicator) view.findViewById(R.id.indicator);
                 indicator.setViewPager(viewPager);
+                // display the correct viewpager and indicator
                 Bundle bundle = getArguments();
                 if (bundle != null && bundle.containsKey(Constants.PERSON_ARG_SECTION_NUMBER)) {
                     int itemIndex = bundle.getInt(Constants.PERSON_ARG_SECTION_NUMBER);
@@ -68,8 +85,22 @@ public class PeopleFragment extends Fragment {
         if (mCreated) {
             handler.post(runPager);
         }
-
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.people, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.person_add_note) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

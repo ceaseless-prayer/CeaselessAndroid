@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="lightGray">#CCC</color>
+    <color name="fragmentBackground">#FFFFFF</color>
 
     <color name="titleColor">#515151</color>
     <color name="verseTextColor">#444444</color>

@@ -21,6 +21,15 @@ public class Note extends RealmObject {
     public Note() {
     }
 
+    public Note(String id, Date creationDate, Date lastUpdatedDate, String title, String text, RealmList<Person> peopleTagged) {
+        this.id = id;
+        this.creationDate = creationDate;
+        this.lastUpdatedDate = lastUpdatedDate;
+        this.title = title;
+        this.text = text;
+        this.peopleTagged = peopleTagged;
+    }
+
     public String getId() {
         return id;
     }

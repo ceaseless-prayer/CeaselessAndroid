@@ -41,6 +41,7 @@ public class VerseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
+        setHasOptionsMenu(false);
     }
 
     @Override

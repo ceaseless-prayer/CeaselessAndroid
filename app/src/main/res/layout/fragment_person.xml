@@ -61,10 +61,11 @@
                 android:layout_marginRight="@dimen/card_separator_margin"
                 android:background="@color/lightGray" />
 
-            <ListView
-                android:id="@+id/person_notes"
+            <LinearLayout
+                android:id="@+id/person_notes_list"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
 
             <ListView
                 android:id="@+id/empty_notes"

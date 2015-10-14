@@ -14,11 +14,15 @@ import org.theotech.ceaselessandroid.R;
  */
 public class HelpFragment extends Fragment {
 
-
     public HelpFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,6 +31,4 @@ public class HelpFragment extends Fragment {
         getActivity().setTitle(getString(R.string.nav_help));
         return inflater.inflate(R.layout.fragment_help, container, false);
     }
-
-
 }

@@ -95,6 +95,7 @@ public class MainFragment extends Fragment {
         personManager = PersonManagerImpl.getInstance(getActivity());
         imageService = ImageURLServiceImpl.getInstance();
         cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
+        setHasOptionsMenu(false);
     }
 
     @Override
@@ -209,7 +210,7 @@ public class MainFragment extends Fragment {
             cacheManager.cachePersonIdsToPrayFor(personIds);
         }
         for (int i = 0; persons != null && !persons.isEmpty() && i < persons.size(); i++) {
-            View row = getActivity().getLayoutInflater().inflate(R.layout.pray_for_people_list, null);
+            View row = getActivity().getLayoutInflater().inflate(R.layout.pray_for_people_list_item, null);
             row.setTag(i);
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
