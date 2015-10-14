@@ -54,13 +54,13 @@ public class PeopleFragment extends Fragment {
                         return Constants.NUM_PERSONS;
                     }
                 });
+                // wire up the indicator
+                LinePageIndicator indicator = (LinePageIndicator) view.findViewById(R.id.indicator);
+                indicator.setViewPager(viewPager);
                 Bundle bundle = getArguments();
                 if (bundle != null && bundle.containsKey(Constants.PERSON_ARG_SECTION_NUMBER)) {
                     int itemIndex = bundle.getInt(Constants.PERSON_ARG_SECTION_NUMBER);
                     viewPager.setCurrentItem(itemIndex);
-                    // wire up the indicator
-                    LinePageIndicator indicator = (LinePageIndicator) view.findViewById(R.id.indicator);
-                    indicator.setViewPager(viewPager);
                     indicator.setCurrentItem(itemIndex);
                 }
             }
