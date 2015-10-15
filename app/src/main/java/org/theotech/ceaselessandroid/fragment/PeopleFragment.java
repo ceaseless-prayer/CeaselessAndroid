@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -75,8 +74,8 @@ public class PeopleFragment extends Fragment {
                 indicator.setViewPager(viewPager);
                 // display the correct viewpager and indicator
                 Bundle bundle = getArguments();
-                if (bundle != null && bundle.containsKey(Constants.PERSON_ARG_SECTION_NUMBER)) {
-                    int itemIndex = bundle.getInt(Constants.PERSON_ARG_SECTION_NUMBER);
+                if (bundle != null && bundle.containsKey(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG)) {
+                    int itemIndex = bundle.getInt(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG);
                     viewPager.setCurrentItem(itemIndex);
                     indicator.setCurrentItem(itemIndex);
                 }
@@ -92,15 +91,6 @@ public class PeopleFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.people, menu);
         super.onCreateOptionsMenu(menu, inflater);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.person_add_note) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override

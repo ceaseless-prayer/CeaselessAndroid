@@ -1,13 +1,68 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin"
+    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context="org.theotech.ceaselessandroid.fragment.AddNoteFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <EditText
+        android:id="@+id/note_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:hint="@string/note_title_hint"
+        android:inputType="text|textCapSentences"
+        android:singleLine="true" />
 
-</FrameLayout>
+    <LinearLayout
+        android:id="@+id/note_buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="@color/buttonDefault"
+            android:gravity="center"
+            android:shadowColor="@color/buttonDefaultShadow"
+            android:shadowDx="@integer/button_default_shadow_dx"
+            android:shadowDy="@integer/button_default_shadow_dy"
+            android:shadowRadius="@integer/button_default_shadow_radius"
+            android:text="@android:string/cancel" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:background="@color/buttonDefault"
+            android:gravity="center"
+            android:shadowColor="@color/buttonDefaultShadow"
+            android:shadowDx="@integer/button_default_shadow_dx"
+            android:shadowDy="@integer/button_default_shadow_dy"
+            android:shadowRadius="@integer/button_default_shadow_radius"
+            android:text="@android:string/ok" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/note_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/note_buttons"
+        android:layout_below="@id/note_title"
+        android:gravity="top|start"
+        android:hint="@string/note_text_hint"
+        android:inputType="text|textCapSentences|textMultiLine" />
+
+</RelativeLayout>

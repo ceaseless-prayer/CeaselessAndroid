@@ -1,5 +1,7 @@
 package org.theotech.ceaselessandroid.activity;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,6 +16,7 @@ import org.codechimp.apprater.AppRater;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.fragment.MainFragment;
 import org.theotech.ceaselessandroid.util.ActivityUtils;
+import org.theotech.ceaselessandroid.util.Constants;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -65,23 +68,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 String fragmentName = getFragmentManager()
                         .getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 1)
                         .getName();
-                navigation.setCheckedItem(ActivityUtils.getNavigationItemResourceIdForFragmentName(this, fragmentName));
+                if (fragmentName.equals(getString(R.string.person_add_note))) { // skip if it's the AddNote fragment
+                    fragmentName = getFragmentManager()
+                            .getBackStackEntryAt(getFragmentManager().getBackStackEntryCount() - 2)
+                            .getName();
+                }
+                navigation.setCheckedItem(ActivityUtils.getNavigationItemIdForFragmentName(this, fragmentName));
                 // go back to the previous fragment in the stack
-                getFragmentManager().popBackStack();
+                getFragmentManager().popBackStack(fragmentName, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                setTitle(fragmentName);
             } else {
                 super.onBackPressed();
             }
         }
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_rate_this_app) { // hack option to load home fragment without using cache data
             // TODO: Remove this easter egg
-            getFragmentManager().beginTransaction().replace(R.id.fragment, new MainFragment(false),
+            Fragment mainFragment = new MainFragment();
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(Constants.MAIN_USE_CACHE_BUNDLE_ARG, false);
+            mainFragment.setArguments(bundle);
+            getFragmentManager().beginTransaction().replace(R.id.fragment, mainFragment,
                     "Hack").addToBackStack(getTitle().toString()).commit();
         } else {
             // replace fragment if it's not already visible
@@ -91,5 +103,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        if (id == R.id.person_add_note) {
+            ActivityUtils.loadFragment(this, getFragmentManager(), navigation, id);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

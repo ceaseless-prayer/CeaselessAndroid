@@ -54,9 +54,6 @@ import butterknife.ButterKnife;
 
 public class MainFragment extends Fragment {
     private static final String TAG = MainFragment.class.getSimpleName();
-
-    private final boolean useCache;
-
     @Bind(R.id.verse_image)
     ImageView verseImage;
     @Bind(R.id.pray_for_people_list)
@@ -75,25 +72,27 @@ public class MainFragment extends Fragment {
     TextView prayedFor;
     @Bind(R.id.prayer_settings)
     Button prayerSettings;
-
     NavigationView navigation;
-
+    private boolean useCache;
     private ScriptureService scriptureService = null;
     private PersonManager personManager = null;
     private ImageURLService imageService = null;
     private CacheManager cacheManager = null;
 
     public MainFragment() {
-        useCache = true;
-    }
-
-    public MainFragment(boolean useCache) {
-        this.useCache = useCache;
+        // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey(Constants.MAIN_USE_CACHE_BUNDLE_ARG)) {
+            this.useCache = bundle.getBoolean(Constants.MAIN_USE_CACHE_BUNDLE_ARG);
+        } else {
+            this.useCache = true;
+        }
+
         scriptureService = ScriptureServiceImpl.getInstance();
         personManager = PersonManagerImpl.getInstance(getActivity());
         imageService = ImageURLServiceImpl.getInstance();
@@ -189,7 +188,7 @@ public class MainFragment extends Fragment {
     }
 
     private void populatePrayForPeopleList() {
-        List<String> personIds = null;
+        List<String> personIds;
         List<Person> persons = null;
         if (useCache && cacheManager.getCachedPersonIdsToPrayFor() != null) {
             Log.d(TAG, "Retrieving prayForPeople list from local daily cache");
@@ -219,7 +218,7 @@ public class MainFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-                    bundle.putInt(Constants.PERSON_ARG_SECTION_NUMBER, (int) v.getTag());
+                    bundle.putInt(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG, (int) v.getTag());
                     ActivityUtils.loadFragment(getActivity(), getFragmentManager(), bundle, navigation, R.id.nav_people);
                 }
             });
