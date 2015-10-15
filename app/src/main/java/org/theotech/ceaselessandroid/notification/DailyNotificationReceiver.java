@@ -67,7 +67,7 @@ public class DailyNotificationReceiver extends BroadcastReceiver {
     }
 
     private void setNotificationAlarm(PendingIntent pendingIntent, AlarmManager alarmManager, long intendedTime) {
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
                 intendedTime, AlarmManager.INTERVAL_DAY,
                 pendingIntent);
     }
@@ -75,13 +75,10 @@ public class DailyNotificationReceiver extends BroadcastReceiver {
     @NonNull
     private Calendar getNotificationFiringCalendar(String time) {
         Calendar calendar = Calendar.getInstance();
-//        calendar.set(Calendar.SECOND, 0);
-//        calendar.set(Calendar.MINUTE, TimePickerDialogPreference.getMinute(time));
-//        calendar.set(Calendar.HOUR_OF_DAY, TimePickerDialogPreference.getHour(time));
-        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 1);
-//        firingCal.set(Calendar.HOUR, 1); // At the hour you wanna fire
-//        firingCal.set(Calendar.MINUTE, 22); // Particular minute
-//        firingCal.set(Calendar.SECOND, 0); // particular second
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MINUTE, TimePickerDialogPreference.getMinute(time));
+        calendar.set(Calendar.HOUR_OF_DAY, TimePickerDialogPreference.getHour(time));
+//        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 1);
         return calendar;
     }
 }
