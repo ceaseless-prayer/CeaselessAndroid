@@ -34,8 +34,8 @@
 
             <Button
                 android:id="@+id/contact_us_button"
-                android:layout_width="@dimen/contact_us_button_width"
-                android:layout_height="@dimen/contact_us_button_height"
+                android:layout_width="@dimen/button_width"
+                android:layout_height="@dimen/button_height"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/contact_us_margin"
                 android:background="@color/buttonDefault"

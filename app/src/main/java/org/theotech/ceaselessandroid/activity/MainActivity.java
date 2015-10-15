@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             Fragment mainFragment = new MainFragment();
             Bundle bundle = new Bundle();
             bundle.putBoolean(Constants.MAIN_USE_CACHE_BUNDLE_ARG, false);
+            mainFragment.setArguments(bundle);
             getFragmentManager().beginTransaction().replace(R.id.fragment, mainFragment,
                     "Hack").addToBackStack(getTitle().toString()).commit();
         } else {
