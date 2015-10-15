@@ -29,27 +29,23 @@ public class TimePickerDialogPreference extends DialogPreference {
 
     public static int getHour(String time) {
         String[] pieces = time.split(":");
-
         return Integer.parseInt(pieces[0]);
     }
 
     public static int getMinute(String time) {
         String[] pieces = time.split(":");
-
         return Integer.parseInt(pieces[1]);
     }
 
     @Override
     protected View onCreateDialogView() {
         picker = new TimePicker(getContext());
-
         return picker;
     }
 
     @Override
     protected void onBindDialogView(View v) {
         super.onBindDialogView(v);
-
         picker.setCurrentHour(lastHour);
         picker.setCurrentMinute(lastMinute);
     }

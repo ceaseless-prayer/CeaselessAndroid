@@ -14,8 +14,11 @@ import org.theotech.ceaselessandroid.activity.MainActivity;
 
 /**
  * Created by jprobert on 10/3/2015.
+ * This class is responsible for showing notifications to the user at the time they specify.
+ * It is called by an alarm that is installed in {@link DailyNotificationReceiver}.
  */
-public class NotificationService extends Service {
+public class DailyNotificationService extends Service {
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -24,9 +27,10 @@ public class NotificationService extends Service {
 
     @Override
     public void onCreate() {
-        NotificationManager mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        Intent intent1 = new Intent(this.getApplicationContext(), MainActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent1, 0);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Intent mainIntent = new Intent(this.getApplicationContext(), MainActivity.class);
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, mainIntent, 0);
+
         Notification mNotify = new Builder(this)
                 .setContentTitle(getString(R.string.reminder_notification_title))
                 .setContentText(getString(R.string.reminder_notification_message))
@@ -35,6 +39,8 @@ public class NotificationService extends Service {
                 .setAutoCancel(true)
                 .build();
 
-        mNM.notify(1, mNotify);
+        // TODO should we set 1 as the id for all notifications from this?
+        notificationManager.notify(1, mNotify);
     }
+
 }

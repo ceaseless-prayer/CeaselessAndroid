@@ -15,7 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.theotech.ceaselessandroid.R;
-import org.theotech.ceaselessandroid.notification.NotificationService;
+import org.theotech.ceaselessandroid.notification.DailyNotificationReceiver;
+import org.theotech.ceaselessandroid.notification.DailyNotificationService;
 import org.theotech.ceaselessandroid.prefs.TimePickerDialogPreference;
 
 import java.util.Calendar;
@@ -61,46 +62,13 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-        if ("notificationTime".equals(s)) {
-            if (sharedPreferences.getBoolean("showNotifications", true)) {
-                createOrUpdateTimer(sharedPreferences);
-            }
-        }
-
-        if ("showNotifications".equals(s)) {
-            if (sharedPreferences.getBoolean("showNotifications", true)) {
-                createOrUpdateTimer(sharedPreferences);
-            } else {
-
-                cancelTimer();
-            }
+        if ("notificationTime".equals(s) || "showNotifications".equals(s)) {
+                createOrUpdateTimer();
         }
     }
 
-    private void cancelTimer() {
-        Context context = getActivity();
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-        Intent myIntent = new Intent(getActivity(), NotificationService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(context, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Log.d(TAG, "Canceling reminder notification alarm");
-        alarmManager.cancel(pendingIntent);
-    }
-
-    private void createOrUpdateTimer(SharedPreferences sharedPreferences) {
-        Context context = getActivity();
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-        Intent myIntent = new Intent(getActivity(), NotificationService.class);
-        String time = sharedPreferences.getString("notificationTime", "08:30");
-        PendingIntent pendingIntent = PendingIntent.getService(context, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.MINUTE, TimePickerDialogPreference.getMinute(time));
-        calendar.set(Calendar.HOUR, TimePickerDialogPreference.getHour(time));
-        calendar.add(Calendar.DAY_OF_MONTH, 1);
-
-        Log.d(TAG, "Setting reminder notification alarm for time (starting the next day): " + time);
-        alarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+    private void createOrUpdateTimer() {
+        Intent dailyNotificationReceiver = new Intent(getActivity(), DailyNotificationReceiver.class);
+        getActivity().sendBroadcast(dailyNotificationReceiver);
     }
 }

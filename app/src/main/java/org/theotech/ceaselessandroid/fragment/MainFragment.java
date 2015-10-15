@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,11 +26,13 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.activity.MainActivity;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.image.ImageURLService;
 import org.theotech.ceaselessandroid.image.ImageURLServiceImpl;
-import org.theotech.ceaselessandroid.notification.NotificationService;
+import org.theotech.ceaselessandroid.notification.DailyNotificationReceiver;
+import org.theotech.ceaselessandroid.notification.DailyNotificationService;
 import org.theotech.ceaselessandroid.person.AlreadyPrayedForAllContactsException;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
@@ -239,28 +242,8 @@ public class MainFragment extends Fragment {
     }
 
     private void setPrayerReminder() {
-        Context context = getActivity();
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if (preferences.getBoolean("showNotifications", false)) {
-            AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-            Intent myIntent = new Intent(getActivity(), NotificationService.class);
-            PendingIntent pendingIntent = PendingIntent.getService(context, 0, myIntent, PendingIntent.FLAG_NO_CREATE);
-            // FLAG_NO_CREATE means this will return null if there is not already a pending intent
-            if (pendingIntent == null) {
-                String time = preferences.getString("notificationTime", "08:30");
-                pendingIntent = PendingIntent.getService(context, 0, myIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.MINUTE, TimePickerDialogPreference.getMinute(time));
-                calendar.set(Calendar.HOUR, TimePickerDialogPreference.getHour(time));
-                calendar.add(Calendar.DAY_OF_MONTH, 1);
-
-                Log.d(TAG, "Setting reminder notification alarm for time (starting the next day): " + time);
-                alarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-            } else {
-                Log.d(TAG, "Not setting reminder notification alarm. Already set.");
-            }
-        }
+        Intent dailyNotificationReceiver = new Intent(getActivity(), DailyNotificationReceiver.class);
+        getActivity().sendBroadcast(dailyNotificationReceiver);
     }
 
     private class ScriptureFetcher extends AsyncTask<String, Void, ScriptureData> {
