@@ -58,7 +58,7 @@ public class PersonFragment extends Fragment {
     public static PersonFragment newInstance(int sectionNumber) {
         PersonFragment fragment = new PersonFragment();
         Bundle args = new Bundle();
-        args.putInt(Constants.PERSON_ARG_SECTION_NUMBER, sectionNumber);
+        args.putInt(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG, sectionNumber);
         fragment.setArguments(args);
 
         return fragment;
@@ -70,7 +70,7 @@ public class PersonFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_person, container, false);
         ButterKnife.bind(this, view);
-        int index = getArguments().getInt(Constants.PERSON_ARG_SECTION_NUMBER);
+        int index = getArguments().getInt(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG);
         // get data from cache
         String personId = cacheManager.getCachedPersonIdsToPrayFor().get(index);
         Person person = personManager.getPerson(personId);

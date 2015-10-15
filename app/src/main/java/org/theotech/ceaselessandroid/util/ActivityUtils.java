@@ -3,6 +3,7 @@ package org.theotech.ceaselessandroid.util;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.support.design.widget.NavigationView;
 import android.util.Log;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.fragment.AddNoteFragment;
 import org.theotech.ceaselessandroid.fragment.ContactUsFragment;
 import org.theotech.ceaselessandroid.fragment.HelpFragment;
 import org.theotech.ceaselessandroid.fragment.MainFragment;
@@ -26,58 +28,75 @@ import org.theotech.ceaselessandroid.fragment.VerseFragment;
 public class ActivityUtils {
     private static final String TAG = ActivityUtils.class.getSimpleName();
 
-    public static void loadFragment(Activity activity, FragmentManager fragmentManager, NavigationView navigation, int itemId) {
-        loadFragment(activity, fragmentManager, null, navigation, itemId);
+    public static void loadFragment(Activity activity, FragmentManager fragmentManager, NavigationView navigation, int resourceId) {
+        loadFragment(activity, fragmentManager, null, navigation, resourceId);
     }
 
-    public static void loadFragment(Activity activity, FragmentManager fragmentManager, Bundle bundle, NavigationView navigation, int itemId) {
-        Fragment fragment = getFragmentForNavigationItemId(itemId);
-        String newTitle = getTitleForNavigationItemId(activity, itemId);
-        Fragment currentFragment = fragmentManager.findFragmentByTag(newTitle);
-        if (fragment != null && (currentFragment == null || !currentFragment.isVisible())) {
+    public static void loadFragment(Activity activity, FragmentManager fragmentManager, NavigationView navigation, int resourceId, boolean addToBackStack) {
+        loadFragment(activity, fragmentManager, null, navigation, resourceId, addToBackStack);
+    }
+
+    public static void loadFragment(Activity activity, FragmentManager fragmentManager, Bundle bundle, NavigationView navigation, int resourceId) {
+        loadFragment(activity, fragmentManager, bundle, navigation, resourceId, true);
+    }
+
+    public static void loadFragment(Activity activity, FragmentManager fragmentManager, Bundle bundle, NavigationView navigation, int resourceId, boolean addToBackStack) {
+        Fragment fragment = getFragmentForResourceId(resourceId);
+        String fragmentTag = getFragmentTagForResourceId(activity, resourceId);
+        Fragment fragmentForTag = fragmentManager.findFragmentByTag(fragmentTag);
+        if (fragment != null && (fragmentForTag == null || !fragmentForTag.isVisible())) {
             fragment.setArguments(bundle);
-            fragmentManager.beginTransaction().replace(R.id.fragment, fragment, newTitle).addToBackStack(activity.getTitle().toString()).commit();
-            navigation.setCheckedItem(itemId);
+            FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.fragment, fragment, fragmentTag);
+            if (addToBackStack) {
+                transaction.addToBackStack(activity.getTitle().toString());
+            }
+            transaction.commit();
+            navigation.setCheckedItem(getNavigationItemIdForFragmentName(activity, fragmentTag));
+            activity.setTitle(fragmentTag);
         } else {
-            Log.d(TAG, String.format("Required fragment %s already visible, not reloading", newTitle));
+            Log.d(TAG, String.format("Required fragment %s already visible, not reloading", fragmentTag));
         }
     }
 
-    private static Fragment getFragmentForNavigationItemId(int itemId) {
-        if (itemId == R.id.nav_home) {
+    private static Fragment getFragmentForResourceId(int resourceId) {
+        if (resourceId == R.id.nav_home) {
             return new MainFragment();
-        } else if (itemId == R.id.nav_people) {
+        } else if (resourceId == R.id.nav_people) {
             return new PeopleFragment();
-        } else if (itemId == R.id.nav_verse) {
+        } else if (resourceId == R.id.nav_verse) {
             return new VerseFragment();
-        } else if (itemId == R.id.nav_settings) {
+        } else if (resourceId == R.id.nav_settings) {
             return new SettingsFragment();
-        } else if (itemId == R.id.nav_help) {
+        } else if (resourceId == R.id.nav_help) {
             return new HelpFragment();
-        } else if (itemId == R.id.nav_contact_us) {
+        } else if (resourceId == R.id.nav_contact_us) {
             return new ContactUsFragment();
+        } else if (resourceId == R.id.person_add_note) {
+            return new AddNoteFragment();
         }
         return null;
     }
 
-    private static String getTitleForNavigationItemId(Context context, int itemId) {
-        if (itemId == R.id.nav_home) {
+    private static String getFragmentTagForResourceId(Context context, int resourceId) {
+        if (resourceId == R.id.nav_home) {
             return context.getString(R.string.app_name);
-        } else if (itemId == R.id.nav_people) {
+        } else if (resourceId == R.id.nav_people) {
             return context.getString(R.string.nav_people);
-        } else if (itemId == R.id.nav_verse) {
+        } else if (resourceId == R.id.nav_verse) {
             return context.getString(R.string.nav_verse);
-        } else if (itemId == R.id.nav_settings) {
+        } else if (resourceId == R.id.nav_settings) {
             return context.getString(R.string.nav_settings);
-        } else if (itemId == R.id.nav_help) {
+        } else if (resourceId == R.id.nav_help) {
             return context.getString(R.string.nav_help);
-        } else if (itemId == R.id.nav_contact_us) {
+        } else if (resourceId == R.id.nav_contact_us) {
             return context.getString(R.string.nav_contact_us);
+        } else if (resourceId == R.id.person_add_note) {
+            return context.getString(R.string.person_add_note);
         }
         return null;
     }
 
-    public static Integer getNavigationItemResourceIdForFragmentName(Context context, String fragmentName) {
+    public static Integer getNavigationItemIdForFragmentName(Context context, String fragmentName) {
         if (fragmentName.equals(context.getString(R.string.app_name))) {
             return R.id.nav_home;
         } else if (fragmentName.equals(context.getString(R.string.nav_people))) {
@@ -90,6 +109,8 @@ public class ActivityUtils {
             return R.id.nav_help;
         } else if (fragmentName.equals(context.getString(R.string.nav_contact_us))) {
             return R.id.nav_contact_us;
+        } else if (fragmentName.equals(context.getString(R.string.person_add_note))) {
+            return R.id.nav_people;
         }
         return null;
     }
