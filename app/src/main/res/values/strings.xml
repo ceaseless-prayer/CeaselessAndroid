@@ -1,9 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Ceaseless</string>
 
     <string name="nav_home">Home</string>
     <string name="nav_people">People</string>
-    <string name="nav_verse">Verse</string>
+    <string name="nav_journal">Journal</string>
 
     <string name="nav_settings">Settings</string>
     <string name="nav_help">Help</string>

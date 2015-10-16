@@ -17,10 +17,10 @@ import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.fragment.AddNoteFragment;
 import org.theotech.ceaselessandroid.fragment.ContactUsFragment;
 import org.theotech.ceaselessandroid.fragment.HelpFragment;
-import org.theotech.ceaselessandroid.fragment.MainFragment;
+import org.theotech.ceaselessandroid.fragment.HomeFragment;
+import org.theotech.ceaselessandroid.fragment.JournalFragment;
 import org.theotech.ceaselessandroid.fragment.PeopleFragment;
 import org.theotech.ceaselessandroid.fragment.SettingsFragment;
-import org.theotech.ceaselessandroid.fragment.VerseFragment;
 
 /**
  * Created by uberx on 10/8/15.
@@ -60,11 +60,11 @@ public class ActivityUtils {
 
     private static Fragment getFragmentForResourceId(int resourceId) {
         if (resourceId == R.id.nav_home) {
-            return new MainFragment();
+            return new HomeFragment();
         } else if (resourceId == R.id.nav_people) {
             return new PeopleFragment();
-        } else if (resourceId == R.id.nav_verse) {
-            return new VerseFragment();
+        } else if (resourceId == R.id.nav_journal) {
+            return new JournalFragment();
         } else if (resourceId == R.id.nav_settings) {
             return new SettingsFragment();
         } else if (resourceId == R.id.nav_help) {
@@ -79,11 +79,11 @@ public class ActivityUtils {
 
     private static String getFragmentTagForResourceId(Context context, int resourceId) {
         if (resourceId == R.id.nav_home) {
-            return context.getString(R.string.app_name);
+            return context.getString(R.string.nav_home);
         } else if (resourceId == R.id.nav_people) {
             return context.getString(R.string.nav_people);
-        } else if (resourceId == R.id.nav_verse) {
-            return context.getString(R.string.nav_verse);
+        } else if (resourceId == R.id.nav_journal) {
+            return context.getString(R.string.nav_journal);
         } else if (resourceId == R.id.nav_settings) {
             return context.getString(R.string.nav_settings);
         } else if (resourceId == R.id.nav_help) {
@@ -97,12 +97,12 @@ public class ActivityUtils {
     }
 
     public static Integer getNavigationItemIdForFragmentName(Context context, String fragmentName) {
-        if (fragmentName.equals(context.getString(R.string.app_name))) {
+        if (fragmentName.equals(context.getString(R.string.nav_home))) {
             return R.id.nav_home;
         } else if (fragmentName.equals(context.getString(R.string.nav_people))) {
             return R.id.nav_people;
-        } else if (fragmentName.equals(context.getString(R.string.nav_verse))) {
-            return R.id.nav_verse;
+        } else if (fragmentName.equals(context.getString(R.string.nav_journal))) {
+            return R.id.nav_journal;
         } else if (fragmentName.equals(context.getString(R.string.nav_settings))) {
             return R.id.nav_settings;
         } else if (fragmentName.equals(context.getString(R.string.nav_help))) {

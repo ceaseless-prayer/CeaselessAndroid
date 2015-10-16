@@ -48,7 +48,7 @@ public class DailyNotificationReceiver extends BroadcastReceiver {
             Calendar currentCal = Calendar.getInstance();
             long currentTime = currentCal.getTimeInMillis();
 
-            if(intendedTime >= currentTime) {
+            if (intendedTime >= currentTime) {
                 // you can add buffer time too here to ignore some small differences in milliseconds
                 Log.d(TAG, "setting alarm for same day.");
                 setNotificationAlarm(pendingIntent, alarmManager, intendedTime);

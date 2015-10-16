@@ -46,12 +46,11 @@ public class ContactUsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         // set title
         getActivity().setTitle(getString(R.string.nav_contact_us));
 
         // create view and bind
-        final View view = inflater.inflate(R.layout.fragment_contact_us, container, false);
+        View view = inflater.inflate(R.layout.fragment_contact_us, container, false);
         ButterKnife.bind(this, view);
 
         // click listener for contact us button

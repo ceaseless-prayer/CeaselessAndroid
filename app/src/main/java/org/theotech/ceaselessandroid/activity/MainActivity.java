@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 
 import org.codechimp.apprater.AppRater;
 import org.theotech.ceaselessandroid.R;
-import org.theotech.ceaselessandroid.fragment.MainFragment;
+import org.theotech.ceaselessandroid.fragment.HomeFragment;
 import org.theotech.ceaselessandroid.util.ActivityUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigation.setNavigationItemSelectedListener(this);
 
         // load the main fragment
-        getFragmentManager().beginTransaction().add(R.id.fragment, new MainFragment(),
+        getFragmentManager().beginTransaction().add(R.id.fragment, new HomeFragment(),
                 getString(R.string.app_name)).commit();
 
         // rate my app dialog
@@ -89,11 +89,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         if (id == R.id.nav_rate_this_app) { // hack option to load home fragment without using cache data
             // TODO: Remove this easter egg
-            Fragment mainFragment = new MainFragment();
+            Fragment homeFragment = new HomeFragment();
             Bundle bundle = new Bundle();
-            bundle.putBoolean(Constants.MAIN_USE_CACHE_BUNDLE_ARG, false);
-            mainFragment.setArguments(bundle);
-            getFragmentManager().beginTransaction().replace(R.id.fragment, mainFragment,
+            bundle.putBoolean(Constants.USE_CACHE_BUNDLE_ARG, false);
+            homeFragment.setArguments(bundle);
+            getFragmentManager().beginTransaction().replace(R.id.fragment, homeFragment,
                     "Hack").addToBackStack(getTitle().toString()).commit();
         } else {
             // replace fragment if it's not already visible

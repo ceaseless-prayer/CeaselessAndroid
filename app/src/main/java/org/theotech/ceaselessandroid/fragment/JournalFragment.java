@@ -11,29 +11,26 @@ import org.theotech.ceaselessandroid.R;
 
 import butterknife.ButterKnife;
 
-public class AddNoteFragment extends Fragment {
+public class JournalFragment extends Fragment {
 
-    public AddNoteFragment() {
+
+    public JournalFragment() {
         // Required empty public constructor
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(false);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // set title
-        getActivity().setTitle(getString(R.string.person_add_note));
+        getActivity().setTitle(getString(R.string.nav_journal));
 
         // create view and bind
-        View view = inflater.inflate(R.layout.fragment_add_note, container, false);
+        View view = inflater.inflate(R.layout.fragment_journal, container, false);
         ButterKnife.bind(this, view);
 
         return view;
     }
+
 
 }

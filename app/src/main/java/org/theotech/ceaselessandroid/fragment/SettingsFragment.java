@@ -1,29 +1,17 @@
 package org.theotech.ceaselessandroid.fragment;
 
 
-import android.app.AlarmManager;
-import android.app.Fragment;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.notification.DailyNotificationReceiver;
-import org.theotech.ceaselessandroid.notification.DailyNotificationService;
-import org.theotech.ceaselessandroid.prefs.TimePickerDialogPreference;
 
-import java.util.Calendar;
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = SettingsFragment.class.getSimpleName();
 
@@ -41,8 +29,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // set title
         getActivity().setTitle(getString(R.string.nav_settings));
+
+        // create view
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -63,7 +53,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         if ("notificationTime".equals(s) || "showNotifications".equals(s)) {
-                createOrUpdateTimer();
+            createOrUpdateTimer();
         }
     }
 

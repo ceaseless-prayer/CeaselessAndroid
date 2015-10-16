@@ -46,13 +46,12 @@ public class PersonFragment extends Fragment {
     @Bind(R.id.person_notes_list)
     LinearLayout notes;
 
+    private boolean useCache;
     private CacheManager cacheManager;
     private PersonManager personManager;
 
     public PersonFragment() {
         // Required empty public constructor
-        cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
-        personManager = PersonManagerImpl.getInstance(getActivity());
     }
 
     public static PersonFragment newInstance(int sectionNumber) {
@@ -65,44 +64,61 @@ public class PersonFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey(Constants.USE_CACHE_BUNDLE_ARG)) {
+            this.useCache = bundle.getBoolean(Constants.USE_CACHE_BUNDLE_ARG);
+        } else {
+            this.useCache = true;
+        }
+
+        cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
+        personManager = PersonManagerImpl.getInstance(getActivity());
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // create view and bind
         View view = inflater.inflate(R.layout.fragment_person, container, false);
         ButterKnife.bind(this, view);
         int index = getArguments().getInt(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG);
-        // get data from cache
-        String personId = cacheManager.getCachedPersonIdsToPrayFor().get(index);
-        Person person = personManager.getPerson(personId);
-        Uri personPhotoUri = ActivityUtils.getContactPhotoUri(getActivity().getContentResolver(), person.getId(), true);
+        // people to pray for
+        List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
+        if (personIds != null) {
+            String personId = personIds.get(index);
+            Person person = personManager.getPerson(personId);
+            Uri personPhotoUri = ActivityUtils.getContactPhotoUri(getActivity().getContentResolver(), person.getId(), true);
 
-        personName.setText(person.getName());
-        Picasso.with(getActivity()).load(personPhotoUri).placeholder(R.drawable.placeholder_user).fit().centerInside().into(personImage);
+            personName.setText(person.getName());
+            Picasso.with(getActivity()).load(personPhotoUri).placeholder(R.drawable.placeholder_user).fit().centerInside().into(personImage);
 
-        List<Note> realmPersonNotes = person.getNotes();
-        List<Note> personNotes = new ArrayList<Note>();
-        for (Note realmNote : realmPersonNotes) {
-            personNotes.add(new Note(realmNote.getId(), realmNote.getCreationDate(),
-                    realmNote.getLastUpdatedDate(), realmNote.getTitle(), realmNote.getText(),
-                    realmNote.getPeopleTagged()));
-        }
-        Collections.sort(personNotes, new Comparator<Note>() { // sort by latest first
-            @Override
-            public int compare(Note lhs, Note rhs) {
-                return -1 * lhs.getLastUpdatedDate().compareTo(rhs.getLastUpdatedDate());
+            List<Note> realmPersonNotes = person.getNotes();
+            List<Note> personNotes = new ArrayList<Note>();
+            for (Note realmNote : realmPersonNotes) {
+                personNotes.add(new Note(realmNote.getId(), realmNote.getCreationDate(),
+                        realmNote.getLastUpdatedDate(), realmNote.getTitle(), realmNote.getText(),
+                        realmNote.getPeopleTagged()));
             }
-        });
-        if (personNotes.isEmpty()) {
-            ListView emptyNotes = (ListView) view.findViewById(R.id.empty_notes);
-            emptyNotes.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.empty_notes_list_item, new String[]{getString(R.string.empty_notes)}));
-        } else {
-            for (int i = 0; i < personNotes.size(); i++) {
-                View row = getActivity().getLayoutInflater().inflate(R.layout.person_notes_list_item, null);
-                TextView noteDate = (TextView) row.findViewById(R.id.note_date);
-                TextView noteText = (TextView) row.findViewById(R.id.note_text);
-                noteDate.setText(personNotes.get(i).getLastUpdatedDate().toString());
-                noteText.setText(personNotes.get(i).getText());
-                notes.addView(row);
+            Collections.sort(personNotes, new Comparator<Note>() { // sort by latest first
+                @Override
+                public int compare(Note lhs, Note rhs) {
+                    return -1 * lhs.getLastUpdatedDate().compareTo(rhs.getLastUpdatedDate());
+                }
+            });
+            if (personNotes.isEmpty()) {
+                ListView emptyNotes = (ListView) view.findViewById(R.id.empty_notes);
+                emptyNotes.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.empty_notes_list_item, new String[]{getString(R.string.empty_notes)}));
+            } else {
+                for (int i = 0; i < personNotes.size(); i++) {
+                    View row = getActivity().getLayoutInflater().inflate(R.layout.person_notes_list_item, null);
+                    TextView noteDate = (TextView) row.findViewById(R.id.note_date);
+                    TextView noteText = (TextView) row.findViewById(R.id.note_text);
+                    noteDate.setText(personNotes.get(i).getLastUpdatedDate().toString());
+                    noteText.setText(personNotes.get(i).getText());
+                    notes.addView(row);
+                }
             }
         }
         return view;

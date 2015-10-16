@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 
 import org.theotech.ceaselessandroid.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+import butterknife.ButterKnife;
+
 public class HelpFragment extends Fragment {
 
     public HelpFragment() {
@@ -27,8 +26,13 @@ public class HelpFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // set title
         getActivity().setTitle(getString(R.string.nav_help));
-        return inflater.inflate(R.layout.fragment_help, container, false);
+
+        // create view and bind
+        View view = inflater.inflate(R.layout.fragment_help, container, false);
+        ButterKnife.bind(this, view);
+
+        return view;
     }
 }

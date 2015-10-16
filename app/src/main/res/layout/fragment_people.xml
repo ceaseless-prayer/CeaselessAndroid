@@ -1,25 +1,13 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="org.theotech.ceaselessandroid.fragment.PeopleFragment">
+    android:layout_height="match_parent">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/person_viewer"
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/hello_blank_fragment" />
 
-    <com.viewpagerindicator.LinePageIndicator
-        android:id="@+id/indicator"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        app:lineWidth="30dp"
-        app:selectedColor="@color/cardLabel"
-        app:strokeWidth="8dp" />
-
-</LinearLayout>
+</FrameLayout>

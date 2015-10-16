@@ -13,9 +13,9 @@
             android:icon="@drawable/ic_people_black_24dp"
             android:title="@string/nav_people" />
         <item
-            android:id="@+id/nav_verse"
+            android:id="@+id/nav_journal"
             android:icon="@drawable/ic_subject_black_24dp"
-            android:title="@string/nav_verse" />
+            android:title="@string/nav_journal" />
     </group>
 
     <group
