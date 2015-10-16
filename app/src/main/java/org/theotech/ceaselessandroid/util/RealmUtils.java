@@ -26,36 +26,51 @@ public class RealmUtils {
     }
 
     public static NotePOJO toNotePOJO(Note note) {
-        return new NotePOJO(note.getId(), note.getCreationDate(), note.getLastUpdatedDate(),
-                note.getTitle(), note.getText(), convert(note.getPeopleTagged()));
+        if (note != null) {
+            return new NotePOJO(note.getId(), note.getCreationDate(), note.getLastUpdatedDate(),
+                    note.getTitle(), note.getText(), convert(note.getPeopleTagged()));
+        }
+        return null;
     }
 
     public static List<NotePOJO> toNotePOJOs(List<Note> notes) {
-        List<NotePOJO> result = new ArrayList<>();
-        for (Note note : notes) {
-            result.add(toNotePOJO(note));
+        if (notes != null) {
+            List<NotePOJO> result = new ArrayList<>();
+            for (Note note : notes) {
+                result.add(toNotePOJO(note));
+            }
+            return result;
         }
-        return result;
+        return null;
     }
 
     public static PersonPOJO toPersonPOJO(Person person) {
-        return new PersonPOJO(person.getId(), person.getName(), person.getSource(),
-                toNotePOJOs(person.getNotes()), person.getLastPrayed(), person.isFavorite(),
-                person.isIgnored(), person.isPrayed());
+        if (person != null) {
+            return new PersonPOJO(person.getId(), person.getName(), person.getSource(),
+                    toNotePOJOs(person.getNotes()), person.getLastPrayed(), person.isFavorite(),
+                    person.isIgnored(), person.isPrayed());
+        }
+        return null;
     }
 
     public static List<PersonPOJO> toPersonPOJOs(List<Person> persons) {
-        List<PersonPOJO> result = new ArrayList<>();
-        for (Person person : persons) {
-            result.add(toPersonPOJO(person));
+        if (persons != null) {
+            List<PersonPOJO> result = new ArrayList<>();
+            for (Person person : persons) {
+                result.add(toPersonPOJO(person));
+            }
+            return result;
         }
-        return result;
+        return null;
     }
 
     public static LocalCacheDataPOJO toLocalCacheDataPOJO(LocalCacheData localCacheData) {
-        return new LocalCacheDataPOJO(localCacheData.getCreationDate(),
-                localCacheData.getScriptureCitation(), localCacheData.getScriptureText(),
-                localCacheData.getScriptureJson(), localCacheData.getVerseImageURL(),
-                convert(localCacheData.getPersonIdsToPrayFor()));
+        if (localCacheData != null) {
+            return new LocalCacheDataPOJO(localCacheData.getCreationDate(),
+                    localCacheData.getScriptureCitation(), localCacheData.getScriptureText(),
+                    localCacheData.getScriptureJson(), localCacheData.getVerseImageURL(),
+                    convert(localCacheData.getPersonIdsToPrayFor()));
+        }
+        return null;
     }
 }
