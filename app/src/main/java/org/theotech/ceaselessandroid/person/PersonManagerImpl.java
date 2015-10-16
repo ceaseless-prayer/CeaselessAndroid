@@ -8,6 +8,9 @@ import android.util.Log;
 
 import org.theotech.ceaselessandroid.realm.Note;
 import org.theotech.ceaselessandroid.realm.Person;
+import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
+import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
+import org.theotech.ceaselessandroid.util.RealmUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,8 +55,8 @@ public class PersonManagerImpl implements PersonManager {
     }
 
     @Override
-    public List<Person> getNextPeopleToPrayFor(int n) throws AlreadyPrayedForAllContactsException {
-        List<Person> people = new ArrayList<Person>();
+    public List<PersonPOJO> getNextPeopleToPrayFor(int n) throws AlreadyPrayedForAllContactsException {
+        List<PersonPOJO> people = new ArrayList<>();
         RealmResults<Person> results = realm.where(Person.class).equalTo("ignored", false).equalTo("prayed", false).findAllSorted("lastPrayed");
 
         // if all people are prayed for, then reset and throw exception
@@ -70,7 +73,7 @@ public class PersonManagerImpl implements PersonManager {
         }
 
         // shuffle the list of people
-        List<Person> allPeople = new ArrayList<Person>();
+        List<Person> allPeople = new ArrayList<>();
         for (int i = 0; i < results.size(); i++) {
             allPeople.add(results.get(i));
         }
@@ -94,8 +97,8 @@ public class PersonManagerImpl implements PersonManager {
     }
 
     @Override
-    public List<Person> getAllPeople() {
-        return realm.where(Person.class).equalTo("ignored", false).findAll();
+    public List<PersonPOJO> getAllPeople() {
+        return RealmUtils.toPersonPOJOs(realm.where(Person.class).equalTo("ignored", false).findAll());
     }
 
     @Override
@@ -109,7 +112,11 @@ public class PersonManagerImpl implements PersonManager {
     }
 
     @Override
-    public Person getPerson(String personId) {
+    public PersonPOJO getPerson(String personId) {
+        return RealmUtils.toPersonPOJO(getRealmPerson(personId));
+    }
+
+    private Person getRealmPerson(String personId) {
         return realm.where(Person.class).equalTo("id", personId).findFirst();
     }
 
@@ -152,16 +159,17 @@ public class PersonManagerImpl implements PersonManager {
         note.setCreationDate(new Date());
         note.setLastUpdatedDate(new Date());
         note.setId(UUID.randomUUID().toString());
-        note.setTitle(title);
+        if (title != null)
+            note.setTitle(title);
         note.setText(text);
-        getPerson(personId).getNotes().add(note);
+        getRealmPerson(personId).getNotes().add(note);
         realm.commitTransaction();
     }
 
     @Override
     public void editNote(String noteId, String title, String text) {
         realm.beginTransaction();
-        Note note = getNote(noteId);
+        Note note = getRealmNote(noteId);
         note.setLastUpdatedDate(new Date());
         note.setTitle(title);
         note.setText(text);
@@ -171,12 +179,16 @@ public class PersonManagerImpl implements PersonManager {
     @Override
     public void removeNote(String noteId) {
         realm.beginTransaction();
-        getNote(noteId).removeFromRealm();
+        getRealmNote(noteId).removeFromRealm();
         realm.commitTransaction();
     }
 
     @Override
-    public Note getNote(String noteId) {
+    public NotePOJO getNote(String noteId) {
+        return RealmUtils.toNotePOJO(getRealmNote(noteId));
+    }
+
+    private Note getRealmNote(String noteId) {
         return realm.where(Note.class).equalTo("id", noteId).findFirst();
     }
 

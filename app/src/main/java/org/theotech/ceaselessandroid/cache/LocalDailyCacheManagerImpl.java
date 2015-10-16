@@ -4,6 +4,7 @@ import android.content.Context;
 
 import org.theotech.ceaselessandroid.realm.LocalCacheData;
 import org.theotech.ceaselessandroid.realm.RealmString;
+import org.theotech.ceaselessandroid.realm.pojo.LocalCacheDataPOJO;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.util.RealmUtils;
 
@@ -50,7 +51,7 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
 
     @Override
     public ScriptureData getCachedScripture() {
-        LocalCacheData cacheData = getCacheData();
+        LocalCacheDataPOJO cacheData = getCacheData();
         if (cacheData != null &&
                 cacheData.getScriptureText() != null && !cacheData.getScriptureText().isEmpty() &&
                 cacheData.getScriptureCitation() != null && !cacheData.getScriptureCitation().isEmpty() &&
@@ -66,17 +67,17 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
                 scriptureData.getText() != null && !scriptureData.getText().isEmpty() &&
                 scriptureData.getCitation() != null && !scriptureData.getCitation().isEmpty() &&
                 scriptureData.getJson() != null && !scriptureData.getJson().isEmpty()) {
-            LocalCacheData cacheData = new LocalCacheData();
-            cacheData.setScriptureText(scriptureData.getText());
-            cacheData.setScriptureCitation(scriptureData.getCitation());
-            cacheData.setScriptureJson(scriptureData.getJson());
-            cacheData(cacheData);
+            LocalCacheDataPOJO newCacheData = new LocalCacheDataPOJO();
+            newCacheData.setScriptureText(scriptureData.getText());
+            newCacheData.setScriptureCitation(scriptureData.getCitation());
+            newCacheData.setScriptureJson(scriptureData.getJson());
+            cacheData(newCacheData);
         }
     }
 
     @Override
     public String getCachedVerseImageURL() {
-        LocalCacheData cacheData = getCacheData();
+        LocalCacheDataPOJO cacheData = getCacheData();
         if (cacheData != null &&
                 cacheData.getVerseImageURL() != null && !cacheData.getVerseImageURL().isEmpty()) {
             return cacheData.getVerseImageURL();
@@ -87,18 +88,18 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
     @Override
     public void cacheVerseImageURL(String verseImageURL) {
         if (verseImageURL != null && !verseImageURL.isEmpty()) {
-            LocalCacheData cacheData = new LocalCacheData();
-            cacheData.setVerseImageURL(verseImageURL);
-            cacheData(cacheData);
+            LocalCacheDataPOJO newCacheData = new LocalCacheDataPOJO();
+            newCacheData.setVerseImageURL(verseImageURL);
+            cacheData(newCacheData);
         }
     }
 
     @Override
     public List<String> getCachedPersonIdsToPrayFor() {
-        LocalCacheData cacheData = getCacheData();
+        LocalCacheDataPOJO cacheData = getCacheData();
         if (cacheData != null &&
                 cacheData.getPersonIdsToPrayFor() != null && !cacheData.getPersonIdsToPrayFor().isEmpty()) {
-            return RealmUtils.convert(cacheData.getPersonIdsToPrayFor());
+            return cacheData.getPersonIdsToPrayFor();
         }
         return null;
     }
@@ -106,45 +107,49 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
     @Override
     public void cachePersonIdsToPrayFor(List<String> personIdsToPrayFor) {
         if (personIdsToPrayFor != null && !personIdsToPrayFor.isEmpty()) {
-            LocalCacheData cacheData = new LocalCacheData();
-            cacheData.setPersonIdsToPrayFor(RealmUtils.convert(personIdsToPrayFor));
-            cacheData(cacheData);
+            LocalCacheDataPOJO newCacheData = new LocalCacheDataPOJO();
+            newCacheData.setPersonIdsToPrayFor(personIdsToPrayFor);
+            cacheData(newCacheData);
         }
     }
 
-    private LocalCacheData getCacheData() {
+    private LocalCacheDataPOJO getCacheData() {
+        return RealmUtils.toLocalCacheDataPOJO(getRealmCacheData());
+    }
+
+    private LocalCacheData getRealmCacheData() {
         return realm.where(LocalCacheData.class).equalTo("creationDate", generateCreationDate()).findFirst();
     }
 
-    private void cacheData(LocalCacheData data) {
+    private void cacheData(LocalCacheDataPOJO newCacheData) {
         realm.beginTransaction();
 
-        LocalCacheData newCacheData = getCacheData();
-        if (newCacheData == null) {
-            newCacheData = realm.createObject(LocalCacheData.class);
+        LocalCacheData realmCacheData = getRealmCacheData();
+        if (realmCacheData == null) {
+            realmCacheData = realm.createObject(LocalCacheData.class);
         }
-        populateCacheData(newCacheData, data);
+        populateCacheData(realmCacheData, newCacheData);
 
         realm.commitTransaction();
     }
 
-    private void populateCacheData(LocalCacheData newCacheData, LocalCacheData existingCacheData) {
-        newCacheData.setCreationDate(generateCreationDate());
-        if (existingCacheData.getPersonIdsToPrayFor() != null) {
-            RealmList<RealmString> personIdsToPrayFor = existingCacheData.getPersonIdsToPrayFor();
-            RealmList<RealmString> managedPersonIdsToPrayFor = new RealmList<RealmString>();
-            for (RealmString personIdToPrayFor : personIdsToPrayFor) {
-                managedPersonIdsToPrayFor.add(realm.copyToRealm(new RealmString(personIdToPrayFor.getString())));
+    private void populateCacheData(LocalCacheData realmCacheData, LocalCacheDataPOJO newCacheData) {
+        realmCacheData.setCreationDate(generateCreationDate());
+        if (newCacheData.getPersonIdsToPrayFor() != null) {
+            List<String> personIdsToPrayFor = newCacheData.getPersonIdsToPrayFor();
+            RealmList<RealmString> managedPersonIdsToPrayFor = new RealmList<>();
+            for (String personIdToPrayFor : personIdsToPrayFor) {
+                managedPersonIdsToPrayFor.add(realm.copyToRealm(new RealmString(personIdToPrayFor)));
             }
-            newCacheData.setPersonIdsToPrayFor(managedPersonIdsToPrayFor);
+            realmCacheData.setPersonIdsToPrayFor(managedPersonIdsToPrayFor);
         }
-        if (existingCacheData.getScriptureCitation() != null)
-            newCacheData.setScriptureCitation(existingCacheData.getScriptureCitation());
-        if (existingCacheData.getScriptureText() != null)
-            newCacheData.setScriptureText(existingCacheData.getScriptureText());
-        if (existingCacheData.getScriptureJson() != null)
-            newCacheData.setScriptureJson(existingCacheData.getScriptureJson());
-        if (existingCacheData.getVerseImageURL() != null)
-            newCacheData.setVerseImageURL(existingCacheData.getVerseImageURL());
+        if (newCacheData.getScriptureCitation() != null)
+            realmCacheData.setScriptureCitation(newCacheData.getScriptureCitation());
+        if (newCacheData.getScriptureText() != null)
+            realmCacheData.setScriptureText(newCacheData.getScriptureText());
+        if (newCacheData.getScriptureJson() != null)
+            realmCacheData.setScriptureJson(newCacheData.getScriptureJson());
+        if (newCacheData.getVerseImageURL() != null)
+            realmCacheData.setVerseImageURL(newCacheData.getVerseImageURL());
     }
 }

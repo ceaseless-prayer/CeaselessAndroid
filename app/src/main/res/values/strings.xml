@@ -32,8 +32,6 @@
     <string name="prayer_reminders">Reminder:</string>
     <string name="reminder_time_picker_title">Prayer reminder time:</string>
     <string name="reminder_time_picker_dialog_title">Edit reminder time:</string>
-    <string name="reminder_time_picker_cancel">CANCEL</string>
-    <string name="reminder_time_picker_ok">OK</string>
     <string name="reminders_on_text">Reminders are on</string>
     <string name="reminders_off_text">Reminders are off</string>
     <string name="default_notification_time">08:30</string>
@@ -41,7 +39,8 @@
     <string name="person_add_note">Add Note</string>
     <string name="person_notes">Notes</string>
     <string name="empty_notes">There are no notes</string>
-    <string name="note_title_hint">Note Title</string>
+    <string name="note_tag_hint">Tag People</string>
+    <string name="save">SAVE</string>
     <string name="note_text_hint">Note Text</string>
 
     <string name="contact_us_message">If you have any questions or feedback about Ceaseless, we\'d love to hear from you.</string>

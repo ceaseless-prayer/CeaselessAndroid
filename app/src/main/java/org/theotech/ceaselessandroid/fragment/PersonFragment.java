@@ -20,12 +20,11 @@ import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
-import org.theotech.ceaselessandroid.realm.Note;
-import org.theotech.ceaselessandroid.realm.Person;
+import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
+import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.util.ActivityUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -88,35 +87,29 @@ public class PersonFragment extends Fragment {
         List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
         if (personIds != null) {
             String personId = personIds.get(index);
-            Person person = personManager.getPerson(personId);
-            Uri personPhotoUri = ActivityUtils.getContactPhotoUri(getActivity().getContentResolver(), person.getId(), true);
+            PersonPOJO personPOJO = personManager.getPerson(personId);
+            Uri personPhotoUri = ActivityUtils.getContactPhotoUri(getActivity().getContentResolver(), personPOJO.getId(), true);
 
-            personName.setText(person.getName());
+            personName.setText(personPOJO.getName());
             Picasso.with(getActivity()).load(personPhotoUri).placeholder(R.drawable.placeholder_user).fit().centerInside().into(personImage);
 
-            List<Note> realmPersonNotes = person.getNotes();
-            List<Note> personNotes = new ArrayList<Note>();
-            for (Note realmNote : realmPersonNotes) {
-                personNotes.add(new Note(realmNote.getId(), realmNote.getCreationDate(),
-                        realmNote.getLastUpdatedDate(), realmNote.getTitle(), realmNote.getText(),
-                        realmNote.getPeopleTagged()));
-            }
-            Collections.sort(personNotes, new Comparator<Note>() { // sort by latest first
+            List<NotePOJO> notePOJOs = personPOJO.getNotes();
+            Collections.sort(notePOJOs, new Comparator<NotePOJO>() { // sort by latest first
                 @Override
-                public int compare(Note lhs, Note rhs) {
+                public int compare(NotePOJO lhs, NotePOJO rhs) {
                     return -1 * lhs.getLastUpdatedDate().compareTo(rhs.getLastUpdatedDate());
                 }
             });
-            if (personNotes.isEmpty()) {
+            if (notePOJOs.isEmpty()) {
                 ListView emptyNotes = (ListView) view.findViewById(R.id.empty_notes);
-                emptyNotes.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.empty_notes_list_item, new String[]{getString(R.string.empty_notes)}));
+                emptyNotes.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.empty_notes_list_item, new String[]{getString(R.string.empty_notes)}));
             } else {
-                for (int i = 0; i < personNotes.size(); i++) {
+                for (int i = 0; i < notePOJOs.size(); i++) {
                     View row = getActivity().getLayoutInflater().inflate(R.layout.person_notes_list_item, null);
                     TextView noteDate = (TextView) row.findViewById(R.id.note_date);
                     TextView noteText = (TextView) row.findViewById(R.id.note_text);
-                    noteDate.setText(personNotes.get(i).getLastUpdatedDate().toString());
-                    noteText.setText(personNotes.get(i).getText());
+                    noteDate.setText(notePOJOs.get(i).getLastUpdatedDate().toString());
+                    noteText.setText(notePOJOs.get(i).getText());
                     notes.addView(row);
                 }
             }

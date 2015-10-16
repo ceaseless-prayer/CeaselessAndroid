@@ -1,27 +1,20 @@
-package org.theotech.ceaselessandroid.realm;
+package org.theotech.ceaselessandroid.realm.pojo;
 
 import java.util.Date;
-
-import io.realm.RealmList;
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import java.util.List;
 
 /**
- * Created by uberx on 10/11/2015.
+ * Created by uberx on 10/16/15.
  */
-public class Note extends RealmObject {
-    @PrimaryKey
+public class NotePOJO {
     private String id;
     private Date creationDate;
     private Date lastUpdatedDate;
     private String title;
     private String text;
-    private RealmList<RealmString> peopleTagged;
+    private List<String> peopleTagged;
 
-    public Note() {
-    }
-
-    public Note(String id, Date creationDate, Date lastUpdatedDate, String title, String text, RealmList<RealmString> peopleTagged) {
+    public NotePOJO(String id, Date creationDate, Date lastUpdatedDate, String title, String text, List<String> peopleTagged) {
         this.id = id;
         this.creationDate = creationDate;
         this.lastUpdatedDate = lastUpdatedDate;
@@ -70,11 +63,16 @@ public class Note extends RealmObject {
         this.text = text;
     }
 
-    public RealmList<RealmString> getPeopleTagged() {
+    public List<String> getPeopleTagged() {
         return peopleTagged;
     }
 
-    public void setPeopleTagged(RealmList<RealmString> peopleTagged) {
+    public void setPeopleTagged(List<String> peopleTagged) {
         this.peopleTagged = peopleTagged;
+    }
+
+    @Override
+    public String toString() {
+        return id;
     }
 }

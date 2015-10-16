@@ -1,31 +1,22 @@
-package org.theotech.ceaselessandroid.realm;
+package org.theotech.ceaselessandroid.realm.pojo;
 
 import java.util.Date;
-
-import io.realm.RealmList;
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import java.util.List;
 
 /**
- * Created by Ben Johnson on 10/3/15.
+ * Created by uberx on 10/16/15.
  */
-
-public class Person extends RealmObject {
-
-    @PrimaryKey
+public class PersonPOJO {
     private String id;
     private String name;
     private String source;
-    private RealmList<Note> notes;
+    private List<NotePOJO> notes;
     private Date lastPrayed;
     private boolean favorite;
     private boolean ignored;
     private boolean prayed;
 
-    public Person() {
-    }
-
-    public Person(String id, String name, String source, RealmList<Note> notes, Date lastPrayed, boolean favorite, boolean ignored, boolean prayed) {
+    public PersonPOJO(String id, String name, String source, List<NotePOJO> notes, Date lastPrayed, boolean favorite, boolean ignored, boolean prayed) {
         this.id = id;
         this.name = name;
         this.source = source;
@@ -60,11 +51,11 @@ public class Person extends RealmObject {
         this.source = source;
     }
 
-    public RealmList<Note> getNotes() {
+    public List<NotePOJO> getNotes() {
         return notes;
     }
 
-    public void setNotes(RealmList<Note> notes) {
+    public void setNotes(List<NotePOJO> notes) {
         this.notes = notes;
     }
 
@@ -98,5 +89,10 @@ public class Person extends RealmObject {
 
     public void setPrayed(boolean prayed) {
         this.prayed = prayed;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

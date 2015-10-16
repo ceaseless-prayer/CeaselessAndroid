@@ -10,8 +10,8 @@
         android:defaultValue="@string/default_notification_time"
         android:dialogTitle="@string/reminder_time_picker_dialog_title"
         android:key="notificationTime"
-        android:negativeButtonText="@string/reminder_time_picker_cancel"
-        android:positiveButtonText="@string/reminder_time_picker_ok"
+        android:negativeButtonText="@android:string/cancel"
+        android:positiveButtonText="@android:string/ok"
         android:title="@string/reminder_time_picker_title"
         android:widgetLayout="@layout/notification_time_display" />
 </PreferenceScreen>

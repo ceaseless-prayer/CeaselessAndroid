@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/activity_vertical_margin"
     android:layout_marginLeft="@dimen/activity_horizontal_margin"
     android:layout_marginRight="@dimen/activity_horizontal_margin"
     android:layout_marginTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context="org.theotech.ceaselessandroid.fragment.AddNoteFragment">
+    android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/note_title"
+    <org.theotech.ceaselessandroid.view.PersonsCompletionView
+        android:id="@+id/note_tags"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:hint="@string/note_title_hint"
-        android:inputType="text|textCapSentences"
-        android:singleLine="true" />
+        android:hint="@string/note_tag_hint"
+        android:lines="2" />
 
     <LinearLayout
         android:id="@+id/note_buttons"
@@ -27,6 +24,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/cancel_note"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="20dp"
@@ -41,6 +39,7 @@
             android:text="@android:string/cancel" />
 
         <Button
+            android:id="@+id/save_note"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_marginLeft="20dp"
@@ -52,7 +51,7 @@
             android:shadowDx="@integer/button_default_shadow_dx"
             android:shadowDy="@integer/button_default_shadow_dy"
             android:shadowRadius="@integer/button_default_shadow_radius"
-            android:text="@android:string/ok" />
+            android:text="@string/save" />
 
     </LinearLayout>
 
@@ -61,7 +60,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/note_buttons"
-        android:layout_below="@id/note_title"
+        android:layout_below="@id/note_tags"
         android:gravity="top|start"
         android:hint="@string/note_text_hint"
         android:inputType="text|textCapSentences|textMultiLine" />

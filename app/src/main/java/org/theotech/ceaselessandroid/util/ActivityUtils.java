@@ -110,7 +110,7 @@ public class ActivityUtils {
         } else if (fragmentName.equals(context.getString(R.string.nav_contact_us))) {
             return R.id.nav_contact_us;
         } else if (fragmentName.equals(context.getString(R.string.person_add_note))) {
-            return R.id.nav_people;
+            return R.id.nav_journal;
         }
         return null;
     }

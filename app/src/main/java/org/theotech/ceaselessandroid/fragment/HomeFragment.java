@@ -10,6 +10,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -23,14 +25,14 @@ import org.theotech.ceaselessandroid.image.ImageURLServiceImpl;
 import org.theotech.ceaselessandroid.person.AlreadyPrayedForAllContactsException;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
-import org.theotech.ceaselessandroid.realm.Person;
+import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.scripture.ScriptureService;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 import org.theotech.ceaselessandroid.transformer.ZoomOutPageTransformer;
 import org.theotech.ceaselessandroid.util.Constants;
-import org.theotech.ceaselessandroid.util.RealmUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -61,6 +63,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey(Constants.USE_CACHE_BUNDLE_ARG)) {
             this.useCache = bundle.getBoolean(Constants.USE_CACHE_BUNDLE_ARG);
@@ -100,18 +103,21 @@ public class HomeFragment extends Fragment {
         // people to pray for
         List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
         if (!useCache || personIds == null) {
-            List<Person> persons = null;
+            List<PersonPOJO> personPOJOs = null;
             try {
-                persons = personManager.getNextPeopleToPrayFor(Constants.NUM_PERSONS);
+                personPOJOs = personManager.getNextPeopleToPrayFor(Constants.NUM_PERSONS);
             } catch (AlreadyPrayedForAllContactsException e) {
                 // TODO: Celebrate!
                 try {
-                    persons = personManager.getNextPeopleToPrayFor(Constants.NUM_PERSONS);
+                    personPOJOs = personManager.getNextPeopleToPrayFor(Constants.NUM_PERSONS);
                 } catch (AlreadyPrayedForAllContactsException e1) {
                     // TODO: Something is really wrong if this happens, not sure what to do here
                 }
             }
-            personIds = RealmUtils.convertToIds(persons);
+            personIds = new ArrayList<>();
+            for (PersonPOJO personPOJO : personPOJOs) {
+                personIds.add(personPOJO.getId());
+            }
             cacheManager.cachePersonIdsToPrayFor(personIds);
             handler.post(runPager);
         }
@@ -124,7 +130,7 @@ public class HomeFragment extends Fragment {
                 viewPager.setAdapter(new FragmentStatePagerAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager()) {
                     @Override
                     public android.support.v4.app.Fragment getItem(int position) {
-                        android.support.v4.app.Fragment fragment = null;
+                        android.support.v4.app.Fragment fragment;
                         Bundle bundle = new Bundle();
                         if (position == 0) {
                             fragment = new VerseCardFragment();
@@ -168,6 +174,18 @@ public class HomeFragment extends Fragment {
     public void onPause() {
         super.onPause();
         handler.removeCallbacks(runPager);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        handler.post(runPager);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     private class ImageFetcher extends AsyncTask<String, Void, String> {
