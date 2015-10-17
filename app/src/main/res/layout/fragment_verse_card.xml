@@ -66,9 +66,9 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_below="@id/verse_title_and_share"
-                    android:layout_marginBottom="@dimen/verse_text_padding"
                     android:layout_marginLeft="@dimen/verse_text_padding"
-                    android:layout_marginRight="@dimen/verse_text_padding">
+                    android:layout_marginRight="@dimen/verse_text_padding"
+                    android:layout_marginTop="@dimen/verse_text_padding">
 
                     <TextView
                         android:id="@+id/verse_text"
