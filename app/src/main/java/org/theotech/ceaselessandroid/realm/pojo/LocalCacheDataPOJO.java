@@ -1,11 +1,12 @@
 package org.theotech.ceaselessandroid.realm.pojo;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by uberx on 10/16/15.
  */
-public class LocalCacheDataPOJO {
+public class LocalCacheDataPOJO implements Serializable {
     private String creationDate;
     private String scriptureCitation;
     private String scriptureText;

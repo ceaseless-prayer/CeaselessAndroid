@@ -13,6 +13,8 @@ import butterknife.ButterKnife;
 
 public class HelpFragment extends Fragment {
 
+    private FragmentStateListener mListener;
+
     public HelpFragment() {
         // Required empty public constructor
     }
@@ -21,6 +23,13 @@ public class HelpFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        // fragment listener
+        try {
+            mListener = (FragmentStateListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString() + " must implement FragmentStateListener");
+        }
+        mListener.notify(new FragmentState(getString(R.string.nav_help)));
     }
 
     @Override

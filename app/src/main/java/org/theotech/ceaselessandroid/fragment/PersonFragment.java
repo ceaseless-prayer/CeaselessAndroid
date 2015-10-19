@@ -32,9 +32,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class PersonFragment extends Fragment {
     private static final String TAG = PersonFragment.class.getSimpleName();
 

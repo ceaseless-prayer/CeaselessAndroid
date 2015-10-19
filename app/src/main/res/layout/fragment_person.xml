@@ -15,78 +15,76 @@
         card_view:cardCornerRadius="@dimen/card_corner_radius"
         card_view:cardElevation="@dimen/card_elevation">
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/person_name"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:textColor="@color/titleColor"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="@dimen/card_separator_height"
+                android:layout_marginLeft="@dimen/card_separator_margin"
+                android:layout_marginRight="@dimen/card_separator_margin"
+                android:background="@color/lightGray" />
 
-                <TextView
-                    android:id="@+id/person_name"
-                    android:layout_width="fill_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center"
-                    android:textColor="@color/titleColor"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/person_image"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin" />
+
+            <!-- TODO: Remove after verifying that this is not needed
+            <TextView
+                android:id="@+id/person_notes_title"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:text="@string/person_notes"
+                android:textColor="@color/titleColor"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            -->
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/card_separator_height"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/card_separator_margin"
+                android:layout_marginRight="@dimen/card_separator_margin"
+                android:background="@color/lightGray" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin">
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/card_separator_height"
-                    android:layout_marginLeft="@dimen/card_separator_margin"
-                    android:layout_marginRight="@dimen/card_separator_margin"
-                    android:background="@color/lightGray" />
-
-                <ImageView
-                    android:id="@+id/person_image"
+                    android:id="@+id/person_notes_list"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginTop="@dimen/activity_vertical_margin" />
+                    android:orientation="vertical" />
 
-                <!-- TODO: Remove after verifying that this is not needed
-                <TextView
-                    android:id="@+id/person_notes_title"
-                    android:layout_width="fill_parent"
-                    android:layout_height="30dp"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:gravity="center"
-                    android:text="@string/person_notes"
-                    android:textColor="@color/titleColor"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-                -->
+            </ScrollView>
 
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="@dimen/card_separator_height"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginLeft="@dimen/card_separator_margin"
-                    android:layout_marginRight="@dimen/card_separator_margin"
-                    android:background="@color/lightGray" />
+            <ListView
+                android:id="@+id/empty_notes"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
 
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginRight="@dimen/activity_horizontal_margin">
-
-                    <LinearLayout
-                        android:id="@+id/person_notes_list"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
-
-                </ScrollView>
-
-                <ListView
-                    android:id="@+id/empty_notes"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
+        </LinearLayout>
 
     </android.support.v7.widget.CardView>
 

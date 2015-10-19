@@ -13,11 +13,24 @@ import butterknife.ButterKnife;
 
 public class JournalFragment extends Fragment {
 
+    private FragmentStateListener mListener;
 
     public JournalFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        // fragment listener
+        try {
+            mListener = (FragmentStateListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString() + " must implement FragmentStateListener");
+        }
+        mListener.notify(new FragmentState(getString(R.string.nav_journal)));
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,6 +44,5 @@ public class JournalFragment extends Fragment {
 
         return view;
     }
-
 
 }

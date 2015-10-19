@@ -15,6 +15,8 @@ import org.theotech.ceaselessandroid.notification.DailyNotificationReceiver;
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = SettingsFragment.class.getSimpleName();
 
+    private FragmentStateListener mListener;
+
     public SettingsFragment() {
         // Required empty public constructor
     }
@@ -24,6 +26,13 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
         setHasOptionsMenu(false);
+        // fragment listener
+        try {
+            mListener = (FragmentStateListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString() + " must implement FragmentStateListener");
+        }
+        mListener.notify(new FragmentState(getString(R.string.nav_settings)));
     }
 
     @Override

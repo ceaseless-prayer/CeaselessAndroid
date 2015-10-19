@@ -51,6 +51,7 @@ public class HomeFragment extends Fragment {
     private Runnable runPager;
     private boolean mCreated = false;
     private boolean useCache;
+    private FragmentStateListener mListener;
     private CacheManager cacheManager = null;
     private ImageURLService imageService = null;
     private ScriptureService scriptureService = null;
@@ -64,12 +65,23 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        // fragment listener
+        try {
+            mListener = (FragmentStateListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString() + " must implement FragmentStateListener");
+        }
+        Bundle b = new Bundle();
+        b.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, 0);
+        mListener.notify(new FragmentState(getString(R.string.nav_home), b));
+        // use cache for easter egg
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey(Constants.USE_CACHE_BUNDLE_ARG)) {
             this.useCache = bundle.getBoolean(Constants.USE_CACHE_BUNDLE_ARG);
         } else {
             this.useCache = true;
         }
+        //
 
         cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
         imageService = ImageURLServiceImpl.getInstance();
@@ -152,8 +164,32 @@ public class HomeFragment extends Fragment {
                     }
                 });
                 viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+                viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                    }
+
+                    @Override
+                    public void onPageSelected(int position) {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
+                        FragmentState fragmentState = new FragmentState(getString(R.string.nav_home), bundle);
+                        mListener.notify(fragmentState);
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+
+                    }
+                });
                 // wire up the indicator
                 indicator.setViewPager(viewPager);
+                // change the page if required
+                Bundle bundle = getArguments();
+                if (bundle != null && bundle.containsKey(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG)) {
+                    viewPager.setCurrentItem(bundle.getInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG));
+                }
             }
         };
         if (mCreated) {
@@ -166,7 +202,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (runPager != null) handler.post(runPager);
+        if (runPager != null) {
+            handler.post(runPager);
+        }
         mCreated = true;
     }
 

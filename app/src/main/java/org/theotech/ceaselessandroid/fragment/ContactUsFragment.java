@@ -26,12 +26,12 @@ public class ContactUsFragment extends Fragment {
 
     @Bind(R.id.contact_us_button)
     TextView contactUsButton;
-
     @Bind(R.id.fb_image)
     ImageView fbImage;
-
     @Bind(R.id.twitter_image)
     ImageView twitterImage;
+
+    private FragmentStateListener mListener;
 
     public ContactUsFragment() {
         // Required empty public constructor
@@ -41,6 +41,13 @@ public class ContactUsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        // fragment listener
+        try {
+            mListener = (FragmentStateListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString() + " must implement FragmentStateListener");
+        }
+        mListener.notify(new FragmentState(getString(R.string.nav_contact_us)));
     }
 
     @Override

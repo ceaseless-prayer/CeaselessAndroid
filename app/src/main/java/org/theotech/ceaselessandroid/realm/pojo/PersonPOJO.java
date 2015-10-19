@@ -1,12 +1,13 @@
 package org.theotech.ceaselessandroid.realm.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 /**
  * Created by uberx on 10/16/15.
  */
-public class PersonPOJO {
+public class PersonPOJO implements Serializable {
     private String id;
     private String name;
     private String source;

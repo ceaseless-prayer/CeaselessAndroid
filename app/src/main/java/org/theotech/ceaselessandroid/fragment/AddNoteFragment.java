@@ -4,6 +4,7 @@ package org.theotech.ceaselessandroid.fragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,11 @@ import android.widget.EditText;
 import com.tokenautocomplete.TokenCompleteTextView;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.activity.MainActivity;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
+import org.theotech.ceaselessandroid.util.ActivityUtils;
 import org.theotech.ceaselessandroid.view.PersonsCompletionView;
 
 import java.util.ArrayList;
@@ -92,7 +95,10 @@ public class AddNoteFragment extends Fragment {
                 for (PersonPOJO taggedPerson : taggedPeople) {
                     personManager.addNote(taggedPerson.getId(), null, noteText.getText().toString());
                 }
-                getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeFragment()).commit();
+                ((MainActivity) getActivity()).getFragmentBackStackManager().pop();
+                ActivityUtils.loadFragment(getActivity(), getFragmentManager(),
+                        (NavigationView) getActivity().findViewById(R.id.nav_view), R.id.nav_home,
+                        getArguments());
             }
         });
 

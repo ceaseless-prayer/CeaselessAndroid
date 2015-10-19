@@ -3,7 +3,6 @@ package org.theotech.ceaselessandroid.util;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
@@ -14,8 +13,10 @@ import android.support.design.widget.NavigationView;
 import android.util.Log;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.activity.MainActivity;
 import org.theotech.ceaselessandroid.fragment.AddNoteFragment;
 import org.theotech.ceaselessandroid.fragment.ContactUsFragment;
+import org.theotech.ceaselessandroid.fragment.FragmentState;
 import org.theotech.ceaselessandroid.fragment.HelpFragment;
 import org.theotech.ceaselessandroid.fragment.HomeFragment;
 import org.theotech.ceaselessandroid.fragment.JournalFragment;
@@ -28,30 +29,35 @@ import org.theotech.ceaselessandroid.fragment.SettingsFragment;
 public class ActivityUtils {
     private static final String TAG = ActivityUtils.class.getSimpleName();
 
-    public static void loadFragment(Activity activity, FragmentManager fragmentManager, NavigationView navigation, int resourceId) {
-        loadFragment(activity, fragmentManager, null, navigation, resourceId);
+    public static void loadFragment(Activity activity, FragmentManager fragmentManager, NavigationView navigation,
+                                    int resourceId) {
+        loadFragment(activity, fragmentManager, navigation, resourceId, (Bundle) null);
     }
 
-    public static void loadFragment(Activity activity, FragmentManager fragmentManager, NavigationView navigation, int resourceId, boolean addToBackStack) {
-        loadFragment(activity, fragmentManager, null, navigation, resourceId, addToBackStack);
+    public static void loadFragment(Activity activity, FragmentManager fragmentManager, NavigationView navigation,
+                                    int resourceId, Bundle fragmentBundle) {
+        loadFragment(activity, fragmentManager, navigation, resourceId, fragmentBundle, null);
     }
 
-    public static void loadFragment(Activity activity, FragmentManager fragmentManager, Bundle bundle, NavigationView navigation, int resourceId) {
-        loadFragment(activity, fragmentManager, bundle, navigation, resourceId, true);
+    public static void loadFragment(Activity activity, FragmentManager fragmentManager, NavigationView navigation,
+                                    int resourceId, FragmentState backStackInfo) {
+        loadFragment(activity, fragmentManager, navigation, resourceId, null, backStackInfo);
     }
 
-    public static void loadFragment(Activity activity, FragmentManager fragmentManager, Bundle bundle, NavigationView navigation, int resourceId, boolean addToBackStack) {
+    public static void loadFragment(Activity activity, FragmentManager fragmentManager, NavigationView navigation,
+                                    int resourceId, Bundle fragmentBundle, FragmentState backStackInfo) {
+        if (backStackInfo != null) {
+            ((MainActivity) activity).getFragmentBackStackManager().add(backStackInfo);
+        }
         Fragment fragment = getFragmentForResourceId(resourceId);
         String fragmentTag = getFragmentTagForResourceId(activity, resourceId);
         Fragment fragmentForTag = fragmentManager.findFragmentByTag(fragmentTag);
         if (fragment != null && (fragmentForTag == null || !fragmentForTag.isVisible())) {
-            fragment.setArguments(bundle);
-            FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.fragment, fragment, fragmentTag);
-            if (addToBackStack) {
-                transaction.addToBackStack(activity.getTitle().toString());
+            fragment.setArguments(fragmentBundle);
+            fragmentManager.beginTransaction().replace(R.id.fragment, fragment, fragmentTag).commit();
+            if (navigation != null) {
+                navigation.setCheckedItem(getNavigationItemIdForFragmentName(activity, fragmentTag));
             }
-            transaction.commit();
-            navigation.setCheckedItem(getNavigationItemIdForFragmentName(activity, fragmentTag));
             activity.setTitle(fragmentTag);
         } else {
             Log.d(TAG, String.format("Required fragment %s already visible, not reloading", fragmentTag));
@@ -71,11 +77,14 @@ public class ActivityUtils {
             return new HelpFragment();
         } else if (resourceId == R.id.nav_contact_us) {
             return new ContactUsFragment();
+        } else if (resourceId == R.id.nav_rate_this_app) {
+            return new HomeFragment();
         } else if (resourceId == R.id.person_add_note) {
             return new AddNoteFragment();
         }
         return null;
     }
+
 
     private static String getFragmentTagForResourceId(Context context, int resourceId) {
         if (resourceId == R.id.nav_home) {
@@ -90,6 +99,8 @@ public class ActivityUtils {
             return context.getString(R.string.nav_help);
         } else if (resourceId == R.id.nav_contact_us) {
             return context.getString(R.string.nav_contact_us);
+        } else if (resourceId == R.id.nav_rate_this_app) {
+            return context.getString(R.string.nav_rate_this_app);
         } else if (resourceId == R.id.person_add_note) {
             return context.getString(R.string.person_add_note);
         }
@@ -109,6 +120,8 @@ public class ActivityUtils {
             return R.id.nav_help;
         } else if (fragmentName.equals(context.getString(R.string.nav_contact_us))) {
             return R.id.nav_contact_us;
+        } else if (fragmentName.equals(context.getString(R.string.nav_rate_this_app))) {
+            return R.id.nav_rate_this_app;
         } else if (fragmentName.equals(context.getString(R.string.person_add_note))) {
             return R.id.nav_journal;
         }
