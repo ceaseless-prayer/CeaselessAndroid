@@ -116,6 +116,21 @@ public class AddNoteFragment extends Fragment {
                         getArguments());
             }
         });
+        cancelNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // hide keyboard if it's open
+                View view = getActivity().getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                }
+                ((MainActivity) getActivity()).getFragmentBackStackManager().pop();
+                ActivityUtils.loadFragment(getActivity(), getFragmentManager(),
+                        (NavigationView) getActivity().findViewById(R.id.nav_view), R.id.nav_home,
+                        getArguments());
+            }
+        });
 
         return view;
     }
