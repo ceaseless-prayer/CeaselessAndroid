@@ -45,7 +45,7 @@ public class ScriptureServiceImpl implements ScriptureService {
 
     protected ScriptureReference getVerseOfTheDay() {
         // HTTP Get
-        InputStream in = null;
+        InputStream in;
         try {
             URL url = new URL(HTTP_API_VOTD + "?language=" + Locale.getDefault().toString());
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
@@ -53,14 +53,6 @@ public class ScriptureServiceImpl implements ScriptureService {
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
             return null;
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    Log.w(TAG, Log.getStackTraceString(e));
-                }
-            }
         }
 
         String json = null;
@@ -106,7 +98,7 @@ public class ScriptureServiceImpl implements ScriptureService {
 
     private ScriptureData getScriptureData(ScriptureReference ref) {
         // HTTP Post
-        InputStream in = null;
+        InputStream in;
         try {
             JSONObject json = new JSONObject(ref.getJson());
             json.put("language", Locale.getDefault().toString());
@@ -126,14 +118,6 @@ public class ScriptureServiceImpl implements ScriptureService {
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
             return null;
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    Log.w(TAG, Log.getStackTraceString(e));
-                }
-            }
         }
 
         String json = null;
