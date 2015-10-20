@@ -17,10 +17,13 @@ import com.tokenautocomplete.TokenCompleteTextView;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.activity.MainActivity;
+import org.theotech.ceaselessandroid.cache.CacheManager;
+import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.util.ActivityUtils;
+import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.view.PersonsCompletionView;
 
 import java.util.ArrayList;
@@ -42,6 +45,7 @@ public class AddNoteFragment extends Fragment {
 
     private List<PersonPOJO> taggedPeople;
     private PersonManager personManager = null;
+    private CacheManager cacheManager = null;
 
     public AddNoteFragment() {
         // Required empty public constructor
@@ -54,6 +58,7 @@ public class AddNoteFragment extends Fragment {
 
         taggedPeople = new ArrayList<>();
         personManager = PersonManagerImpl.getInstance(getActivity());
+        cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
     }
 
     @Override
@@ -65,6 +70,16 @@ public class AddNoteFragment extends Fragment {
         // create view and bind
         View view = inflater.inflate(R.layout.fragment_add_note, container, false);
         ButterKnife.bind(this, view);
+
+        // add current person to the list of taggedPeople (if we're on a page that shows a person)
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG)) {
+            int homeViewPageIndex = bundle.getInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG);
+            if (homeViewPageIndex > 0 && homeViewPageIndex < Constants.NUM_PERSONS + 1) {
+                String personId = cacheManager.getCachedPersonIdsToPrayFor().get(homeViewPageIndex - 1);
+                noteTags.addObject(personManager.getPerson(personId));
+            }
+        }
 
         // wire the note tags
         List<PersonPOJO> allPersonPOJOs = personManager.getAllPeople();
