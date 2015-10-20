@@ -44,23 +44,29 @@ public class ScriptureServiceImpl implements ScriptureService {
     }
 
     protected ScriptureReference getVerseOfTheDay() {
-
-        InputStream in = null;
-
         // HTTP Get
+        InputStream in = null;
         try {
             URL url = new URL(HTTP_API_VOTD + "?language=" + Locale.getDefault().toString());
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             in = new BufferedInputStream(urlConnection.getInputStream());
         } catch (Exception e) {
-            Log.e(TAG, "ERROR", e);
-            Log.e(TAG, e.getStackTrace().toString());
+            Log.e(TAG, Log.getStackTraceString(e));
             return null;
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    Log.w(TAG, Log.getStackTraceString(e));
+                }
+            }
         }
 
         String json = null;
+        BufferedReader reader = null;
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            reader = new BufferedReader(new InputStreamReader(in));
             StringBuilder sb = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
@@ -68,15 +74,22 @@ public class ScriptureServiceImpl implements ScriptureService {
             }
             json = sb.toString();
         } catch (IOException e) {
-            Log.e(TAG, e.getMessage());
-            Log.e(TAG, e.getStackTrace().toString());
+            Log.e(TAG, Log.getStackTraceString(e));
             return null;
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    Log.w(TAG, Log.getStackTraceString(e));
+                }
+            }
         }
-        ScriptureReference ref = null;
 
         // parse JSON response
+        ScriptureReference ref;
         try {
-            Log.d(TAG, "json = " + json.toString());
+            Log.d(TAG, "json = " + json);
             JSONObject obj = new JSONObject(json);
             String book = obj.getString("book");
             String chapter = obj.getString("chapter");
@@ -84,8 +97,7 @@ public class ScriptureServiceImpl implements ScriptureService {
             String verse_end = obj.getString("verse_end");
             ref = new ScriptureReference(book, chapter, verse_start, verse_end, obj.toString());
         } catch (JSONException e) {
-            Log.e(TAG, e.getMessage());
-            Log.e(TAG, e.getStackTrace().toString());
+            Log.e(TAG, Log.getStackTraceString(e));
             return null;
         }
 
@@ -93,14 +105,12 @@ public class ScriptureServiceImpl implements ScriptureService {
     }
 
     private ScriptureData getScriptureData(ScriptureReference ref) {
-
-        InputStream in = null;
-
         // HTTP Post
+        InputStream in = null;
         try {
             JSONObject json = new JSONObject(ref.getJson());
             json.put("language", Locale.getDefault().toString());
-            Log.d("LANG", json.toString());
+            Log.d(TAG, json.toString());
             byte[] postDataBytes = json.toString().getBytes("UTF-8");
             URL url = new URL(HTTP_API_GET_SCRIPTURE);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -114,14 +124,22 @@ public class ScriptureServiceImpl implements ScriptureService {
             conn.getOutputStream().write(postDataBytes);
             in = new BufferedInputStream(conn.getInputStream());
         } catch (Exception e) {
-            Log.e(TAG, e.getMessage());
-            Log.e(TAG, e.getStackTrace().toString());
+            Log.e(TAG, Log.getStackTraceString(e));
             return null;
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    Log.w(TAG, Log.getStackTraceString(e));
+                }
+            }
         }
 
         String json = null;
+        BufferedReader reader = null;
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            reader = new BufferedReader(new InputStreamReader(in));
             StringBuilder sb = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
@@ -129,21 +147,27 @@ public class ScriptureServiceImpl implements ScriptureService {
             }
             json = sb.toString();
         } catch (IOException e) {
-            Log.e(TAG, e.getMessage());
-            Log.e(TAG, e.getStackTrace().toString());
+            Log.e(TAG, Log.getStackTraceString(e));
             return null;
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    Log.w(TAG, Log.getStackTraceString(e));
+                }
+            }
         }
 
-        ScriptureData data = null;
-
         // Parse JSON response
+        ScriptureData data;
         try {
             JSONObject obj = new JSONObject(json);
             String text = obj.getString("text");
             String citation = obj.getString("citation");
             data = new ScriptureData(text, citation, json);
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.e(TAG, Log.getStackTraceString(e));
             return null;
         }
 
