@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
 
     @Bind(R.id.home_view)
     ViewPager viewPager;
-    @Bind(R.id.indicator)
+    @Bind(R.id.home_indicator)
     LinePageIndicator indicator;
 
     private Runnable runPager;
