@@ -46,13 +46,13 @@ public class ActivityUtils {
 
     public static void loadFragment(Activity activity, FragmentManager fragmentManager, NavigationView navigation,
                                     int resourceId, Bundle fragmentBundle, FragmentState backStackInfo) {
-        if (backStackInfo != null) {
-            ((MainActivity) activity).getFragmentBackStackManager().add(backStackInfo);
-        }
         Fragment fragment = getFragmentForResourceId(resourceId);
         String fragmentTag = getFragmentTagForResourceId(activity, resourceId);
         Fragment fragmentForTag = fragmentManager.findFragmentByTag(fragmentTag);
         if (fragment != null && (fragmentForTag == null || !fragmentForTag.isVisible())) {
+            if (backStackInfo != null) {
+                ((MainActivity) activity).getFragmentBackStackManager().add(backStackInfo);
+            }
             fragment.setArguments(fragmentBundle);
             fragmentManager.beginTransaction().replace(R.id.fragment, fragment, fragmentTag).commit();
             if (navigation != null) {
