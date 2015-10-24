@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // load the main fragment
         getFragmentManager().beginTransaction().add(R.id.fragment, new HomeFragment(),
-                getString(R.string.app_name)).commit();
+                getString(R.string.nav_home)).commit();
 
         // rate my app dialog
         AppRater.app_launched(this);
