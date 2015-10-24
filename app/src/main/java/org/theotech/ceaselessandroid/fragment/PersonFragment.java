@@ -79,38 +79,50 @@ public class PersonFragment extends Fragment {
         // create view and bind
         View view = inflater.inflate(R.layout.fragment_person, container, false);
         ButterKnife.bind(this, view);
-        int index = getArguments().getInt(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG);
-        // people to pray for
-        List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
-        if (personIds != null) {
-            String personId = personIds.get(index);
-            PersonPOJO personPOJO = personManager.getPerson(personId);
-            Uri personPhotoUri = ActivityUtils.getContactPhotoUri(getActivity().getContentResolver(), personPOJO.getId(), true);
-
-            personName.setText(personPOJO.getName());
-            Picasso.with(getActivity()).load(personPhotoUri).placeholder(R.drawable.placeholder_user).fit().centerInside().into(personImage);
-
-            List<NotePOJO> notePOJOs = personPOJO.getNotes();
-            Collections.sort(notePOJOs, new Comparator<NotePOJO>() { // sort by latest first
-                @Override
-                public int compare(NotePOJO lhs, NotePOJO rhs) {
-                    return -1 * lhs.getLastUpdatedDate().compareTo(rhs.getLastUpdatedDate());
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            if (bundle.containsKey(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG)) {
+                int index = bundle.getInt(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG);
+                // people to pray for
+                List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
+                if (personIds != null) {
+                    String personId = personIds.get(index);
+                    displayPerson(view, personId);
                 }
-            });
-            if (notePOJOs.isEmpty()) {
-                ListView emptyNotes = (ListView) view.findViewById(R.id.empty_notes);
-                emptyNotes.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.empty_notes_list_item, new String[]{getString(R.string.empty_notes)}));
-            } else {
-                for (int i = 0; i < notePOJOs.size(); i++) {
-                    View row = getActivity().getLayoutInflater().inflate(R.layout.person_notes_list_item, null);
-                    TextView noteDate = (TextView) row.findViewById(R.id.note_date);
-                    TextView noteText = (TextView) row.findViewById(R.id.note_text);
-                    noteDate.setText(notePOJOs.get(i).getLastUpdatedDate().toString());
-                    noteText.setText(notePOJOs.get(i).getText());
-                    notes.addView(row);
-                }
+            } else if (bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG)) {
+                String personId = bundle.getString(Constants.PERSON_ID_BUNDLE_ARG);
+                displayPerson(view, personId);
             }
         }
         return view;
+    }
+
+    private void displayPerson(View view, String personId) {
+        PersonPOJO personPOJO = personManager.getPerson(personId);
+        Uri personPhotoUri = ActivityUtils.getContactPhotoUri(getActivity().getContentResolver(), personPOJO.getId(), true);
+
+        personName.setText(personPOJO.getName());
+        Picasso.with(getActivity()).load(personPhotoUri).placeholder(R.drawable.placeholder_user).fit().centerInside().into(personImage);
+
+        List<NotePOJO> notePOJOs = personPOJO.getNotes();
+        Collections.sort(notePOJOs, new Comparator<NotePOJO>() { // sort by latest first
+            @Override
+            public int compare(NotePOJO lhs, NotePOJO rhs) {
+                return -1 * lhs.getLastUpdatedDate().compareTo(rhs.getLastUpdatedDate());
+            }
+        });
+        if (notePOJOs.isEmpty()) {
+            ListView emptyNotes = (ListView) view.findViewById(R.id.empty_notes);
+            emptyNotes.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.empty_notes_list_item, new String[]{getString(R.string.empty_notes)}));
+        } else {
+            for (int i = 0; i < notePOJOs.size(); i++) {
+                View row = getActivity().getLayoutInflater().inflate(R.layout.person_notes_list_item, null);
+                TextView noteDate = (TextView) row.findViewById(R.id.note_date);
+                TextView noteText = (TextView) row.findViewById(R.id.note_text);
+                noteDate.setText(notePOJOs.get(i).getLastUpdatedDate().toString());
+                noteText.setText(notePOJOs.get(i).getText());
+                notes.addView(row);
+            }
+        }
     }
 }
