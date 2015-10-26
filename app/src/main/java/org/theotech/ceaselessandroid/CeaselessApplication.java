@@ -3,6 +3,8 @@ package org.theotech.ceaselessandroid;
 import android.app.Application;
 
 import com.crashlytics.android.Crashlytics;
+import com.joanzapata.iconify.Iconify;
+import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
@@ -26,5 +28,7 @@ public class CeaselessApplication extends Application {
         Picasso built = builder.build();
         built.setIndicatorsEnabled(true);
         Picasso.setSingletonInstance(built);
+
+        Iconify.with(new FontAwesomeModule());
     }
 }

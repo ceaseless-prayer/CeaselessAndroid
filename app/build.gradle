@@ -58,4 +58,5 @@ dependencies {
     }
     compile 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
     compile "com.splitwise:tokenautocomplete:2.0.2@aar"
+    compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.0'
 }
