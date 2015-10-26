@@ -32,6 +32,7 @@ public class ProgressCardSupportFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
         personManager = PersonManagerImpl.getInstance(getActivity());
     }

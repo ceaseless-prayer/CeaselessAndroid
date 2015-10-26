@@ -17,6 +17,7 @@ import io.realm.RealmList;
  * Created by uberx on 10/11/2015.
  */
 public class RealmUtils {
+
     public static List<String> convert(RealmList<RealmString> list) {
         List<String> result = new ArrayList<>();
         for (RealmString item : list) {

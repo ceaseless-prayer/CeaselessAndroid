@@ -37,6 +37,7 @@ public class VerseCardSupportFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
         cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
     }

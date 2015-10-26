@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -20,6 +21,8 @@ import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.util.CommonUtils;
+import org.theotech.ceaselessandroid.util.Constants;
+import org.theotech.ceaselessandroid.util.FragmentUtils;
 
 import java.util.List;
 
@@ -41,6 +44,7 @@ public class PeopleActiveSupportFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
 
         personManager = PersonManagerImpl.getInstance(getActivity());
     }
@@ -58,6 +62,15 @@ public class PeopleActiveSupportFragment extends Fragment {
         // populate the list of active people
         final List<PersonPOJO> activePersons = personManager.getActivePeople();
         peopleActive.setAdapter(new ActivePeopleArrayAdapter(getActivity(), activePersons));
+        peopleActive.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.PERSON_ID_BUNDLE_ARG, activePersons.get(position).getId());
+                FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null,
+                        R.id.person_card, bundle, new FragmentState(getString(R.string.nav_people)));
+            }
+        });
 
         return view;
     }

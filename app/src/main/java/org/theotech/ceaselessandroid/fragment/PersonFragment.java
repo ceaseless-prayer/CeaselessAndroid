@@ -1,8 +1,8 @@
 package org.theotech.ceaselessandroid.fragment;
 
 
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +11,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.theotech.ceaselessandroid.R;
-import org.theotech.ceaselessandroid.cache.CacheManager;
-import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 
-import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PersonSupportFragment extends Fragment {
-    private static final String TAG = PersonSupportFragment.class.getSimpleName();
+public class PersonFragment extends Fragment {
 
     @Bind(R.id.person_name)
     TextView personName;
@@ -33,20 +28,10 @@ public class PersonSupportFragment extends Fragment {
     @Bind(R.id.person_notes_list)
     LinearLayout notes;
 
-    private CacheManager cacheManager;
     private PersonManager personManager;
 
-    public PersonSupportFragment() {
+    public PersonFragment() {
         // Required empty public constructor
-    }
-
-    public static PersonSupportFragment newInstance(int sectionNumber) {
-        PersonSupportFragment fragment = new PersonSupportFragment();
-        Bundle args = new Bundle();
-        args.putInt(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG, sectionNumber);
-        fragment.setArguments(args);
-
-        return fragment;
     }
 
     @Override
@@ -54,7 +39,6 @@ public class PersonSupportFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
         personManager = PersonManagerImpl.getInstance(getActivity());
     }
 
@@ -65,16 +49,12 @@ public class PersonSupportFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_support_person, container, false);
         ButterKnife.bind(this, view);
         Bundle bundle = getArguments();
-        if (bundle != null && bundle.containsKey(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG)) {
-            int index = bundle.getInt(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG);
-            // people to pray for
-            List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
-            if (personIds != null) {
-                String personId = personIds.get(index);
-                CommonUtils.displayPerson(getActivity(), personManager, personName, personImage,
-                        notes, view, personId, getString(R.string.empty_notes));
-            }
+        if (bundle != null && bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG)) {
+            String personId = bundle.getString(Constants.PERSON_ID_BUNDLE_ARG);
+            CommonUtils.displayPerson(getActivity(), personManager, personName, personImage,
+                    notes, view, personId, getString(R.string.empty_notes));
         }
         return view;
     }
+
 }

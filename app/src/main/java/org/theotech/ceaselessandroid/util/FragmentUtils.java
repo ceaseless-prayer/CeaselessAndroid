@@ -17,6 +17,7 @@ import org.theotech.ceaselessandroid.fragment.HelpFragment;
 import org.theotech.ceaselessandroid.fragment.HomeFragment;
 import org.theotech.ceaselessandroid.fragment.JournalFragment;
 import org.theotech.ceaselessandroid.fragment.PeopleFragment;
+import org.theotech.ceaselessandroid.fragment.PersonFragment;
 import org.theotech.ceaselessandroid.fragment.SettingsFragment;
 
 /**
@@ -77,6 +78,8 @@ public class FragmentUtils {
             return new HomeFragment();
         } else if (resourceId == R.id.person_add_note) {
             return new AddNoteFragment();
+        } else if (resourceId == R.id.person_card) {
+            return new PersonFragment();
         }
         return null;
     }

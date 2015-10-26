@@ -27,6 +27,7 @@ import java.util.List;
  * Created by UberEcks on 10/26/2015.
  */
 public class CommonUtils {
+
     public static Uri getContactPhotoUri(ContentResolver cr, String contactId, boolean highRes) {
         Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long.parseLong(contactId));
         if (highRes) {
