@@ -16,7 +16,7 @@ import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ProgressCardFragment extends Fragment {
+public class ProgressCardSupportFragment extends Fragment {
 
     @Bind(R.id.prayed_for_text)
     TextView prayedFor;
@@ -25,7 +25,7 @@ public class ProgressCardFragment extends Fragment {
 
     private PersonManager personManager = null;
 
-    public ProgressCardFragment() {
+    public ProgressCardSupportFragment() {
         // Required empty public constructor
     }
 

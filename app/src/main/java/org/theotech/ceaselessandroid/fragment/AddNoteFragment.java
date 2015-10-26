@@ -22,8 +22,8 @@ import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
-import org.theotech.ceaselessandroid.util.ActivityUtils;
 import org.theotech.ceaselessandroid.util.Constants;
+import org.theotech.ceaselessandroid.util.FragmentUtils;
 import org.theotech.ceaselessandroid.view.PersonsCompletionView;
 
 import java.util.ArrayList;
@@ -82,7 +82,7 @@ public class AddNoteFragment extends Fragment {
         }
 
         // wire the note tags
-        List<PersonPOJO> allPersonPOJOs = personManager.getAllPeople();
+        List<PersonPOJO> allPersonPOJOs = personManager.getActivePeople();
         noteTags.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, allPersonPOJOs));
         noteTags.setTokenListener(new TokenCompleteTextView.TokenListener<PersonPOJO>() {
             @Override
@@ -111,7 +111,7 @@ public class AddNoteFragment extends Fragment {
                     personManager.addNote(taggedPerson.getId(), null, noteText.getText().toString());
                 }
                 ((MainActivity) getActivity()).getFragmentBackStackManager().pop();
-                ActivityUtils.loadFragment(getActivity(), getFragmentManager(),
+                FragmentUtils.loadFragment(getActivity(), getFragmentManager(),
                         (NavigationView) getActivity().findViewById(R.id.nav_view), R.id.nav_home,
                         getArguments());
             }
@@ -126,7 +126,7 @@ public class AddNoteFragment extends Fragment {
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
                 ((MainActivity) getActivity()).getFragmentBackStackManager().pop();
-                ActivityUtils.loadFragment(getActivity(), getFragmentManager(),
+                FragmentUtils.loadFragment(getActivity(), getFragmentManager(),
                         (NavigationView) getActivity().findViewById(R.id.nav_view), R.id.nav_home,
                         getArguments());
             }

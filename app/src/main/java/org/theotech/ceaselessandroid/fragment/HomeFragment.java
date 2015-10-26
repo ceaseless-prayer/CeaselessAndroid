@@ -144,11 +144,11 @@ public class HomeFragment extends Fragment {
                         android.support.v4.app.Fragment fragment;
                         Bundle bundle = new Bundle();
                         if (position == 0) {
-                            fragment = new VerseCardFragment();
+                            fragment = new VerseCardSupportFragment();
                         } else if (position == getCount() - 1) {
-                            fragment = new ProgressCardFragment();
+                            fragment = new ProgressCardSupportFragment();
                         } else {
-                            fragment = PersonFragment.newInstance(position - 1);
+                            fragment = PersonSupportFragment.newInstance(position - 1);
                             bundle.putInt(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG, position - 1);
                         }
                         bundle.putBoolean(Constants.USE_CACHE_BUNDLE_ARG, useCache);

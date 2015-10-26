@@ -25,9 +25,9 @@ public class PeopleFragment extends Fragment {
     ViewPager viewPager;
     @Bind(R.id.people_indicator)
     UnderlinePageIndicator indicator;
-    @Bind(R.id.people_active)
+    @Bind(R.id.people_active_tab)
     TextView activeTab;
-    @Bind(R.id.people_removed)
+    @Bind(R.id.people_removed_tab)
     TextView removedTab;
     private String[] TABS;
     private Runnable runPager;
@@ -75,9 +75,9 @@ public class PeopleFragment extends Fragment {
                     @Override
                     public android.support.v4.app.Fragment getItem(int position) {
                         if (position == 0) {
-                            return new PeopleActiveFragment();
+                            return new PeopleActiveSupportFragment();
                         } else if (position == 1) {
-                            return new PeopleRemovedFragment();
+                            return new PeopleRemovedSupportFragment();
                         }
                         return null;
                     }

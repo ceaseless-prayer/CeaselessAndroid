@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 
 import org.theotech.ceaselessandroid.R;
 
-public class PeopleRemovedFragment extends Fragment {
+public class PeopleRemovedSupportFragment extends Fragment {
 
-    public PeopleRemovedFragment() {
+    public PeopleRemovedSupportFragment() {
         // Required empty public constructor
     }
 

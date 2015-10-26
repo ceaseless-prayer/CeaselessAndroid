@@ -16,7 +16,7 @@ public interface PersonManager {
 
     List<PersonPOJO> getNextPeopleToPrayFor(int n) throws AlreadyPrayedForAllContactsException;
 
-    List<PersonPOJO> getAllPeople();
+    List<PersonPOJO> getActivePeople();
 
     long getNumPrayed();
 

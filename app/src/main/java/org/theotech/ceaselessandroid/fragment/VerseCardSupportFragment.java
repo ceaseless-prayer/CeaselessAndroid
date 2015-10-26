@@ -18,8 +18,8 @@ import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class VerseCardFragment extends Fragment {
-    private static final String TAG = VerseCardFragment.class.getSimpleName();
+public class VerseCardSupportFragment extends Fragment {
+    private static final String TAG = VerseCardSupportFragment.class.getSimpleName();
 
     @Bind(R.id.verse_image)
     ImageView verseImage;
@@ -30,7 +30,7 @@ public class VerseCardFragment extends Fragment {
 
     private CacheManager cacheManager = null;
 
-    public VerseCardFragment() {
+    public VerseCardSupportFragment() {
         // Required empty public constructor
     }
 

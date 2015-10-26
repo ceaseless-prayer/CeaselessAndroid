@@ -22,7 +22,7 @@ import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
-import org.theotech.ceaselessandroid.util.ActivityUtils;
+import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 
 import java.util.Collections;
@@ -32,8 +32,8 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PersonFragment extends Fragment {
-    private static final String TAG = PersonFragment.class.getSimpleName();
+public class PersonSupportFragment extends Fragment {
+    private static final String TAG = PersonSupportFragment.class.getSimpleName();
 
     @Bind(R.id.person_name)
     TextView personName;
@@ -46,12 +46,12 @@ public class PersonFragment extends Fragment {
     private CacheManager cacheManager;
     private PersonManager personManager;
 
-    public PersonFragment() {
+    public PersonSupportFragment() {
         // Required empty public constructor
     }
 
-    public static PersonFragment newInstance(int sectionNumber) {
-        PersonFragment fragment = new PersonFragment();
+    public static PersonSupportFragment newInstance(int sectionNumber) {
+        PersonSupportFragment fragment = new PersonSupportFragment();
         Bundle args = new Bundle();
         args.putInt(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG, sectionNumber);
         fragment.setArguments(args);
@@ -87,11 +87,11 @@ public class PersonFragment extends Fragment {
                 List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
                 if (personIds != null) {
                     String personId = personIds.get(index);
-                    displayPerson(view, personId);
+                    CommonUtils.displayPerson(getActivity(), personManager, personName, personImage, notes, view, personId, getString(R.string.empty_notes));
                 }
             } else if (bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG)) {
                 String personId = bundle.getString(Constants.PERSON_ID_BUNDLE_ARG);
-                displayPerson(view, personId);
+                CommonUtils.displayPerson(getActivity(), personManager, personName, personImage, notes, view, personId, getString(R.string.empty_notes));
             }
         }
         return view;
@@ -99,7 +99,7 @@ public class PersonFragment extends Fragment {
 
     private void displayPerson(View view, String personId) {
         PersonPOJO personPOJO = personManager.getPerson(personId);
-        Uri personPhotoUri = ActivityUtils.getContactPhotoUri(getActivity().getContentResolver(), personPOJO.getId(), true);
+        Uri personPhotoUri = CommonUtils.getContactPhotoUri(getActivity().getContentResolver(), personPOJO.getId(), true);
 
         personName.setText(personPOJO.getName());
         Picasso.with(getActivity()).load(personPhotoUri).placeholder(R.drawable.placeholder_user).fit().centerInside().into(personImage);
@@ -113,10 +113,10 @@ public class PersonFragment extends Fragment {
         });
         if (notePOJOs.isEmpty()) {
             ListView emptyNotes = (ListView) view.findViewById(R.id.empty_notes);
-            emptyNotes.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.empty_notes_list_item, new String[]{getString(R.string.empty_notes)}));
+            emptyNotes.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.list_item_empty_notes, new String[]{getString(R.string.empty_notes)}));
         } else {
             for (int i = 0; i < notePOJOs.size(); i++) {
-                View row = getActivity().getLayoutInflater().inflate(R.layout.person_notes_list_item, null);
+                View row = getActivity().getLayoutInflater().inflate(R.layout.list_item_person_notes, null);
                 TextView noteDate = (TextView) row.findViewById(R.id.note_date);
                 TextView noteText = (TextView) row.findViewById(R.id.note_text);
                 noteDate.setText(notePOJOs.get(i).getLastUpdatedDate().toString());

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/person_favorite"
+        android:layout_width="@dimen/person_list_image_size"
+        android:layout_height="@dimen/person_list_image_size"
+        android:layout_alignParentLeft="true"
+        android:paddingEnd="@dimen/person_list_image_padding"
+        android:paddingRight="@dimen/person_list_image_padding" />
+
+    <ImageView
+        android:id="@+id/person_thumbnail"
+        android:layout_width="@dimen/person_list_image_size"
+        android:layout_height="@dimen/person_list_image_size"
+        android:layout_toRightOf="@id/person_favorite"
+        android:paddingEnd="@dimen/person_list_image_padding"
+        android:paddingRight="@dimen/person_list_image_padding" />
+
+    <ImageView
+        android:id="@+id/person_list_arrow"
+        android:layout_width="@dimen/person_list_image_size"
+        android:layout_height="@dimen/person_list_image_size"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/right_arrow" />
+
+    <TextView
+        android:id="@+id/person_list_name"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/person_list_image_size"
+        android:layout_toLeftOf="@id/person_list_arrow"
+        android:layout_toRightOf="@id/person_thumbnail"
+        android:gravity="center|start" />
+
+
+</RelativeLayout>

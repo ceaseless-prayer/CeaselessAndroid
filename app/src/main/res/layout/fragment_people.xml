@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="org.theotech.ceaselessandroid.fragment.PeopleActiveFragment">
+    tools:context="org.theotech.ceaselessandroid.fragment.PeopleActiveSupportFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/people_active"
+            android:id="@+id/people_active_tab"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_weight="1"
@@ -27,7 +27,7 @@
             android:background="@color/lightGray" />
 
         <TextView
-            android:id="@+id/people_removed"
+            android:id="@+id/people_removed_tab"
             android:layout_width="0dp"
             android:layout_height="20dp"
             android:layout_weight="1"

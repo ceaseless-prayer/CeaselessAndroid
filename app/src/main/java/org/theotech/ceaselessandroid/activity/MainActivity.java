@@ -15,8 +15,8 @@ import org.theotech.ceaselessandroid.fragment.FragmentBackStackManager;
 import org.theotech.ceaselessandroid.fragment.FragmentState;
 import org.theotech.ceaselessandroid.fragment.FragmentStateListener;
 import org.theotech.ceaselessandroid.fragment.HomeFragment;
-import org.theotech.ceaselessandroid.util.ActivityUtils;
 import org.theotech.ceaselessandroid.util.Constants;
+import org.theotech.ceaselessandroid.util.FragmentUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             if (!backStackManager.isEmpty()) {
                 FragmentState fragmentState = backStackManager.pop();
-                ActivityUtils.loadFragment(this, getFragmentManager(), navigation, ActivityUtils.getNavigationItemIdForFragmentName(this, fragmentState.getFragmentName()),
+                FragmentUtils.loadFragment(this, getFragmentManager(), navigation, FragmentUtils.getNavigationItemIdForFragmentName(this, fragmentState.getFragmentName()),
                         fragmentState.getArguments());
             } else {
                 super.onBackPressed();
@@ -85,10 +85,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // TODO: Remove this easter egg
             Bundle bundle = new Bundle();
             bundle.putBoolean(Constants.USE_CACHE_BUNDLE_ARG, false);
-            ActivityUtils.loadFragment(this, getFragmentManager(), navigation, R.id.nav_rate_this_app, bundle, currentFragment);
+            FragmentUtils.loadFragment(this, getFragmentManager(), navigation, R.id.nav_rate_this_app, bundle, currentFragment);
         } else {
             // replace fragment if it's not already visible
-            ActivityUtils.loadFragment(this, getFragmentManager(), navigation, id, currentFragment);
+            FragmentUtils.loadFragment(this, getFragmentManager(), navigation, id, currentFragment);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.person_add_note) {
-            ActivityUtils.loadFragment(this, getFragmentManager(), navigation, id, currentFragment.getArguments(),
+            FragmentUtils.loadFragment(this, getFragmentManager(), navigation, id, currentFragment.getArguments(),
                     currentFragment);
             return true;
         }

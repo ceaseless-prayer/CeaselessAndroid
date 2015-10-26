@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="org.theotech.ceaselessandroid.fragment.VerseCardFragment">
+    tools:context="org.theotech.ceaselessandroid.fragment.VerseCardSupportFragment">
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/verse_card"

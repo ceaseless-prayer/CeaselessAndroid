@@ -97,8 +97,8 @@ public class PersonManagerImpl implements PersonManager {
     }
 
     @Override
-    public List<PersonPOJO> getAllPeople() {
-        return RealmUtils.toPersonPOJOs(realm.where(Person.class).equalTo("ignored", false).findAll());
+    public List<PersonPOJO> getActivePeople() {
+        return RealmUtils.toPersonPOJOs(realm.where(Person.class).equalTo("ignored", false).findAllSorted("name"));
     }
 
     @Override
