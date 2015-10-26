@@ -36,6 +36,8 @@
     <string name="reminders_off_text">Reminders are off</string>
     <string name="default_notification_time">08:30</string>
 
+    <string name="people_active">Active</string>
+    <string name="people_removed">Removed</string>
     <string name="person_add_note">Add Note</string>
     <string name="person_notes">Notes</string>
     <string name="empty_notes">There are no notes</string>

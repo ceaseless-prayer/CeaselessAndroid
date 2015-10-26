@@ -10,7 +10,7 @@
     <dimen name="activity_vertical_margin">12dp</dimen>
 
     <dimen name="card_vertical_margin">9dp</dimen>
-    <dimen name="card_horizontal_margin">18dp</dimen>
+    <dimen name="card_horizontal_margin">9dp</dimen>
     <dimen name="card_corner_radius">4dp</dimen>
     <dimen name="card_elevation">4dp</dimen>
     <dimen name="card_label_height">60dp</dimen>

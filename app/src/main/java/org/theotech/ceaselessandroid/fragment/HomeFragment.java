@@ -81,7 +81,6 @@ public class HomeFragment extends Fragment {
         } else {
             this.useCache = true;
         }
-        //
 
         cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
         imageService = ImageURLServiceImpl.getInstance();
@@ -167,7 +166,6 @@ public class HomeFragment extends Fragment {
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
                     }
 
                     @Override
@@ -180,7 +178,6 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void onPageScrollStateChanged(int state) {
-
                     }
                 });
                 // wire up the indicator
