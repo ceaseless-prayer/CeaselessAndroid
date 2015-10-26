@@ -52,7 +52,7 @@ public class PeopleActiveSupportFragment extends Fragment {
         getActivity().setTitle(getString(R.string.nav_people));
 
         // create view and bind
-        View view = inflater.inflate(R.layout.fragment_people_active, container, false);
+        View view = inflater.inflate(R.layout.fragment_support_people_active, container, false);
         ButterKnife.bind(this, view);
 
         // populate the list of active people

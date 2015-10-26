@@ -40,7 +40,7 @@ public class ProgressCardSupportFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // create view and bind
-        View view = inflater.inflate(R.layout.fragment_progress_card, container, false);
+        View view = inflater.inflate(R.layout.fragment_support_progress_card, container, false);
         ButterKnife.bind(this, view);
 
         // progress

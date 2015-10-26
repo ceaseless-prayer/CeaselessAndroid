@@ -45,7 +45,7 @@ public class VerseCardSupportFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // create view and bind
-        View view = inflater.inflate(R.layout.fragment_verse_card, container, false);
+        View view = inflater.inflate(R.layout.fragment_support_verse_card, container, false);
         ButterKnife.bind(this, view);
 
         // verse image
