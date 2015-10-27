@@ -79,61 +79,48 @@ public class PeopleActiveSupportFragment extends Fragment {
     private class ActivePeopleArrayAdapter extends ArrayAdapter<PersonPOJO> {
         private final Context context;
         private final List<PersonPOJO> persons;
-        private LayoutInflater inflater;
 
         public ActivePeopleArrayAdapter(Context context, List<PersonPOJO> persons) {
             super(context, -1, persons);
             this.context = context;
             this.persons = persons;
-            this.inflater = LayoutInflater.from(context);
         }
 
         @Override
-        public View getView(int position, View view, ViewGroup parent) {
-            final ViewHolder holder;
-            if (view == null) {
-                holder = new ViewHolder();
-                view = inflater.inflate(R.layout.list_item_people_active, parent, false);
-                holder.favorite = (IconTextView) view.findViewById(R.id.person_favorite);
-                holder.personThumbnail = (ImageView) view.findViewById(R.id.person_thumbnail);
-                holder.personListName = (TextView) view.findViewById(R.id.person_list_name);
-                view.setTag(holder);
-            } else {
-                holder = (ViewHolder) view.getTag();
-            }
+        public View getView(int position, View convertView, ViewGroup parent) {
+            LayoutInflater inflater = (LayoutInflater) context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View rowView = inflater.inflate(R.layout.list_item_people_active, parent, false);
+            final IconTextView favorite = (IconTextView) rowView.findViewById(R.id.person_favorite);
+            ImageView personThumbnail = (ImageView) rowView.findViewById(R.id.person_thumbnail);
+            TextView personListName = (TextView) rowView.findViewById(R.id.person_list_name);
             final PersonPOJO person = persons.get(position);
             // favorite
             if (person.isFavorite()) {
-                holder.favorite.setText(getString(R.string.favorite_on));
+                favorite.setText(getString(R.string.favorite_on));
             } else {
-                holder.favorite.setText(getString(R.string.favorite_off));
+                favorite.setText(getString(R.string.favorite_off));
             }
-            holder.favorite.setOnClickListener(new View.OnClickListener() {
+            favorite.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     PersonPOJO updatedPerson = personManager.getPerson(person.getId());
                     if (updatedPerson.isFavorite()) {
                         personManager.unfavoritePerson(updatedPerson.getId());
-                        holder.favorite.setText(getString(R.string.favorite_off));
+                        favorite.setText(getString(R.string.favorite_off));
                     } else {
                         personManager.favoritePerson(updatedPerson.getId());
-                        holder.favorite.setText(getString(R.string.favorite_on));
+                        favorite.setText(getString(R.string.favorite_on));
                     }
                 }
             });
             // thumbnail picture
             Uri thumbnailUri = CommonUtils.getContactPhotoUri(context.getContentResolver(), person.getId(), false);
-            Picasso.with(context).load(thumbnailUri).placeholder(R.drawable.placeholder_user).fit().into(holder.personThumbnail);
+            Picasso.with(context).load(thumbnailUri).placeholder(R.drawable.placeholder_user).fit().into(personThumbnail);
             // person name
-            holder.personListName.setText(person.getName());
+            personListName.setText(person.getName());
 
-            return view;
-        }
-
-        private class ViewHolder {
-            IconTextView favorite;
-            ImageView personThumbnail;
-            TextView personListName;
+            return rowView;
         }
     }
 }
