@@ -1,13 +1,20 @@
 package org.theotech.ceaselessandroid.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import org.codechimp.apprater.AppRater;
 import org.theotech.ceaselessandroid.R;
@@ -15,6 +22,7 @@ import org.theotech.ceaselessandroid.fragment.FragmentBackStackManager;
 import org.theotech.ceaselessandroid.fragment.FragmentState;
 import org.theotech.ceaselessandroid.fragment.FragmentStateListener;
 import org.theotech.ceaselessandroid.fragment.HomeFragment;
+import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.FragmentUtils;
 
@@ -22,8 +30,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        FragmentStateListener {
+        FragmentStateListener,
+        ActivityCompat.OnRequestPermissionsResultCallback {
     private static final String TAG = MainActivity.class.getSimpleName();
+    private static final int POPULATE_CONTACTS_REQUEST_CODE = 1;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -50,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigation.setCheckedItem(R.id.nav_home);
         navigation.setNavigationItemSelectedListener(this);
 
+        populateContacts();
+
         // initialize the back stack
         backStackManager = new FragmentBackStackManager();
 
@@ -59,6 +71,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // rate my app dialog
         AppRater.app_launched(this);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        switch (requestCode) {
+            case POPULATE_CONTACTS_REQUEST_CODE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    PersonManagerImpl.getInstance(this).populateContacts();
+                } else {
+                    // Permission Denied
+                    Toast.makeText(MainActivity.this, "READ_CONTACTS Denied",
+                                   Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     @Override
@@ -120,5 +151,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void notify(FragmentState fragmentState) {
         // update current fragment
         currentFragment = fragmentState;
+    }
+
+    private void populateContacts() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
+            != PackageManager.PERMISSION_GRANTED) {
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                        this, Manifest.permission.READ_CONTACTS)) {
+                Log.d(TAG, "Should show rationale");
+                // TODO: Display a fragment or something here.
+                // From the developers handbook:
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        populateContacts();
+                    }
+                }, 100);
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_CONTACTS},
+                        POPULATE_CONTACTS_REQUEST_CODE);
+            }
+            return;
+        }
+        PersonManagerImpl.getInstance(this).populateContacts();
     }
 }
