@@ -45,6 +45,9 @@ public class PersonFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // set title
+        getActivity().setTitle(getString(R.string.nav_people));
+
         // create view and bind
         View view = inflater.inflate(R.layout.fragment_support_person, container, false);
         ButterKnife.bind(this, view);

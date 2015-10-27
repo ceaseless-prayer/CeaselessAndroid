@@ -5,9 +5,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.util.SparseBooleanArray;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -62,7 +68,8 @@ public class PeopleActiveSupportFragment extends Fragment {
 
         // populate the list of active people
         final List<PersonPOJO> activePersons = personManager.getActivePeople();
-        peopleActive.setAdapter(new ActivePeopleArrayAdapter(getActivity(), activePersons));
+        final ActivePeopleArrayAdapter adapter = new ActivePeopleArrayAdapter(getActivity(), activePersons);
+        peopleActive.setAdapter(adapter);
         peopleActive.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -72,8 +79,60 @@ public class PeopleActiveSupportFragment extends Fragment {
                         R.id.person_card, bundle, new FragmentState(getString(R.string.nav_people)));
             }
         });
+        peopleActive.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        peopleActive.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+                final int checkedCount = peopleActive.getCheckedItemCount();
+                mode.setTitle(checkedCount + " Selected");
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                hideActionBar();
+                mode.getMenuInflater().inflate(R.menu.person_active_menu, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.person_remove) {
+                    final List<PersonPOJO> persons = personManager.getActivePeople();
+                    SparseBooleanArray array = peopleActive.getCheckedItemPositions();
+                    for (int i = 0; i < array.size(); i++) {
+                        int position = array.keyAt(i);
+                        PersonPOJO person = persons.get(position);
+                        personManager.ignorePerson(person.getId());
+                        adapter.remove(person.getId());
+                    }
+                    mode.finish();
+                    showActionBar();
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                showActionBar();
+            }
+        });
 
         return view;
+    }
+
+    private void showActionBar() {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+    }
+
+    private void hideActionBar() {
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
     }
 
     private class ActivePeopleArrayAdapter extends ArrayAdapter<PersonPOJO> {
@@ -128,6 +187,19 @@ public class PeopleActiveSupportFragment extends Fragment {
             holder.personListName.setText(person.getName());
 
             return view;
+        }
+
+        public void remove(String personId) {
+            int index = -1;
+            for (int i = 0; i < persons.size(); i++) {
+                if (persons.get(i).getId().equals(personId)) {
+                    index = i;
+                }
+            }
+            if (index != -1) {
+                persons.remove(index);
+                notifyDataSetChanged();
+            }
         }
 
         private class ViewHolder {
