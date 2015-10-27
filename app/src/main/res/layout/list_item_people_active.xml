@@ -8,11 +8,11 @@
         android:layout_width="@dimen/person_list_image_size"
         android:layout_height="@dimen/person_list_image_size"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:gravity="center"
         android:paddingEnd="@dimen/person_list_image_padding"
         android:paddingRight="@dimen/person_list_image_padding"
-        android:textSize="@dimen/favorite_icon_font_size"
-        android:text="{fa-heart-o}"
-        android:gravity="center"/>
+        android:textSize="@dimen/favorite_icon_font_size" />
 
     <ImageView
         android:id="@+id/person_thumbnail"
@@ -26,10 +26,11 @@
         android:id="@+id/person_list_arrow"
         android:layout_width="@dimen/person_list_image_size"
         android:layout_height="@dimen/person_list_image_size"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:textSize="@dimen/right_angle_icon_font_size"
+        android:gravity="center"
         android:text="{fa-angle-right}"
-        android:gravity="center"/>
+        android:textSize="@dimen/right_angle_icon_font_size" />
 
     <TextView
         android:id="@+id/person_list_name"

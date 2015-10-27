@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.joanzapata.iconify.widget.IconTextView;
 import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.R;
@@ -90,9 +91,29 @@ public class PeopleActiveSupportFragment extends Fragment {
             LayoutInflater inflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View rowView = inflater.inflate(R.layout.list_item_people_active, parent, false);
+            final IconTextView favorite = (IconTextView) rowView.findViewById(R.id.person_favorite);
             ImageView personThumbnail = (ImageView) rowView.findViewById(R.id.person_thumbnail);
             TextView personListName = (TextView) rowView.findViewById(R.id.person_list_name);
-            PersonPOJO person = persons.get(position);
+            final PersonPOJO person = persons.get(position);
+            // favorite
+            if (person.isFavorite()) {
+                favorite.setText(getString(R.string.favorite_on));
+            } else {
+                favorite.setText(getString(R.string.favorite_off));
+            }
+            favorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PersonPOJO updatedPerson = personManager.getPerson(person.getId());
+                    if (updatedPerson.isFavorite()) {
+                        personManager.unfavoritePerson(updatedPerson.getId());
+                        favorite.setText(getString(R.string.favorite_off));
+                    } else {
+                        personManager.favoritePerson(updatedPerson.getId());
+                        favorite.setText(getString(R.string.favorite_on));
+                    }
+                }
+            });
             // thumbnail picture
             Uri thumbnailUri = CommonUtils.getContactPhotoUri(context.getContentResolver(), person.getId(), false);
             Picasso.with(context).load(thumbnailUri).placeholder(R.drawable.placeholder_user).fit().into(personThumbnail);
