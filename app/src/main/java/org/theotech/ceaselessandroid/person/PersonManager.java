@@ -24,13 +24,13 @@ public interface PersonManager {
 
     PersonPOJO getPerson(String personId);
 
-    boolean ignorePerson(String personId);
+    void ignorePerson(String personId);
 
-    boolean unignorePerson(String ipersonIdd);
+    void unignorePerson(String personId);
 
-    boolean favoritePerson(String personId);
+    void favoritePerson(String personId);
 
-    boolean unfavoritePerson(String personId);
+    void unfavoritePerson(String personId);
 
     void addNote(String personId, String title, String text);
 

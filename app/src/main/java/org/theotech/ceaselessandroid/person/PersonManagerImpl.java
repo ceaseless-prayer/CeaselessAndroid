@@ -121,35 +121,31 @@ public class PersonManagerImpl implements PersonManager {
     }
 
     @Override
-    public boolean ignorePerson(String personId) {
+    public void ignorePerson(String personId) {
         realm.beginTransaction();
-        getPerson(personId).setIgnored(true);
+        getRealmPerson(personId).setIgnored(true);
         realm.commitTransaction();
-        return true;
     }
 
     @Override
-    public boolean unignorePerson(String personId) {
+    public void unignorePerson(String personId) {
         realm.beginTransaction();
-        getPerson(personId).setIgnored(false);
+        getRealmPerson(personId).setIgnored(false);
         realm.commitTransaction();
-        return true;
     }
 
     @Override
-    public boolean favoritePerson(String personId) {
+    public void favoritePerson(String personId) {
         realm.beginTransaction();
-        getPerson(personId).setFavorite(true);
+        getRealmPerson(personId).setFavorite(true);
         realm.commitTransaction();
-        return true;
     }
 
     @Override
-    public boolean unfavoritePerson(String personId) {
+    public void unfavoritePerson(String personId) {
         realm.beginTransaction();
-        getPerson(personId).setFavorite(false);
+        getRealmPerson(personId).setFavorite(false);
         realm.commitTransaction();
-        return false;
     }
 
     @Override
