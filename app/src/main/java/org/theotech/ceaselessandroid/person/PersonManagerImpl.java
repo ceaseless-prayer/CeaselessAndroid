@@ -123,7 +123,9 @@ public class PersonManagerImpl implements PersonManager {
     @Override
     public void ignorePerson(String personId) {
         realm.beginTransaction();
-        getRealmPerson(personId).setIgnored(true);
+        Person person = getRealmPerson(personId);
+        person.setIgnored(true);
+        person.setFavorite(false);
         realm.commitTransaction();
     }
 
