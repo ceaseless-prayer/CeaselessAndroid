@@ -25,9 +25,8 @@ public class CeaselessApplication extends Application {
         // picasso
         Picasso.Builder builder = new Picasso.Builder(this);
         builder.downloader(new OkHttpDownloader(this, Integer.MAX_VALUE));
-        Picasso built = builder.build();
-        built.setIndicatorsEnabled(true);
-        Picasso.setSingletonInstance(built);
+        Picasso picasso = builder.build();
+        Picasso.setSingletonInstance(picasso);
 
         Iconify.with(new FontAwesomeModule());
     }
