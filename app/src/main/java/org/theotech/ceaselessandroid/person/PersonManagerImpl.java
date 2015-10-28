@@ -44,7 +44,6 @@ public class PersonManagerImpl implements PersonManager {
         Realm.setDefaultConfiguration(config);
         this.realm = Realm.getDefaultInstance();
         this.contentResolver = context.getContentResolver();
-        populateContacts();
     }
 
     public static PersonManager getInstance(Context context) {
@@ -210,7 +209,6 @@ public class PersonManagerImpl implements PersonManager {
 
     @Override
     public void populateContacts() {
-
         Cursor cursor = null;
         realm.beginTransaction();
         int added = 0;
