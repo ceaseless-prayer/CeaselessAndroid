@@ -1,7 +1,11 @@
 package org.theotech.ceaselessandroid.fragment;
 
 
+import android.annotation.TargetApi;
 import android.app.Fragment;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,12 +18,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.viewpagerindicator.LinePageIndicator;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
+import org.theotech.ceaselessandroid.image.DownloadFileAsyncTask;
 import org.theotech.ceaselessandroid.image.ImageURLService;
 import org.theotech.ceaselessandroid.image.ImageURLServiceImpl;
 import org.theotech.ceaselessandroid.person.AlreadyPrayedForAllContactsException;
@@ -32,6 +40,7 @@ import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 import org.theotech.ceaselessandroid.transformer.ZoomOutPageTransformer;
 import org.theotech.ceaselessandroid.util.Constants;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +56,8 @@ public class HomeFragment extends Fragment {
     ViewPager viewPager;
     @Bind(R.id.home_indicator)
     LinePageIndicator indicator;
+    @Bind(R.id.backgroundImageView)
+    ImageView backgroundImageView;
 
     private Runnable runPager;
     private boolean mCreated = false;
@@ -103,9 +114,31 @@ public class HomeFragment extends Fragment {
          */
         // verse image
         String verseImageURL = cacheManager.getCachedVerseImageURL();
-        if (!useCache || verseImageURL == null) {
+
+        if (!useCache || verseImageURL != null) {
+
             new ImageFetcher().execute();
+
+            // download next background image
+            File nextBackgroundImage = new File(getActivity().getCacheDir(), Constants.NEXT_BACKGROUND_IMAGE);
+            File currentBackgroundImage = new File(getActivity().getCacheDir(), Constants.CURRENT_BACKGROUND_IMAGE);
+
+            // move cached next background image
+            if (nextBackgroundImage.exists()) {
+                nextBackgroundImage.renameTo(currentBackgroundImage);
+            }
+
+            if(currentBackgroundImage.exists()) {
+                Picasso.with(getActivity())
+                        .load(currentBackgroundImage)
+                        .placeholder(R.drawable.at_the_beach)
+                        .into(backgroundImageView);
+            }
+
+            // fetch new background image
+            new DownloadFileAsyncTask(getActivity(), verseImageURL, nextBackgroundImage).execute();
         }
+
         // verse title and text
         ScriptureData scriptureData = cacheManager.getCachedScripture();
         if (!useCache || scriptureData == null) {
@@ -231,7 +264,7 @@ public class HomeFragment extends Fragment {
                 cacheManager.cacheVerseImageURL(imageUrl);
                 handler.post(runPager);
             } else {
-                Log.e(TAG, "Could not fetch scripture!");
+                Log.e(TAG, "Could not fetch scripture image!");
             }
         }
     }

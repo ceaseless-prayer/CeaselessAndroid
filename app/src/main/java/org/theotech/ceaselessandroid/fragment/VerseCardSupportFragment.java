@@ -14,6 +14,9 @@ import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
+import org.theotech.ceaselessandroid.util.Constants;
+
+import java.io.File;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -65,7 +68,13 @@ public class VerseCardSupportFragment extends Fragment {
     }
 
     private void drawVerseImage(String verseImageURL) {
-        Picasso.with(getActivity()).load(verseImageURL).placeholder(R.drawable.placeholder_rectangle_scene).fit().into(verseImage);
+        File currentBackgroundImage = new File(getActivity().getCacheDir(), Constants.CURRENT_BACKGROUND_IMAGE);
+        Picasso.with(getActivity())
+                .load(currentBackgroundImage)
+                .placeholder(R.drawable.placeholder_rectangle_scene)
+                .fit()
+                .centerCrop()
+                .into(verseImage);
     }
 
     private void populateVerse(String citation, String text) {

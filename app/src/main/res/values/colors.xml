@@ -18,4 +18,8 @@
 
     <color name="progressBackgroundTint">#D8D8D8</color>
     <color name="progressTint">#16FA4C</color>
+
+    <color name="homeBackground">#9000012F</color>
+    <color name="homePageIndicatorSelected">#FFFFFF</color>
+    <color name="homePageIndicatorUnselected">#70FFFFFF</color>
 </resources>
