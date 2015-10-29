@@ -109,34 +109,17 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
 
+        setupBackgroundImage();
+
         /*
          * cache data if needed
          */
-        // verse image
+
+        // decide whether or not to fetch a new verse image
         String verseImageURL = cacheManager.getCachedVerseImageURL();
-
-        if (!useCache || verseImageURL != null) {
-
+        if (!useCache || verseImageURL == null) {
+            updateBackgroundImage();
             new ImageFetcher().execute();
-
-            // download next background image
-            File nextBackgroundImage = new File(getActivity().getCacheDir(), Constants.NEXT_BACKGROUND_IMAGE);
-            File currentBackgroundImage = new File(getActivity().getCacheDir(), Constants.CURRENT_BACKGROUND_IMAGE);
-
-            // move cached next background image
-            if (nextBackgroundImage.exists()) {
-                nextBackgroundImage.renameTo(currentBackgroundImage);
-            }
-
-            if(currentBackgroundImage.exists()) {
-                Picasso.with(getActivity())
-                        .load(currentBackgroundImage)
-                        .placeholder(R.drawable.at_the_beach)
-                        .into(backgroundImageView);
-            }
-
-            // fetch new background image
-            new DownloadFileAsyncTask(getActivity(), verseImageURL, nextBackgroundImage).execute();
         }
 
         // verse title and text
@@ -229,6 +212,34 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
+    private void updateBackgroundImage() {
+        File nextBackgroundImage = new File(getActivity().getCacheDir(), Constants.NEXT_BACKGROUND_IMAGE);
+        File currentBackgroundImage = new File(getActivity().getCacheDir(), Constants.CURRENT_BACKGROUND_IMAGE);
+
+        // move cached next background image
+        if (nextBackgroundImage.exists()) {
+            if(nextBackgroundImage.renameTo(currentBackgroundImage)) {
+                Log.d(TAG, "Updated the background image to use from " + nextBackgroundImage + " to " + currentBackgroundImage);
+                Log.d(TAG, "New image size: " + currentBackgroundImage.length());
+                Picasso.with(getActivity()).invalidate(currentBackgroundImage); // clear the picasso cache
+                setupBackgroundImage();
+            } else {
+                Log.d(TAG, "Could not update the background image to use.");
+            }
+        }
+    }
+
+    private void setupBackgroundImage() {
+        File currentBackgroundImage = new File(getActivity().getCacheDir(), Constants.CURRENT_BACKGROUND_IMAGE);
+        if(currentBackgroundImage.exists()) {
+            Picasso.with(getActivity())
+                    .load(currentBackgroundImage)
+                    .placeholder(R.drawable.at_the_beach)
+                    .into(backgroundImageView);
+            Log.d(TAG, "Background image has been set to " + currentBackgroundImage);
+        }
+    }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -262,6 +273,11 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "imageUrl = " + imageUrl);
                 // cache
                 cacheManager.cacheVerseImageURL(imageUrl);
+
+                // fetch new background image
+                updateBackgroundImage();
+                File nextBackgroundImage = new File(getActivity().getCacheDir(), Constants.NEXT_BACKGROUND_IMAGE);
+                new DownloadFileAsyncTask(getActivity(), imageUrl, nextBackgroundImage).execute();
                 handler.post(runPager);
             } else {
                 Log.e(TAG, "Could not fetch scripture image!");

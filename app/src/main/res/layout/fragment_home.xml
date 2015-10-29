@@ -13,7 +13,7 @@
         android:src="@drawable/at_the_beach"
         android:scaleType="centerCrop"
         android:layout_gravity="top"
-        android:tint="@color/homeBackground"/>
+        android:tint="@color/homeBackgroundTint"/>
 
     <LinearLayout
         android:layout_width="match_parent"

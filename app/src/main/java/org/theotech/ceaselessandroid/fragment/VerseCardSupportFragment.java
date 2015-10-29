@@ -2,6 +2,7 @@ package org.theotech.ceaselessandroid.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,11 +53,7 @@ public class VerseCardSupportFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_support_verse_card, container, false);
         ButterKnife.bind(this, view);
 
-        // verse image
-        String verseImageURL = cacheManager.getCachedVerseImageURL();
-        if (verseImageURL != null) {
-            drawVerseImage(verseImageURL);
-        }
+        drawVerseImage();
 
         // verse title and text
         ScriptureData scriptureData = cacheManager.getCachedScripture();
@@ -67,14 +64,24 @@ public class VerseCardSupportFragment extends Fragment {
         return view;
     }
 
-    private void drawVerseImage(String verseImageURL) {
+    private void drawVerseImage() {
         File currentBackgroundImage = new File(getActivity().getCacheDir(), Constants.CURRENT_BACKGROUND_IMAGE);
-        Picasso.with(getActivity())
-                .load(currentBackgroundImage)
-                .placeholder(R.drawable.placeholder_rectangle_scene)
-                .fit()
-                .centerCrop()
-                .into(verseImage);
+        if (currentBackgroundImage.exists()) {
+            Log.d(TAG, "Showing verse image");
+
+            Picasso.with(getActivity()).load(currentBackgroundImage)
+                    .placeholder(R.drawable.placeholder_rectangle_scene)
+                    .fit()
+                    .centerCrop()
+                    .into(verseImage);
+        } else {
+            Log.d(TAG, "Showing default verse image");
+            Picasso.with(getActivity()).load(R.drawable.at_the_beach)
+                    .placeholder(R.drawable.placeholder_rectangle_scene)
+                    .fit()
+                    .centerCrop()
+                    .into(verseImage);
+        }
     }
 
     private void populateVerse(String citation, String text) {

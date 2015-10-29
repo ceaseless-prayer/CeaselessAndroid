@@ -2,6 +2,7 @@ package org.theotech.ceaselessandroid.image;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.squareup.okhttp.OkHttpClient;
@@ -25,6 +26,7 @@ import okio.Okio;
  * and http://stackoverflow.com/questions/30277583/saving-image-from-url-using-picasso-without-change-in-size-using-bitmap-compres
  */
 public class DownloadFileAsyncTask extends AsyncTask<Void, Void, Void> {
+    private static final String TAG = DownloadFileAsyncTask.class.getSimpleName();
     String url;
     File output;
     Context context;
@@ -38,7 +40,7 @@ public class DownloadFileAsyncTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         Request request = new Request.Builder().url(url).build();
-        Response response = null;
+        Response response;
 
         try {
             OkHttpClient okHttpClient = new OkHttpClient();
@@ -46,8 +48,10 @@ public class DownloadFileAsyncTask extends AsyncTask<Void, Void, Void> {
             BufferedSink sink = Okio.buffer(Okio.sink(this.output));
             sink.writeAll(response.body().source());
             sink.close();
+            Log.d(TAG, "downloaded file " + url + " to " + this.output);
         } catch (IOException e) {
             e.printStackTrace();
+            Log.e(TAG, "failed to download file " + url);
         }
 
         return null;

@@ -9,6 +9,7 @@
 
     <color name="titleColor">#515151</color>
     <color name="verseTextColor">#444444</color>
+    <color name="verseBackground">#FFFFFF</color>
 
     <color name="cardLabel">#00B9E6</color>
     <color name="cardLabelText">#FCFCFC</color>
@@ -19,7 +20,7 @@
     <color name="progressBackgroundTint">#D8D8D8</color>
     <color name="progressTint">#16FA4C</color>
 
-    <color name="homeBackground">#9000012F</color>
+    <color name="homeBackgroundTint">#A000012F</color>
     <color name="homePageIndicatorSelected">#FFFFFF</color>
     <color name="homePageIndicatorUnselected">#70FFFFFF</color>
 </resources>
