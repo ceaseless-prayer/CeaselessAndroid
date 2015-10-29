@@ -38,13 +38,54 @@
                 android:layout_marginRight="@dimen/card_separator_margin"
                 android:background="@color/lightGray" />
 
-            <ImageView
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
                 android:id="@+id/person_image"
                 android:layout_width="@dimen/person_image_size"
                 android:layout_height="@dimen/person_image_size"
-                android:layout_gravity="center"
+                android:layout_centerInParent="true"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_marginTop="@dimen/activity_vertical_margin" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="@dimen/person_list_image_size"
+                    android:layout_height="@dimen/person_image_size"
+                    android:layout_toRightOf="@id/person_image"
+                    android:layout_centerVertical="true">
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:id="@+id/favorite_btn"
+                        android:layout_width="@dimen/person_card_shortcut_size"
+                        android:layout_height="@dimen/person_card_shortcut_size"
+                        android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                        android:gravity="center"
+                        android:textSize="@dimen/favorite_icon_font_size"
+                        android:text="{fa-heart-o}"/>
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:id="@+id/message_btn"
+                        android:layout_width="@dimen/person_card_shortcut_size"
+                        android:layout_height="@dimen/person_card_shortcut_size"
+                        android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                        android:gravity="center"
+                        android:textSize="@dimen/favorite_icon_font_size"
+                        android:text="{fa-paper-plane}"/>
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:id="@+id/note_btn"
+                        android:layout_width="@dimen/person_card_shortcut_size"
+                        android:layout_height="@dimen/person_card_shortcut_size"
+                        android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                        android:gravity="center"
+                        android:textSize="@dimen/favorite_icon_font_size"
+                        android:text="{fa-pencil}"/>
+
+                </LinearLayout>
+            </RelativeLayout>
 
             <!-- TODO: Remove after verifying that this is not needed
             <TextView

@@ -18,13 +18,18 @@
     <dimen name="card_label_text_size">20sp</dimen>
     <dimen name="card_separator_height">2dp</dimen>
     <dimen name="card_separator_margin">20dp</dimen>
+
     <dimen name="verse_image_height">175dp</dimen>
     <dimen name="verse_text_padding">8dp</dimen>
-    <dimen name="person_image_size">250dp</dimen>
+
+    <dimen name="person_image_size">200dp</dimen>
     <dimen name="person_list_image_size">50dp</dimen>
     <dimen name="person_list_image_padding">2dp</dimen>
     <dimen name="favorite_icon_font_size">30dp</dimen>
     <dimen name="right_angle_icon_font_size">30sp</dimen>
+
+    <dimen name="person_card_shortcut_size">50dp</dimen>
+    <dimen name="person_card_shortcut_bottom_margin">20dp</dimen>
 
     <dimen name="pray_for_people_image_dimension">80dp</dimen>
     <dimen name="pray_for_person_image_padding">12dp</dimen>
