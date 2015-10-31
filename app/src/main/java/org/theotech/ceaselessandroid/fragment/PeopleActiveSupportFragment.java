@@ -153,9 +153,9 @@ public class PeopleActiveSupportFragment extends Fragment {
             if (view == null) {
                 holder = new ViewHolder();
                 view = inflater.inflate(R.layout.list_item_people_active, parent, false);
-                holder.favorite = (IconTextView) view.findViewById(R.id.person_favorite);
-                holder.personThumbnail = (ImageView) view.findViewById(R.id.person_thumbnail);
-                holder.personListName = (TextView) view.findViewById(R.id.person_list_name);
+                holder.favorite = (IconTextView) view.findViewById(R.id.person_active_favorite);
+                holder.personThumbnail = (ImageView) view.findViewById(R.id.person_active_thumbnail);
+                holder.personListName = (TextView) view.findViewById(R.id.person_active_list_name);
                 view.setTag(holder);
             } else {
                 holder = (ViewHolder) view.getTag();

@@ -5,7 +5,7 @@
     android:background="?android:attr/activatedBackgroundIndicator">
 
     <com.joanzapata.iconify.widget.IconTextView
-        android:id="@+id/person_favorite"
+        android:id="@+id/person_active_favorite"
         android:layout_width="@dimen/person_list_image_size"
         android:layout_height="@dimen/person_list_image_size"
         android:layout_alignParentLeft="true"
@@ -16,15 +16,16 @@
         android:textSize="@dimen/favorite_icon_font_size" />
 
     <ImageView
-        android:id="@+id/person_thumbnail"
+        android:id="@+id/person_active_thumbnail"
         android:layout_width="@dimen/person_list_image_size"
         android:layout_height="@dimen/person_list_image_size"
-        android:layout_toRightOf="@id/person_favorite"
+        android:layout_toEndOf="@id/person_active_favorite"
+        android:layout_toRightOf="@id/person_active_favorite"
         android:paddingEnd="@dimen/person_list_image_padding"
         android:paddingRight="@dimen/person_list_image_padding" />
 
     <com.joanzapata.iconify.widget.IconTextView
-        android:id="@+id/person_list_arrow"
+        android:id="@+id/person_active_list_arrow"
         android:layout_width="@dimen/person_list_image_size"
         android:layout_height="@dimen/person_list_image_size"
         android:layout_alignParentEnd="true"
@@ -34,11 +35,13 @@
         android:textSize="@dimen/right_angle_icon_font_size" />
 
     <TextView
-        android:id="@+id/person_list_name"
+        android:id="@+id/person_active_list_name"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/person_list_image_size"
-        android:layout_toLeftOf="@id/person_list_arrow"
-        android:layout_toRightOf="@id/person_thumbnail"
+        android:layout_toEndOf="@id/person_active_thumbnail"
+        android:layout_toLeftOf="@id/person_active_list_arrow"
+        android:layout_toRightOf="@id/person_active_thumbnail"
+        android:layout_toStartOf="@id/person_active_list_arrow"
         android:gravity="center|start" />
 
 
