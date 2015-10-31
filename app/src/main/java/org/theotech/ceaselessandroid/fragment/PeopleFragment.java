@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.viewpagerindicator.UnderlinePageIndicator;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.util.Container;
+import org.theotech.ceaselessandroid.util.ListRefreshable;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -71,13 +73,20 @@ public class PeopleFragment extends Fragment {
         runPager = new Runnable() {
             @Override
             public void run() {
+                final Container<ListRefreshable> activeListRefreshable = new Container<>();
+                final Container<ListRefreshable> removedListRefreshable = new Container<>();
+
                 viewPager.setAdapter(new FragmentStatePagerAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager()) {
                     @Override
                     public android.support.v4.app.Fragment getItem(int position) {
                         if (position == 0) {
-                            return new PeopleActiveSupportFragment();
+                            PeopleActiveSupportFragment activePeopleFragment = new PeopleActiveSupportFragment();
+                            activeListRefreshable.set(activePeopleFragment);
+                            return activePeopleFragment;
                         } else if (position == 1) {
-                            return new PeopleRemovedSupportFragment();
+                            PeopleRemovedSupportFragment removedPeopleFragment = new PeopleRemovedSupportFragment();
+                            removedListRefreshable.set(removedPeopleFragment);
+                            return removedPeopleFragment;
                         }
                         return null;
                     }
@@ -97,9 +106,11 @@ public class PeopleFragment extends Fragment {
                         if (position == 0) {
                             activeTab.setTextColor(getResources().getColor(R.color.cardLabel));
                             removedTab.setTextColor(defaultColor);
+                            activeListRefreshable.get().refreshList();
                         } else if (position == 1) {
                             activeTab.setTextColor(defaultColor);
                             removedTab.setTextColor(getResources().getColor(R.color.cardLabel));
+                            removedListRefreshable.get().refreshList();
                         }
                     }
 

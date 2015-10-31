@@ -30,19 +30,21 @@ import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.FragmentUtils;
+import org.theotech.ceaselessandroid.util.ListRefreshable;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PeopleActiveSupportFragment extends Fragment {
+public class PeopleActiveSupportFragment extends Fragment implements ListRefreshable {
     private static final String TAG = PeopleActiveSupportFragment.class.getSimpleName();
 
     @Bind(R.id.people_active)
     ListView peopleActive;
 
     private PersonManager personManager;
+    private ActivePeopleArrayAdapter adapter;
 
     public PeopleActiveSupportFragment() {
         // Required empty public constructor
@@ -68,7 +70,7 @@ public class PeopleActiveSupportFragment extends Fragment {
 
         // populate the list of active people
         final List<PersonPOJO> activePersons = personManager.getActivePeople();
-        final ActivePeopleArrayAdapter adapter = new ActivePeopleArrayAdapter(getActivity(), activePersons);
+        adapter = new ActivePeopleArrayAdapter(getActivity(), activePersons);
         peopleActive.setAdapter(adapter);
         peopleActive.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -135,6 +137,11 @@ public class PeopleActiveSupportFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
     }
 
+    @Override
+    public void refreshList() {
+        adapter.refresh();
+    }
+
     private class ActivePeopleArrayAdapter extends ArrayAdapter<PersonPOJO> {
         private final Context context;
         private final List<PersonPOJO> persons;
@@ -187,6 +194,12 @@ public class PeopleActiveSupportFragment extends Fragment {
             holder.personListName.setText(person.getName());
 
             return view;
+        }
+
+        public void refresh() {
+            persons.clear();
+            persons.addAll(personManager.getActivePeople());
+            notifyDataSetChanged();
         }
 
         public void remove(String personId) {

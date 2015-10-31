@@ -18,6 +18,8 @@ public interface PersonManager {
 
     List<PersonPOJO> getActivePeople();
 
+    List<PersonPOJO> getRemovedPeople();
+
     long getNumPrayed();
 
     long getNumPeople();
