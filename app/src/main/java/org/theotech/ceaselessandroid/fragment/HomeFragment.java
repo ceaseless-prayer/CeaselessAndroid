@@ -1,11 +1,7 @@
 package org.theotech.ceaselessandroid.fragment;
 
 
-import android.annotation.TargetApi;
 import android.app.Fragment;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import com.viewpagerindicator.LinePageIndicator;
 
 import org.theotech.ceaselessandroid.R;
@@ -82,9 +77,9 @@ public class HomeFragment extends Fragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(getActivity().toString() + " must implement FragmentStateListener");
         }
-        Bundle b = new Bundle();
-        b.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, 0);
-        mListener.notify(new FragmentState(getString(R.string.nav_home), b));
+        Bundle currentState = new Bundle();
+        currentState.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, 0);
+        mListener.notify(new FragmentState(getString(R.string.nav_home), currentState));
         // use cache for easter egg
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey(Constants.USE_CACHE_BUNDLE_ARG)) {
@@ -139,6 +134,7 @@ public class HomeFragment extends Fragment {
                     personPOJOs = personManager.getNextPeopleToPrayFor(Constants.NUM_PERSONS);
                 } catch (AlreadyPrayedForAllContactsException e1) {
                     // TODO: Something is really wrong if this happens, not sure what to do here
+                    throw new RuntimeException(e1);
                 }
             }
             personIds = new ArrayList<>();
@@ -186,9 +182,9 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void onPageSelected(int position) {
-                        Bundle bundle = new Bundle();
-                        bundle.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
-                        FragmentState fragmentState = new FragmentState(getString(R.string.nav_home), bundle);
+                        Bundle newState = new Bundle();
+                        newState.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
+                        FragmentState fragmentState = new FragmentState(getString(R.string.nav_home), newState);
                         mListener.notify(fragmentState);
                     }
 
@@ -218,7 +214,7 @@ public class HomeFragment extends Fragment {
 
         // move cached next background image
         if (nextBackgroundImage.exists()) {
-            if(nextBackgroundImage.renameTo(currentBackgroundImage)) {
+            if (nextBackgroundImage.renameTo(currentBackgroundImage)) {
                 Log.d(TAG, "Updated the background image to use from " + nextBackgroundImage + " to " + currentBackgroundImage);
                 Log.d(TAG, "New image size: " + currentBackgroundImage.length());
                 Picasso.with(getActivity()).invalidate(currentBackgroundImage); // clear the picasso cache
@@ -231,7 +227,7 @@ public class HomeFragment extends Fragment {
 
     private void setupBackgroundImage() {
         File currentBackgroundImage = new File(getActivity().getCacheDir(), Constants.CURRENT_BACKGROUND_IMAGE);
-        if(currentBackgroundImage.exists()) {
+        if (currentBackgroundImage.exists()) {
             Picasso.with(getActivity())
                     .load(currentBackgroundImage)
                     .placeholder(R.drawable.at_the_beach)

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-     xmlns:app="http://schemas.android.com/apk/res-auto"
-     xmlns:tools="http://schemas.android.com/tools"
-     android:layout_width="fill_parent"
-     android:layout_height="fill_parent"
-     android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/backgroundImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/at_the_beach"
-        android:scaleType="centerCrop"
         android:layout_gravity="top"
-        android:tint="@color/homeBackgroundTint"/>
+        android:scaleType="centerCrop"
+        android:src="@drawable/at_the_beach"
+        android:tint="@color/homeBackgroundTint" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,9 +34,9 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             app:lineWidth="30dp"
-            app:unselectedColor="@color/homePageIndicatorUnselected"
             app:selectedColor="@color/homePageIndicatorSelected"
-            app:strokeWidth="8dp" />
+            app:strokeWidth="8dp"
+            app:unselectedColor="@color/homePageIndicatorUnselected" />
 
     </LinearLayout>
 </FrameLayout>

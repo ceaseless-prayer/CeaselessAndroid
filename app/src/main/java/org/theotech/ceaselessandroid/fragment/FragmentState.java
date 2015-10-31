@@ -7,26 +7,26 @@ import android.os.Bundle;
  */
 public class FragmentState {
     private final String fragmentName;
-    private Bundle arguments;
+    private Bundle state;
 
     public FragmentState(String fragmentName) {
         this.fragmentName = fragmentName;
     }
 
-    public FragmentState(String fragmentName, Bundle arguments) {
+    public FragmentState(String fragmentName, Bundle state) {
         this.fragmentName = fragmentName;
-        this.arguments = arguments;
+        this.state = state;
     }
 
     public String getFragmentName() {
         return fragmentName;
     }
 
-    public Bundle getArguments() {
-        return arguments;
+    public Bundle getState() {
+        return state;
     }
 
-    public void setArguments(Bundle arguments) {
-        this.arguments = arguments;
+    public void setState(Bundle state) {
+        this.state = state;
     }
 }

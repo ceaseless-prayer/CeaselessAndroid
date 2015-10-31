@@ -32,8 +32,8 @@ public class FragmentUtils {
     }
 
     public static void loadFragment(Activity activity, FragmentManager fragmentManager, NavigationView navigation,
-                                    int resourceId, Bundle fragmentBundle) {
-        loadFragment(activity, fragmentManager, navigation, resourceId, fragmentBundle, null);
+                                    int resourceId, Bundle loadingFragmentState /* state of the fragment being loaded */) {
+        loadFragment(activity, fragmentManager, navigation, resourceId, loadingFragmentState, null);
     }
 
     public static void loadFragment(Activity activity, FragmentManager fragmentManager, NavigationView navigation,
@@ -42,7 +42,8 @@ public class FragmentUtils {
     }
 
     public static void loadFragment(Activity activity, FragmentManager fragmentManager, NavigationView navigation,
-                                    int resourceId, Bundle fragmentBundle, FragmentState backStackInfo) {
+                                    int resourceId, Bundle loadingFragmentState /* state of the fragment being loaded */,
+                                    FragmentState backStackInfo) {
         Fragment fragment = getFragmentForResourceId(resourceId);
         String fragmentTag = getFragmentTagForResourceId(activity, resourceId);
         Fragment fragmentForTag = fragmentManager.findFragmentByTag(fragmentTag);
@@ -50,7 +51,7 @@ public class FragmentUtils {
             if (backStackInfo != null) {
                 ((MainActivity) activity).getFragmentBackStackManager().add(backStackInfo);
             }
-            fragment.setArguments(fragmentBundle);
+            fragment.setArguments(loadingFragmentState);
             fragmentManager.beginTransaction().replace(R.id.fragment, fragment, fragmentTag).commit();
             if (navigation != null) {
                 navigation.setCheckedItem(getNavigationItemIdForFragmentName(activity, fragmentTag));

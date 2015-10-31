@@ -43,19 +43,19 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                android:id="@+id/person_image"
-                android:layout_width="@dimen/person_image_size"
-                android:layout_height="@dimen/person_image_size"
-                android:layout_centerInParent="true"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:layout_marginTop="@dimen/activity_vertical_margin" />
+                    android:id="@+id/person_image"
+                    android:layout_width="@dimen/person_image_size"
+                    android:layout_height="@dimen/person_image_size"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin" />
 
                 <LinearLayout
-                    android:orientation="vertical"
                     android:layout_width="@dimen/person_list_image_size"
                     android:layout_height="@dimen/person_image_size"
+                    android:layout_centerVertical="true"
                     android:layout_toRightOf="@id/person_image"
-                    android:layout_centerVertical="true">
+                    android:orientation="vertical">
 
                     <com.joanzapata.iconify.widget.IconTextView
                         android:id="@+id/favorite_btn"
@@ -63,8 +63,8 @@
                         android:layout_height="@dimen/person_card_shortcut_size"
                         android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
                         android:gravity="center"
-                        android:textSize="@dimen/favorite_icon_font_size"
-                        android:text="{fa-heart-o}"/>
+                        android:text="{fa-heart-o}"
+                        android:textSize="@dimen/favorite_icon_font_size" />
 
                     <com.joanzapata.iconify.widget.IconTextView
                         android:id="@+id/message_btn"
@@ -72,8 +72,8 @@
                         android:layout_height="@dimen/person_card_shortcut_size"
                         android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
                         android:gravity="center"
-                        android:textSize="@dimen/favorite_icon_font_size"
-                        android:text="{fa-paper-plane}"/>
+                        android:text="{fa-paper-plane}"
+                        android:textSize="@dimen/favorite_icon_font_size" />
 
                     <com.joanzapata.iconify.widget.IconTextView
                         android:id="@+id/note_btn"
@@ -81,8 +81,8 @@
                         android:layout_height="@dimen/person_card_shortcut_size"
                         android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
                         android:gravity="center"
-                        android:textSize="@dimen/favorite_icon_font_size"
-                        android:text="{fa-pencil}"/>
+                        android:text="{fa-pencil}"
+                        android:textSize="@dimen/favorite_icon_font_size" />
 
                 </LinearLayout>
             </RelativeLayout>

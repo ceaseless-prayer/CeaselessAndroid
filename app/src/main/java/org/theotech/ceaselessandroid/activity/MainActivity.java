@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -74,8 +75,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                                           int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         switch (requestCode) {
             case POPULATE_CONTACTS_REQUEST_CODE:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 } else {
                     // Permission Denied
                     Toast.makeText(MainActivity.this, "READ_CONTACTS Denied",
-                                   Toast.LENGTH_SHORT).show();
+                            Toast.LENGTH_SHORT).show();
                     finish();
                 }
                 break;
@@ -101,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (!backStackManager.isEmpty()) {
                 FragmentState fragmentState = backStackManager.pop();
                 FragmentUtils.loadFragment(this, getFragmentManager(), navigation, FragmentUtils.getNavigationItemIdForFragmentName(this, fragmentState.getFragmentName()),
-                        fragmentState.getArguments());
+                        fragmentState.getState());
             } else {
                 super.onBackPressed();
             }
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.person_add_note) {
-            FragmentUtils.loadFragment(this, getFragmentManager(), navigation, id, currentFragment.getArguments(),
+            FragmentUtils.loadFragment(this, getFragmentManager(), navigation, id, currentFragment.getState(),
                     currentFragment);
             return true;
         }
@@ -155,10 +156,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void populateContacts() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
-            != PackageManager.PERMISSION_GRANTED) {
+                != PackageManager.PERMISSION_GRANTED) {
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(
-                        this, Manifest.permission.READ_CONTACTS)) {
+                    this, Manifest.permission.READ_CONTACTS)) {
                 Log.d(TAG, "Should show rationale");
                 // TODO: Display a fragment or something here.
                 // From the developers handbook:

@@ -27,7 +27,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/placeholder_rectangle_scene"/>
+                android:src="@drawable/placeholder_rectangle_scene" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -60,8 +60,8 @@
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:textColor="@color/verseTextColor"
-                        android:text="@string/verse_share" />
+                        android:text="@string/verse_share"
+                        android:textColor="@color/verseTextColor" />
 
                 </LinearLayout>
 
