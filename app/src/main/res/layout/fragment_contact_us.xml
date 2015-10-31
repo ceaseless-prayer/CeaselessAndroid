@@ -31,7 +31,7 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="@string/contact_us_message"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/contact_us_button"
@@ -53,7 +53,7 @@
                 android:layout_marginBottom="40dp"
                 android:gravity="center|start"
                 android:text="@string/contact_us_social"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -81,7 +81,7 @@
                 android:autoLink="web"
                 android:gravity="center|start"
                 android:text="@string/contact_us_web"
-                android:textSize="20dp" />
+                android:textSize="20sp" />
 
         </LinearLayout>
     </ScrollView>
