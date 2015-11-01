@@ -125,7 +125,7 @@ public class HomeFragment extends Fragment {
         // people to pray for
         List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
         if (!useCache || personIds == null) {
-            List<PersonPOJO> personPOJOs = null;
+            List<PersonPOJO> personPOJOs;
             try {
                 personPOJOs = personManager.getNextPeopleToPrayFor(Constants.NUM_PERSONS);
             } catch (AlreadyPrayedForAllContactsException e) {
@@ -160,11 +160,16 @@ public class HomeFragment extends Fragment {
                         } else if (position == getCount() - 1) {
                             fragment = new ProgressCardSupportFragment();
                         } else {
-                            fragment = PersonSupportFragment.newInstance(position - 1);
-                            bundle.putInt(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG, position - 1);
+                            String personId = cacheManager.getCachedPersonIdsToPrayFor().get(position - 1);
+                            fragment = PersonSupportFragment.newInstance(personId);
+                            bundle.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
                         }
                         bundle.putBoolean(Constants.USE_CACHE_BUNDLE_ARG, useCache);
-                        fragment.setArguments(bundle);
+                        if (fragment.getArguments() != null) {
+                            fragment.getArguments().putAll(bundle);
+                        } else {
+                            fragment.setArguments(bundle);
+                        }
 
                         return fragment;
                     }
@@ -184,6 +189,11 @@ public class HomeFragment extends Fragment {
                     public void onPageSelected(int position) {
                         Bundle newState = new Bundle();
                         newState.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
+                        if (position > 0 && position < Constants.NUM_PERSONS + 1) {
+                            String personId = cacheManager.getCachedPersonIdsToPrayFor().get(position - 1);
+                            newState.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
+
+                        }
                         FragmentState fragmentState = new FragmentState(getString(R.string.nav_home), newState);
                         mListener.notify(fragmentState);
                     }

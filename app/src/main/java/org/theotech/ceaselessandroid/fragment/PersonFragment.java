@@ -49,14 +49,23 @@ public class PersonFragment extends Fragment {
         getActivity().setTitle(getString(R.string.nav_people));
 
         // create view and bind
-        View view = inflater.inflate(R.layout.fragment_support_person, container, false);
+        View view = inflater.inflate(R.layout.fragment_person, container, false);
         ButterKnife.bind(this, view);
+
+        // display person
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG)) {
             String personId = bundle.getString(Constants.PERSON_ID_BUNDLE_ARG);
-            CommonUtils.displayPerson(getActivity(), personManager, personName, personImage,
-                    notes, view, personId, getString(R.string.empty_notes));
+            FragmentState backStackInfo = new FragmentState(getString(R.string.person_view));
+            Bundle currentState = new Bundle();
+            currentState.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
+            backStackInfo.setState(currentState);
+
+            CommonUtils.injectPersonIntoView(getActivity(), personManager, personName, personImage,
+                    notes, view, personId, getString(R.string.empty_notes), getActivity().getFragmentManager(),
+                    backStackInfo);
         }
+
         return view;
     }
 

@@ -53,7 +53,7 @@ public class FragmentUtils {
             }
             fragment.setArguments(loadingFragmentState);
             fragmentManager.beginTransaction().replace(R.id.fragment, fragment, fragmentTag).commit();
-            if (navigation != null) {
+            if (navigation != null && fragmentTag != null) {
                 navigation.setCheckedItem(getNavigationItemIdForFragmentName(activity, fragmentTag));
             }
             activity.setTitle(fragmentTag);
@@ -123,6 +123,8 @@ public class FragmentUtils {
             return R.id.nav_rate_this_app;
         } else if (fragmentName.equals(context.getString(R.string.person_add_note))) {
             return R.id.nav_journal;
+        } else if (fragmentName.equals(context.getString(R.string.person_view))) {
+            return R.id.person_card;
         }
         return null;
     }

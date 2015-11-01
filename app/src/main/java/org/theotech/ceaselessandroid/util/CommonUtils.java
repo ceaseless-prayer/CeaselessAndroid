@@ -1,11 +1,14 @@
 package org.theotech.ceaselessandroid.util;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.fragment.FragmentState;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
@@ -37,8 +41,9 @@ public class CommonUtils {
         }
     }
 
-    public static void displayPerson(Activity activity, PersonManager personManager, TextView personName,
-                                     ImageView personImage, LinearLayout notes, View view, String personId, String emptyNotesMessage) {
+    public static void injectPersonIntoView(final Activity activity, PersonManager personManager, TextView personName,
+                                            ImageView personImage, LinearLayout notes, View view, final String personId,
+                                            String emptyNotesMessage, final FragmentManager fragmentManager, final FragmentState backStackInfo) {
         PersonPOJO personPOJO = personManager.getPerson(personId);
         Uri personPhotoUri = CommonUtils.getContactPhotoUri(activity.getContentResolver(), personPOJO.getId(), true);
 
@@ -55,6 +60,12 @@ public class CommonUtils {
         if (notePOJOs.isEmpty()) {
             ListView emptyNotes = (ListView) view.findViewById(R.id.empty_notes);
             emptyNotes.setAdapter(new ArrayAdapter<>(activity, R.layout.list_item_empty_notes, new String[]{emptyNotesMessage}));
+            emptyNotes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    loadAddNote(personId, activity, fragmentManager, backStackInfo);
+                }
+            });
         } else {
             for (int i = 0; i < notePOJOs.size(); i++) {
                 View row = activity.getLayoutInflater().inflate(R.layout.list_item_person_notes, null);
@@ -65,5 +76,11 @@ public class CommonUtils {
                 notes.addView(row);
             }
         }
+    }
+
+    private static void loadAddNote(String personId, Activity activity, FragmentManager fragmentManager, FragmentState backStackInfo) {
+        Bundle addNoteBundle = new Bundle();
+        addNoteBundle.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
+        FragmentUtils.loadFragment(activity, fragmentManager, null, R.id.person_add_note, addNoteBundle, backStackInfo);
     }
 }

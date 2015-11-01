@@ -73,10 +73,9 @@ public class AddNoteFragment extends Fragment {
 
         // add current person to the list of taggedPeople (if we're on a page that shows a person)
         Bundle bundle = getArguments();
-        if (bundle != null && bundle.containsKey(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG)) {
-            int homeViewPageIndex = bundle.getInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG);
-            if (homeViewPageIndex > 0 && homeViewPageIndex < Constants.NUM_PERSONS + 1) {
-                String personId = cacheManager.getCachedPersonIdsToPrayFor().get(homeViewPageIndex - 1);
+        if (bundle != null && bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG)) {
+            String personId = bundle.getString(Constants.PERSON_ID_BUNDLE_ARG);
+            if (personId != null) {
                 noteTags.addObject(personManager.getPerson(personId));
             }
         }
@@ -125,10 +124,7 @@ public class AddNoteFragment extends Fragment {
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
-                ((MainActivity) getActivity()).getFragmentBackStackManager().pop();
-                FragmentUtils.loadFragment(getActivity(), getFragmentManager(),
-                        (NavigationView) getActivity().findViewById(R.id.nav_view), R.id.nav_home,
-                        getArguments());
+                getActivity().onBackPressed();
             }
         });
 

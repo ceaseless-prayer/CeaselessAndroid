@@ -18,8 +18,6 @@ import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 
-import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -40,10 +38,10 @@ public class PersonSupportFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static PersonSupportFragment newInstance(int sectionNumber) {
+    public static PersonSupportFragment newInstance(String personId) {
         PersonSupportFragment fragment = new PersonSupportFragment();
         Bundle args = new Bundle();
-        args.putInt(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG, sectionNumber);
+        args.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
         fragment.setArguments(args);
 
         return fragment;
@@ -62,19 +60,24 @@ public class PersonSupportFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // create view and bind
-        View view = inflater.inflate(R.layout.fragment_support_person, container, false);
+        View view = inflater.inflate(R.layout.fragment_person, container, false);
         ButterKnife.bind(this, view);
+
+        // display person
         Bundle bundle = getArguments();
-        if (bundle != null && bundle.containsKey(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG)) {
-            int index = bundle.getInt(Constants.PERSON_SECTION_NUMBER_BUNDLE_ARG);
-            // people to pray for
-            List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
-            if (personIds != null) {
-                String personId = personIds.get(index);
-                CommonUtils.displayPerson(getActivity(), personManager, personName, personImage,
-                        notes, view, personId, getString(R.string.empty_notes));
-            }
+        if (bundle != null && bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG) && bundle.containsKey(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG)) {
+            String personId = bundle.getString(Constants.PERSON_ID_BUNDLE_ARG);
+            int homeIndex = bundle.getInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG);
+            FragmentState backStackInfo = new FragmentState(getString(R.string.nav_home));
+            Bundle currentState = new Bundle();
+            currentState.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, homeIndex);
+            backStackInfo.setState(currentState);
+
+            CommonUtils.injectPersonIntoView(getActivity(), personManager, personName, personImage,
+                    notes, view, personId, getString(R.string.empty_notes), getActivity().getFragmentManager(),
+                    backStackInfo);
         }
+
         return view;
     }
 }
