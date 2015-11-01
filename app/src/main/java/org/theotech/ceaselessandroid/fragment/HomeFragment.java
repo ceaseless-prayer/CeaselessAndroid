@@ -160,9 +160,14 @@ public class HomeFragment extends Fragment {
                         } else if (position == getCount() - 1) {
                             fragment = new ProgressCardSupportFragment();
                         } else {
-                            String personId = cacheManager.getCachedPersonIdsToPrayFor().get(position - 1);
-                            fragment = PersonSupportFragment.newInstance(personId);
-                            bundle.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
+                            List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
+                            if(personIds != null && personIds.size() > 0) {
+                                String personId = personIds.get(position - 1);
+                                fragment = PersonSupportFragment.newInstance(personId);
+                                bundle.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
+                            } else {
+                                fragment = new BlankSupportFragment();
+                            }
                         }
                         bundle.putBoolean(Constants.USE_CACHE_BUNDLE_ARG, useCache);
                         if (fragment.getArguments() != null) {
@@ -190,9 +195,11 @@ public class HomeFragment extends Fragment {
                         Bundle newState = new Bundle();
                         newState.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
                         if (position > 0 && position < Constants.NUM_PERSONS + 1) {
-                            String personId = cacheManager.getCachedPersonIdsToPrayFor().get(position - 1);
-                            newState.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
-
+                            List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
+                            if(personIds != null && personIds.size() > 0) {
+                                String personId = personIds.get(position - 1);
+                                newState.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
+                            }
                         }
                         FragmentState fragmentState = new FragmentState(getString(R.string.nav_home), newState);
                         mListener.notify(fragmentState);
