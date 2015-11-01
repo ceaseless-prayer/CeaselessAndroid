@@ -19,7 +19,6 @@
     <dimen name="card_separator_height">2dp</dimen>
     <dimen name="card_separator_margin">20dp</dimen>
 
-    <dimen name="verse_image_height">175dp</dimen>
     <dimen name="verse_text_padding">8dp</dimen>
 
     <dimen name="person_image_size">200dp</dimen>
@@ -30,9 +29,6 @@
 
     <dimen name="person_card_shortcut_size">50dp</dimen>
     <dimen name="person_card_shortcut_bottom_margin">20dp</dimen>
-
-    <dimen name="pray_for_people_image_dimension">80dp</dimen>
-    <dimen name="pray_for_person_image_padding">12dp</dimen>
 
     <dimen name="progress_card_buttons_margin">10dp</dimen>
     <dimen name="progress_bar_margin">25dp</dimen>
