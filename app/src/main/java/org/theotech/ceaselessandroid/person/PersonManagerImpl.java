@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import io.realm.Realm;
@@ -32,7 +33,6 @@ public class PersonManagerImpl implements PersonManager {
     private Context context;
     private Realm realm;
     private ContentResolver contentResolver;
-    private List<Person> people = null;
 
     private PersonManagerImpl(Context context) {
         this.context = context;
@@ -57,6 +57,7 @@ public class PersonManagerImpl implements PersonManager {
     public List<PersonPOJO> getNextPeopleToPrayFor(int n) throws AlreadyPrayedForAllContactsException {
         List<PersonPOJO> people = new ArrayList<>();
         RealmResults<Person> results = realm.where(Person.class).equalTo("ignored", false).equalTo("prayed", false).findAllSorted("lastPrayed");
+        RealmResults<Person> favoritedResults = realm.where(Person.class).equalTo("favorite", true).findAllSorted("lastPrayed");
 
         // if all people are prayed for, then reset and throw exception
         if (getNumPeople() > 0 && results.size() == 0) {
@@ -71,6 +72,26 @@ public class PersonManagerImpl implements PersonManager {
             throw new AlreadyPrayedForAllContactsException(getNumPeople());
         }
 
+        List<Person> favoritedPeople = new ArrayList<>();
+        for (int i = 0; i < favoritedResults.size(); i++) {
+            favoritedPeople.add(favoritedResults.get(i));
+        }
+
+        if (favoritedPeople.size() > 0) {
+            if(favoritedPeople.size() < 4) {
+                // 1/4 chance of getting a favorited person
+                Random random = new Random();
+                if(random.nextInt(4) == 0){
+                    selectPerson(favoritedPeople.get(0), people);
+                }
+            } else {
+                // always show a favorited person if they have
+                // favorited more than 7 people
+                selectPerson(favoritedPeople.get(0), people);
+            }
+
+        }
+
         // shuffle the list of people
         List<Person> allPeople = new ArrayList<>();
         for (int i = 0; i < results.size(); i++) {
@@ -83,16 +104,29 @@ public class PersonManagerImpl implements PersonManager {
             return people;
         }
 
-        for (int i = 0; i < Math.min(n, allPeople.size()); i++) {
-            realm.beginTransaction();
+        // select the desired number of people.
+        // Excluding anyone already favorited who has already been selected
+        Integer numToSelect = Math.min(n, allPeople.size());
+        int i = 0;
+        while(people.size() < numToSelect) {
             Person person = allPeople.get(i);
-            person.setLastPrayed(new Date());
-            person.setPrayed(true);
-            realm.commitTransaction();
-            people.add(getPerson(person.getId()));
+            if(!people.contains(getPerson(person.getId()))) {
+                // select this person if they haven't been chosen yet
+                selectPerson(person, people);
+            }
+            i++;
         }
 
         return people;
+    }
+
+    private void selectPerson(Person person, List<PersonPOJO> people) {
+        realm.beginTransaction();
+        person.setLastPrayed(new Date());
+        person.setPrayed(true);
+        realm.commitTransaction();
+        people.add(getPerson(person.getId()));
+        Log.d(TAG, "Selecting person " + person);
     }
 
     @Override

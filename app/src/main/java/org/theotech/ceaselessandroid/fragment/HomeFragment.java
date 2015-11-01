@@ -230,7 +230,6 @@ public class HomeFragment extends Fragment {
         if (currentBackgroundImage.exists()) {
             Picasso.with(getActivity())
                     .load(currentBackgroundImage)
-                    .placeholder(R.drawable.at_the_beach)
                     .into(backgroundImageView);
             Log.d(TAG, "Background image has been set to " + currentBackgroundImage);
         }
