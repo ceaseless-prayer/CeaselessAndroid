@@ -19,15 +19,10 @@
     <string name="reminder_notification_message">Pray for others today.</string>
 
     <string name="verse_share">Share</string>
-    <string name="pray_for_people">Pray for People</string>
-    <string name="view_and_pray">View &amp; Pray</string>
     <string name="progress">Progress</string>
     <string name="prayed_for">You have prayed for \u0025s of \u0025s people</string>
     <string name="prayed_for_text">You have prayed for</string>
     <string name="prayer_settings">PRAYER SETTINGS</string>
-
-    <string name="default_verse_title">Matthew 21&#58;22</string>
-    <string name="default_verse_text">And whatever you ask in prayer, you will receive, if you have faith.&#34;</string>
 
     <string name="prayer_reminders">Reminder:</string>
     <string name="reminder_time_picker_title">Prayer reminder time:</string>
@@ -44,7 +39,6 @@
     <string name="favorite_off">{fa-heart-o}</string>
     <!-- do not localize -->
     <string name="person_add_note">Add Note</string>
-    <string name="person_notes">Notes</string>
     <string name="empty_notes">There are no notes</string>
     <string name="note_tag_hint">Tag People</string>
     <string name="save">SAVE</string>
