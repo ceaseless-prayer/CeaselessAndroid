@@ -161,7 +161,7 @@ public class HomeFragment extends Fragment {
                             fragment = new ProgressCardSupportFragment();
                         } else {
                             List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
-                            if(personIds != null && personIds.size() > 0) {
+                            if (personIds != null && personIds.size() > 0) {
                                 String personId = personIds.get(position - 1);
                                 fragment = PersonSupportFragment.newInstance(personId);
                                 bundle.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
@@ -196,7 +196,7 @@ public class HomeFragment extends Fragment {
                         newState.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
                         if (position > 0 && position < Constants.NUM_PERSONS + 1) {
                             List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
-                            if(personIds != null && personIds.size() > 0) {
+                            if (personIds != null && personIds.size() > 0) {
                                 String personId = personIds.get(position - 1);
                                 newState.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
                             }

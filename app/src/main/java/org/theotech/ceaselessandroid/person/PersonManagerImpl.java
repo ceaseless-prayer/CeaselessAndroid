@@ -78,10 +78,10 @@ public class PersonManagerImpl implements PersonManager {
         }
 
         if (favoritedPeople.size() > 0) {
-            if(favoritedPeople.size() < 4) {
+            if (favoritedPeople.size() < 4) {
                 // 1/4 chance of getting a favorited person
                 Random random = new Random();
-                if(random.nextInt(4) == 0){
+                if (random.nextInt(4) == 0) {
                     selectPerson(favoritedPeople.get(0), people);
                 }
             } else {
@@ -108,9 +108,9 @@ public class PersonManagerImpl implements PersonManager {
         // Excluding anyone already favorited who has already been selected
         Integer numToSelect = Math.min(n, allPeople.size());
         int i = 0;
-        while(people.size() < numToSelect) {
+        while (people.size() < numToSelect) {
             Person person = allPeople.get(i);
-            if(!people.contains(getPerson(person.getId()))) {
+            if (!people.contains(getPerson(person.getId()))) {
                 // select this person if they haven't been chosen yet
                 selectPerson(person, people);
             }
@@ -290,7 +290,9 @@ public class PersonManagerImpl implements PersonManager {
 
     private boolean isValidContact(Cursor cursor) {
         boolean hasPhoneNumber = cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) == 1;
-        return hasPhoneNumber;
+        String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+
+        return hasPhoneNumber && !name.startsWith("#");
     }
 
 }
