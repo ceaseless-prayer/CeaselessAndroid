@@ -5,9 +5,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.SparseBooleanArray;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -72,6 +77,48 @@ public class PeopleRemovedSupportFragment extends Fragment implements ListRefres
                 bundle.putString(Constants.PERSON_ID_BUNDLE_ARG, removedPersons.get(position).getId());
                 FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null,
                         R.id.person_card, bundle, new FragmentState(getString(R.string.nav_people)));
+            }
+        });
+        peopleRemoved.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        peopleRemoved.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+                final int checkedCount = peopleRemoved.getCheckedItemCount();
+                mode.setTitle(checkedCount + " Selected");
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                mode.getMenuInflater().inflate(R.menu.person_removed_menu, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.person_reactivate) {
+                    final List<PersonPOJO> persons = personManager.getRemovedPeople();
+                    SparseBooleanArray array = peopleRemoved.getCheckedItemPositions();
+                    for (int i = 0; i < array.size(); i++) {
+                        int position = array.keyAt(i);
+                        PersonPOJO person = persons.get(position);
+                        personManager.unignorePerson(person.getId());
+                        adapter.remove(person.getId());
+                    }
+                    mode.finish();
+                    //showActionBar();
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
             }
         });
 
