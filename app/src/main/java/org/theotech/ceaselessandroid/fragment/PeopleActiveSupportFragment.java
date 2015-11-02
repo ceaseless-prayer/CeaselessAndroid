@@ -5,7 +5,6 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -91,7 +90,6 @@ public class PeopleActiveSupportFragment extends Fragment implements ListRefresh
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                hideActionBar();
                 mode.getMenuInflater().inflate(R.menu.person_active_menu, menu);
                 return true;
             }
@@ -114,7 +112,6 @@ public class PeopleActiveSupportFragment extends Fragment implements ListRefresh
                         adapter.remove(person.getId());
                     }
                     mode.finish();
-                    showActionBar();
                     return true;
                 }
                 return false;
@@ -122,19 +119,10 @@ public class PeopleActiveSupportFragment extends Fragment implements ListRefresh
 
             @Override
             public void onDestroyActionMode(ActionMode mode) {
-                showActionBar();
             }
         });
 
         return view;
-    }
-
-    private void showActionBar() {
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-    }
-
-    private void hideActionBar() {
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
     }
 
     @Override
