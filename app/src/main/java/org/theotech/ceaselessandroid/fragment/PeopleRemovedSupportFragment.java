@@ -111,7 +111,6 @@ public class PeopleRemovedSupportFragment extends Fragment implements ListRefres
                         adapter.remove(person.getId());
                     }
                     mode.finish();
-                    //showActionBar();
                     return true;
                 }
                 return false;

@@ -4,7 +4,6 @@ package org.theotech.ceaselessandroid.fragment;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +15,12 @@ import android.widget.EditText;
 import com.tokenautocomplete.TokenCompleteTextView;
 
 import org.theotech.ceaselessandroid.R;
-import org.theotech.ceaselessandroid.activity.MainActivity;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.util.Constants;
-import org.theotech.ceaselessandroid.util.FragmentUtils;
 import org.theotech.ceaselessandroid.view.PersonsCompletionView;
 
 import java.util.ArrayList;
@@ -99,36 +96,37 @@ public class AddNoteFragment extends Fragment {
         saveNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // hide keyboard if it's open
-                View view = getActivity().getCurrentFocus();
-                if (view != null) {
-                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
+                hideKeyboard();
+
                 // add the note to all the tagged people
                 for (PersonPOJO taggedPerson : taggedPeople) {
                     personManager.addNote(taggedPerson.getId(), null, noteText.getText().toString());
                 }
-                ((MainActivity) getActivity()).getFragmentBackStackManager().pop();
-                FragmentUtils.loadFragment(getActivity(), getFragmentManager(),
-                        (NavigationView) getActivity().findViewById(R.id.nav_view), R.id.nav_home,
-                        getArguments());
+
+                // simulate back button press to exit this fragment
+                getActivity().onBackPressed();
             }
         });
         cancelNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // hide keyboard if it's open
-                View view = getActivity().getCurrentFocus();
-                if (view != null) {
-                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
+                hideKeyboard();
+
+                // simulate back button press to exit this fragment
                 getActivity().onBackPressed();
             }
         });
 
         return view;
+    }
+
+    private void hideKeyboard() {
+        // hide keyboard if it's open
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
     }
 
 }
