@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.joanzapata.iconify.widget.IconTextView;
+
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
@@ -27,6 +29,8 @@ public class PersonFragment extends Fragment {
     ImageView personImage;
     @Bind(R.id.person_notes_list)
     LinearLayout notes;
+    @Bind(R.id.note_btn)
+    IconTextView noteButton;
 
     private PersonManager personManager;
 
@@ -55,8 +59,8 @@ public class PersonFragment extends Fragment {
         // display person
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG)) {
-            String personId = bundle.getString(Constants.PERSON_ID_BUNDLE_ARG);
-            FragmentState backStackInfo = new FragmentState(getString(R.string.person_view));
+            final String personId = bundle.getString(Constants.PERSON_ID_BUNDLE_ARG);
+            final FragmentState backStackInfo = new FragmentState(getString(R.string.person_view));
             Bundle currentState = new Bundle();
             currentState.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
             backStackInfo.setState(currentState);
@@ -64,6 +68,14 @@ public class PersonFragment extends Fragment {
             CommonUtils.injectPersonIntoView(getActivity(), personManager, personName, personImage,
                     notes, view, personId, getString(R.string.empty_notes), getActivity().getFragmentManager(),
                     backStackInfo);
+
+            // wire the add note icon
+            noteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CommonUtils.loadAddNote(personId, getActivity(), getActivity().getFragmentManager(), backStackInfo);
+                }
+            });
         }
 
         return view;

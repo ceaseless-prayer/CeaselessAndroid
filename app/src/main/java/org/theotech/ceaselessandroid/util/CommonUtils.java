@@ -78,7 +78,7 @@ public class CommonUtils {
         }
     }
 
-    private static void loadAddNote(String personId, Activity activity, FragmentManager fragmentManager, FragmentState backStackInfo) {
+    public static void loadAddNote(String personId, Activity activity, FragmentManager fragmentManager, FragmentState backStackInfo) {
         Bundle addNoteBundle = new Bundle();
         addNoteBundle.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
         FragmentUtils.loadFragment(activity, fragmentManager, null, R.id.person_add_note, addNoteBundle, backStackInfo);
