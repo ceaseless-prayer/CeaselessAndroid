@@ -84,7 +84,7 @@ public class PeopleRemovedSupportFragment extends Fragment implements ListRefres
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
                 final int checkedCount = peopleRemoved.getCheckedItemCount();
-                mode.setTitle(checkedCount + " Selected");
+                mode.setTitle(String.format(getString(R.string.bulk_selected), checkedCount));
             }
 
             @Override

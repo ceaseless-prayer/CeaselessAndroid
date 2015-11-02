@@ -37,6 +37,7 @@
     <string name="people_removed">Removed</string>
     <string name="person_remove">Remove</string>
     <string name="person_reactivate">Re-activate</string>
+    <string name="bulk_selected">\u0025s Selected</string>
     <string name="favorite_on">{fa-heart}</string>
     <!-- do not localize -->
     <string name="favorite_off">{fa-heart-o}</string>

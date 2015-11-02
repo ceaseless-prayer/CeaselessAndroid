@@ -85,7 +85,7 @@ public class PeopleActiveSupportFragment extends Fragment implements ListRefresh
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
                 final int checkedCount = peopleActive.getCheckedItemCount();
-                mode.setTitle(checkedCount + " Selected");
+                mode.setTitle(String.format(getString(R.string.bulk_selected), checkedCount));
             }
 
             @Override
