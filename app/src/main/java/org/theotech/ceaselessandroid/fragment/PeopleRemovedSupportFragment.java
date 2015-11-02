@@ -28,14 +28,14 @@ import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.FragmentUtils;
-import org.theotech.ceaselessandroid.util.ListRefreshable;
+import org.theotech.ceaselessandroid.util.Refreshable;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PeopleRemovedSupportFragment extends Fragment implements ListRefreshable {
+public class PeopleRemovedSupportFragment extends Fragment implements Refreshable {
     private static final String TAG = PeopleRemovedSupportFragment.class.getSimpleName();
 
     @Bind(R.id.people_removed)
@@ -43,6 +43,7 @@ public class PeopleRemovedSupportFragment extends Fragment implements ListRefres
 
     private PersonManager personManager;
     private RemovedPeopleArrayAdapter adapter;
+    private ActionMode actionMode;
 
     public PeopleRemovedSupportFragment() {
         // Required empty public constructor
@@ -89,6 +90,7 @@ public class PeopleRemovedSupportFragment extends Fragment implements ListRefres
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                actionMode = mode;
                 mode.getMenuInflater().inflate(R.menu.person_removed_menu, menu);
                 return true;
             }
@@ -118,6 +120,7 @@ public class PeopleRemovedSupportFragment extends Fragment implements ListRefres
 
             @Override
             public void onDestroyActionMode(ActionMode mode) {
+                actionMode = null;
             }
         });
 
@@ -127,6 +130,13 @@ public class PeopleRemovedSupportFragment extends Fragment implements ListRefres
     @Override
     public void refreshList() {
         adapter.refresh();
+    }
+
+    @Override
+    public void dismissActionMode() {
+        if (actionMode != null) {
+            actionMode.finish();
+        }
     }
 
     private class RemovedPeopleArrayAdapter extends ArrayAdapter<PersonPOJO> {

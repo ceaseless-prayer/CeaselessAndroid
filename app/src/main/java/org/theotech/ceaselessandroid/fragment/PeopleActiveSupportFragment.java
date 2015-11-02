@@ -29,14 +29,14 @@ import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.FragmentUtils;
-import org.theotech.ceaselessandroid.util.ListRefreshable;
+import org.theotech.ceaselessandroid.util.Refreshable;
 
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PeopleActiveSupportFragment extends Fragment implements ListRefreshable {
+public class PeopleActiveSupportFragment extends Fragment implements Refreshable {
     private static final String TAG = PeopleActiveSupportFragment.class.getSimpleName();
 
     @Bind(R.id.people_active)
@@ -44,6 +44,7 @@ public class PeopleActiveSupportFragment extends Fragment implements ListRefresh
 
     private PersonManager personManager;
     private ActivePeopleArrayAdapter adapter;
+    private ActionMode actionMode;
 
     public PeopleActiveSupportFragment() {
         // Required empty public constructor
@@ -90,6 +91,7 @@ public class PeopleActiveSupportFragment extends Fragment implements ListRefresh
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                actionMode = mode;
                 mode.getMenuInflater().inflate(R.menu.person_active_menu, menu);
                 return true;
             }
@@ -119,6 +121,7 @@ public class PeopleActiveSupportFragment extends Fragment implements ListRefresh
 
             @Override
             public void onDestroyActionMode(ActionMode mode) {
+                actionMode = null;
             }
         });
 
@@ -128,6 +131,13 @@ public class PeopleActiveSupportFragment extends Fragment implements ListRefresh
     @Override
     public void refreshList() {
         adapter.refresh();
+    }
+
+    @Override
+    public void dismissActionMode() {
+        if (actionMode != null) {
+            actionMode.finish();
+        }
     }
 
     private class ActivePeopleArrayAdapter extends ArrayAdapter<PersonPOJO> {
