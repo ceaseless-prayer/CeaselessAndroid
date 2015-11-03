@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat.Builder;
+import android.util.Log;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.activity.MainActivity;
@@ -18,6 +19,8 @@ import org.theotech.ceaselessandroid.activity.MainActivity;
  * It is called by an alarm that is installed in {@link DailyNotificationReceiver}.
  */
 public class DailyNotificationService extends Service {
+
+    private static final String TAG = DailyNotificationService.class.getSimpleName();
 
     @Nullable
     @Override
@@ -41,6 +44,8 @@ public class DailyNotificationService extends Service {
 
         // TODO should we set 1 as the id for all notifications from this?
         notificationManager.notify(1, mNotify);
+        Log.d(TAG, "notification posted.");
+        stopSelf();
     }
 
 }

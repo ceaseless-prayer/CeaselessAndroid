@@ -1,6 +1,7 @@
 package org.theotech.ceaselessandroid.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +24,7 @@ import org.theotech.ceaselessandroid.fragment.FragmentBackStackManager;
 import org.theotech.ceaselessandroid.fragment.FragmentState;
 import org.theotech.ceaselessandroid.fragment.FragmentStateListener;
 import org.theotech.ceaselessandroid.fragment.HomeFragment;
+import org.theotech.ceaselessandroid.notification.DailyNotificationReceiver;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.FragmentUtils;
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigation.setNavigationItemSelectedListener(this);
 
         populateContacts();
+        setNotification();
 
         // initialize the back stack
         backStackManager = new FragmentBackStackManager();
@@ -181,5 +184,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return;
         }
         PersonManagerImpl.getInstance(this).populateContacts();
+    }
+
+    private void setNotification() {
+        Intent dailyNotificationReceiver = new Intent(getApplicationContext(), DailyNotificationReceiver.class);
+        getApplicationContext().sendBroadcast(dailyNotificationReceiver);
     }
 }

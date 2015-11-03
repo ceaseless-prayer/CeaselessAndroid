@@ -67,6 +67,8 @@ public class DailyNotificationReceiver extends BroadcastReceiver {
     }
 
     private void setNotificationAlarm(PendingIntent pendingIntent, AlarmManager alarmManager, long intendedTime) {
+
+        Log.d(TAG, "Setting intended time to " + intendedTime);
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
                 intendedTime, AlarmManager.INTERVAL_DAY,
                 pendingIntent);
@@ -75,6 +77,7 @@ public class DailyNotificationReceiver extends BroadcastReceiver {
     @NonNull
     private Calendar getNotificationFiringCalendar(String time) {
         Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.MILLISECOND, 0);
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MINUTE, TimePickerDialogPreference.getMinute(time));
         calendar.set(Calendar.HOUR_OF_DAY, TimePickerDialogPreference.getHour(time));
