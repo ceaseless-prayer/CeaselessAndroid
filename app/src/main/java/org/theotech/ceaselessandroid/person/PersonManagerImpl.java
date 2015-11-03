@@ -291,7 +291,7 @@ public class PersonManagerImpl implements PersonManager {
     private boolean isValidContact(Cursor cursor) {
         boolean hasPhoneNumber = cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) == 1;
         String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-
+        // TODO filter out "Conference Bridge" and "Directory Assistance" as other common things to ignore
         return hasPhoneNumber && !name.startsWith("#");
     }
 

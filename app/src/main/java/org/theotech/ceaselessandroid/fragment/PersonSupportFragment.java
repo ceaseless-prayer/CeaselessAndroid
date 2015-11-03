@@ -90,6 +90,7 @@ public class PersonSupportFragment extends Fragment {
             });
 
             CommonUtils.wireFavoriteShortcut(view, personId, personManager, getString(R.string.favorite_on), getString(R.string.favorite_off));
+            CommonUtils.wireSendMessage(getActivity(), view, personId);
         }
 
         return view;

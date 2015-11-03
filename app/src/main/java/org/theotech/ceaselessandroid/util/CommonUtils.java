@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -30,6 +31,7 @@ import java.util.List;
 
 /**
  * Created by UberEcks on 10/26/2015.
+ * Contains methods that are shared between support fragments (for older api app compat) and the latest fragments.
  */
 public class CommonUtils {
 
@@ -104,6 +106,18 @@ public class CommonUtils {
                     personManager.favoritePerson(updatedPerson.getId());
                     favorite.setText(favoriteOn);
                 }
+            }
+        });
+    }
+
+    public static void wireSendMessage(final Context context, View view, final String personId) {
+        final IconTextView messageShortcut = (IconTextView) view.findViewById(R.id.message_btn);
+        messageShortcut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long.parseLong(personId));
+                ContactsContract.QuickContact.showQuickContact(context, messageShortcut, contactUri, ContactsContract.QuickContact.MODE_MEDIUM, null);
+                ContactsContract.QuickContact.showQuickContact(context, messageShortcut, contactUri, ContactsContract.QuickContact.MODE_MEDIUM, null);
             }
         });
     }
