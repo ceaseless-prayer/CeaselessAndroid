@@ -36,15 +36,5 @@ public interface PersonManager {
 
     void addNote(String personId, String title, String text);
 
-    void editNote(String noteId, String title, String text);
-
-    void removeNote(String noteId);
-
-    NotePOJO getNote(String noteId);
-
-    void tagNote(String noteId, String personId);
-
-    void untagNote(String noteId, String personId);
-
     void populateContacts();
 }

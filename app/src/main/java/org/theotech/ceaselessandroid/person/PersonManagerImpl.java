@@ -202,42 +202,6 @@ public class PersonManagerImpl implements PersonManager {
         realm.commitTransaction();
     }
 
-    @Override
-    public void editNote(String noteId, String title, String text) {
-        realm.beginTransaction();
-        Note note = getRealmNote(noteId);
-        note.setLastUpdatedDate(new Date());
-        note.setTitle(title);
-        note.setText(text);
-        realm.commitTransaction();
-    }
-
-    @Override
-    public void removeNote(String noteId) {
-        realm.beginTransaction();
-        getRealmNote(noteId).removeFromRealm();
-        realm.commitTransaction();
-    }
-
-    @Override
-    public NotePOJO getNote(String noteId) {
-        return RealmUtils.toNotePOJO(getRealmNote(noteId));
-    }
-
-    private Note getRealmNote(String noteId) {
-        return realm.where(Note.class).equalTo("id", noteId).findFirst();
-    }
-
-    @Override
-    public void tagNote(String noteId, String personId) {
-        // TODO: Implement
-    }
-
-    @Override
-    public void untagNote(String noteId, String personId) {
-        // TODO: Implement
-    }
-
     public Realm getRealm() {
         return realm;
     }
