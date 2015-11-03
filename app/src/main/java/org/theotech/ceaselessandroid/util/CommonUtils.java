@@ -117,7 +117,6 @@ public class CommonUtils {
             public void onClick(View v) {
                 Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long.parseLong(personId));
                 ContactsContract.QuickContact.showQuickContact(context, messageShortcut, contactUri, ContactsContract.QuickContact.MODE_MEDIUM, null);
-                ContactsContract.QuickContact.showQuickContact(context, messageShortcut, contactUri, ContactsContract.QuickContact.MODE_MEDIUM, null);
             }
         });
     }
