@@ -76,6 +76,8 @@ public class PersonFragment extends Fragment {
                     CommonUtils.loadAddNote(personId, getActivity(), getActivity().getFragmentManager(), backStackInfo);
                 }
             });
+
+            CommonUtils.wireFavoriteShortcut(view, personId, personManager, getString(R.string.favorite_on), getString(R.string.favorite_off));
         }
 
         return view;

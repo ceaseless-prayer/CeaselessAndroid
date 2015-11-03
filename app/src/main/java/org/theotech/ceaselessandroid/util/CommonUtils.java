@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.joanzapata.iconify.widget.IconTextView;
 import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.R;
@@ -41,15 +42,18 @@ public class CommonUtils {
         }
     }
 
-    public static void injectPersonIntoView(final Activity activity, PersonManager personManager, TextView personName,
+    public static void injectPersonIntoView(final Activity activity, final PersonManager personManager, TextView personName,
                                             ImageView personImage, LinearLayout notes, View view, final String personId,
                                             String emptyNotesMessage, final FragmentManager fragmentManager, final FragmentState backStackInfo) {
         PersonPOJO personPOJO = personManager.getPerson(personId);
         Uri personPhotoUri = CommonUtils.getContactPhotoUri(activity.getContentResolver(), personPOJO.getId(), true);
 
+        // display name and picture
         personName.setText(personPOJO.getName());
-        Picasso.with(activity).load(personPhotoUri).placeholder(R.drawable.placeholder_user).fit().centerInside().into(personImage);
+        Picasso.with(activity).load(personPhotoUri).placeholder(R.drawable.placeholder_user)
+                .fit().centerInside().into(personImage);
 
+        // display notes
         List<NotePOJO> notePOJOs = personPOJO.getNotes();
         Collections.sort(notePOJOs, new Comparator<NotePOJO>() { // sort by latest first
             @Override
@@ -76,6 +80,32 @@ public class CommonUtils {
                 notes.addView(row);
             }
         }
+    }
+
+    public static void wireFavoriteShortcut(final View view, final String personId, final PersonManager personManager, final String favoriteOn, final String favoriteOff) {
+
+        PersonPOJO personPOJO = personManager.getPerson(personId);
+        final IconTextView favorite = (IconTextView) view.findViewById(R.id.favorite_btn);
+
+        // favorite
+        if (personPOJO.isFavorite()) {
+            favorite.setText(favoriteOn);
+        } else {
+            favorite.setText(favoriteOff);
+        }
+        favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PersonPOJO updatedPerson = personManager.getPerson(personId);
+                if (updatedPerson.isFavorite()) {
+                    personManager.unfavoritePerson(updatedPerson.getId());
+                    favorite.setText(favoriteOff);
+                } else {
+                    personManager.favoritePerson(updatedPerson.getId());
+                    favorite.setText(favoriteOn);
+                }
+            }
+        });
     }
 
     public static void loadAddNote(String personId, Activity activity, FragmentManager fragmentManager, FragmentState backStackInfo) {
