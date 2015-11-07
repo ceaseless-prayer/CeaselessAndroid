@@ -33,7 +33,7 @@ public class AddNoteFragment extends Fragment {
 
     @Bind(R.id.note_tags)
     PersonsCompletionView noteTags;
-    @Bind(R.id.person_note_text)
+    @Bind(R.id.add_note_text)
     EditText noteText;
     @Bind(R.id.cancel_note)
     Button cancelNote;
