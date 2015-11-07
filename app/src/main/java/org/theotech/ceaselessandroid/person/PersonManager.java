@@ -1,6 +1,5 @@
 package org.theotech.ceaselessandroid.person;
 
-import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 
 import java.util.List;

@@ -4,7 +4,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 
 import org.theotech.ceaselessandroid.realm.Note;
-import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
 import org.theotech.ceaselessandroid.util.RealmUtils;
 
