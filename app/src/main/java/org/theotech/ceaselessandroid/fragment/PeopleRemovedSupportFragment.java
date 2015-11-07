@@ -142,7 +142,7 @@ public class PeopleRemovedSupportFragment extends Fragment implements Refreshabl
     private class RemovedPeopleArrayAdapter extends ArrayAdapter<PersonPOJO> {
         private final Context context;
         private final List<PersonPOJO> persons;
-        private LayoutInflater inflater;
+        private final LayoutInflater inflater;
 
         public RemovedPeopleArrayAdapter(Context context, List<PersonPOJO> persons) {
             super(context, -1, persons);

@@ -58,7 +58,7 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/note_text"
+        android:id="@+id/person_note_text"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/note_buttons"

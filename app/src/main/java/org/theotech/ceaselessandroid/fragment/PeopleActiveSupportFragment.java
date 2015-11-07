@@ -143,7 +143,7 @@ public class PeopleActiveSupportFragment extends Fragment implements Refreshable
     private class ActivePeopleArrayAdapter extends ArrayAdapter<PersonPOJO> {
         private final Context context;
         private final List<PersonPOJO> persons;
-        private LayoutInflater inflater;
+        private final LayoutInflater inflater;
 
         public ActivePeopleArrayAdapter(Context context, List<PersonPOJO> persons) {
             super(context, -1, persons);

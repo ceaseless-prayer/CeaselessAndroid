@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,11 +25,10 @@ import butterknife.ButterKnife;
 
 public class JournalFragment extends Fragment {
 
+    @Bind(R.id.journal)
+    ListView journal;
     private FragmentStateListener mListener;
     private NoteManager noteManager = null;
-
-    @Bind(R.id.journal_note_list)
-    LinearLayout notes;
 
     public JournalFragment() {
         // Required empty public constructor
@@ -70,28 +67,48 @@ public class JournalFragment extends Fragment {
                 return -1 * lhs.getLastUpdatedDate().compareTo(rhs.getLastUpdatedDate());
             }
         });
-
-        if (notePOJOs.isEmpty()) {
-            ListView emptyNotes = (ListView) view.findViewById(R.id.empty_notes);
-            emptyNotes.setAdapter(new ArrayAdapter<>(getActivity(), R.layout.list_item_empty_notes, new String[]{getString(R.string.empty_notes)}));
-            emptyNotes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    // TODO loadAddNote(personId, activity, fragmentManager, backStackInfo);
-                }
-            });
-        } else {
-            for (int i = 0; i < notePOJOs.size(); i++) {
-                View row = getActivity().getLayoutInflater().inflate(R.layout.list_item_person_notes, null);
-                TextView noteDate = (TextView) row.findViewById(R.id.note_date);
-                TextView noteText = (TextView) row.findViewById(R.id.note_text);
-                noteDate.setText(notePOJOs.get(i).getLastUpdatedDate().toString());
-                noteText.setText(notePOJOs.get(i).getText());
-                notes.addView(row);
-            }
-        }
+        journal.setAdapter(new NotesArrayAdapter(getActivity(), notePOJOs));
 
         return view;
+    }
+
+    private class NotesArrayAdapter extends ArrayAdapter<NotePOJO> {
+        private final Context context;
+        private final List<NotePOJO> notes;
+        private final LayoutInflater inflater;
+
+        public NotesArrayAdapter(Context context, List<NotePOJO> notes) {
+            super(context, -1, notes);
+            this.context = context;
+            this.notes = notes;
+            this.inflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public View getView(int position, View view, ViewGroup parent) {
+            final ViewHolder holder;
+            if (view == null) {
+                holder = new ViewHolder();
+                view = inflater.inflate(R.layout.list_item_notes, parent, false);
+                holder.noteDate = (TextView) view.findViewById(R.id.note_date);
+                holder.noteText = (TextView) view.findViewById(R.id.note_text);
+                view.setTag(holder);
+            } else {
+                holder = (ViewHolder) view.getTag();
+            }
+            NotePOJO note = notes.get(position);
+            // note date
+            holder.noteDate.setText(note.getLastUpdatedDate().toString());
+            // note text
+            holder.noteText.setText(note.getText());
+
+            return view;
+        }
+
+        private class ViewHolder {
+            TextView noteDate;
+            TextView noteText;
+        }
     }
 
 }

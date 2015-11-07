@@ -75,8 +75,8 @@ public class CommonUtils {
         } else {
             for (int i = 0; i < notePOJOs.size(); i++) {
                 View row = activity.getLayoutInflater().inflate(R.layout.list_item_person_notes, null);
-                TextView noteDate = (TextView) row.findViewById(R.id.note_date);
-                TextView noteText = (TextView) row.findViewById(R.id.note_text);
+                TextView noteDate = (TextView) row.findViewById(R.id.person_note_date);
+                TextView noteText = (TextView) row.findViewById(R.id.person_note_text);
                 noteDate.setText(notePOJOs.get(i).getLastUpdatedDate().toString());
                 noteText.setText(notePOJOs.get(i).getText());
                 notes.addView(row);
