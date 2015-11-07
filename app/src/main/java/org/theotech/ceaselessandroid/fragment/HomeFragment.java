@@ -71,7 +71,7 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        // fragment listener
+        // notify fragment state
         try {
             mListener = (FragmentStateListener) getActivity();
         } catch (ClassCastException e) {
@@ -201,6 +201,7 @@ public class HomeFragment extends Fragment {
                                 newState.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
                             }
                         }
+                        // notify fragment state
                         FragmentState fragmentState = new FragmentState(getString(R.string.nav_home), newState);
                         mListener.notify(fragmentState);
                     }

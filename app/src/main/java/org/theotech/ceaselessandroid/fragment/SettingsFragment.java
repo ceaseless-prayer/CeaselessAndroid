@@ -26,7 +26,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
         setHasOptionsMenu(true);
-        // fragment listener
+        // notify fragment state
         try {
             mListener = (FragmentStateListener) getActivity();
         } catch (ClassCastException e) {

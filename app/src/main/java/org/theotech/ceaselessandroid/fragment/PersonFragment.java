@@ -32,6 +32,7 @@ public class PersonFragment extends Fragment {
     @Bind(R.id.note_btn)
     IconTextView noteButton;
 
+    private FragmentStateListener mListener;
     private PersonManager personManager;
 
     public PersonFragment() {
@@ -42,6 +43,13 @@ public class PersonFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        // notify fragment state
+        try {
+            mListener = (FragmentStateListener) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString() + " must implement FragmentStateListener");
+        }
+        mListener.notify(new FragmentState(getString(R.string.person_view), getArguments()));
 
         personManager = PersonManagerImpl.getInstance(getActivity());
     }

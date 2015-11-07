@@ -44,7 +44,7 @@ public class PeopleFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        // fragment listener
+        // notify fragment state
         try {
             mListener = (FragmentStateListener) getActivity();
         } catch (ClassCastException e) {
