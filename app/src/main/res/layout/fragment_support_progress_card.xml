@@ -42,6 +42,7 @@
                 android:gravity="center"
                 android:text="@string/prayed_for_text" />
 
+            <!--suppress UnusedAttribute-->
             <ProgressBar
                 android:id="@+id/prayer_progress"
                 style="?android:attr/progressBarStyleHorizontal"
