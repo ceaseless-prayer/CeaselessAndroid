@@ -18,14 +18,16 @@
         card_view:cardCornerRadius="@dimen/card_corner_radius"
         card_view:cardElevation="@dimen/card_elevation">
 
+        <!--suppress NewApi -->
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="@dimen/card_label_height"
             android:background="@color/cardLabel"
             android:gravity="center|start"
-            android:paddingEnd="@dimen/card_label_left_margin"
-            android:paddingLeft="@dimen/card_label_left_margin"
-            android:paddingStart="@dimen/card_label_left_margin"
+            android:paddingLeft="@dimen/card_label_start_margin"
+            android:paddingRight="@dimen/card_label_end_margin"
+            android:paddingStart="@dimen/card_label_start_margin"
+            android:paddingEnd="@dimen/card_label_end_margin"
             android:text="@string/hello_blank_fragment"
             android:textColor="@color/cardLabelText"
             android:textSize="@dimen/card_label_text_size" />
