@@ -34,7 +34,19 @@ android {
         }
     }
     lintOptions {
-        abortOnError false
+        disable 'PrivateResource',
+                'MissingTranslation',
+                'AllowBackup',
+                'UnusedResources',
+                'UselessLeaf',
+                'UselessParent',
+                'IconColors',
+                'IconLocation',
+                'IconDensities',
+                'ButtonStyle',
+                'HardcodedText',
+                'RtlSymmetry',
+                'RtlHardcoded'
     }
 
     packagingOptions {
