@@ -44,6 +44,7 @@
 
                 <ImageView
                     android:id="@+id/person_image"
+                    android:contentDescription="@string/person_image"
                     android:layout_width="@dimen/person_image_size"
                     android:layout_height="@dimen/person_image_size"
                     android:layout_centerInParent="true"
