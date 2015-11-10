@@ -64,12 +64,14 @@
 
                 <ImageView
                     android:id="@+id/fb_image"
+                    android:contentDescription="@string/fb"
                     android:layout_width="@dimen/fb_image_width"
                     android:layout_height="@dimen/fb_image_height"
                     android:layout_marginRight="96dp" />
 
                 <ImageView
                     android:id="@+id/twitter_image"
+                    android:contentDescription="@string/twitter"
                     android:layout_width="@dimen/twitter_image_width"
                     android:layout_height="@dimen/twitter_image_height" />
             </LinearLayout>

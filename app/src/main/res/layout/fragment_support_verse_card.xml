@@ -27,7 +27,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/placeholder_rectangle_scene" />
+                android:src="@drawable/placeholder_rectangle_scene"
+                android:contentDescription="@string/scenic_photo"/>
 
             <RelativeLayout
                 android:layout_width="fill_parent"

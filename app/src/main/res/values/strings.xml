@@ -56,4 +56,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Not implemented yet</string>
 
+    <!-- Image descriptions -->
+    <string name="fb">Facebook logo</string>
+    <string name="twitter">Twitter logo</string>
+    <string name="scenic_photo">Scenic photo</string>
+    <string name="person_image">Contact photo</string>
+    <string name="person_thumbnail">Contact photo thumbnail</string>
+    <string name="ceaseless_logo">Ceaseless dove logo</string>
+
 </resources>

@@ -13,6 +13,7 @@
 
     <ImageView
         android:id="@+id/imageView"
+        android:contentDescription="@+string/ceaseless_logo"
         android:layout_width="@dimen/nav_header_image_width"
         android:layout_height="@dimen/nav_header_image_height"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
