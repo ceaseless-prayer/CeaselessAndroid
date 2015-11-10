@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+  <!-- The following should be eventually removed or narrowed to specific methods -->
+  <Match>
+    <Bug pattern="DM_DEFAULT_ENCODING"/>
+  </Match>
+  <Match>
+    <Bug pattern="EI_EXPOSE_REP"/>
+  </Match>
+  <Match>
+    <Bug pattern="EI_EXPOSE_REP2"/>
+  </Match>
+  <Match>
+    <Bug pattern="LI_LAZY_INIT_STATIC"/>
+  </Match>
+  <Match>
+    <Bug pattern="MS_PKGPROTECT"/>
+  </Match>
+  <Match>
+    <Bug pattern="NM_CLASS_NOT_EXCEPTION"/>
+  </Match>
+  <Match>
+    <Bug pattern="NM_CLASS_NAMING_CONVENTION"/>
+  </Match>
+  <Match>
+    <Bug pattern="NP_NULL_PARAM_DEREF"/>
+  </Match>
+  <Match>
+    <Bug pattern="OS_OPEN_STREAM"/>
+  </Match>
+  <Match>
+    <Bug pattern="REC_CATCH_EXCEPTION"/>
+  </Match>
+  <Match>
+    <Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON"/>
+  </Match>
+  <Match>
+    <Bug pattern="SIC_INNER_SHOULD_BE_STATIC"/>
+  </Match>
+  <Match>
+    <Bug pattern="SE_NO_SERIALVERSIONID"/>
+  </Match>
+  <Match>
+    <Bug pattern="URF_UNREAD_FIELD"/>
+  </Match>
+  <Match>
+    <Bug pattern="DMI_INVOKING_TOSTRING_ON_ARRAY"/>
+  </Match>
+  <Match>
+    <Bug pattern="UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR"/>
+  </Match>
+</FindBugsFilter>
