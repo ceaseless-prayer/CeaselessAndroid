@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group
-        android:id="@+id/top"
+        android:id="@+id/nav_top"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
@@ -19,7 +19,7 @@
     </group>
 
     <group
-        android:id="@+id/middle"
+        android:id="@+id/nav_middle"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_settings"
@@ -36,7 +36,7 @@
     </group>
 
     <group
-        android:id="@+id/bottom"
+        android:id="@+id/nav_bottom"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_rate_this_app"
