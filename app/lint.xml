@@ -1,0 +1,6 @@
+<lint>
+  <issue id="InvalidPackage">
+    <ignore regexp="okio-1.4.0.jar"/>
+    <ignore regexp="realm-android-0.84.1.jar"/>
+  </issue>
+</lint>
