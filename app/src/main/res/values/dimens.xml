@@ -14,7 +14,8 @@
     <dimen name="card_corner_radius">4dp</dimen>
     <dimen name="card_elevation">4dp</dimen>
     <dimen name="card_label_height">60dp</dimen>
-    <dimen name="card_label_left_margin">10dp</dimen>
+    <dimen name="card_label_start_margin">10dp</dimen>
+    <dimen name="card_label_end_margin">10dp</dimen>
     <dimen name="card_label_text_size">20sp</dimen>
     <dimen name="card_separator_height">2dp</dimen>
     <dimen name="card_separator_margin">20dp</dimen>
