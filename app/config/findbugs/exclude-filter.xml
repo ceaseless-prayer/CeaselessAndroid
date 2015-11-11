@@ -17,9 +17,6 @@
     <Bug pattern="MS_PKGPROTECT"/>
   </Match>
   <Match>
-    <Bug pattern="NM_CLASS_NOT_EXCEPTION"/>
-  </Match>
-  <Match>
     <Bug pattern="NM_CLASS_NAMING_CONVENTION"/>
   </Match>
   <Match>
