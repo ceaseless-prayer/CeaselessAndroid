@@ -1,6 +1,7 @@
 package org.theotech.ceaselessandroid.note;
 
 import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
+import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface NoteManager {
 
     List<NotePOJO> getNotes();
 
-    void addNote(String title, String text);
+    void addNote(String title, String text, List<PersonPOJO> personPOJOs);
 
     void editNote(String noteId, String title, String text);
 

@@ -17,8 +17,11 @@ import com.tokenautocomplete.TokenCompleteTextView;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
+import org.theotech.ceaselessandroid.note.NoteManager;
+import org.theotech.ceaselessandroid.note.NoteManagerImpl;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
+import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.view.PersonsCompletionView;
@@ -40,8 +43,9 @@ public class AddNoteFragment extends Fragment {
     @Bind(R.id.save_note)
     Button saveNote;
 
-    private List<PersonPOJO> taggedPeople;
+    private List<PersonPOJO> taggedPeople = new ArrayList<>();
     private PersonManager personManager = null;
+    private NoteManager noteManager = null;
     private CacheManager cacheManager = null;
 
     public AddNoteFragment() {
@@ -55,6 +59,7 @@ public class AddNoteFragment extends Fragment {
 
         taggedPeople = new ArrayList<>();
         personManager = PersonManagerImpl.getInstance(getActivity());
+        noteManager = NoteManagerImpl.getInstance(getActivity());
         cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
     }
 
@@ -97,12 +102,7 @@ public class AddNoteFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 hideKeyboard();
-
-                // add the note to all the tagged people
-                for (PersonPOJO taggedPerson : taggedPeople) {
-                    personManager.addNote(taggedPerson.getId(), null, noteText.getText().toString());
-                }
-
+                noteManager.addNote(null, noteText.getText().toString(), taggedPeople);
                 // simulate back button press to exit this fragment
                 getActivity().onBackPressed();
             }

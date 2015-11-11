@@ -3,8 +3,12 @@ package org.theotech.ceaselessandroid.note;
 import android.content.ContentResolver;
 import android.content.Context;
 
+import org.theotech.ceaselessandroid.person.PersonManager;
+import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.realm.Note;
+import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
+import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.util.RealmUtils;
 
 import java.util.Date;
@@ -13,6 +17,7 @@ import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmList;
 
 /**
  * Created by chrislim on 11/3/15.
@@ -50,15 +55,22 @@ public class NoteManagerImpl implements NoteManager {
     }
 
     @Override
-    public void addNote(String title, String text) {
+    public void addNote(String title, String text, List<PersonPOJO> personPOJOs) {
         realm.beginTransaction();
         Note note = realm.createObject(Note.class);
         note.setCreationDate(new Date());
         note.setLastUpdatedDate(new Date());
         note.setId(UUID.randomUUID().toString());
-        if (title != null)
+        if (title != null) {
             note.setTitle(title);
+        }
         note.setText(text);
+        PersonManager pm = PersonManagerImpl.getInstance(context);
+        RealmList<Person> people = pm.getPersonFromPersonPOJO(personPOJOs);
+        note.setPeopleTagged(people);
+        for (PersonPOJO p : personPOJOs) {
+            pm.getRealmPerson(p.getId()).getNotes().add(note);
+        }
         realm.commitTransaction();
     }
 

@@ -1,15 +1,19 @@
 package org.theotech.ceaselessandroid.person;
 
+import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 
 import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 
 /**
  * Created by Ben Johnson on 10/3/15.
  */
 public interface PersonManager {
+
+    RealmList<Person> getPersonFromPersonPOJO(List<PersonPOJO> people);
 
     void setRealm(Realm realm);
 
@@ -24,6 +28,8 @@ public interface PersonManager {
     long getNumPeople();
 
     PersonPOJO getPerson(String personId);
+
+    Person getRealmPerson(String personId);
 
     void ignorePerson(String personId);
 

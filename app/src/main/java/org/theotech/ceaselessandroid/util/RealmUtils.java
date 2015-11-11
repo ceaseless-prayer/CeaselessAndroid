@@ -18,7 +18,15 @@ import io.realm.RealmList;
  */
 public class RealmUtils {
 
-    public static List<String> convert(RealmList<RealmString> list) {
+    public static List<String> convertPersonToId(RealmList<Person> list) {
+        List<String> result = new ArrayList<>();
+        for (Person person : list) {
+            result.add(person.getId());
+        }
+        return result;
+    }
+
+    public static List<String> convertRealmStringToString(RealmList<RealmString> list) {
         List<String> result = new ArrayList<>();
         for (RealmString item : list) {
             result.add(item.getString());
@@ -29,7 +37,7 @@ public class RealmUtils {
     public static NotePOJO toNotePOJO(Note note) {
         if (note != null) {
             return new NotePOJO(note.getId(), note.getCreationDate(), note.getLastUpdatedDate(),
-                    note.getTitle(), note.getText(), convert(note.getPeopleTagged()));
+                    note.getTitle(), note.getText(), convertPersonToId(note.getPeopleTagged()));
         }
         return null;
     }
@@ -70,7 +78,7 @@ public class RealmUtils {
             return new LocalCacheDataPOJO(localCacheData.getCreationDate(),
                     localCacheData.getScriptureCitation(), localCacheData.getScriptureText(),
                     localCacheData.getScriptureJson(), localCacheData.getVerseImageURL(),
-                    convert(localCacheData.getPersonIdsToPrayFor()));
+                    convertRealmStringToString(localCacheData.getPersonIdsToPrayFor()));
         }
         return null;
     }

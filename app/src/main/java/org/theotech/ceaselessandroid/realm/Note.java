@@ -16,12 +16,12 @@ public class Note extends RealmObject {
     private Date lastUpdatedDate;
     private String title;
     private String text;
-    private RealmList<RealmString> peopleTagged;
+    private RealmList<Person> peopleTagged;
 
     public Note() {
     }
 
-    public Note(String id, Date creationDate, Date lastUpdatedDate, String title, String text, RealmList<RealmString> peopleTagged) {
+    public Note(String id, Date creationDate, Date lastUpdatedDate, String title, String text, RealmList<Person> peopleTagged) {
         this.id = id;
         this.creationDate = creationDate;
         this.lastUpdatedDate = lastUpdatedDate;
@@ -70,11 +70,11 @@ public class Note extends RealmObject {
         this.text = text;
     }
 
-    public RealmList<RealmString> getPeopleTagged() {
+    public RealmList<Person> getPeopleTagged() {
         return peopleTagged;
     }
 
-    public void setPeopleTagged(RealmList<RealmString> peopleTagged) {
+    public void setPeopleTagged(RealmList<Person> peopleTagged) {
         this.peopleTagged = peopleTagged;
     }
 }

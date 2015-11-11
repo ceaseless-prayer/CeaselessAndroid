@@ -20,6 +20,8 @@ import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmList;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 /**
@@ -50,6 +52,23 @@ public class PersonManagerImpl implements PersonManager {
             instance = new PersonManagerImpl(context);
         }
         return instance;
+    }
+
+    @Override
+    public RealmList<Person> getPersonFromPersonPOJO(List<PersonPOJO> people) {
+        RealmList<Person> listOfPersons = new RealmList<>();
+        RealmQuery<Person> query = realm.where(Person.class);
+        if (people.size() > 0) {
+            query = query.equalTo("id", people.get(0).getId());
+            for (int i = 1; i < people.size(); i++) {
+                query = query.or().equalTo("id", people.get(i).getId());
+            }
+        }
+        RealmResults<Person> results = query.findAll();
+        for (int i = 0; i < results.size(); i++) {
+            listOfPersons.add(results.get(i));
+        }
+        return listOfPersons;
     }
 
     @Override
@@ -153,7 +172,8 @@ public class PersonManagerImpl implements PersonManager {
         return RealmUtils.toPersonPOJO(getRealmPerson(personId));
     }
 
-    private Person getRealmPerson(String personId) {
+    @Override
+    public Person getRealmPerson(String personId) {
         return realm.where(Person.class).equalTo("id", personId).findFirst();
     }
 
@@ -194,8 +214,9 @@ public class PersonManagerImpl implements PersonManager {
         note.setCreationDate(new Date());
         note.setLastUpdatedDate(new Date());
         note.setId(UUID.randomUUID().toString());
-        if (title != null)
+        if (title != null) {
             note.setTitle(title);
+        }
         note.setText(text);
         getRealmPerson(personId).getNotes().add(note);
         realm.commitTransaction();
