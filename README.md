@@ -18,4 +18,4 @@ Make sure you have the tools directory for the Android SDK in your path, e.g. `/
 
 # Releasing
 
-To build a release APK, you'll need the release.keystore from https://bitbucket.org/chrislim/ceaseless-keys. From there, using Android Studio go to: Build -> Generate Signed APK... to start the process. The keystore is protected by a password so you'll that too.
+To build a release APK, you'll need the release.keystore from https://bitbucket.org/chrislim/ceaseless-keys. From there, using Android Studio go to: Build -> Generate Signed APK... to start the process. The keystore is protected by a password so you'll need that too.
