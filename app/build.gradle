@@ -12,6 +12,7 @@ buildscript {
 apply plugin: 'com.android.application'
 apply plugin: 'findbugs'
 apply plugin: 'io.fabric'
+apply plugin: 'pmd'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -100,4 +101,26 @@ task findbugs(type: FindBugs, dependsOn: assembleDebug) {
     classpath = files()
 }
 
-check.dependsOn 'findbugs', 'lint'
+
+task pmd(type: Pmd, dependsOn: assembleDebug) {
+    ignoreFailures = false
+    ruleSetFiles = files(new File(projectDir, "config/pmd/pmd-ruleset.xml"))
+    ruleSets = []
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        xml {
+            destination = new File(buildDir, "reports/pmd/pmd.xml")
+        }
+        html {
+            destination = new File(buildDir, "reports/pmd/pmd.html")
+        }
+    }
+}
+
+check.dependsOn 'findbugs', 'lint', 'pmd'
