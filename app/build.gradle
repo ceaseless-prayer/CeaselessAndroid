@@ -37,7 +37,6 @@ android {
         disable 'PrivateResource',
                 'MissingTranslation',
                 'AllowBackup',
-                'UnusedResources',
                 'UselessLeaf',
                 'UselessParent',
                 'IconColors',

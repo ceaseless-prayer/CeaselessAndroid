@@ -6,7 +6,7 @@
 
     <ImageView
         android:id="@+id/person_removed_thumbnail"
-        android:contentDescription="@+string/person_thumbnail"
+        android:contentDescription="@string/person_thumbnail"
         android:layout_width="@dimen/person_list_image_size"
         android:layout_height="@dimen/person_list_image_size"
         android:layout_alignParentLeft="true"
