@@ -9,6 +9,7 @@ buildscript {
     }
 }
 
+apply plugin: 'checkstyle'
 apply plugin: 'com.android.application'
 apply plugin: 'findbugs'
 apply plugin: 'io.fabric'
@@ -78,6 +79,14 @@ dependencies {
     compile 'io.realm:realm-android:0.84.1'
 }
 
+task checkstyle(type: Checkstyle) {
+    configProperties.checkstyleSuppressionsPath = new File(projectDir, "config/checkstyle/suppressions.xml")
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+    classpath = files()
+}
+
 task findbugs(type: FindBugs, dependsOn: assembleDebug) {
     ignoreFailures = false
     effort = "max"
@@ -125,4 +134,4 @@ task pmd(type: Pmd, dependsOn: assembleDebug) {
     }
 }
 
-check.dependsOn 'findbugs', 'lint', 'pmd'
+check.dependsOn 'checkstyle', 'findbugs', 'lint', 'pmd'
