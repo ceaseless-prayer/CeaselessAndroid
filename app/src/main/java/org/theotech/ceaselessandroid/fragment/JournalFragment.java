@@ -3,18 +3,42 @@ package org.theotech.ceaselessandroid.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.SparseBooleanArray;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.common.base.Joiner;
+import com.makeramen.roundedimageview.RoundedImageView;
+import com.makeramen.roundedimageview.RoundedTransformationBuilder;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.note.NoteManager;
 import org.theotech.ceaselessandroid.note.NoteManagerImpl;
+import org.theotech.ceaselessandroid.person.PersonManager;
+import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
+import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
+import org.theotech.ceaselessandroid.util.CommonUtils;
+import org.theotech.ceaselessandroid.util.Constants;
+import org.theotech.ceaselessandroid.util.FragmentUtils;
+import org.theotech.ceaselessandroid.util.Refreshable;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -23,12 +47,17 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class JournalFragment extends Fragment {
+public class JournalFragment extends Fragment implements Refreshable {
+
+    private static final String TAG = JournalFragment.class.getSimpleName();
 
     @Bind(R.id.journal)
     ListView journal;
     private FragmentStateListener mListener;
     private NoteManager noteManager = null;
+    private PersonManager personManager = null;
+    private ActionMode actionMode;
+    private NotesArrayAdapter adapter;
 
     public JournalFragment() {
         // Required empty public constructor
@@ -44,8 +73,11 @@ public class JournalFragment extends Fragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(getActivity().toString() + " must implement FragmentStateListener");
         }
+
         mListener.notify(new FragmentState(getString(R.string.nav_journal)));
+
         noteManager = NoteManagerImpl.getInstance(getActivity());
+        personManager = PersonManagerImpl.getInstance(getActivity());
     }
 
     @Override
@@ -59,7 +91,7 @@ public class JournalFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         // display notes
-        List<NotePOJO> notePOJOs = noteManager.getNotes();
+        final List<NotePOJO> notePOJOs = noteManager.getNotes();
         // TODO take care of this in the realm query?
         Collections.sort(notePOJOs, new Comparator<NotePOJO>() { // sort by latest first
             @Override
@@ -67,9 +99,84 @@ public class JournalFragment extends Fragment {
                 return -1 * lhs.getLastUpdatedDate().compareTo(rhs.getLastUpdatedDate());
             }
         });
-        journal.setAdapter(new NotesArrayAdapter(getActivity(), notePOJOs));
+
+        adapter = new NotesArrayAdapter(getActivity(), notePOJOs);
+        journal.setAdapter(adapter);
+
+        journal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "item has been clicked");
+                Bundle bundle = new Bundle();
+                bundle.putString(Constants.NOTE_ID_BUNDLE_ARG, notePOJOs.get(position).getId());
+                FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null,
+                        R.id.add_note_fragment, bundle, new FragmentState(getString(R.string.nav_journal)));
+            }
+        });
+
+        journal.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        journal.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+                final int checkedCount = journal.getCheckedItemCount();
+                mode.setTitle(String.format(getString(R.string.bulk_selected), checkedCount));
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                actionMode = mode;
+                mode.getMenuInflater().inflate(R.menu.journal_menu, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.note_remove) {
+                    final List<NotePOJO> notes = noteManager.getNotes();
+                    SparseBooleanArray array = journal.getCheckedItemPositions();
+                    for (int i = 0; i < array.size(); i++) {
+                        int position = array.keyAt(i);
+                        NotePOJO note = notes.get(position);
+                        noteManager.removeNote(note.getId());
+                        adapter.remove(note.getId());
+                    }
+                    mode.finish();
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                actionMode = null;
+            }
+        });
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void refreshList() {
+        adapter.refresh();
+    }
+
+    @Override
+    public void dismissActionMode() {
+        if (actionMode != null) {
+            actionMode.finish();
+        }
     }
 
     private class NotesArrayAdapter extends ArrayAdapter<NotePOJO> {
@@ -92,22 +199,65 @@ public class JournalFragment extends Fragment {
                 view = inflater.inflate(R.layout.list_item_notes, parent, false);
                 holder.noteDate = (TextView) view.findViewById(R.id.note_date);
                 holder.noteText = (TextView) view.findViewById(R.id.note_text);
+                holder.notePeopleTagged = (TextView) view.findViewById(R.id.note_people_tagged);
+                holder.thumbnail1 = (RoundedImageView) view.findViewById(R.id.person_tagged_thumbnail_1);
+                holder.thumbnail2 = (RoundedImageView) view.findViewById(R.id.person_tagged_thumbnail_2);
                 view.setTag(holder);
             } else {
                 holder = (ViewHolder) view.getTag();
             }
             NotePOJO note = notes.get(position);
-            // note date
             holder.noteDate.setText(note.getLastUpdatedDate().toString());
-            // note text
             holder.noteText.setText(note.getText());
+            holder.notePeopleTagged.setText(Joiner.on(", ").join(note.getPeopleTaggedNames()));
+
+            if (note.getPeopleTagged().size() > 0) {
+                Uri thumbnailUri = CommonUtils.getContactPhotoUri(context.getContentResolver(), note.getPeopleTagged().get(0), false);
+                Picasso.with(context)
+                        .load(thumbnailUri)
+                        .placeholder(R.drawable.placeholder_user)
+                        .fit()
+                        .into(holder.thumbnail1);
+            }
+
+            if (note.getPeopleTagged().size() > 1) {
+                Uri thumbnailUri = CommonUtils.getContactPhotoUri(context.getContentResolver(), note.getPeopleTagged().get(1), false);
+                Picasso.with(context)
+                        .load(thumbnailUri)
+                        .placeholder(R.drawable.placeholder_user)
+                        .fit()
+                        .into(holder.thumbnail2);
+            }
 
             return view;
         }
 
+        public void refresh() {
+            notes.clear();
+            notes.addAll(noteManager.getNotes());
+            notifyDataSetChanged();
+        }
+
+        public void remove(String noteId) {
+            Log.d(TAG, "removing note " + noteId);
+            int index = -1;
+            for (int i = 0; i < notes.size(); i++) {
+                if (notes.get(i).getId().equals(noteId)) {
+                    index = i;
+                }
+            }
+            if (index != -1) {
+                notes.remove(index);
+                notifyDataSetChanged();
+            }
+        }
+
         private class ViewHolder {
+            TextView notePeopleTagged;
             TextView noteDate;
             TextView noteText;
+            RoundedImageView thumbnail1;
+            RoundedImageView thumbnail2;
         }
     }
 

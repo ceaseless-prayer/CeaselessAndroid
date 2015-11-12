@@ -67,8 +67,10 @@ dependencies {
         transitive = true;
     }
     compile 'com.github.codechimp-org.apprater:library:1.0.30'
+    compile 'com.google.guava:guava:18.0'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.0'
+    compile 'com.makeramen:roundedimageview:2.2.1'
     compile 'com.splitwise:tokenautocomplete:2.0.2@aar'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.squareup.picasso:picasso:2.5.2'

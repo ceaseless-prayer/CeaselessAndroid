@@ -81,6 +81,8 @@ public class FragmentUtils {
             return new AddNoteFragment();
         } else if (resourceId == R.id.person_card) {
             return new PersonFragment();
+        } else if (resourceId == R.id.add_note_fragment) {
+            return new AddNoteFragment();
         }
         return null;
     }

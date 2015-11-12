@@ -21,7 +21,9 @@ import org.theotech.ceaselessandroid.note.NoteManager;
 import org.theotech.ceaselessandroid.note.NoteManagerImpl;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
+import org.theotech.ceaselessandroid.realm.Note;
 import org.theotech.ceaselessandroid.realm.Person;
+import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.view.PersonsCompletionView;
@@ -47,6 +49,7 @@ public class AddNoteFragment extends Fragment {
     private PersonManager personManager = null;
     private NoteManager noteManager = null;
     private CacheManager cacheManager = null;
+    private String noteId = null;
 
     public AddNoteFragment() {
         // Required empty public constructor
@@ -75,10 +78,22 @@ public class AddNoteFragment extends Fragment {
 
         // add current person to the list of taggedPeople (if we're on a page that shows a person)
         Bundle bundle = getArguments();
-        if (bundle != null && bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG)) {
-            String personId = bundle.getString(Constants.PERSON_ID_BUNDLE_ARG);
-            if (personId != null) {
-                noteTags.addObject(personManager.getPerson(personId));
+        if(bundle != null) {
+            if (bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG)) {
+                String personId = bundle.getString(Constants.PERSON_ID_BUNDLE_ARG);
+                if (personId != null) {
+                    noteTags.addObject(personManager.getPerson(personId));
+                }
+            }
+            if(bundle.containsKey(Constants.NOTE_ID_BUNDLE_ARG)) {
+                noteId = bundle.getString(Constants.NOTE_ID_BUNDLE_ARG);
+                NotePOJO note = noteManager.getNote(noteId);
+                noteText.setText(note.getText());
+                if (note.getPeopleTagged() != null) {
+                    for(String personId : note.getPeopleTagged()) {
+                        noteTags.addObject(personManager.getPerson(personId));
+                    }
+                }
             }
         }
 

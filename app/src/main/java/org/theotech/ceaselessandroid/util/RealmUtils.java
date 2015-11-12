@@ -26,6 +26,14 @@ public class RealmUtils {
         return result;
     }
 
+    public static List<String> convertPersonToName(RealmList<Person> list) {
+        List<String> result = new ArrayList<>();
+        for (Person person : list) {
+            result.add(person.getName());
+        }
+        return result;
+    }
+
     public static List<String> convertRealmStringToString(RealmList<RealmString> list) {
         List<String> result = new ArrayList<>();
         for (RealmString item : list) {
@@ -37,7 +45,7 @@ public class RealmUtils {
     public static NotePOJO toNotePOJO(Note note) {
         if (note != null) {
             return new NotePOJO(note.getId(), note.getCreationDate(), note.getLastUpdatedDate(),
-                    note.getTitle(), note.getText(), convertPersonToId(note.getPeopleTagged()));
+                    note.getTitle(), note.getText(), convertPersonToId(note.getPeopleTagged()), convertPersonToName(note.getPeopleTagged()));
         }
         return null;
     }

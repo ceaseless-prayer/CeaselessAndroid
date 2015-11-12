@@ -14,14 +14,16 @@ public class NotePOJO implements Serializable {
     private String title;
     private String text;
     private List<String> peopleTagged;
+    private List<String> peopleTaggedNames;
 
-    public NotePOJO(String id, Date creationDate, Date lastUpdatedDate, String title, String text, List<String> peopleTagged) {
+    public NotePOJO(String id, Date creationDate, Date lastUpdatedDate, String title, String text, List<String> peopleTagged, List<String> peopleTaggedNames) {
         this.id = id;
         this.creationDate = creationDate;
         this.lastUpdatedDate = lastUpdatedDate;
         this.title = title;
         this.text = text;
         this.peopleTagged = peopleTagged;
+        this.peopleTaggedNames = peopleTaggedNames;
     }
 
     public String getId() {
@@ -66,6 +68,10 @@ public class NotePOJO implements Serializable {
 
     public List<String> getPeopleTagged() {
         return peopleTagged;
+    }
+
+    public List<String> getPeopleTaggedNames() {
+        return peopleTaggedNames;
     }
 
     public void setPeopleTagged(List<String> peopleTagged) {

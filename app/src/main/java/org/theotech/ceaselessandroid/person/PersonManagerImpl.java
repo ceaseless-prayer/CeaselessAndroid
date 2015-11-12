@@ -57,17 +57,23 @@ public class PersonManagerImpl implements PersonManager {
     @Override
     public RealmList<Person> getPersonFromPersonPOJO(List<PersonPOJO> people) {
         RealmList<Person> listOfPersons = new RealmList<>();
-        RealmQuery<Person> query = realm.where(Person.class);
-        if (people.size() > 0) {
-            query = query.equalTo("id", people.get(0).getId());
-            for (int i = 1; i < people.size(); i++) {
-                query = query.or().equalTo("id", people.get(i).getId());
-            }
+
+        if(people == null || people.size() == 0) {
+            return listOfPersons;
         }
+
+        RealmQuery<Person> query = realm.where(Person.class)
+                .equalTo("id", people.get(0).getId());
+
+        for (int i = 1; i < people.size(); i++) {
+            query = query.or().equalTo("id", people.get(i).getId());
+        }
+
         RealmResults<Person> results = query.findAll();
         for (int i = 0; i < results.size(); i++) {
             listOfPersons.add(results.get(i));
         }
+
         return listOfPersons;
     }
 
