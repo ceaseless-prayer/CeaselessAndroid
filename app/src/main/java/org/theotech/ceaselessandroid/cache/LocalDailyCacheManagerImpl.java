@@ -143,13 +143,17 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
             }
             realmCacheData.setPersonIdsToPrayFor(managedPersonIdsToPrayFor);
         }
-        if (newCacheData.getScriptureCitation() != null)
+        if (newCacheData.getScriptureCitation() != null) {
             realmCacheData.setScriptureCitation(newCacheData.getScriptureCitation());
-        if (newCacheData.getScriptureText() != null)
+        }
+        if (newCacheData.getScriptureText() != null) {
             realmCacheData.setScriptureText(newCacheData.getScriptureText());
-        if (newCacheData.getScriptureJson() != null)
+        }
+        if (newCacheData.getScriptureJson() != null) {
             realmCacheData.setScriptureJson(newCacheData.getScriptureJson());
-        if (newCacheData.getVerseImageURL() != null)
+        }
+        if (newCacheData.getVerseImageURL() != null) {
             realmCacheData.setVerseImageURL(newCacheData.getVerseImageURL());
+        }
     }
 }
