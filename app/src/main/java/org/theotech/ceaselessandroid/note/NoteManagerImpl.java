@@ -75,12 +75,27 @@ public class NoteManagerImpl implements NoteManager {
     }
 
     @Override
-    public void editNote(String noteId, String title, String text) {
+    public void editNote(String noteId, String title, String text, List<PersonPOJO> personPOJOs) {
         realm.beginTransaction();
         Note note = getRealmNote(noteId);
         note.setLastUpdatedDate(new Date());
         note.setTitle(title);
         note.setText(text);
+
+        // we need to cleanup people no longer tagged and add people who are new
+        PersonManager pm = PersonManagerImpl.getInstance(context);
+        RealmList<Person> oldPeopleTagged = note.getPeopleTagged();
+        for (Person p : oldPeopleTagged) {
+            p.getNotes().remove(note);
+        }
+
+        // tag the new people
+        RealmList<Person> people = pm.getPersonFromPersonPOJO(personPOJOs);
+        note.setPeopleTagged(people);
+        for (PersonPOJO p : personPOJOs) {
+            pm.getRealmPerson(p.getId()).getNotes().add(note);
+        }
+
         realm.commitTransaction();
     }
 

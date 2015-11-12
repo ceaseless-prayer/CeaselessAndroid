@@ -117,7 +117,11 @@ public class AddNoteFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 hideKeyboard();
-                noteManager.addNote(null, noteText.getText().toString(), taggedPeople);
+                if (noteId != null) {
+                    noteManager.editNote(noteId, null, noteText.getText().toString(), taggedPeople);
+                } else {
+                    noteManager.addNote(null, noteText.getText().toString(), taggedPeople);
+                }
                 // simulate back button press to exit this fragment
                 getActivity().onBackPressed();
             }

@@ -14,7 +14,7 @@ public interface NoteManager {
 
     void addNote(String title, String text, List<PersonPOJO> personPOJOs);
 
-    void editNote(String noteId, String title, String text);
+    void editNote(String noteId, String title, String text, List<PersonPOJO> personPOJOs);
 
     void removeNote(String noteId);
 
