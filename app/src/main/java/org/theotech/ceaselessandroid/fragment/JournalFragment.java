@@ -204,7 +204,7 @@ public class JournalFragment extends Fragment implements Refreshable {
                 holder = (ViewHolder) view.getTag();
             }
             NotePOJO note = notes.get(position);
-            DateFormat formatter = SimpleDateFormat.getDateInstance();
+            DateFormat formatter = SimpleDateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.SHORT);
             holder.noteDate.setText(formatter.format(note.getLastUpdatedDate()));
             holder.noteText.setText(note.getText());
             holder.notePeopleTagged.setText(Joiner.on(", ").join(note.getPeopleTaggedNames()));
