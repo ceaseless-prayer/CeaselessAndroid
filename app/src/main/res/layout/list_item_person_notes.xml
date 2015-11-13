@@ -7,33 +7,29 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/person_notes_list_border"
+        android:layout_marginTop="@dimen/person_note_list_item_verticalMargin"
+        android:layout_marginBottom="@dimen/person_note_list_item_verticalMargin"
+        android:layout_marginLeft="@dimen/person_note_list_item_horizontalMargin"
+        android:layout_marginRight="@dimen/person_note_list_item_horizontalMargin"
         android:orientation="vertical">
-
         <TextView
             android:id="@+id/person_note_date"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginTop="2dp"
-            android:gravity="center_vertical" />
-
+            android:gravity="center_vertical"/>
         <TextView
             android:id="@+id/person_note_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="2dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginTop="2dp"
-            android:gravity="center_vertical" />
-
+            android:gravity="center_vertical"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="2dp" />
+        android:layout_height="@dimen/card_separator_height"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginLeft="@dimen/card_separator_margin"
+        android:layout_marginRight="@dimen/card_separator_margin"
+        android:background="@color/lightGray"/>
 
 </LinearLayout>

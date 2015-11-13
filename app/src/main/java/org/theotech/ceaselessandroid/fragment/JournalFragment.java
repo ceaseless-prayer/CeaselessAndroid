@@ -35,6 +35,8 @@ import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.FragmentUtils;
 import org.theotech.ceaselessandroid.util.Refreshable;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -202,26 +204,40 @@ public class JournalFragment extends Fragment implements Refreshable {
                 holder = (ViewHolder) view.getTag();
             }
             NotePOJO note = notes.get(position);
-            holder.noteDate.setText(note.getLastUpdatedDate().toString());
+            DateFormat formatter = SimpleDateFormat.getDateInstance();
+            holder.noteDate.setText(formatter.format(note.getLastUpdatedDate()));
             holder.noteText.setText(note.getText());
             holder.notePeopleTagged.setText(Joiner.on(", ").join(note.getPeopleTaggedNames()));
 
-            if (note.getPeopleTagged().size() > 0) {
-                Uri thumbnailUri = CommonUtils.getContactPhotoUri(context.getContentResolver(), note.getPeopleTagged().get(0), false);
-                Picasso.with(context)
-                        .load(thumbnailUri)
-                        .placeholder(R.drawable.placeholder_user)
-                        .fit()
-                        .into(holder.thumbnail1);
-            }
+            List<String> peopleTagged = note.getPeopleTagged();
+            if (peopleTagged == null || peopleTagged.size() == 0) {
+                holder.notePeopleTagged.setVisibility(View.GONE);
+                holder.thumbnail1.setVisibility(View.INVISIBLE);
+                holder.thumbnail2.setVisibility(View.INVISIBLE);
+            } else {
+                holder.notePeopleTagged.setVisibility(View.VISIBLE);
+                holder.thumbnail1.setVisibility(View.VISIBLE);
+                holder.thumbnail2.setVisibility(View.VISIBLE);
 
-            if (note.getPeopleTagged().size() > 1) {
-                Uri thumbnailUri = CommonUtils.getContactPhotoUri(context.getContentResolver(), note.getPeopleTagged().get(1), false);
-                Picasso.with(context)
-                        .load(thumbnailUri)
-                        .placeholder(R.drawable.placeholder_user)
-                        .fit()
-                        .into(holder.thumbnail2);
+                if (peopleTagged.size() > 0) {
+                    Uri thumbnailUri = CommonUtils.getContactPhotoUri(context.getContentResolver(), note.getPeopleTagged().get(0), false);
+                    Picasso.with(context)
+                            .load(thumbnailUri)
+                            .placeholder(R.drawable.placeholder_user)
+                            .fit()
+                            .into(holder.thumbnail1);
+                }
+
+                if (peopleTagged.size() > 1) {
+                    Uri thumbnailUri = CommonUtils.getContactPhotoUri(context.getContentResolver(), note.getPeopleTagged().get(1), false);
+                    Picasso.with(context)
+                            .load(thumbnailUri)
+                            .placeholder(R.drawable.placeholder_user)
+                            .fit()
+                            .into(holder.thumbnail2);
+                } else {
+                    holder.thumbnail2.setVisibility(View.INVISIBLE);
+                }
             }
 
             return view;

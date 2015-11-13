@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="@dimen/journal_item_padding"
     android:background="?android:attr/activatedBackgroundIndicator">
 
     <LinearLayout
@@ -46,31 +47,36 @@
                 android:id="@+id/note_people_tagged"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginTop="2dp"
-                android:gravity="center_vertical" />
+                android:layout_marginTop="@dimen/person_note_list_item_verticalMargin"
+                android:layout_marginBottom="@dimen/person_note_list_item_verticalMargin"
+                android:layout_marginLeft="@dimen/person_note_list_item_horizontalMargin"
+                android:layout_marginRight="@dimen/person_note_list_item_horizontalMargin"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/journal_item_name_font_size"/>
 
             <TextView
                 android:id="@+id/note_date"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginTop="2dp"
-                android:gravity="center_vertical" />
+                android:layout_marginTop="@dimen/person_note_list_item_verticalMargin"
+                android:layout_marginBottom="@dimen/person_note_list_item_verticalMargin"
+                android:layout_marginLeft="@dimen/person_note_list_item_horizontalMargin"
+                android:layout_marginRight="@dimen/person_note_list_item_horizontalMargin"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/journal_item_content_font_size" />
 
             <TextView
                 android:id="@+id/note_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:layout_marginTop="2dp"
-                android:gravity="center_vertical" />
+                android:layout_marginTop="@dimen/person_note_list_item_verticalMargin"
+                android:layout_marginBottom="@dimen/person_note_list_item_verticalMargin"
+                android:layout_marginLeft="@dimen/person_note_list_item_horizontalMargin"
+                android:layout_marginRight="@dimen/person_note_list_item_horizontalMargin"
+                android:gravity="center_vertical"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textSize="@dimen/journal_item_content_font_size" />
 
         </LinearLayout>
     </LinearLayout>

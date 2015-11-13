@@ -25,6 +25,8 @@ import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -78,7 +80,8 @@ public class CommonUtils {
                                                                 notes, false);
                 TextView noteDate = (TextView) row.findViewById(R.id.person_note_date);
                 TextView noteText = (TextView) row.findViewById(R.id.person_note_text);
-                noteDate.setText(notePOJOs.get(i).getLastUpdatedDate().toString());
+                DateFormat formatter = SimpleDateFormat.getDateInstance();
+                noteDate.setText(formatter.format(notePOJOs.get(i).getLastUpdatedDate()));
                 noteText.setText(notePOJOs.get(i).getText());
                 notes.addView(row);
             }

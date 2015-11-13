@@ -76,7 +76,7 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
-    compile 'io.realm:realm-android:0.84.1'
+    compile 'io.realm:realm-android:0.84.2'
 }
 
 task checkstyle(type: Checkstyle) {
