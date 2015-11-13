@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.joanzapata.iconify.widget.IconTextView;
@@ -28,7 +28,7 @@ public class PersonFragment extends Fragment {
     @Bind(R.id.person_image)
     RoundedImageView personImage;
     @Bind(R.id.person_notes_list)
-    LinearLayout notes;
+    ListView notes;
     @Bind(R.id.note_btn)
     IconTextView noteButton;
 

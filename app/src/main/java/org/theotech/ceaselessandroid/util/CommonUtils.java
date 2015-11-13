@@ -9,10 +9,12 @@ import android.content.res.AssetFileDescriptor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -60,7 +62,7 @@ public class CommonUtils {
     }
 
     public static void injectPersonIntoView(final Activity activity, final PersonManager personManager, TextView personName,
-                                            RoundedImageView personImage, LinearLayout notes, View view, final String personId,
+                                            RoundedImageView personImage, ListView notes, View view, final String personId,
                                             String emptyNotesMessage, final FragmentManager fragmentManager, final FragmentState backStackInfo) {
         PersonPOJO personPOJO = personManager.getPerson(personId);
         Uri personPhotoUri = CommonUtils.getContactPhotoUri(activity.getContentResolver(), personPOJO.getId(), true);
@@ -71,7 +73,7 @@ public class CommonUtils {
                 .fit().centerInside().into(personImage);
 
         // display notes
-        List<NotePOJO> notePOJOs = personPOJO.getNotes();
+        final List<NotePOJO> notePOJOs = personPOJO.getNotes();
         Collections.sort(notePOJOs, new Comparator<NotePOJO>() { // sort by latest first
             @Override
             public int compare(NotePOJO lhs, NotePOJO rhs) {
@@ -88,16 +90,17 @@ public class CommonUtils {
                 }
             });
         } else {
-            for (int i = 0; i < notePOJOs.size(); i++) {
-                View row = activity.getLayoutInflater().inflate(R.layout.list_item_person_notes,
-                                                                notes, false);
-                TextView noteDate = (TextView) row.findViewById(R.id.person_note_date);
-                TextView noteText = (TextView) row.findViewById(R.id.person_note_text);
-                DateFormat formatter = SimpleDateFormat.getDateInstance();
-                noteDate.setText(formatter.format(notePOJOs.get(i).getLastUpdatedDate()));
-                noteText.setText(notePOJOs.get(i).getText());
-                notes.addView(row);
-            }
+            notes.setAdapter(new PersonNotesArrayAdapter(activity, notePOJOs));
+            notes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Log.d(TAG, "item has been clicked");
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constants.NOTE_ID_BUNDLE_ARG, notePOJOs.get(position).getId());
+                    FragmentUtils.loadFragment(activity, activity.getFragmentManager(), null,
+                            R.id.add_note_fragment, bundle, backStackInfo);
+                }
+            });
         }
     }
 
@@ -143,4 +146,42 @@ public class CommonUtils {
         addNoteBundle.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
         FragmentUtils.loadFragment(activity, fragmentManager, null, R.id.person_add_note, addNoteBundle, backStackInfo);
     }
+
+    private static class PersonNotesArrayAdapter extends ArrayAdapter<NotePOJO> {
+        private final Context context;
+        private final List<NotePOJO> notes;
+        private final LayoutInflater inflater;
+
+        public PersonNotesArrayAdapter(Context context, List<NotePOJO> notes) {
+            super(context, -1, notes);
+            this.context = context;
+            this.notes = notes;
+            this.inflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public View getView(int position, View view, ViewGroup parent) {
+            final ViewHolder holder;
+            if (view == null) {
+                view = inflater.inflate(R.layout.list_item_person_notes, parent, false);
+                holder = new ViewHolder();
+                holder.noteDate = (TextView) view.findViewById(R.id.person_note_date);
+                holder.noteText = (TextView) view.findViewById(R.id.person_note_text);
+                view.setTag(holder);
+            } else {
+                holder = (ViewHolder) view.getTag();
+            }
+            NotePOJO note = notes.get(position);
+            DateFormat formatter = SimpleDateFormat.getDateInstance();
+            holder.noteDate.setText(formatter.format(note.getLastUpdatedDate()));
+            holder.noteText.setText(note.getText());
+            return view;
+        }
+
+        private class ViewHolder {
+            TextView noteDate;
+            TextView noteText;
+        }
+    }
+
 }

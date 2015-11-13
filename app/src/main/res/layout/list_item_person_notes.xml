@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/journal_item_padding"
     android:orientation="vertical">
 
     <LinearLayout
@@ -35,13 +36,4 @@
             android:maxLines="3"
             android:textSize="@dimen/journal_item_content_font_size"/>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/card_separator_height"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/card_separator_margin"
-        android:layout_marginRight="@dimen/card_separator_margin"
-        android:background="@color/lightGray"/>
-
 </LinearLayout>
