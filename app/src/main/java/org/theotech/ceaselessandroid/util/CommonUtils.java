@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -26,6 +27,7 @@ import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -42,12 +44,19 @@ public class CommonUtils {
 
     public static Uri getContactPhotoUri(ContentResolver cr, String contactId, boolean highRes) {
         Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long.parseLong(contactId));
+        Uri displayPhoto = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.DISPLAY_PHOTO);
+        Uri lowResPhoto = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
         if (highRes) {
-            Log.d(TAG, Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.DISPLAY_PHOTO).toString());
-            return Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.DISPLAY_PHOTO);
+            // check existence of high resolution photo and return low res version otherwise.
+            try {
+                AssetFileDescriptor fd = cr.openAssetFileDescriptor(displayPhoto, "r");
+                fd.close();
+            } catch (IOException e) {
+                return lowResPhoto;
+            }
+            return displayPhoto;
         } else {
-            Log.d(TAG, Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.DISPLAY_PHOTO).toString());
-            return Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
+            return lowResPhoto;
         }
     }
 
