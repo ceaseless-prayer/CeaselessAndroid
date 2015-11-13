@@ -48,7 +48,6 @@
     <dimen name="person_note_list_item_verticalMargin">4dp</dimen>
     <dimen name="person_note_list_item_horizontalMargin">4dp</dimen>
 
-    <dimen name="journal_item_marginTop">10dp</dimen>
     <dimen name="journal_item_padding">4dp</dimen>
     <dimen name="journal_item_name_font_size">16sp</dimen>
     <dimen name="journal_item_content_font_size">12sp</dimen>
