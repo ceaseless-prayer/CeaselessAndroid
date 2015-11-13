@@ -76,19 +76,19 @@ public class AddNoteFragment extends Fragment {
 
         // add current person to the list of taggedPeople (if we're on a page that shows a person)
         Bundle bundle = getArguments();
-        if(bundle != null) {
+        if (bundle != null) {
             if (bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG)) {
                 String personId = bundle.getString(Constants.PERSON_ID_BUNDLE_ARG);
                 if (personId != null) {
                     noteTags.addObject(personManager.getPerson(personId));
                 }
             }
-            if(bundle.containsKey(Constants.NOTE_ID_BUNDLE_ARG)) {
+            if (bundle.containsKey(Constants.NOTE_ID_BUNDLE_ARG)) {
                 noteId = bundle.getString(Constants.NOTE_ID_BUNDLE_ARG);
                 NotePOJO note = noteManager.getNote(noteId);
                 noteText.setText(note.getText());
                 if (note.getPeopleTagged() != null) {
-                    for(String personId : note.getPeopleTagged()) {
+                    for (String personId : note.getPeopleTagged()) {
                         noteTags.addObject(personManager.getPerson(personId));
                     }
                 }
