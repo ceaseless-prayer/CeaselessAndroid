@@ -58,7 +58,7 @@ public class PersonManagerImpl implements PersonManager {
     public RealmList<Person> getPersonFromPersonPOJO(List<PersonPOJO> people) {
         RealmList<Person> listOfPersons = new RealmList<>();
 
-        if(people == null || people.size() == 0) {
+        if (people == null || people.size() == 0) {
             return listOfPersons;
         }
 
