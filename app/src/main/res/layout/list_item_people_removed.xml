@@ -4,8 +4,10 @@
     android:layout_height="match_parent"
     android:background="?android:attr/activatedBackgroundIndicator">
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/person_removed_thumbnail"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:riv_corner_radius="@dimen/person_image_corner_radius"
         android:contentDescription="@string/person_thumbnail"
         android:layout_width="@dimen/person_list_image_size"
         android:layout_height="@dimen/person_list_image_size"

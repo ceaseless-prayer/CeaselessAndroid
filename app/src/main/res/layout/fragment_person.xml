@@ -42,8 +42,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
+                <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/person_image"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    app:riv_corner_radius="@dimen/person_image_corner_radius"
                     android:contentDescription="@string/person_image"
                     android:layout_width="@dimen/person_image_size"
                     android:layout_height="@dimen/person_image_size"

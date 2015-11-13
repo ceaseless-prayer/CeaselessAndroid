@@ -12,12 +12,12 @@ import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.joanzapata.iconify.widget.IconTextView;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.R;
@@ -60,7 +60,7 @@ public class CommonUtils {
     }
 
     public static void injectPersonIntoView(final Activity activity, final PersonManager personManager, TextView personName,
-                                            ImageView personImage, LinearLayout notes, View view, final String personId,
+                                            RoundedImageView personImage, LinearLayout notes, View view, final String personId,
                                             String emptyNotesMessage, final FragmentManager fragmentManager, final FragmentState backStackInfo) {
         PersonPOJO personPOJO = personManager.getPerson(personId);
         Uri personPhotoUri = CommonUtils.getContactPhotoUri(activity.getContentResolver(), personPOJO.getId(), true);

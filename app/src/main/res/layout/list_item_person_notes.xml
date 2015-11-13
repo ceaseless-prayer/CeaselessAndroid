@@ -16,12 +16,24 @@
             android:id="@+id/person_note_date"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"/>
+            android:layout_marginTop="@dimen/person_note_list_item_verticalMargin"
+            android:layout_marginBottom="@dimen/person_note_list_item_verticalMargin"
+            android:layout_marginLeft="@dimen/person_note_list_item_horizontalMargin"
+            android:layout_marginRight="@dimen/person_note_list_item_horizontalMargin"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/journal_item_content_font_size"/>
         <TextView
             android:id="@+id/person_note_text"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"/>
+            android:layout_marginTop="@dimen/person_note_list_item_verticalMargin"
+            android:layout_marginBottom="@dimen/person_note_list_item_verticalMargin"
+            android:layout_marginLeft="@dimen/person_note_list_item_horizontalMargin"
+            android:layout_marginRight="@dimen/person_note_list_item_horizontalMargin"
+            android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textSize="@dimen/journal_item_content_font_size"/>
     </LinearLayout>
 
     <LinearLayout

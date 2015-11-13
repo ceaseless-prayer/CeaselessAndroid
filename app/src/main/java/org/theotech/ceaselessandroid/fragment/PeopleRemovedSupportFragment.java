@@ -15,10 +15,10 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.R;
@@ -157,7 +157,7 @@ public class PeopleRemovedSupportFragment extends Fragment implements Refreshabl
             if (view == null) {
                 holder = new ViewHolder();
                 view = inflater.inflate(R.layout.list_item_people_removed, parent, false);
-                holder.personThumbnail = (ImageView) view.findViewById(R.id.person_removed_thumbnail);
+                holder.personThumbnail = (RoundedImageView) view.findViewById(R.id.person_removed_thumbnail);
                 holder.personListName = (TextView) view.findViewById(R.id.person_removed_list_name);
                 view.setTag(holder);
             } else {
@@ -193,7 +193,7 @@ public class PeopleRemovedSupportFragment extends Fragment implements Refreshabl
         }
 
         private class ViewHolder {
-            ImageView personThumbnail;
+            RoundedImageView personThumbnail;
             TextView personListName;
         }
     }
