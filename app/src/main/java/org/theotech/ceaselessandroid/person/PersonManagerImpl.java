@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.util.Log;
 
-import org.theotech.ceaselessandroid.realm.Note;
 import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.util.RealmUtils;
@@ -16,7 +15,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -210,21 +208,6 @@ public class PersonManagerImpl implements PersonManager {
     public void unfavoritePerson(String personId) {
         realm.beginTransaction();
         getRealmPerson(personId).setFavorite(false);
-        realm.commitTransaction();
-    }
-
-    @Override
-    public void addNote(String personId, String title, String text) {
-        realm.beginTransaction();
-        Note note = realm.createObject(Note.class);
-        note.setCreationDate(new Date());
-        note.setLastUpdatedDate(new Date());
-        note.setId(UUID.randomUUID().toString());
-        if (title != null) {
-            note.setTitle(title);
-        }
-        note.setText(text);
-        getRealmPerson(personId).getNotes().add(note);
         realm.commitTransaction();
     }
 

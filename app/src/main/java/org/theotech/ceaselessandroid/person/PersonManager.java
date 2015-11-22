@@ -39,7 +39,5 @@ public interface PersonManager {
 
     void unfavoritePerson(String personId);
 
-    void addNote(String personId, String title, String text);
-
     void populateContacts();
 }
