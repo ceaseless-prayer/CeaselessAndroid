@@ -117,7 +117,7 @@
                 android:orientation="vertical" />
 
             <ListView
-                android:id="@+id/empty_notes"
+                android:id="@+id/empty_person_notes"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
 

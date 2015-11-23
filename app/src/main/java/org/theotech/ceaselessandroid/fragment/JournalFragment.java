@@ -50,6 +50,8 @@ public class JournalFragment extends Fragment implements Refreshable {
 
     @Bind(R.id.journal)
     ListView journal;
+    @Bind(R.id.empty_journal_notes)
+    TextView emptyNotes;
     private FragmentStateListener mListener;
     private NoteManager noteManager = null;
     private PersonManager personManager = null;
@@ -97,63 +99,70 @@ public class JournalFragment extends Fragment implements Refreshable {
             }
         });
 
-        adapter = new NotesArrayAdapter(getActivity(), notePOJOs);
-        journal.setAdapter(adapter);
+        if (notePOJOs.isEmpty()) {
+            emptyNotes.setText(getString(R.string.empty_notes));
+        } else {
+            emptyNotes.setText("");
+            adapter = new NotesArrayAdapter(getActivity(), notePOJOs);
+            journal.setAdapter(adapter);
 
-        journal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "item has been clicked");
-                Bundle bundle = new Bundle();
-                bundle.putString(Constants.NOTE_ID_BUNDLE_ARG, notePOJOs.get(position).getId());
-                FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null,
-                        R.id.add_note_fragment, bundle, new FragmentState(getString(R.string.nav_journal)));
-            }
-        });
+            journal.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString(Constants.NOTE_ID_BUNDLE_ARG, notePOJOs.get(position).getId());
+                    FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null,
+                            R.id.add_note_fragment, bundle, new FragmentState(getString(R.string.nav_journal)));
+                }
+            });
 
-        journal.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        journal.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
-            @Override
-            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-                final int checkedCount = journal.getCheckedItemCount();
-                mode.setTitle(String.format(getString(R.string.bulk_selected), checkedCount));
-            }
+            journal.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+            journal.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+                @Override
+                public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+                    final int checkedCount = journal.getCheckedItemCount();
+                    mode.setTitle(String.format(getString(R.string.bulk_selected), checkedCount));
+                }
 
-            @Override
-            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                actionMode = mode;
-                mode.getMenuInflater().inflate(R.menu.journal_menu, menu);
-                return true;
-            }
-
-            @Override
-            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                return false;
-            }
-
-            @Override
-            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                int id = item.getItemId();
-                if (id == R.id.note_remove) {
-                    final List<NotePOJO> notes = noteManager.getNotes();
-                    SparseBooleanArray array = journal.getCheckedItemPositions();
-                    for (int i = 0; i < array.size(); i++) {
-                        int position = array.keyAt(i);
-                        NotePOJO note = notes.get(position);
-                        noteManager.removeNote(note.getId());
-                        adapter.remove(note.getId());
-                    }
-                    mode.finish();
+                @Override
+                public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                    actionMode = mode;
+                    mode.getMenuInflater().inflate(R.menu.journal_menu, menu);
                     return true;
                 }
-                return false;
-            }
 
-            @Override
-            public void onDestroyActionMode(ActionMode mode) {
-                actionMode = null;
-            }
-        });
+                @Override
+                public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                    return false;
+                }
+
+                @Override
+                public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                    int id = item.getItemId();
+                    if (id == R.id.note_remove) {
+                        final List<NotePOJO> notes = noteManager.getNotes();
+                        SparseBooleanArray array = journal.getCheckedItemPositions();
+                        for (int i = 0; i < array.size(); i++) {
+                            int position = array.keyAt(i);
+                            NotePOJO note = notes.get(position);
+                            noteManager.removeNote(note.getId());
+                            adapter.remove(note.getId());
+                        }
+                        if (adapter.size() == 0) {
+                            emptyNotes.setText(getString(R.string.empty_notes));
+                        }
+                        mode.finish();
+                        return true;
+                    }
+                    return false;
+                }
+
+                @Override
+                public void onDestroyActionMode(ActionMode mode) {
+                    actionMode = null;
+                }
+            });
+        }
 
         return view;
     }
@@ -261,6 +270,10 @@ public class JournalFragment extends Fragment implements Refreshable {
                 notes.remove(index);
                 notifyDataSetChanged();
             }
+        }
+
+        public int size() {
+            return notes.size();
         }
 
         private class ViewHolder {

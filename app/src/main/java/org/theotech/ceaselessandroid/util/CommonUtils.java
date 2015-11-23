@@ -81,7 +81,7 @@ public class CommonUtils {
             }
         });
         if (notePOJOs.isEmpty()) {
-            ListView emptyNotes = (ListView) view.findViewById(R.id.empty_notes);
+            ListView emptyNotes = (ListView) view.findViewById(R.id.empty_person_notes);
             emptyNotes.setAdapter(new ArrayAdapter<>(activity, R.layout.list_item_empty_notes, new String[]{emptyNotesMessage}));
             emptyNotes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -104,8 +104,8 @@ public class CommonUtils {
         }
     }
 
-    public static void wireFavoriteShortcut(final View view, final String personId, final PersonManager personManager, final String favoriteOn, final String favoriteOff) {
-
+    public static void wireFavoriteShortcut(final View view, final String personId, final PersonManager personManager,
+                                            final String favoriteOn, final String favoriteOff) {
         PersonPOJO personPOJO = personManager.getPerson(personId);
         final IconTextView favorite = (IconTextView) view.findViewById(R.id.favorite_btn);
 
