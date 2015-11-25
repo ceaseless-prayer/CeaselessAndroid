@@ -10,6 +10,7 @@ import io.realm.annotations.PrimaryKey;
  * Created by uberx on 10/11/2015.
  */
 public class Note extends RealmObject {
+
     @PrimaryKey
     private String id;
     private Date creationDate;
@@ -17,17 +18,19 @@ public class Note extends RealmObject {
     private String title;
     private String text;
     private RealmList<Person> peopleTagged;
-
+    private boolean active;
     public Note() {
     }
 
-    public Note(String id, Date creationDate, Date lastUpdatedDate, String title, String text, RealmList<Person> peopleTagged) {
+    public Note(String id, Date creationDate, Date lastUpdatedDate, String title, String text,
+                RealmList<Person> peopleTagged, boolean active) {
         this.id = id;
         this.creationDate = creationDate;
         this.lastUpdatedDate = lastUpdatedDate;
         this.title = title;
         this.text = text;
         this.peopleTagged = peopleTagged;
+        this.active = active;
     }
 
     public String getId() {
@@ -76,5 +79,23 @@ public class Note extends RealmObject {
 
     public void setPeopleTagged(RealmList<Person> peopleTagged) {
         this.peopleTagged = peopleTagged;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public final class Column {
+        public static final String ID = "id";
+        public static final String CREATION_DATE = "creationDate";
+        public static final String LAST_UPDATED_DATE = "lastUpdatedDate";
+        public static final String TITLE = "title";
+        public static final String TEXT = "text";
+        public static final String PEOPLE_TAGGED = "peopleTagged";
+        public static final String ACTIVE = "active";
     }
 }

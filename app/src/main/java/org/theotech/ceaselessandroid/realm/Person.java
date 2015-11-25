@@ -21,11 +21,12 @@ public class Person extends RealmObject {
     private boolean favorite;
     private boolean ignored;
     private boolean prayed;
-
+    private boolean active;
     public Person() {
     }
 
-    public Person(String id, String name, String source, RealmList<Note> notes, Date lastPrayed, boolean favorite, boolean ignored, boolean prayed) {
+    public Person(String id, String name, String source, RealmList<Note> notes, Date lastPrayed,
+                  boolean favorite, boolean ignored, boolean prayed, boolean active) {
         this.id = id;
         this.name = name;
         this.source = source;
@@ -34,6 +35,7 @@ public class Person extends RealmObject {
         this.favorite = favorite;
         this.ignored = ignored;
         this.prayed = prayed;
+        this.active = active;
     }
 
     public String getId() {
@@ -98,5 +100,25 @@ public class Person extends RealmObject {
 
     public void setPrayed(boolean prayed) {
         this.prayed = prayed;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public final class Column {
+        public static final String ID = "id";
+        public static final String NAME = "name";
+        public static final String SOURCE = "source";
+        public static final String NOTES = "notes";
+        public static final String LAST_PRAYED = "lastPrayed";
+        public static final String FAVORITE = "favorite";
+        public static final String IGNORED = "ignored";
+        public static final String PRAYED = "prayed";
+        public static final String ACTIVE = "active";
     }
 }

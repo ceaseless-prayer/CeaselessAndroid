@@ -9,6 +9,7 @@ import org.theotech.ceaselessandroid.realm.Note;
 import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
+import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.RealmUtils;
 
 import java.util.Date;
@@ -33,8 +34,8 @@ public class NoteManagerImpl implements NoteManager {
         this.context = context;
         // TODO this is also in the PersonManager, but maybe it should be in one place?
         RealmConfiguration config = new RealmConfiguration.Builder(context)
-                .name("org.theotech.ceaselessandroid")
-                .schemaVersion(0)
+                .name(Constants.REALM_FILE_NAME)
+                .schemaVersion(Constants.SCHEMA_VERSION)
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(config);
@@ -51,7 +52,9 @@ public class NoteManagerImpl implements NoteManager {
 
     @Override
     public List<NotePOJO> getNotes() {
-        return RealmUtils.toNotePOJOs(realm.where(Note.class).findAllSorted("lastUpdatedDate"));
+        return RealmUtils.toNotePOJOs(realm.where(Note.class)
+                .equalTo(Note.Column.ACTIVE, true)
+                .findAllSorted(Note.Column.LAST_UPDATED_DATE));
     }
 
     @Override
@@ -61,6 +64,7 @@ public class NoteManagerImpl implements NoteManager {
         note.setCreationDate(new Date());
         note.setLastUpdatedDate(new Date());
         note.setId(UUID.randomUUID().toString());
+        note.setActive(true);
         if (title != null) {
             note.setTitle(title);
         }
@@ -81,6 +85,7 @@ public class NoteManagerImpl implements NoteManager {
         note.setLastUpdatedDate(new Date());
         note.setTitle(title);
         note.setText(text);
+        note.setActive(true);
 
         // we need to cleanup people no longer tagged and add people who are new
         PersonManager pm = PersonManagerImpl.getInstance(context);
@@ -112,7 +117,9 @@ public class NoteManagerImpl implements NoteManager {
     }
 
     private Note getRealmNote(String noteId) {
-        return realm.where(Note.class).equalTo("id", noteId).findFirst();
+        return realm.where(Note.class)
+                .equalTo(Note.Column.ID, noteId)
+                .findFirst();
     }
 
     @Override
