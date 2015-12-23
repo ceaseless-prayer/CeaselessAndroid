@@ -4,7 +4,7 @@ package org.theotech.ceaselessandroid.util;
  * Created by uberx on 10/4/15.
  */
 public class Constants {
-    public static final int NUM_PERSONS = 3;
+    public static final int NUM_AUXILIARY_CARDS = 2;
     public static final int SCHEMA_VERSION = 0;
     public static final String REALM_FILE_NAME = "org.theotech.ceaselessandroid";
 

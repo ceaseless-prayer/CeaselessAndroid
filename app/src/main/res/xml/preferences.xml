@@ -14,4 +14,12 @@
         android:positiveButtonText="@android:string/ok"
         android:title="@string/reminder_time_picker_title"
         android:widgetLayout="@layout/notification_time_display" />
+    <ListPreference
+        android:defaultValue="3"
+        android:key="numberOfPeopleToPrayForDaily"
+        android:title="@string/number_of_people_each_day"
+        android:entries="@array/pref_people_each_day"
+        android:entryValues="@array/pref_people_each_day"
+        android:summary="%s">
+    </ListPreference>
 </PreferenceScreen>

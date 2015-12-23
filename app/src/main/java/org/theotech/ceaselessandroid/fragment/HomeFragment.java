@@ -2,9 +2,11 @@ package org.theotech.ceaselessandroid.fragment;
 
 
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -106,6 +108,9 @@ public class HomeFragment extends Fragment {
 
         setupBackgroundImage();
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        final Integer numberOfPeopleToPrayForDaily = Integer.parseInt(preferences.getString("numberOfPeopleToPrayForDaily", "3"));
+
         /*
          * cache data if needed
          */
@@ -127,11 +132,11 @@ public class HomeFragment extends Fragment {
         if (!useCache || personIds == null) {
             List<PersonPOJO> personPOJOs;
             try {
-                personPOJOs = personManager.getNextPeopleToPrayFor(Constants.NUM_PERSONS);
+                personPOJOs = personManager.getNextPeopleToPrayFor(numberOfPeopleToPrayForDaily);
             } catch (AlreadyPrayedForAllContactsException e) {
                 // TODO: Celebrate!
                 try {
-                    personPOJOs = personManager.getNextPeopleToPrayFor(Constants.NUM_PERSONS);
+                    personPOJOs = personManager.getNextPeopleToPrayFor(numberOfPeopleToPrayForDaily);
                 } catch (AlreadyPrayedForAllContactsException e1) {
                     // TODO: Something is really wrong if this happens, not sure what to do here
                     throw new RuntimeException(e1);
@@ -149,7 +154,7 @@ public class HomeFragment extends Fragment {
         runPager = new Runnable() {
             @Override
             public void run() {
-                viewPager.setOffscreenPageLimit(Constants.NUM_PERSONS + 1);
+                viewPager.setOffscreenPageLimit(numberOfPeopleToPrayForDaily + 1);
                 viewPager.setAdapter(new FragmentStatePagerAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager()) {
                     @Override
                     public android.support.v4.app.Fragment getItem(int position) {
@@ -161,7 +166,8 @@ public class HomeFragment extends Fragment {
                             fragment = new ProgressCardSupportFragment();
                         } else {
                             List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
-                            if (personIds != null && personIds.size() > 0) {
+                            // we need at least as many people as there are slots to fill
+                            if (personIds != null && personIds.size() >= position) {
                                 String personId = personIds.get(position - 1);
                                 fragment = PersonSupportFragment.newInstance(personId);
                                 bundle.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
@@ -181,7 +187,8 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public int getCount() {
-                        return Constants.NUM_PERSONS + 2;
+
+                        return numberOfPeopleToPrayForDaily + Constants.NUM_AUXILIARY_CARDS;
                     }
                 });
                 viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
@@ -194,9 +201,9 @@ public class HomeFragment extends Fragment {
                     public void onPageSelected(int position) {
                         Bundle newState = new Bundle();
                         newState.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
-                        if (position > 0 && position < Constants.NUM_PERSONS + 1) {
+                        if (position > 0 && position < numberOfPeopleToPrayForDaily + 1) {
                             List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
-                            if (personIds != null && personIds.size() > 0) {
+                            if (personIds != null && personIds.size() >= position) {
                                 String personId = personIds.get(position - 1);
                                 newState.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
                             }
