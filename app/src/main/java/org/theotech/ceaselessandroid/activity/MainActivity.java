@@ -51,30 +51,35 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
+        if(savedInstanceState != null) {
+            Log.d(TAG, "reloading from savedInstanceState");
+        } else {
+            Log.d(TAG, "Starting activity fresh");
+            setContentView(R.layout.activity_main);
+            ButterKnife.bind(this);
+            setSupportActionBar(toolbar);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.setDrawerListener(toggle);
+            toggle.syncState();
 
-        navigation.setCheckedItem(R.id.nav_home);
-        navigation.setNavigationItemSelectedListener(this);
+            navigation.setCheckedItem(R.id.nav_home);
+            navigation.setNavigationItemSelectedListener(this);
 
-        populateContacts();
-        setNotification();
+            populateContacts();
+            setNotification();
 
-        // initialize the back stack
-        backStackManager = new FragmentBackStackManager();
+            // initialize the back stack
+            backStackManager = new FragmentBackStackManager();
 
-        // load the main fragment
-        getFragmentManager().beginTransaction().add(R.id.fragment, new HomeFragment(),
-                getString(R.string.nav_home)).commit();
+            // load the main fragment
+            getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeFragment(),
+                    getString(R.string.nav_home)).commit();
 
-        // rate my app dialog
-        AppRater.app_launched(this);
+            // rate my app dialog
+            AppRater.app_launched(this);
+        }
     }
 
     @Override

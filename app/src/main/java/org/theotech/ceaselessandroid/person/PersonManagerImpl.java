@@ -260,7 +260,7 @@ public class PersonManagerImpl implements PersonManager {
                 if (isValidContact(cursor)) {
                     String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
                     String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                    Log.d(TAG, String.format("Person: id=%s name=%s", id, name));
+                    Log.v(TAG, String.format("Person: id=%s name=%s", id, name));
 
                     Person person = realm.where(Person.class)
                             .equalTo(Person.Column.ID, id)
@@ -275,7 +275,7 @@ public class PersonManagerImpl implements PersonManager {
                         person.setLastPrayed(new Date(0L));
                         ++added;
                     } else {
-                        Log.d(TAG, "User already existed, updating information.");
+                        Log.v(TAG, "User already existed, updating information.");
                         // Update the name in case the user updates it
                         person.setName(name);
                         person.setActive(true);
