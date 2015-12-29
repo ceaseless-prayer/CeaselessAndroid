@@ -77,6 +77,8 @@ public class FragmentUtils {
             return new ContactUsFragment();
         } else if (resourceId == R.id.nav_rate_this_app) {
             return new HomeFragment();
+        } else if (resourceId == R.id.show_more_people) {
+            return new HomeFragment();
         } else if (resourceId == R.id.person_add_note) {
             return new AddNoteFragment();
         } else if (resourceId == R.id.person_card) {

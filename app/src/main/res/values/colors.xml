@@ -8,19 +8,23 @@
     <color name="fragmentBackground">#FFFFFF</color>
 
     <color name="titleColor">#515151</color>
-    <color name="verseTextColor">#444444</color>
-    <color name="verseBackground">#FFFFFF</color>
+    <color name="verseTextColor">#FFFFFF</color>
+    <color name="verseBackground">#D000012F</color>
 
-    <color name="cardLabel">#00B9E6</color>
+    <color name="cardLabel">#BF00012F</color>
     <color name="cardLabelText">#FCFCFC</color>
 
     <color name="buttonDefault">#F5F5F5</color>
     <color name="buttonDefaultShadow">#000</color>
 
+    <color name="cardBackground">#D000012F</color>
+    <color name="cardTextColor">#FFFFFF</color>
+
     <color name="progressBackgroundTint">#D8D8D8</color>
     <color name="progressTint">#16FA4C</color>
 
-    <color name="homeBackgroundTint">#A000012F</color>
+
+    <color name="homeBackgroundTint">#C000012F</color>
     <color name="homePageIndicatorSelected">#FFFFFF</color>
     <color name="homePageIndicatorUnselected">#70FFFFFF</color>
 </resources>

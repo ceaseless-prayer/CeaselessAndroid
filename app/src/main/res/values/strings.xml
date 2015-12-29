@@ -57,6 +57,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Not implemented yet</string>
 
+    <string name="show_more_people">Show more people</string>
+
     <!-- Image descriptions -->
     <string name="fb">Facebook logo</string>
     <string name="twitter">Twitter logo</string>

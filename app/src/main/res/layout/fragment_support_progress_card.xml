@@ -14,6 +14,7 @@
         android:layout_marginLeft="@dimen/card_horizontal_margin"
         android:layout_marginRight="@dimen/card_horizontal_margin"
         android:layout_marginTop="@dimen/card_vertical_margin"
+        card_view:cardBackgroundColor="@color/cardBackground"
         card_view:cardCornerRadius="@dimen/card_corner_radius"
         card_view:cardElevation="@dimen/card_elevation">
 
@@ -42,6 +43,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="40dp"
                 android:gravity="center"
+                android:textColor="@color/cardTextColor"
                 android:text="@string/prayed_for_text" />
 
             <!--suppress UnusedAttribute-->
@@ -54,26 +56,10 @@
                 android:layout_marginRight="@dimen/progress_bar_margin"
                 android:progress="60"
                 android:progressBackgroundTint="@color/progressBackgroundTint"
-                android:progressTint="@color/progressTint" />
-
-            <!-- TODO: Add back later when we have time to wire it up
-            <Button
-                android:id="@+id/load_and_pray_for_more"
-                android:layout_width="@dimen/progress_card_buttons_width"
-                android:layout_height="@dimen/progress_card_buttons_height"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/progress_card_buttons_margin"
-                android:background="@color/progressButton"
-                android:gravity="center"
-                android:shadowColor="@color/progressButtonShadow"
-                android:shadowDx="@integer/progress_card_buttons_shadow_dx"
-                android:shadowDy="@integer/progress_card_buttons_shadow_dy"
-                android:shadowRadius="@integer/progress_card_buttons_shadow_radius"
-                android:text="@string/load_and_play_for_more" />
-            -->
+                android:progressTint="@color/cardTextColor" />
 
             <Button
-                android:id="@+id/prayer_settings"
+                android:id="@+id/show_more_people"
                 android:layout_width="@dimen/button_width"
                 android:layout_height="@dimen/button_height"
                 android:layout_gravity="center"
@@ -84,7 +70,7 @@
                 android:shadowDx="@integer/button_default_shadow_dx"
                 android:shadowDy="@integer/button_default_shadow_dy"
                 android:shadowRadius="@integer/button_default_shadow_radius"
-                android:text="@string/prayer_settings" />
+                android:text="@string/show_more_people" />
 
         </LinearLayout>
 

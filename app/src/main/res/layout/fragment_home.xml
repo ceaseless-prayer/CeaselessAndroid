@@ -29,14 +29,13 @@
             android:layout_weight="1"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <com.viewpagerindicator.LinePageIndicator
+        <com.viewpagerindicator.CirclePageIndicator
             android:id="@+id/home_indicator"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            app:lineWidth="30dp"
+            android:padding="@dimen/indicator_padding"
+            app:radius="@dimen/circle_indicator_radius"
             app:selectedColor="@color/homePageIndicatorSelected"
-            app:strokeWidth="8dp"
             app:unselectedColor="@color/homePageIndicatorUnselected" />
 
     </LinearLayout>

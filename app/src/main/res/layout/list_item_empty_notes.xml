@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
-    android:textAppearance="?android:attr/textAppearanceListItemSmall">
+    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+    android:textColor="@color/cardTextColor">
 
 </TextView>

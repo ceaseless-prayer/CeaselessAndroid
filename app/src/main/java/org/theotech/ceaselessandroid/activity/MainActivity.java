@@ -76,9 +76,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // load the main fragment
             getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeFragment(),
                     getString(R.string.nav_home)).commit();
-
-            // rate my app dialog
-            AppRater.app_launched(this);
         }
     }
 
@@ -122,10 +119,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // handle navigation view item clicks here
         int id = item.getItemId();
         if (id == R.id.nav_rate_this_app) { // easter egg - option to load home fragment without using cache data
-            // TODO: Remove this easter egg
-            Bundle bundle = new Bundle();
-            bundle.putBoolean(Constants.USE_CACHE_BUNDLE_ARG, false);
-            FragmentUtils.loadFragment(this, getFragmentManager(), navigation, R.id.nav_rate_this_app, bundle, currentFragment);
+            // rate my app dialog
+            AppRater.app_launched(this);
         } else {
             // replace fragment if it's not already visible
             FragmentUtils.loadFragment(this, getFragmentManager(), navigation, id, currentFragment);

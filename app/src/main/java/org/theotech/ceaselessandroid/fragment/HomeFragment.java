@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
-import com.viewpagerindicator.LinePageIndicator;
+import com.viewpagerindicator.CirclePageIndicator;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
     @Bind(R.id.home_view)
     ViewPager viewPager;
     @Bind(R.id.home_indicator)
-    LinePageIndicator indicator;
+    CirclePageIndicator indicator;
     @Bind(R.id.backgroundImageView)
     ImageView backgroundImageView;
 
@@ -226,9 +226,12 @@ public class HomeFragment extends Fragment {
                 }
             }
         };
-        if (mCreated) {
-            handler.post(runPager);
-        }
+        Log.d(TAG, "wire up the pager which should actually display the content");
+        // QUESTION: why should we be waiting for mCreated here? (this is old code)
+        //        if (mCreated) {
+        //            handler.post(runPager);
+        //        }
+        handler.post(runPager);
 
         return view;
     }
