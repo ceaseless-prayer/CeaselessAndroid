@@ -6,12 +6,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
+import org.theotech.ceaselessandroid.util.Constants;
+import org.theotech.ceaselessandroid.util.FragmentUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,6 +25,8 @@ public class ProgressCardSupportFragment extends Fragment {
     TextView prayedFor;
     @Bind(R.id.prayer_progress)
     ProgressBar progress;
+    @Bind(R.id.show_more_people)
+    Button showMorePeople;
 
     private PersonManager personManager = null;
 
@@ -51,7 +56,20 @@ public class ProgressCardSupportFragment extends Fragment {
         progress.setProgress((int) ((float) numPrayed / numPeople * 100.0f));
         progress.requestLayout();
 
+        showMorePeople.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showMorePeople();
+            }
+        });
+
         return view;
+    }
+
+    private void showMorePeople() {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(Constants.USE_CACHE_BUNDLE_ARG, false);
+        FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null, R.id.show_more_people, bundle, null);
     }
 
 }
