@@ -82,7 +82,8 @@ public class HomeFragment extends Fragment {
         Bundle currentState = new Bundle();
         currentState.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, 0);
         mListener.notify(new FragmentState(getString(R.string.nav_home), currentState));
-        // use cache for easter egg
+
+        // do not use the cache if we're trying to get more people.
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey(Constants.USE_CACHE_BUNDLE_ARG)) {
             this.useCache = bundle.getBoolean(Constants.USE_CACHE_BUNDLE_ARG);
@@ -187,7 +188,6 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public int getCount() {
-
                         return numberOfPeopleToPrayForDaily + Constants.NUM_AUXILIARY_CARDS;
                     }
                 });
