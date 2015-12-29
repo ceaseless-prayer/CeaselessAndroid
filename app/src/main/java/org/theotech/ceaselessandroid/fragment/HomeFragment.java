@@ -130,7 +130,7 @@ public class HomeFragment extends Fragment {
         }
         // people to pray for
         List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
-        if (!useCache || personIds == null) {
+        if (!useCache || personIds == null || personIds.size() < numberOfPeopleToPrayForDaily) {
             List<PersonPOJO> personPOJOs;
             try {
                 personPOJOs = personManager.getNextPeopleToPrayFor(numberOfPeopleToPrayForDaily);
@@ -222,7 +222,11 @@ public class HomeFragment extends Fragment {
                 // change the page if required
                 Bundle bundle = getArguments();
                 if (bundle != null && bundle.containsKey(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG)) {
-                    viewPager.setCurrentItem(bundle.getInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG));
+                    Integer page = bundle.getInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG);
+                    Log.d(TAG, "setting pager to " + page);
+                    viewPager.setCurrentItem(page);
+                } else {
+                    Log.d(TAG, "No bundle argument for page");
                 }
             }
         };
