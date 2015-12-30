@@ -14,3 +14,6 @@ notifications:
   slack:
     rooms:
       - theotech:8ohw5Y0oeSjwtLsDp4bnyZwB
+
+after_failure:
+  - cat file:///home/travis/build/ceaseless-prayer/CeaselessAndroid/app/build/outputs/lint-results.xml 
