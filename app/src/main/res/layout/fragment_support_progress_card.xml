@@ -18,11 +18,20 @@
         card_view:cardCornerRadius="@dimen/card_corner_radius"
         card_view:cardElevation="@dimen/card_elevation">
 
+        <ImageView
+            android:id="@+id/progress_card_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/backgroundColorFilter" />
+
         <!--suppress NewApi -->
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="@dimen/card_label_height"
-            android:background="@color/cardLabel"
+            android:background="@color/transparentBackground"
             android:gravity="center|start"
             android:paddingLeft="@dimen/card_label_start_margin"
             android:paddingRight="@dimen/card_label_end_margin"
@@ -58,19 +67,28 @@
                 android:progressBackgroundTint="@color/progressBackgroundTint"
                 android:progressTint="@color/cardTextColor" />
 
-            <Button
+            <LinearLayout
                 android:id="@+id/show_more_people"
-                android:layout_width="@dimen/button_width"
-                android:layout_height="@dimen/button_height"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/progress_card_buttons_margin"
-                android:background="@color/buttonDefault"
-                android:gravity="center"
-                android:shadowColor="@color/buttonDefaultShadow"
-                android:shadowDx="@integer/button_default_shadow_dx"
-                android:shadowDy="@integer/button_default_shadow_dy"
-                android:shadowRadius="@integer/button_default_shadow_radius"
-                android:text="@string/show_more_people" />
+                android:orientation="horizontal">
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="{fa-repeat}"
+                    android:textColor="@color/cardTextColor"
+                    android:textSize="@dimen/progress_show_more_font_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textColor="@color/buttonTextColor"
+                    android:text="@string/show_more_people"
+                    android:textSize="@dimen/progress_show_more_font_size" />
+
+            </LinearLayout>
 
         </LinearLayout>
 

@@ -15,12 +15,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.joanzapata.iconify.widget.IconTextView;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.fragment.FragmentState;
@@ -28,12 +30,16 @@ import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 /**
  * Created by UberEcks on 10/26/2015.
@@ -145,6 +151,28 @@ public class CommonUtils {
         Bundle addNoteBundle = new Bundle();
         addNoteBundle.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
         FragmentUtils.loadFragment(activity, fragmentManager, null, R.id.person_add_note, addNoteBundle, backStackInfo);
+    }
+
+    public static void setDynamicImage(Context context, ImageView target) {
+        File currentBackgroundImage = new File(context.getCacheDir(), Constants.CURRENT_BACKGROUND_IMAGE);
+        List<Transformation> transformations = new ArrayList<>();
+        transformations.add(new BlurTransformation(context, 25, 4));
+
+        if (currentBackgroundImage.exists()) {
+            Picasso.with(context).load(currentBackgroundImage)
+                    .placeholder(R.drawable.placeholder_rectangle_scene)
+                    .fit()
+                    .centerCrop()
+                    .transform(transformations)
+                    .into(target);
+        } else {
+            Picasso.with(context).load(R.drawable.at_the_beach)
+                    .placeholder(R.drawable.placeholder_rectangle_scene)
+                    .fit()
+                    .centerCrop()
+                    .transform(transformations)
+                    .into(target);
+        }
     }
 
     private static class PersonNotesArrayAdapter extends ArrayAdapter<NotePOJO> {

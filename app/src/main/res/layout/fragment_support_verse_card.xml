@@ -44,10 +44,15 @@
                     android:layout_height="match_parent"
                     android:scaleY="-1"/>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/backgroundColorFilter" />
+
                 <LinearLayout
                     android:id="@+id/verse_title_and_share"
                     android:layout_width="fill_parent"
-                    android:layout_height="22dp"
+                    android:layout_height="@dimen/verse_info_bar_height"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="@dimen/verse_text_padding"
                     android:layout_marginRight="@dimen/verse_text_padding"

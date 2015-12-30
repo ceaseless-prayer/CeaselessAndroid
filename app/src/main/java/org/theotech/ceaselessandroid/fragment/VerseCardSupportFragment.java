@@ -28,7 +28,6 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
-import jp.wasabeef.picasso.transformations.ColorFilterTransformation;
 
 public class VerseCardSupportFragment extends Fragment {
     private static final String TAG = VerseCardSupportFragment.class.getSimpleName();
@@ -94,7 +93,6 @@ public class VerseCardSupportFragment extends Fragment {
         File currentBackgroundImage = new File(getActivity().getCacheDir(), Constants.CURRENT_BACKGROUND_IMAGE);
         List<Transformation> transformations = new ArrayList<>();
         transformations.add(new BlurTransformation(getActivity(), 25, 4));
-        transformations.add(new ColorFilterTransformation(R.color.verseBackground));
 
         if (currentBackgroundImage.exists()) {
             Log.d(TAG, "Showing verse image");
@@ -118,6 +116,13 @@ public class VerseCardSupportFragment extends Fragment {
                     .fit()
                     .centerCrop()
                     .into(verseImage);
+
+            Picasso.with(getActivity()).load(R.drawable.at_the_beach)
+                    .placeholder(R.drawable.placeholder_rectangle_scene)
+                    .fit()
+                    .centerCrop()
+                    .transform(transformations)
+                    .into(verseImageReflection);
         }
     }
 

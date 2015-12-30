@@ -6,13 +6,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
+import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.FragmentUtils;
 
@@ -20,13 +22,15 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ProgressCardSupportFragment extends Fragment {
-
+    private static final String TAG = ProgressCardSupportFragment.class.getSimpleName();
     @Bind(R.id.prayed_for_text)
     TextView prayedFor;
     @Bind(R.id.prayer_progress)
     ProgressBar progress;
     @Bind(R.id.show_more_people)
-    Button showMorePeople;
+    LinearLayout showMorePeople;
+    @Bind(R.id.progress_card_background)
+    ImageView progressCardBackground;
 
     private PersonManager personManager = null;
 
@@ -55,6 +59,8 @@ public class ProgressCardSupportFragment extends Fragment {
         prayedFor.setText(String.format(getString(R.string.prayed_for), numPrayed, numPeople));
         progress.setProgress((int) ((float) numPrayed / numPeople * 100.0f));
         progress.requestLayout();
+
+        CommonUtils.setDynamicImage(getActivity(), progressCardBackground);
 
         showMorePeople.setOnClickListener(new View.OnClickListener() {
             @Override
