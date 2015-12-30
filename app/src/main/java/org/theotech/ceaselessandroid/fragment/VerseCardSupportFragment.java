@@ -77,7 +77,6 @@ public class VerseCardSupportFragment extends Fragment {
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = scriptureData.getText() + " " + scriptureData.getCitation();
                 String shareLink = scriptureData.getLink();
                 sharingIntent.putExtra(Intent.EXTRA_TEXT, shareLink);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
