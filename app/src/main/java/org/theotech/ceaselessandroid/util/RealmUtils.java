@@ -85,7 +85,8 @@ public class RealmUtils {
         if (localCacheData != null) {
             return new LocalCacheDataPOJO(localCacheData.getCreationDate(),
                     localCacheData.getScriptureCitation(), localCacheData.getScriptureText(),
-                    localCacheData.getScriptureJson(), localCacheData.getVerseImageURL(),
+                    localCacheData.getScriptureLink(), localCacheData.getScriptureJson(),
+                    localCacheData.getVerseImageURL(),
                     convertRealmStringToString(localCacheData.getPersonIdsToPrayFor()));
         }
         return null;

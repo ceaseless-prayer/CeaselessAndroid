@@ -16,7 +16,7 @@
         android:layout_marginTop="@dimen/card_vertical_margin"
         card_view:cardCornerRadius="@dimen/card_corner_radius"
         card_view:cardElevation="@dimen/card_elevation"
-        card_view:cardBackgroundColor="@color/cardBackground">
+        card_view:cardBackgroundColor="@color/transparentBackground">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -32,15 +32,21 @@
                 android:contentDescription="@string/scenic_photo"/>
 
             <RelativeLayout
+                android:id="@+id/verse_text_container"
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:background="@color/verseBackground">
 
+                <ImageView
+                    android:id="@+id/verse_image_reflection"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
                 <LinearLayout
                     android:id="@+id/verse_title_and_share"
                     android:layout_width="fill_parent"
-                    android:layout_height="20dp"
+                    android:layout_height="22dp"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="@dimen/verse_text_padding"
                     android:layout_marginRight="@dimen/verse_text_padding"
@@ -54,15 +60,17 @@
                         android:layout_weight="5"
                         android:gravity="center|start"
                         android:textColor="@color/verseTextColor"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:textSize="@dimen/verse_title_text_size" />
 
-                    <TextView
+                    <com.joanzapata.iconify.widget.IconTextView
                         android:id="@+id/verse_share"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="@string/verse_share"
+                        android:text="{fa-share}"
+                        android:textSize="@dimen/share_verse_text_size"
                         android:textColor="@color/verseTextColor" />
 
                 </LinearLayout>
@@ -81,7 +89,8 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
-                        android:textColor="@color/verseTextColor" />
+                        android:textColor="@color/verseTextColor"
+                        android:textSize="@dimen/verse_text_size" />
 
                 </ScrollView>
 

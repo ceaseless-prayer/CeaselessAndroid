@@ -55,8 +55,9 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
         if (cacheData != null &&
                 cacheData.getScriptureText() != null && !cacheData.getScriptureText().isEmpty() &&
                 cacheData.getScriptureCitation() != null && !cacheData.getScriptureCitation().isEmpty() &&
+                cacheData.getScriptureLink() != null && !cacheData.getScriptureLink().isEmpty() &&
                 cacheData.getScriptureJson() != null && !cacheData.getScriptureJson().isEmpty()) {
-            return new ScriptureData(cacheData.getScriptureText(), cacheData.getScriptureCitation(), cacheData.getScriptureJson());
+            return new ScriptureData(cacheData.getScriptureText(), cacheData.getScriptureCitation(), cacheData.getScriptureLink(), cacheData.getScriptureJson());
         }
         return null;
     }
@@ -66,10 +67,12 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
         if (scriptureData != null &&
                 scriptureData.getText() != null && !scriptureData.getText().isEmpty() &&
                 scriptureData.getCitation() != null && !scriptureData.getCitation().isEmpty() &&
+                scriptureData.getLink() != null && !scriptureData.getLink().isEmpty() &&
                 scriptureData.getJson() != null && !scriptureData.getJson().isEmpty()) {
             LocalCacheDataPOJO newCacheData = new LocalCacheDataPOJO();
             newCacheData.setScriptureText(scriptureData.getText());
             newCacheData.setScriptureCitation(scriptureData.getCitation());
+            newCacheData.setScriptureLink(scriptureData.getLink());
             newCacheData.setScriptureJson(scriptureData.getJson());
             cacheData(newCacheData);
         }
@@ -148,6 +151,9 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
         }
         if (newCacheData.getScriptureText() != null) {
             realmCacheData.setScriptureText(newCacheData.getScriptureText());
+        }
+        if (newCacheData.getScriptureLink() != null) {
+            realmCacheData.setScriptureLink(newCacheData.getScriptureLink());
         }
         if (newCacheData.getScriptureJson() != null) {
             realmCacheData.setScriptureJson(newCacheData.getScriptureJson());

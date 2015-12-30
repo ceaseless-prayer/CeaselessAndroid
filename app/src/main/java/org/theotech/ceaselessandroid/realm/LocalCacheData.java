@@ -12,6 +12,7 @@ public class LocalCacheData extends RealmObject {
     private String creationDate;
     private String scriptureCitation;
     private String scriptureText;
+    private String scriptureLink;
     private String scriptureJson;
     private String verseImageURL;
     private RealmList<RealmString> personIdsToPrayFor;
@@ -38,6 +39,14 @@ public class LocalCacheData extends RealmObject {
 
     public void setScriptureText(String scriptureText) {
         this.scriptureText = scriptureText;
+    }
+
+    public String getScriptureLink() {
+        return scriptureLink;
+    }
+
+    public void setScriptureLink(String scriptureLink) {
+        this.scriptureLink = scriptureLink;
     }
 
     public String getScriptureJson() {

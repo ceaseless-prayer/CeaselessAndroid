@@ -9,7 +9,7 @@
 
     <color name="titleColor">#515151</color>
     <color name="verseTextColor">#FFFFFF</color>
-    <color name="verseBackground">#D000012F</color>
+    <color name="verseBackground">#3000012F</color>
 
     <color name="cardLabel">#BF00012F</color>
     <color name="cardLabelText">#FCFCFC</color>
@@ -18,6 +18,7 @@
     <color name="buttonDefaultShadow">#000</color>
 
     <color name="cardBackground">#D000012F</color>
+    <color name="transparentBackground">#0000012F</color>
     <color name="cardTextColor">#FFFFFF</color>
 
     <color name="progressBackgroundTint">#D8D8D8</color>

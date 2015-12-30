@@ -149,12 +149,14 @@ public class ScriptureServiceImpl implements ScriptureService {
             JSONObject obj = new JSONObject(json);
             String text = obj.getString("text");
             String citation = obj.getString("citation");
-            data = new ScriptureData(text, citation, json);
+            JSONObject refObj = new JSONObject(ref.getJson());
+            // TODO configure the right bible for the local language
+            String link = String.format("%s/%s/%s#%s", "http://www.bible.is/ENGESV", refObj.getString("book"), refObj.getString("chapter"), refObj.getString("verse_start"));
+            data = new ScriptureData(text, citation, link, json);
         } catch (JSONException e) {
             Log.e(TAG, Log.getStackTraceString(e));
             return null;
         }
-
         return data;
     }
 }
