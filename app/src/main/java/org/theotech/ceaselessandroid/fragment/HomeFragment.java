@@ -43,6 +43,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
@@ -262,6 +263,7 @@ public class HomeFragment extends Fragment {
         if (currentBackgroundImage.exists()) {
             Picasso.with(getActivity())
                     .load(currentBackgroundImage)
+                    .transform(new BlurTransformation(getActivity(), 25, 2))
                     .into(backgroundImageView);
             Log.d(TAG, "Background image has been set to " + currentBackgroundImage);
         }

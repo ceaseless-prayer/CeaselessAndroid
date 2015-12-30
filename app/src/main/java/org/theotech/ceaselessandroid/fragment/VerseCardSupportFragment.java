@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.joanzapata.iconify.widget.IconTextView;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
@@ -21,10 +22,13 @@ import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.util.Constants;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import jp.wasabeef.blurry.Blurry;
+import jp.wasabeef.picasso.transformations.BlurTransformation;
+import jp.wasabeef.picasso.transformations.ColorFilterTransformation;
 
 public class VerseCardSupportFragment extends Fragment {
     private static final String TAG = VerseCardSupportFragment.class.getSimpleName();
@@ -88,6 +92,10 @@ public class VerseCardSupportFragment extends Fragment {
 
     private void drawVerseImage() {
         File currentBackgroundImage = new File(getActivity().getCacheDir(), Constants.CURRENT_BACKGROUND_IMAGE);
+        List<Transformation> transformations = new ArrayList<>();
+        transformations.add(new BlurTransformation(getActivity(), 25, 4));
+        transformations.add(new ColorFilterTransformation(R.color.verseBackground));
+
         if (currentBackgroundImage.exists()) {
             Log.d(TAG, "Showing verse image");
 
@@ -99,22 +107,10 @@ public class VerseCardSupportFragment extends Fragment {
 
             Picasso.with(getActivity()).load(currentBackgroundImage)
                     .placeholder(R.drawable.placeholder_rectangle_scene)
-                    .rotate(180f)
                     .fit()
                     .centerCrop()
-                    .error(R.drawable.placeholder_rectangle_scene)
-                    .into(verseImageReflection, new com.squareup.picasso.Callback() {
-                        @Override
-                        public void onSuccess() {
-                            Blurry.with(getActivity()).radius(10).color(R.color.verseBackground).sampling(4).capture(verseImageReflection).into(verseImageReflection);
-                        }
-
-                        @Override
-                        public void onError() {
-                            Log.d(TAG, "hit an error");
-                        }
-                    });
-
+                    .transform(transformations)
+                    .into(verseImageReflection);
         } else {
             Log.d(TAG, "Showing default verse image");
             Picasso.with(getActivity()).load(R.drawable.at_the_beach)

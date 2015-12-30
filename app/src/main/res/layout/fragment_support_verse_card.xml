@@ -41,7 +41,8 @@
                 <ImageView
                     android:id="@+id/verse_image_reflection"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:scaleY="-1"/>
 
                 <LinearLayout
                     android:id="@+id/verse_title_and_share"
@@ -69,7 +70,7 @@
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="{fa-share}"
+                        android:text="{fa-share-alt}"
                         android:textSize="@dimen/share_verse_text_size"
                         android:textColor="@color/verseTextColor" />
 
@@ -89,6 +90,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
+                        android:textIsSelectable="true"
                         android:textColor="@color/verseTextColor"
                         android:textSize="@dimen/verse_text_size" />
 

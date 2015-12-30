@@ -9,7 +9,7 @@
 
     <color name="titleColor">#515151</color>
     <color name="verseTextColor">#FFFFFF</color>
-    <color name="verseBackground">#3000012F</color>
+    <color name="verseBackground">#00012F</color>
 
     <color name="cardLabel">#BF00012F</color>
     <color name="cardLabelText">#FCFCFC</color>
