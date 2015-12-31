@@ -33,6 +33,7 @@
     <dimen name="person_image_size">200dp</dimen>
     <dimen name="person_list_image_size">50dp</dimen>
     <dimen name="person_list_image_padding">2dp</dimen>
+    <dimen name="person_list_name_left_padding">9dp</dimen>
     <dimen name="person_image_corner_radius">6dp</dimen>
     <dimen name="favorite_icon_font_size">30sp</dimen>
     <dimen name="right_angle_icon_font_size">30sp</dimen>
@@ -63,4 +64,6 @@
 
     <dimen name="add_note_content_height">50dp</dimen>
     <dimen name="note_list_divider_height">1dp</dimen>
+
+    <dimen name="people_tab_height">40dp</dimen>
 </resources>

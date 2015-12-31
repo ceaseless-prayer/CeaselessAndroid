@@ -7,6 +7,12 @@
     android:orientation="vertical"
     tools:context="org.theotech.ceaselessandroid.fragment.PeopleFragment">
 
+    <com.viewpagerindicator.UnderlinePageIndicator
+        android:id="@+id/people_indicator"
+        android:layout_width="fill_parent"
+        android:layout_height="5dp"
+        app:selectedColor="@color/listDividerColor"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,36 +21,29 @@
         <TextView
             android:id="@+id/people_active_tab"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/people_tab_height"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/people_active" />
-
-        <LinearLayout
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="5dp"
-            android:background="@color/lightGray" />
+            android:text="@string/people_active"
+            android:textColor="@color/peopleTabActiveTextColor"
+            android:background="@color/peopleTabActiveBackground"/>
 
         <TextView
             android:id="@+id/people_removed_tab"
             android:layout_width="0dp"
-            android:layout_height="20dp"
+            android:layout_height="@dimen/people_tab_height"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/people_removed" />
+            android:text="@string/people_removed"
+            android:textColor="@color/peopleTabInactiveTextColor"
+            android:background="@color/peopleTabInactiveBackground"/>
 
     </LinearLayout>
-
-    <com.viewpagerindicator.UnderlinePageIndicator
-        android:id="@+id/people_indicator"
-        android:layout_width="fill_parent"
-        android:layout_height="5dp" />
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="@dimen/card_separator_height"
-        android:background="@color/lightGray" />
+        android:background="@color/listDividerColor" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/people_view"

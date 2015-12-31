@@ -8,8 +8,8 @@
         android:id="@+id/people_removed"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/card_vertical_margin"
-        android:layout_marginLeft="@dimen/card_horizontal_margin"
-        android:layout_marginRight="@dimen/card_horizontal_margin" />
+        android:divider="@color/listDividerColor"
+        android:dividerHeight="@dimen/note_list_divider_height"
+        android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb" />
 
 </LinearLayout>

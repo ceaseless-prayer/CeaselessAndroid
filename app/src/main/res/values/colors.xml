@@ -34,4 +34,9 @@
     <color name="listDividerColor">#70FFFFFF</color>
 
     <color name="preferenceBackgroundColor">#FFFFFF</color>
+
+    <color name="peopleTabActiveBackground">#FFFFFF</color>
+    <color name="peopleTabActiveTextColor">#BF00012F</color>
+    <color name="peopleTabInactiveBackground">#00FFFFFF</color>
+    <color name="peopleTabInactiveTextColor">#FFFFFF</color>
 </resources>

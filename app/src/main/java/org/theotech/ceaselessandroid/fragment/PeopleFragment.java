@@ -66,9 +66,6 @@ public class PeopleFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_people, container, false);
         ButterKnife.bind(this, view);
 
-        // get default TextView text color
-        final int defaultColor = activeTab.getCurrentTextColor();
-
         // wire up the people view pager
         runPager = new Runnable() {
             @Override
@@ -103,13 +100,22 @@ public class PeopleFragment extends Fragment {
 
                     @Override
                     public void onPageSelected(int position) {
+                        final int activeTextColor = getResources().getColor(R.color.peopleTabActiveTextColor);
+                        final int activeBackground = getResources().getColor(R.color.peopleTabActiveBackground);
+                        final int inactiveTextColor = getResources().getColor(R.color.peopleTabInactiveTextColor);
+                        final int inactiveBackground = getResources().getColor(R.color.peopleTabInactiveBackground);
+
                         if (position == 0) {
-                            activeTab.setTextColor(getResources().getColor(R.color.cardLabel));
-                            removedTab.setTextColor(defaultColor);
+                            activeTab.setTextColor(activeTextColor);
+                            activeTab.setBackgroundColor(activeBackground);
+                            removedTab.setTextColor(inactiveTextColor);
+                            removedTab.setBackgroundColor(inactiveBackground);
                             activeRefreshable.get().refreshList();
                         } else if (position == 1) {
-                            activeTab.setTextColor(defaultColor);
-                            removedTab.setTextColor(getResources().getColor(R.color.cardLabel));
+                            activeTab.setTextColor(inactiveTextColor);
+                            activeTab.setBackgroundColor(inactiveBackground);
+                            removedTab.setTextColor(activeTextColor);
+                            removedTab.setBackgroundColor(activeBackground);
                             removedRefreshable.get().refreshList();
                         }
                         activeRefreshable.get().dismissActionMode();
@@ -132,7 +138,6 @@ public class PeopleFragment extends Fragment {
                 viewPager.setCurrentItem(0);
             }
         });
-        activeTab.setTextColor(getResources().getColor(R.color.cardLabel));
         removedTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
