@@ -7,6 +7,7 @@
     <color name="lightGray">#CCC</color>
     <color name="fragmentBackground">#FFFFFF</color>
     <color name="backgroundColorFilter">#CD00012F</color>
+    <color name="hintTextColor">#CDFFFFFF</color>
 
     <color name="titleColor">#515151</color>
     <color name="verseTextColor">#FFFFFF</color>

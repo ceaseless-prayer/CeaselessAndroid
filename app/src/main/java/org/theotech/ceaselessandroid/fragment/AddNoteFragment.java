@@ -95,6 +95,8 @@ public class AddNoteFragment extends Fragment {
             }
         }
 
+        noteText.requestFocus();
+
         // wire the note tags
         List<PersonPOJO> allPersonPOJOs = personManager.getActivePeople();
         noteTags.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_dropdown_item_1line, allPersonPOJOs));

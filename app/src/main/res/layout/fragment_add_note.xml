@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:hint="@string/note_tag_hint"
-        android:textColorHint="@color/cardTextColor"
+        android:textColorHint="@color/hintTextColor"
         android:lines="2" />
 
     <LinearLayout
@@ -37,7 +37,9 @@
             android:shadowDx="@integer/button_default_shadow_dx"
             android:shadowDy="@integer/button_default_shadow_dy"
             android:shadowRadius="@integer/button_default_shadow_radius"
-            android:text="@android:string/cancel" />
+            android:text="@string/cancel"
+            android:textColor="@color/buttonTextColor"
+            android:textAllCaps="false"/>
 
         <Button
             android:id="@+id/save_note"
@@ -52,7 +54,9 @@
             android:shadowDx="@integer/button_default_shadow_dx"
             android:shadowDy="@integer/button_default_shadow_dy"
             android:shadowRadius="@integer/button_default_shadow_radius"
-            android:text="@string/save" />
+            android:textColor="@color/buttonTextColor"
+            android:text="@string/save"
+            android:textAllCaps="false"/>
 
     </LinearLayout>
 
@@ -64,8 +68,7 @@
         android:layout_below="@id/note_tags"
         android:gravity="top|start"
         android:textColor="@color/cardTextColor"
-        android:hint="@string/note_text_hint"
-        android:textColorHint="@color/cardTextColor"
+        android:textColorHint="@color/hintTextColor"
         android:inputType="text|textCapSentences|textMultiLine" />
 
 </RelativeLayout>
