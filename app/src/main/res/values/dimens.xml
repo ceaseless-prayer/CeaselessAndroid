@@ -60,4 +60,6 @@
     <dimen name="journal_item_padding">4dp</dimen>
     <dimen name="journal_item_name_font_size">16sp</dimen>
     <dimen name="journal_item_content_font_size">12sp</dimen>
+
+    <dimen name="add_note_content_height">50dp</dimen>
 </resources>

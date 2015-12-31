@@ -23,9 +23,25 @@
     </android.support.design.widget.AppBarLayout>
 
     <RelativeLayout
-        android:id="@+id/fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/fragmentBackground" />
+        android:orientation="vertical">
 
+        <ImageView
+            android:id="@+id/backgroundImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:scaleType="centerCrop"
+            android:src="@drawable/at_the_beach"
+            android:contentDescription="@string/scenic_photo"
+            android:tint="@color/homeBackgroundTint" />
+
+        <RelativeLayout
+            android:id="@+id/fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/transparentBackground" />
+
+    </RelativeLayout>
 </LinearLayout>

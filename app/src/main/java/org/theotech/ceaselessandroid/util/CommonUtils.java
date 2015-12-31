@@ -175,6 +175,17 @@ public class CommonUtils {
         }
     }
 
+    public static void setupBackgroundImage(Context context, ImageView target) {
+        File currentBackgroundImage = new File(context.getCacheDir(), Constants.CURRENT_BACKGROUND_IMAGE);
+        if (currentBackgroundImage.exists()) {
+            Picasso.with(context)
+                    .load(currentBackgroundImage)
+                    .transform(new BlurTransformation(context, 25, 2))
+                    .into(target);
+            Log.d(TAG, "Background image has been set to " + currentBackgroundImage);
+        }
+    }
+
     private static class PersonNotesArrayAdapter extends ArrayAdapter<NotePOJO> {
         private final Context context;
         private final List<NotePOJO> notes;

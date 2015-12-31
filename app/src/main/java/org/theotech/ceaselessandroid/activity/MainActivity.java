@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.codechimp.apprater.AppRater;
@@ -26,6 +27,7 @@ import org.theotech.ceaselessandroid.fragment.FragmentStateListener;
 import org.theotech.ceaselessandroid.fragment.HomeFragment;
 import org.theotech.ceaselessandroid.notification.DailyNotificationReceiver;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
+import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.FragmentUtils;
 
 import butterknife.Bind;
@@ -43,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout drawer;
     @Bind(R.id.nav_view)
     NavigationView navigation;
+    @Bind(R.id.backgroundImageView)
+    ImageView backgroundImageView;
 
     private FragmentBackStackManager backStackManager;
     private FragmentState currentFragment;
@@ -68,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             populateContacts();
             setNotification();
+            CommonUtils.setupBackgroundImage(this, backgroundImageView);
 
             // initialize the back stack
             backStackManager = new FragmentBackStackManager();
@@ -189,4 +194,5 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent dailyNotificationReceiver = new Intent(getApplicationContext(), DailyNotificationReceiver.class);
         getApplicationContext().sendBroadcast(dailyNotificationReceiver);
     }
+
 }

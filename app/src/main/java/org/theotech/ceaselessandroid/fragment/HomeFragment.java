@@ -35,6 +35,7 @@ import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.scripture.ScriptureService;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 import org.theotech.ceaselessandroid.transformer.ZoomOutPageTransformer;
+import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 
 import java.io.File;
@@ -43,7 +44,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
@@ -54,8 +54,6 @@ public class HomeFragment extends Fragment {
     ViewPager viewPager;
     @Bind(R.id.home_indicator)
     CirclePageIndicator indicator;
-    @Bind(R.id.backgroundImageView)
-    ImageView backgroundImageView;
 
     private Runnable runPager;
     private boolean mCreated = false;
@@ -107,8 +105,6 @@ public class HomeFragment extends Fragment {
         // create view and bind
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
-
-        setupBackgroundImage();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         final Integer numberOfPeopleToPrayForDaily = Integer.parseInt(preferences.getString("numberOfPeopleToPrayForDaily", "3"));
@@ -251,21 +247,10 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "Updated the background image to use from " + nextBackgroundImage + " to " + currentBackgroundImage);
                 Log.d(TAG, "New image size: " + currentBackgroundImage.length());
                 Picasso.with(getActivity()).invalidate(currentBackgroundImage); // clear the picasso cache
-                setupBackgroundImage();
+                CommonUtils.setupBackgroundImage(getActivity(), (ImageView) getActivity().findViewById(R.id.backgroundImageView));
             } else {
                 Log.d(TAG, "Could not update the background image to use.");
             }
-        }
-    }
-
-    private void setupBackgroundImage() {
-        File currentBackgroundImage = new File(getActivity().getCacheDir(), Constants.CURRENT_BACKGROUND_IMAGE);
-        if (currentBackgroundImage.exists()) {
-            Picasso.with(getActivity())
-                    .load(currentBackgroundImage)
-                    .transform(new BlurTransformation(getActivity(), 25, 2))
-                    .into(backgroundImageView);
-            Log.d(TAG, "Background image has been set to " + currentBackgroundImage);
         }
     }
 

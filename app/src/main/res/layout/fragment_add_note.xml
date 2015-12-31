@@ -3,10 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="@dimen/activity_vertical_margin"
-    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-    android:layout_marginRight="@dimen/activity_horizontal_margin"
-    android:layout_marginTop="@dimen/activity_vertical_margin"
+    android:background="@color/transparentBackground"
     android:orientation="vertical"
     tools:context="org.theotech.ceaselessandroid.fragment.AddNoteFragment"
     android:id="@+id/add_note_fragment">
@@ -17,12 +14,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:hint="@string/note_tag_hint"
+        android:textColorHint="@color/cardTextColor"
         android:lines="2" />
 
     <LinearLayout
         android:id="@+id/note_buttons"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/add_note_content_height"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
@@ -65,7 +63,9 @@
         android:layout_above="@id/note_buttons"
         android:layout_below="@id/note_tags"
         android:gravity="top|start"
+        android:textColor="@color/cardTextColor"
         android:hint="@string/note_text_hint"
+        android:textColorHint="@color/cardTextColor"
         android:inputType="text|textCapSentences|textMultiLine" />
 
 </RelativeLayout>
