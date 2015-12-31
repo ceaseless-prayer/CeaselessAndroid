@@ -15,6 +15,7 @@
         android:layout_alignParentTop="true"
         android:hint="@string/note_tag_hint"
         android:textColorHint="@color/hintTextColor"
+        android:textColor="@color/cardTextColor"
         android:lines="2" />
 
     <LinearLayout

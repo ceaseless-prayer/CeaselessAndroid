@@ -30,4 +30,6 @@
     <color name="homeBackgroundTint">#9000012F</color>
     <color name="homePageIndicatorSelected">#FFFFFF</color>
     <color name="homePageIndicatorUnselected">#70FFFFFF</color>
+
+    <color name="listDividerColor">#70FFFFFF</color>
 </resources>

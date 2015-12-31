@@ -8,12 +8,16 @@
     <ListView
         android:id="@+id/journal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:divider="@color/listDividerColor"
+        android:dividerHeight="@dimen/note_list_divider_height"
+        android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"/>
 
     <TextView
         android:id="@+id/empty_journal_notes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:textColor="@color/cardTextColor"
         android:gravity="center" />
 
 </RelativeLayout>

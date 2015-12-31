@@ -62,4 +62,5 @@
     <dimen name="journal_item_content_font_size">12sp</dimen>
 
     <dimen name="add_note_content_height">50dp</dimen>
+    <dimen name="note_list_divider_height">1dp</dimen>
 </resources>

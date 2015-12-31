@@ -118,7 +118,10 @@
                 android:id="@+id/person_notes_list"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:orientation="vertical" />
+                android:orientation="vertical"
+                android:divider="@color/listDividerColor"
+                android:dividerHeight="@dimen/note_list_divider_height"
+                android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"/>
 
             <ListView
                 android:id="@+id/empty_person_notes"
