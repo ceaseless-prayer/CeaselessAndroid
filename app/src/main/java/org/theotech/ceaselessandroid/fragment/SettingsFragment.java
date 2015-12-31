@@ -3,6 +3,7 @@ package org.theotech.ceaselessandroid.fragment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.view.LayoutInflater;
@@ -42,7 +43,9 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         getActivity().setTitle(getString(R.string.nav_settings));
 
         // create view
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View v = super.onCreateView(inflater, container, savedInstanceState);
+        v.setBackgroundColor(getResources().getColor(R.color.preferenceBackgroundColor));
+        return v;
     }
 
     @Override

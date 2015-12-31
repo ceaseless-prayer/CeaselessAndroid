@@ -32,4 +32,6 @@
     <color name="homePageIndicatorUnselected">#70FFFFFF</color>
 
     <color name="listDividerColor">#70FFFFFF</color>
+
+    <color name="preferenceBackgroundColor">#FFFFFF</color>
 </resources>
