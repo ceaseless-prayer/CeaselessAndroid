@@ -88,7 +88,8 @@
                     android:layout_below="@id/verse_title_and_share"
                     android:layout_marginLeft="@dimen/verse_text_padding"
                     android:layout_marginRight="@dimen/verse_text_padding"
-                    android:layout_marginTop="@dimen/verse_text_padding">
+                    android:layout_marginTop="@dimen/verse_text_padding"
+                    android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb">
 
                     <TextView
                         android:id="@+id/verse_text"
