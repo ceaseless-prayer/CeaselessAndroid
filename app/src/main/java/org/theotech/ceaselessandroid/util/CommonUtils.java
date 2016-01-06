@@ -165,26 +165,37 @@ public class CommonUtils {
         FragmentUtils.loadFragment(activity, fragmentManager, null, R.id.person_add_note, addNoteBundle, backStackInfo);
     }
 
-    public static void wireShowPersonMenu(View v, final Activity activity) {
+    public static void wireShowPersonMenu(View v, final String personId, final Activity activity, final FragmentState backStackInfo, final PersonManager personManager) {
         v.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PopupMenu popup = new PopupMenu(activity, v);
-
-                // This activity implements OnMenuItemClickListener
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.person_add_note:
-                                Log.d(TAG, "adding note");
+                        int id = item.getItemId();
+                        switch (id) {
+                            case R.id.person_fragment_add_note:
+                                CommonUtils.loadAddNote(personId, activity, activity.getFragmentManager(), backStackInfo);
+                                return true;
+                            case R.id.person_fragment_remove:
+                                Log.d(TAG, "tried to remove person");
+                                personManager.ignorePerson(personId);
+                                return true;
+                            case R.id.person_fragment_add:
+                                personManager.unignorePerson(personId);
                                 return true;
                             default:
                                 return false;
                         }
                     }
                 });
-                popup.inflate(R.menu.menu);
+                popup.inflate(R.menu.person_menu);
+                if (personManager.getPerson(personId).isIgnored()) {
+                    popup.getMenu().removeItem(R.id.person_fragment_remove);
+                } else {
+                    popup.getMenu().removeItem(R.id.person_fragment_add);
+                }
                 popup.show();
             }
         });

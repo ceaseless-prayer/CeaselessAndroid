@@ -81,7 +81,7 @@ public class PersonFragment extends Fragment {
             CommonUtils.wireAddNote(noteButton, personId, getActivity(), backStackInfo);
             CommonUtils.wireFavoriteShortcut(view, personId, personManager, getString(R.string.favorite_on), getString(R.string.favorite_off));
             CommonUtils.wireSendMessage(getActivity(), view, personId);
-            CommonUtils.wireShowPersonMenu(personImage, getActivity());
+            CommonUtils.wireShowPersonMenu(personImage, personId, getActivity(), backStackInfo, personManager);
         }
 
         return view;
