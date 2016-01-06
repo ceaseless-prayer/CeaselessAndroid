@@ -11,12 +11,14 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.joanzapata.iconify.widget.IconTextView;
@@ -147,10 +149,45 @@ public class CommonUtils {
         });
     }
 
+    // wire the add note icon
+    public static void wireAddNote(final View view, final String personId, final Activity activity, final FragmentState backStackInfo) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonUtils.loadAddNote(personId, activity, activity.getFragmentManager(), backStackInfo);
+            }
+        });
+    }
+
     public static void loadAddNote(String personId, Activity activity, FragmentManager fragmentManager, FragmentState backStackInfo) {
         Bundle addNoteBundle = new Bundle();
         addNoteBundle.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
         FragmentUtils.loadFragment(activity, fragmentManager, null, R.id.person_add_note, addNoteBundle, backStackInfo);
+    }
+
+    public static void wireShowPersonMenu(View v, final Activity activity) {
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popup = new PopupMenu(activity, v);
+
+                // This activity implements OnMenuItemClickListener
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.person_add_note:
+                                Log.d(TAG, "adding note");
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+                popup.inflate(R.menu.menu);
+                popup.show();
+            }
+        });
     }
 
     public static void setDynamicImage(Context context, ImageView target) {

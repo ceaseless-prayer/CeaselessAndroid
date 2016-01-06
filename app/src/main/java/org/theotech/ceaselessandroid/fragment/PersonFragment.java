@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 
 public class PersonFragment extends Fragment {
 
+    private static final String TAG = PersonFragment.class.getSimpleName();
     @Bind(R.id.person_name)
     TextView personName;
     @Bind(R.id.person_image)
@@ -77,19 +78,12 @@ public class PersonFragment extends Fragment {
                     notes, view, personId, getString(R.string.empty_notes), getActivity().getFragmentManager(),
                     backStackInfo);
 
-            // wire the add note icon
-            noteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    CommonUtils.loadAddNote(personId, getActivity(), getActivity().getFragmentManager(), backStackInfo);
-                }
-            });
-
+            CommonUtils.wireAddNote(noteButton, personId, getActivity(), backStackInfo);
             CommonUtils.wireFavoriteShortcut(view, personId, personManager, getString(R.string.favorite_on), getString(R.string.favorite_off));
             CommonUtils.wireSendMessage(getActivity(), view, personId);
+            CommonUtils.wireShowPersonMenu(personImage, getActivity());
         }
 
         return view;
     }
-
 }
