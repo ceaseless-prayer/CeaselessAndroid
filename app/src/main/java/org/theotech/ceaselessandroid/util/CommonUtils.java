@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -112,10 +113,11 @@ public class CommonUtils {
         }
     }
 
-    public static void wireFavoriteShortcut(final View view, final String personId, final PersonManager personManager,
-                                            final String favoriteOn, final String favoriteOff) {
+    public static void wireFavoriteShortcut(final Activity activity, final View view, final String personId, final PersonManager personManager) {
         PersonPOJO personPOJO = personManager.getPerson(personId);
         final IconTextView favorite = (IconTextView) view.findViewById(R.id.favorite_btn);
+        final String favoriteOn = activity.getString(R.string.favorite_on);
+        final String favoriteOff = activity.getString(R.string.favorite_off);
 
         // favorite
         if (personPOJO.isFavorite()) {
@@ -165,10 +167,13 @@ public class CommonUtils {
         FragmentUtils.loadFragment(activity, fragmentManager, null, R.id.person_add_note, addNoteBundle, backStackInfo);
     }
 
-    public static void wireShowPersonMenu(View v, final String personId, final Activity activity, final FragmentState backStackInfo, final PersonManager personManager) {
-        v.setOnClickListener(new View.OnClickListener() {
+    public static void wireShowPersonMenu(View view, final String personId, final Activity activity, final FragmentState backStackInfo, final PersonManager personManager) {
+        final ImageView personImage = (ImageView) view.findViewById(R.id.person_image);
+        final IconTextView favorite = (IconTextView) view.findViewById(R.id.favorite_btn);
+
+        personImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 PopupMenu popup = new PopupMenu(activity, v);
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -179,11 +184,23 @@ public class CommonUtils {
                                 CommonUtils.loadAddNote(personId, activity, activity.getFragmentManager(), backStackInfo);
                                 return true;
                             case R.id.person_fragment_remove:
-                                Log.d(TAG, "tried to remove person");
                                 personManager.ignorePerson(personId);
                                 return true;
                             case R.id.person_fragment_add:
                                 personManager.unignorePerson(personId);
+                                return true;
+                            case R.id.person_fragment_send_message:
+                            case R.id.person_fragment_invite:
+                                Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long.parseLong(personId));
+                                ContactsContract.QuickContact.showQuickContact(activity, v, contactUri, ContactsContract.QuickContact.MODE_MEDIUM, null);
+                                return true;
+                            case R.id.person_fragment_favorite:
+                                favorite.setText(activity.getString(R.string.favorite_on));
+                                personManager.favoritePerson(personId);
+                                return true;
+                            case R.id.person_fragment_unfavorite:
+                                favorite.setText(activity.getString(R.string.favorite_off));
+                                personManager.unfavoritePerson(personId);
                                 return true;
                             default:
                                 return false;
@@ -191,11 +208,21 @@ public class CommonUtils {
                     }
                 });
                 popup.inflate(R.menu.person_menu);
-                if (personManager.getPerson(personId).isIgnored()) {
-                    popup.getMenu().removeItem(R.id.person_fragment_remove);
+                Menu menu = popup.getMenu();
+                PersonPOJO updatedPerson = personManager.getPerson(personId);
+
+                if (updatedPerson.isIgnored()) {
+                    menu.removeItem(R.id.person_fragment_remove);
                 } else {
-                    popup.getMenu().removeItem(R.id.person_fragment_add);
+                    menu.removeItem(R.id.person_fragment_add);
                 }
+
+                if (updatedPerson.isFavorite()) {
+                    menu.removeItem(R.id.person_fragment_favorite);
+                } else {
+                    menu.removeItem(R.id.person_fragment_unfavorite);
+                }
+
                 popup.show();
             }
         });

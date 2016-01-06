@@ -7,8 +7,20 @@
         android:title="@string/person_add_note" />
     <item
         android:id="@+id/person_fragment_remove"
-        android:title="@string/person_remove" />
+        android:title="@string/person_remove_from_ceaseless" />
     <item
         android:id="@+id/person_fragment_add"
-        android:title="@string/person_reactivate" />
+        android:title="@string/person_add_to_ceaseless" />
+    <item
+        android:id="@+id/person_fragment_send_message"
+        android:title="@string/person_send_message" />
+    <item
+        android:id="@+id/person_fragment_invite"
+        android:title="@string/person_invite" />
+    <item
+        android:id="@+id/person_fragment_favorite"
+        android:title="@string/person_favorite" />
+    <item
+        android:id="@+id/person_fragment_unfavorite"
+        android:title="@string/person_unfavorite" />
 </menu>
