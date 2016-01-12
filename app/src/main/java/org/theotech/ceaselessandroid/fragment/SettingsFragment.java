@@ -9,13 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.analytics.Tracker;
+
+import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.notification.DailyNotificationReceiver;
+import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = SettingsFragment.class.getSimpleName();
 
     private FragmentStateListener mListener;
+    private Tracker mTracker;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -33,6 +38,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             throw new ClassCastException(getActivity().toString() + " must implement FragmentStateListener");
         }
         mListener.notify(new FragmentState(getString(R.string.nav_settings)));
+        CeaselessApplication application = (CeaselessApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
     }
 
     @Override
@@ -52,6 +59,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         super.onResume();
         getPreferenceScreen().getSharedPreferences()
                 .registerOnSharedPreferenceChangeListener(this);
+        AnalyticsUtils.sendScreenViewHit(mTracker, "SettingsScreen");
     }
 
     @Override

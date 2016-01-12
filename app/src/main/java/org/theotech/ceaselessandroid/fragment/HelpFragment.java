@@ -7,13 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.analytics.Tracker;
+
+import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 
 import butterknife.ButterKnife;
 
 public class HelpFragment extends Fragment {
 
     private FragmentStateListener mListener;
+    private Tracker mTracker;
 
     public HelpFragment() {
         // Required empty public constructor
@@ -30,6 +35,8 @@ public class HelpFragment extends Fragment {
             throw new ClassCastException(getActivity().toString() + " must implement FragmentStateListener");
         }
         mListener.notify(new FragmentState(getString(R.string.nav_help)));
+        CeaselessApplication application = (CeaselessApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
     }
 
     @Override
@@ -43,5 +50,11 @@ public class HelpFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        AnalyticsUtils.sendScreenViewHit(mTracker, "HelpScreen");
     }
 }

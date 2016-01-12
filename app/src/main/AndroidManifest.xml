@@ -41,5 +41,27 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="35238d8ee6233285febbb5eb6178e2ce7b2e866d" />
+
+        <!-- Optionally, register AnalyticsReceiver and AnalyticsService to support background
+      dispatching on non-Google Play devices -->
+        <!-- http://stackoverflow.com/questions/30154057/analyticsservice-not-registered-in-the-app-manifest-error/30164011 -->
+        <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver" android:enabled="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
+            </intent-filter>
+        </receiver>
+        <service android:name="com.google.android.gms.analytics.AnalyticsService"
+            android:enabled="true"
+            android:exported="false"/>
+
+        <!-- Optionally, register CampaignTrackingReceiver and CampaignTrackingService to enable
+      installation campaign reporting -->
+        <!--<receiver android:name="com.google.android.gms.analytics.CampaignTrackingReceiver"-->
+            <!--android:exported="true">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.android.vending.INSTALL_REFERRER" />-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+        <!--<service android:name="com.google.android.gms.analytics.CampaignTrackingService" />-->
     </application>
 </manifest>

@@ -11,9 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.Tracker;
 import com.viewpagerindicator.UnderlinePageIndicator;
 
+import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 import org.theotech.ceaselessandroid.util.Container;
 import org.theotech.ceaselessandroid.util.Refreshable;
 
@@ -35,6 +38,7 @@ public class PeopleFragment extends Fragment {
     private Runnable runPager;
     private FragmentStateListener mListener;
     private boolean mCreated = false;
+    private Tracker mTracker;
 
     public PeopleFragment() {
         // Required empty public constructor
@@ -51,6 +55,8 @@ public class PeopleFragment extends Fragment {
             throw new ClassCastException(getActivity().toString() + " must implement FragmentStateListener");
         }
         mListener.notify(new FragmentState(getString(R.string.nav_people)));
+        CeaselessApplication application = (CeaselessApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
     }
 
     @Override
@@ -165,5 +171,11 @@ public class PeopleFragment extends Fragment {
     public void onPause() {
         super.onPause();
         handler.removeCallbacks(runPager);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        AnalyticsUtils.sendScreenViewHit(mTracker, "PeopleScreen");
     }
 }

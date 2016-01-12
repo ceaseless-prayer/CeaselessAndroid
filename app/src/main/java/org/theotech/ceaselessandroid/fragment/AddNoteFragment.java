@@ -12,8 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.gms.analytics.Tracker;
 import com.tokenautocomplete.TokenCompleteTextView;
 
+import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
@@ -23,6 +25,7 @@ import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
+import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.view.PersonsCompletionView;
 
@@ -48,6 +51,7 @@ public class AddNoteFragment extends Fragment {
     private NoteManager noteManager = null;
     private CacheManager cacheManager = null;
     private String noteId = null;
+    private Tracker mTracker;
 
     public AddNoteFragment() {
         // Required empty public constructor
@@ -62,6 +66,9 @@ public class AddNoteFragment extends Fragment {
         personManager = PersonManagerImpl.getInstance(getActivity());
         noteManager = NoteManagerImpl.getInstance(getActivity());
         cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
+
+        CeaselessApplication application = (CeaselessApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
     }
 
     @Override
@@ -148,4 +155,9 @@ public class AddNoteFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        AnalyticsUtils.sendScreenViewHit(mTracker, "NoteScreen");
+    }
 }
