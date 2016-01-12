@@ -18,9 +18,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.google.android.gms.analytics.Tracker;
 import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;
 
+import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
@@ -35,6 +37,7 @@ import org.theotech.ceaselessandroid.scripture.ScriptureData;
 import org.theotech.ceaselessandroid.scripture.ScriptureService;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 import org.theotech.ceaselessandroid.transformer.ZoomOutPageTransformer;
+import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 
@@ -63,6 +66,7 @@ public class HomeFragment extends Fragment {
     private ImageURLService imageService = null;
     private ScriptureService scriptureService = null;
     private PersonManager personManager = null;
+    private Tracker mTracker;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -94,6 +98,8 @@ public class HomeFragment extends Fragment {
         imageService = ImageURLServiceImpl.getInstance();
         scriptureService = ScriptureServiceImpl.getInstance();
         personManager = PersonManagerImpl.getInstance(getActivity());
+        CeaselessApplication application = (CeaselessApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
     }
 
     @Override
@@ -153,13 +159,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void run() {
                 viewPager.setOffscreenPageLimit(numberOfPeopleToPrayForDaily + 1);
-                viewPager.setAdapter(new FragmentStatePagerAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager()) {
+                final FragmentStatePagerAdapter pagerAdapter = new FragmentStatePagerAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager()) {
                     @Override
                     public android.support.v4.app.Fragment getItem(int position) {
                         android.support.v4.app.Fragment fragment;
                         Bundle bundle = new Bundle();
                         if (position == 0) {
                             fragment = new VerseCardSupportFragment();
+                            // since this is the first card, we post a hit to it here
+                            AnalyticsUtils.sendScreenViewHit(mTracker, ((ICardPageFragment) fragment).getCardName());
                         } else if (position == getCount() - 1) {
                             fragment = new ProgressCardSupportFragment();
                         } else {
@@ -187,7 +195,8 @@ public class HomeFragment extends Fragment {
                     public int getCount() {
                         return numberOfPeopleToPrayForDaily + Constants.NUM_AUXILIARY_CARDS;
                     }
-                });
+                };
+                viewPager.setAdapter(pagerAdapter);
                 viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
@@ -196,6 +205,9 @@ public class HomeFragment extends Fragment {
 
                     @Override
                     public void onPageSelected(int position) {
+                        ICardPageFragment card = (ICardPageFragment) pagerAdapter.getItem(position);
+                        AnalyticsUtils.sendScreenViewHit(mTracker, card.getCardName());
+
                         Bundle newState = new Bundle();
                         newState.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
                         if (position > 0 && position < numberOfPeopleToPrayForDaily + 1) {
@@ -229,10 +241,10 @@ public class HomeFragment extends Fragment {
         };
         Log.d(TAG, "wire up the pager which should actually display the content");
         // QUESTION: why should we be waiting for mCreated here? (this is old code)
-        //        if (mCreated) {
-        //            handler.post(runPager);
-        //        }
-        handler.post(runPager);
+        // Because otherwise it will call the onPageSelected twice for each swipe.
+        if (mCreated) {
+            handler.post(runPager);
+        }
 
         return view;
     }
@@ -267,6 +279,13 @@ public class HomeFragment extends Fragment {
     public void onPause() {
         super.onPause();
         handler.removeCallbacks(runPager);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // TODO do we need to setup the home page again? is this why things blank out sometimes?
+        AnalyticsUtils.sendScreenViewHit(mTracker, "HomeScreen");
     }
 
     @Override

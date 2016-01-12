@@ -21,7 +21,7 @@ import org.theotech.ceaselessandroid.util.FragmentUtils;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class ProgressCardSupportFragment extends Fragment {
+public class ProgressCardSupportFragment extends Fragment implements ICardPageFragment {
     private static final String TAG = ProgressCardSupportFragment.class.getSimpleName();
     @Bind(R.id.prayed_for_text)
     TextView prayedFor;
@@ -76,6 +76,10 @@ public class ProgressCardSupportFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putBoolean(Constants.USE_CACHE_BUNDLE_ARG, false);
         FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null, R.id.show_more_people, bundle, null);
+    }
+
+    public String getCardName() {
+        return "ProgressCard";
     }
 
 }

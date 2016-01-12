@@ -29,7 +29,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
-public class VerseCardSupportFragment extends Fragment {
+public class VerseCardSupportFragment extends Fragment implements ICardPageFragment {
     private static final String TAG = VerseCardSupportFragment.class.getSimpleName();
 
     @Bind(R.id.verse_image)
@@ -131,4 +131,8 @@ public class VerseCardSupportFragment extends Fragment {
         verseText.setText(text);
     }
 
+    @Override
+    public String getCardName() {
+        return "VerseCard";
+    }
 }

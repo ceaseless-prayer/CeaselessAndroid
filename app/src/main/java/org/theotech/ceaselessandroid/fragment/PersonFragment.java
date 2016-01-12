@@ -9,12 +9,15 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.analytics.Tracker;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
+import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 
@@ -35,6 +38,7 @@ public class PersonFragment extends Fragment {
 
     private FragmentStateListener mListener;
     private PersonManager personManager;
+    private Tracker mTracker;
 
     public PersonFragment() {
         // Required empty public constructor
@@ -53,6 +57,9 @@ public class PersonFragment extends Fragment {
         mListener.notify(new FragmentState(getString(R.string.person_view), getArguments()));
 
         personManager = PersonManagerImpl.getInstance(getActivity());
+        CeaselessApplication application = (CeaselessApplication) getActivity().getApplication();
+        mTracker = application.getDefaultTracker();
+
     }
 
     @Override
@@ -85,5 +92,11 @@ public class PersonFragment extends Fragment {
         }
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        AnalyticsUtils.sendScreenViewHit(mTracker, "PersonCard");
     }
 }

@@ -23,7 +23,7 @@ import org.theotech.ceaselessandroid.util.Constants;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class PersonSupportFragment extends Fragment {
+public class PersonSupportFragment extends Fragment implements ICardPageFragment {
     private static final String TAG = PersonSupportFragment.class.getSimpleName();
 
     @Bind(R.id.person_name)
@@ -88,5 +88,9 @@ public class PersonSupportFragment extends Fragment {
         }
 
         return view;
+    }
+
+    public String getCardName() {
+        return "PersonSupportCard";
     }
 }

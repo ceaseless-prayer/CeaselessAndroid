@@ -13,7 +13,7 @@ import butterknife.ButterKnife;
 /**
  * Created by chrislim on 10/31/15.
  */
-public class BlankSupportFragment extends Fragment {
+public class BlankSupportFragment extends Fragment implements ICardPageFragment {
 
     public BlankSupportFragment() {
         // Required empty public constructor
@@ -35,4 +35,7 @@ public class BlankSupportFragment extends Fragment {
         return view;
     }
 
+    public String getCardName() {
+        return "BlankCard";
+    }
 }
