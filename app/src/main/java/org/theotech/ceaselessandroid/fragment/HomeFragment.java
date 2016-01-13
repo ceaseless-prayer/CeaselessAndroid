@@ -203,7 +203,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onPageSelected(int position) {
                         ICardPageFragment card = (ICardPageFragment) pagerAdapter.getItem(position);
-                        Log.d(TAG, "Page selected " + position);
+                        Log.v(TAG, "Page selected " + position);
                         AnalyticsUtils.sendScreenViewHit(mTracker, card.getCardName());
 
                         Bundle newState = new Bundle();
