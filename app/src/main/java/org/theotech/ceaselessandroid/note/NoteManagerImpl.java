@@ -1,7 +1,7 @@
 package org.theotech.ceaselessandroid.note;
 
+import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.Context;
 
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
@@ -26,26 +26,26 @@ import io.realm.RealmList;
 public class NoteManagerImpl implements NoteManager {
     private static final String TAG = NoteManagerImpl.class.getSimpleName();
     private static NoteManager instance;
-    private Context context;
+    private Activity activity;
     private Realm realm;
     private ContentResolver contentResolver;
 
-    private NoteManagerImpl(Context context) {
-        this.context = context;
+    private NoteManagerImpl(Activity activity) {
+        this.activity = activity;
         // TODO this is also in the PersonManager, but maybe it should be in one place?
-        RealmConfiguration config = new RealmConfiguration.Builder(context)
+        RealmConfiguration config = new RealmConfiguration.Builder(activity)
                 .name(Constants.REALM_FILE_NAME)
                 .schemaVersion(Constants.SCHEMA_VERSION)
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(config);
         this.realm = Realm.getDefaultInstance();
-        this.contentResolver = context.getContentResolver();
+        this.contentResolver = activity.getContentResolver();
     }
 
-    public static NoteManager getInstance(Context context) {
+    public static NoteManager getInstance(Activity activity) {
         if (instance == null) {
-            instance = new NoteManagerImpl(context);
+            instance = new NoteManagerImpl(activity);
         }
         return instance;
     }
@@ -69,7 +69,7 @@ public class NoteManagerImpl implements NoteManager {
             note.setTitle(title);
         }
         note.setText(text);
-        PersonManager pm = PersonManagerImpl.getInstance(context);
+        PersonManager pm = PersonManagerImpl.getInstance(activity);
         RealmList<Person> people = pm.getPersonFromPersonPOJO(personPOJOs);
         note.setPeopleTagged(people);
         for (PersonPOJO p : personPOJOs) {
@@ -88,7 +88,7 @@ public class NoteManagerImpl implements NoteManager {
         note.setActive(true);
 
         // we need to cleanup people no longer tagged and add people who are new
-        PersonManager pm = PersonManagerImpl.getInstance(context);
+        PersonManager pm = PersonManagerImpl.getInstance(activity);
         RealmList<Person> oldPeopleTagged = note.getPeopleTagged();
         for (Person p : oldPeopleTagged) {
             p.getNotes().remove(note);

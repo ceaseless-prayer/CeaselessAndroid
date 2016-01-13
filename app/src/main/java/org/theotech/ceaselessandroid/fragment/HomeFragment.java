@@ -151,7 +151,6 @@ public class HomeFragment extends Fragment {
                 personIds.add(personPOJO.getId());
             }
             cacheManager.cachePersonIdsToPrayFor(personIds);
-            handler.post(runPager);
         }
 
         // wire up the home view pager
@@ -166,8 +165,6 @@ public class HomeFragment extends Fragment {
                         Bundle bundle = new Bundle();
                         if (position == 0) {
                             fragment = new VerseCardSupportFragment();
-                            // since this is the first card, we post a hit to it here
-                            AnalyticsUtils.sendScreenViewHit(mTracker, ((ICardPageFragment) fragment).getCardName());
                         } else if (position == getCount() - 1) {
                             fragment = new ProgressCardSupportFragment();
                         } else {
@@ -206,6 +203,7 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onPageSelected(int position) {
                         ICardPageFragment card = (ICardPageFragment) pagerAdapter.getItem(position);
+                        Log.d(TAG, "Page selected " + position);
                         AnalyticsUtils.sendScreenViewHit(mTracker, card.getCardName());
 
                         Bundle newState = new Bundle();
@@ -226,25 +224,23 @@ public class HomeFragment extends Fragment {
                     public void onPageScrollStateChanged(int state) {
                     }
                 });
+
                 // wire up the indicator
                 indicator.setViewPager(viewPager);
-                // change the page if required
+
+                // set the page if required
                 Bundle bundle = getArguments();
                 if (bundle != null && bundle.containsKey(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG)) {
                     Integer page = bundle.getInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG);
                     Log.d(TAG, "setting pager to " + page);
                     viewPager.setCurrentItem(page);
                 } else {
+                    // this defaults to page 0, scripture card
                     Log.d(TAG, "No bundle argument for page");
+                    AnalyticsUtils.sendScreenViewHit(mTracker, ((ICardPageFragment) pagerAdapter.getItem(0)).getCardName());
                 }
             }
         };
-        Log.d(TAG, "wire up the pager which should actually display the content");
-        // QUESTION: why should we be waiting for mCreated here? (this is old code)
-        // Because otherwise it will call the onPageSelected twice for each swipe.
-        if (mCreated) {
-            handler.post(runPager);
-        }
 
         return view;
     }
@@ -269,9 +265,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (runPager != null) {
-            handler.post(runPager);
-        }
         mCreated = true;
     }
 
@@ -284,8 +277,12 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        // TODO do we need to setup the home page again? is this why things blank out sometimes?
         AnalyticsUtils.sendScreenViewHit(mTracker, "HomeScreen");
+
+        // activate the pager so we see the cards
+        if (mCreated && runPager != null) {
+            handler.post(runPager);
+        }
     }
 
     @Override
@@ -311,7 +308,6 @@ public class HomeFragment extends Fragment {
                 updateBackgroundImage();
                 File nextBackgroundImage = new File(getActivity().getCacheDir(), Constants.NEXT_BACKGROUND_IMAGE);
                 new DownloadFileAsyncTask(getActivity(), imageUrl, nextBackgroundImage).execute();
-                handler.post(runPager);
             } else {
                 Log.e(TAG, "Could not fetch scripture image!");
             }
@@ -331,7 +327,6 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "scripture = " + scripture);
                 // cache
                 cacheManager.cacheScripture(scripture);
-                handler.post(runPager);
             } else {
                 Log.e(TAG, "Could not fetch scripture!");
             }

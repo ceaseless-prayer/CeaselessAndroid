@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Ceaseless</string>
 
+    <string name="contacts_access_required">Ceaseless requires access to contacts in order to show who to pray for.</string>
     <string name="nav_home">Home</string>
     <string name="nav_people">People</string>
     <string name="nav_journal">Journal</string>
@@ -76,4 +77,18 @@
     <string name="person_thumbnail">Contact photo thumbnail</string>
     <string name="ceaseless_logo">Ceaseless dove logo</string>
 
+    <!-- Analytics strings -->
+    <string name="ga_post_total_active_contacts">post_total_active_ceaseless_contacts</string>
+    <string name="ga_post_total_removed_contacts">post_total_removed_ceaseless_contacts</string>
+    <string name="ga_post_total_favorited">post_total_favorited_ceaseless_contacts</string>
+    <string name="ga_post_total_prayed_for">post_people_prayed_for_this_cycle</string>
+
+    <string name="ga_tapped_send_message">tapped_send_message</string>
+    <string name="ga_tapped_add_note">tapped_add_note</string>
+    <string name="ga_tapped_share_scripture">share_scripture</string>
+    <string name="ga_tapped_invite">tapped_invite</string>
+    <string name="ga_tapped_show_more_people">tapped_show_more_people</string>
+
+    <string name="ga_address_book_sync">address_book_sync</string>
+    <string name="ga_prayer_progress">prayer_progress</string>
 </resources>

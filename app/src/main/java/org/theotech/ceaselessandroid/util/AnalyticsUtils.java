@@ -17,4 +17,21 @@ public class AnalyticsUtils {
         mTracker.setScreenName(name);
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
+
+    public static void sendEventWithCategoryAndValue(Tracker mTracker, String category, String action, String label, Long value) {
+        mTracker.send(new HitBuilders.EventBuilder()
+            .setCategory(category)
+            .setAction(action)
+            .setLabel(label)
+            .setValue(value)
+            .build());
+    }
+
+    public static void sendEventWithCategory(Tracker mTracker, String category, String action, String label) {
+        mTracker.send(new HitBuilders.EventBuilder()
+                .setCategory(category)
+                .setAction(action)
+                .setLabel(label)
+                .build());
+    }
 }

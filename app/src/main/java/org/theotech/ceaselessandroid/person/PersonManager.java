@@ -27,6 +27,10 @@ public interface PersonManager {
 
     long getNumPeople();
 
+    long getNumFavoritedPeople();
+
+    long getNumRemovedPeople();
+
     PersonPOJO getPerson(String personId);
 
     Person getRealmPerson(String personId);

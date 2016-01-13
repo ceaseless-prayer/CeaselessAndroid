@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     PersonManagerImpl.getInstance(this).populateContacts();
                 } else {
                     // Permission Denied
-                    Toast.makeText(MainActivity.this, "READ_CONTACTS Denied",
+                    Toast.makeText(MainActivity.this, getString(R.string.contacts_access_required),
                             Toast.LENGTH_SHORT).show();
                     finish();
                 }

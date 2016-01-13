@@ -1,14 +1,20 @@
 package org.theotech.ceaselessandroid.person;
 
+import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.database.Cursor;
 import android.provider.ContactsContract;
 import android.util.Log;
 
+import com.google.android.gms.analytics.Tracker;
+
+import org.theotech.ceaselessandroid.CeaselessApplication;
+import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
+import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 import org.theotech.ceaselessandroid.util.Constants;
+import org.theotech.ceaselessandroid.util.Installation;
 import org.theotech.ceaselessandroid.util.RealmUtils;
 
 import java.util.ArrayList;
@@ -30,27 +36,33 @@ public class PersonManagerImpl implements PersonManager {
     private static final String TAG = PersonManagerImpl.class.getSimpleName();
     private static final String CONTACTS_SOURCE = "Contacts";
     private static final int RANDOM_FAVORITE_THRESHOLD = 4;
+    private static final int RANDOM_SAMPLE_POST_METRICS = 2;
 
     private static PersonManager instance;
-    private Context context;
+    private Activity activity;
     private Realm realm;
     private ContentResolver contentResolver;
+    private Tracker mTracker;
 
-    private PersonManagerImpl(Context context) {
-        this.context = context;
-        RealmConfiguration config = new RealmConfiguration.Builder(context)
+    private PersonManagerImpl(Activity activity) {
+        this.activity = activity;
+        RealmConfiguration config = new RealmConfiguration.Builder(this.activity)
                 .name(Constants.REALM_FILE_NAME)
                 .schemaVersion(Constants.SCHEMA_VERSION)
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(config);
         this.realm = Realm.getDefaultInstance();
-        this.contentResolver = context.getContentResolver();
+        this.contentResolver = this.activity.getContentResolver();
+
+        // setup analytics
+        CeaselessApplication application = (CeaselessApplication) activity.getApplication();
+        mTracker = application.getDefaultTracker();
     }
 
-    public static PersonManager getInstance(Context context) {
+    public static PersonManager getInstance(Activity activity) {
         if (instance == null) {
-            instance = new PersonManagerImpl(context);
+            instance = new PersonManagerImpl(activity);
         }
         return instance;
     }
@@ -198,6 +210,23 @@ public class PersonManagerImpl implements PersonManager {
     }
 
     @Override
+    public long getNumFavoritedPeople() {
+        return realm.where(Person.class)
+                .equalTo(Person.Column.ACTIVE, true)
+                .equalTo(Person.Column.IGNORED, false)
+                .equalTo(Person.Column.FAVORITE, true)
+                .count();
+    }
+
+    @Override
+    public long getNumRemovedPeople() {
+        return realm.where(Person.class)
+                .equalTo(Person.Column.ACTIVE, true)
+                .equalTo(Person.Column.IGNORED, true)
+                .count();
+    }
+
+    @Override
     public PersonPOJO getPerson(String personId) {
         return RealmUtils.toPersonPOJO(getRealmPerson(personId));
     }
@@ -291,6 +320,7 @@ public class PersonManagerImpl implements PersonManager {
         realm.commitTransaction();
 
         Log.d(TAG, String.format("Successfully added %d and updated %d contacts.", added, updated));
+        sampleAndPostMetrics();
     }
 
     private boolean isValidContact(Cursor cursor) {
@@ -298,6 +328,56 @@ public class PersonManagerImpl implements PersonManager {
         String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
         // TODO: filter out "Conference Bridge" and "Directory Assistance" as other common things to ignore
         return hasPhoneNumber && !name.startsWith("#");
+    }
+
+    private void sampleAndPostMetrics() {
+        Random random = new Random();
+        if (random.nextInt(RANDOM_SAMPLE_POST_METRICS) == 0) {
+            Log.i(TAG, "Posting contact metrics for analytics");
+            String installationId = Installation.id(activity);
+            AnalyticsUtils.sendEventWithCategoryAndValue(mTracker,
+                    getString(R.string.ga_address_book_sync),
+                    getString(R.string.ga_post_total_active_contacts),
+                    installationId,
+                    getNumPeople());
+
+            AnalyticsUtils.sendEventWithCategoryAndValue(mTracker,
+                    getString(R.string.ga_address_book_sync),
+                    getString(R.string.ga_post_total_favorited),
+                    installationId,
+                    getNumFavoritedPeople());
+
+            AnalyticsUtils.sendEventWithCategoryAndValue(mTracker,
+                    getString(R.string.ga_address_book_sync),
+                    getString(R.string.ga_post_total_removed_contacts),
+                    installationId,
+                    getNumRemovedPeople());
+
+            AnalyticsUtils.sendEventWithCategoryAndValue(mTracker,
+                    getString(R.string.ga_prayer_progress),
+                    getString(R.string.ga_post_total_prayed_for),
+                    installationId,
+                    getNumPrayed());
+
+            // TODO further analytics
+            // tapped_send_message
+            // tapped_add_note
+            // button_press
+            // share_scripture
+            // tapped_view_contact
+            // tapped_invite
+            // tapped_show_more_people
+
+            // categories
+            // address_book_sync
+            // progress_view
+            // person_card_actions
+            // scripture_card_action
+        }
+    }
+
+    private String getString(int resId) {
+        return this.activity.getString(resId);
     }
 
 }
