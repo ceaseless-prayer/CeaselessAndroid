@@ -13,7 +13,7 @@ public class AnalyticsUtils {
     private static final String TAG = AnalyticsUtils.class.getSimpleName();
 
     public static void sendScreenViewHit(Tracker mTracker, String name) {
-        Log.i(TAG, "Setting screen name: " + name);
+        Log.v(TAG, "Setting screen name: " + name);
         mTracker.setScreenName(name);
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
