@@ -19,7 +19,9 @@ import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.scripture.ScriptureData;
+import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 import org.theotech.ceaselessandroid.util.Constants;
+import org.theotech.ceaselessandroid.util.Installation;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -78,6 +80,10 @@ public class VerseCardSupportFragment extends Fragment implements ICardPageFragm
                 sharingIntent.setType("text/plain");
                 String shareLink = scriptureData.getLink();
                 sharingIntent.putExtra(Intent.EXTRA_TEXT, shareLink);
+                AnalyticsUtils.sendEventWithCategory(AnalyticsUtils.getDefaultTracker(getActivity()),
+                        getString(R.string.ga_scripture_card_actions),
+                        getString(R.string.ga_tapped_share_scripture),
+                        Installation.id(getActivity()));
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
         });

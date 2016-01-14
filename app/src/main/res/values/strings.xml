@@ -92,6 +92,8 @@
     <string name="ga_address_book_sync">address_book_sync</string>
     <string name="ga_prayer_progress">prayer_progress</string>
     <string name="ga_person_card_actions">person_card_actions</string>
+    <string name="ga_scripture_card_actions">scripture_card_actions</string>
+    <string name="ga_progress_card_actions">progress_card_actions</string>
 
     <!-- default scripture -->
     <string name="default_verse_text">And whatever you ask in prayer, you will receive, if you have faith.</string>

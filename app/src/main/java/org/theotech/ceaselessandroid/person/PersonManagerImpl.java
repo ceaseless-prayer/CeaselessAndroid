@@ -358,18 +358,6 @@ public class PersonManagerImpl implements PersonManager {
                     getString(R.string.ga_post_total_prayed_for),
                     installationId,
                     getNumPrayed());
-
-            // TODO further analytics
-            // button_press
-            // share_scripture
-            // tapped_view_contact
-            // tapped_show_more_people
-
-            // categories
-            // address_book_sync
-            // progress_view
-            // person_card_actions
-            // scripture_card_action
         }
     }
 

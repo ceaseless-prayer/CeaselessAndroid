@@ -14,9 +14,11 @@ import android.widget.TextView;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
+import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.FragmentUtils;
+import org.theotech.ceaselessandroid.util.Installation;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -65,6 +67,10 @@ public class ProgressCardSupportFragment extends Fragment implements ICardPageFr
         showMorePeople.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AnalyticsUtils.sendEventWithCategory(AnalyticsUtils.getDefaultTracker(getActivity()),
+                        getString(R.string.ga_progress_card_actions),
+                        getString(R.string.ga_tapped_show_more_people),
+                        Installation.id(getActivity()));
                 showMorePeople();
             }
         });
