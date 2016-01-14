@@ -91,4 +91,9 @@
 
     <string name="ga_address_book_sync">address_book_sync</string>
     <string name="ga_prayer_progress">prayer_progress</string>
+
+    <!-- default scripture -->
+    <string name="default_verse_text">And whatever you ask in prayer, you will receive, if you have faith.</string>
+    <string name="default_verse_citation">Matthew 21:22, ESV</string>
+    <string name="default_verse_link">http://www.bible.is/ENGESV/Matt/21/22</string>
 </resources>

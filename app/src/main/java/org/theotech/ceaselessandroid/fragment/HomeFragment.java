@@ -96,7 +96,7 @@ public class HomeFragment extends Fragment {
 
         cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
         imageService = ImageURLServiceImpl.getInstance();
-        scriptureService = ScriptureServiceImpl.getInstance();
+        scriptureService = ScriptureServiceImpl.getInstance(getActivity());
         personManager = PersonManagerImpl.getInstance(getActivity());
         CeaselessApplication application = (CeaselessApplication) getActivity().getApplication();
         mTracker = application.getDefaultTracker();
@@ -129,8 +129,16 @@ public class HomeFragment extends Fragment {
         // verse title and text
         ScriptureData scriptureData = cacheManager.getCachedScripture();
         if (!useCache || scriptureData == null) {
-            new ScriptureFetcher().execute();
+            ScriptureData scripture = scriptureService.getScripture();
+            if (scripture != null) {
+                Log.d(TAG, "scripture = " + scripture);
+                // cache
+                cacheManager.cacheScripture(scripture);
+            } else {
+                Log.e(TAG, "Could not fetch scripture!");
+            }
         }
+
         // people to pray for
         List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
         if (!useCache || personIds == null || personIds.size() < numberOfPeopleToPrayForDaily) {
@@ -313,24 +321,4 @@ public class HomeFragment extends Fragment {
             }
         }
     }
-
-    private class ScriptureFetcher extends AsyncTask<String, Void, ScriptureData> {
-
-        @Override
-        protected ScriptureData doInBackground(String... params) {
-            return scriptureService.getScripture();
-        }
-
-        @Override
-        protected void onPostExecute(ScriptureData scripture) {
-            if (scripture != null) {
-                Log.d(TAG, "scripture = " + scripture);
-                // cache
-                cacheManager.cacheScripture(scripture);
-            } else {
-                Log.e(TAG, "Could not fetch scripture!");
-            }
-        }
-    }
-
 }

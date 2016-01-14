@@ -1,9 +1,11 @@
 package org.theotech.ceaselessandroid.scripture;
 
+import java.io.Serializable;
+
 /**
  * Created by Ben Johnson on 10/3/15.
  */
-public class ScriptureData {
+public class ScriptureData implements Serializable {
     private static final String TAG = ScriptureData.class.getSimpleName();
 
     private String text;
