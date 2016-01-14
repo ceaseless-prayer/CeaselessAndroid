@@ -203,6 +203,11 @@ public class HomeFragment extends Fragment {
                 };
                 viewPager.setAdapter(pagerAdapter);
                 viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+                // since this gets called multiple times, we need to clear any existing onpagechangelisteners.
+                // otherwise the listeners will accumulate. For example, open a quickcontent intent and go back.
+                // suddenly you have two onPageChangeListeners attached.
+                // Question: Does this mean that we maybe don't even need to configure the viewpager every single time?
+                viewPager.clearOnPageChangeListeners();
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {

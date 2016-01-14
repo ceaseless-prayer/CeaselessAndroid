@@ -37,6 +37,8 @@
     <dimen name="person_image_corner_radius">6dp</dimen>
     <dimen name="favorite_icon_font_size">30sp</dimen>
     <dimen name="right_angle_icon_font_size">30sp</dimen>
+    <dimen name="person_removed_overlay_height">30dp</dimen>
+    <dimen name="person_removed_overlay_text_size">24sp</dimen>
 
     <dimen name="person_card_shortcut_size">50dp</dimen>
     <dimen name="person_card_shortcut_bottom_margin">20dp</dimen>

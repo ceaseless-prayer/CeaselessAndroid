@@ -1,9 +1,12 @@
 package org.theotech.ceaselessandroid.util;
 
+import android.app.Activity;
 import android.util.Log;
 
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+
+import org.theotech.ceaselessandroid.CeaselessApplication;
 
 /**
  * Created by chrislim on 1/11/16.
@@ -28,10 +31,16 @@ public class AnalyticsUtils {
     }
 
     public static void sendEventWithCategory(Tracker mTracker, String category, String action, String label) {
+        Log.v(TAG, "sending event: " + category + " " + action + " " + label);
         mTracker.send(new HitBuilders.EventBuilder()
                 .setCategory(category)
                 .setAction(action)
                 .setLabel(label)
                 .build());
+    }
+
+    public static Tracker getDefaultTracker(Activity activity) {
+        CeaselessApplication application = (CeaselessApplication) activity.getApplication();
+        return application.getDefaultTracker();
     }
 }

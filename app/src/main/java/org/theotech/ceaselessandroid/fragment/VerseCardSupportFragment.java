@@ -87,12 +87,12 @@ public class VerseCardSupportFragment extends Fragment implements ICardPageFragm
 
     private ScriptureData getScripture() {
         ScriptureData scriptureData = cacheManager.getCachedScripture();
-        Log.d(TAG, "Scripture Data" + scriptureData);
         if (scriptureData != null) {
             populateVerse(scriptureData.getCitation(), scriptureData.getText());
         } else {
             scriptureData = new ScriptureData(getString(R.string.default_verse_text), getString(R.string.default_verse_citation), getString(R.string.default_verse_link), null);
         }
+        Log.d(TAG, "Scripture Data " + scriptureData);
         return scriptureData;
     }
 

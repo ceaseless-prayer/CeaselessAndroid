@@ -81,6 +81,13 @@ public class CommonUtils {
         Picasso.with(activity).load(personPhotoUri).placeholder(R.drawable.placeholder_user)
                 .fit().centerInside().into(personImage);
 
+        TextView removedLabel = (TextView) view.findViewById(R.id.person_removed_label);
+        if (personPOJO.isIgnored()) {
+            removedLabel.setVisibility(View.VISIBLE);
+        } else {
+            removedLabel.setVisibility(View.INVISIBLE);
+        }
+
         // display notes
         final List<NotePOJO> notePOJOs = personPOJO.getNotes();
         Collections.sort(notePOJOs, new Comparator<NotePOJO>() { // sort by latest first
@@ -140,13 +147,17 @@ public class CommonUtils {
         });
     }
 
-    public static void wireSendMessage(final Context context, View view, final String personId) {
+    public static void wireSendMessage(final Activity activity, View view, final String personId) {
         final IconTextView messageShortcut = (IconTextView) view.findViewById(R.id.message_btn);
         messageShortcut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AnalyticsUtils.sendEventWithCategory(AnalyticsUtils.getDefaultTracker(activity),
+                        activity.getString(R.string.ga_person_card_actions),
+                        activity.getString(R.string.ga_tapped_send_message),
+                        Installation.id(activity));
                 Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long.parseLong(personId));
-                ContactsContract.QuickContact.showQuickContact(context, messageShortcut, contactUri, ContactsContract.QuickContact.MODE_MEDIUM, null);
+                ContactsContract.QuickContact.showQuickContact(activity, messageShortcut, contactUri, ContactsContract.QuickContact.MODE_MEDIUM, null);
             }
         });
     }
@@ -156,6 +167,10 @@ public class CommonUtils {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AnalyticsUtils.sendEventWithCategory(AnalyticsUtils.getDefaultTracker(activity),
+                        activity.getString(R.string.ga_person_card_actions),
+                        activity.getString(R.string.ga_tapped_add_note),
+                        Installation.id(activity));
                 CommonUtils.loadAddNote(personId, activity, activity.getFragmentManager(), backStackInfo);
             }
         });
@@ -170,6 +185,7 @@ public class CommonUtils {
     public static void wireShowPersonMenu(View view, final String personId, final Activity activity, final FragmentState backStackInfo, final PersonManager personManager) {
         final ImageView personImage = (ImageView) view.findViewById(R.id.person_image);
         final IconTextView favorite = (IconTextView) view.findViewById(R.id.favorite_btn);
+        final TextView removedLabel = (TextView) view.findViewById(R.id.person_removed_label);
 
         personImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,18 +197,35 @@ public class CommonUtils {
                         int id = item.getItemId();
                         switch (id) {
                             case R.id.person_fragment_add_note:
+                                AnalyticsUtils.sendEventWithCategory(AnalyticsUtils.getDefaultTracker(activity),
+                                        activity.getString(R.string.ga_person_card_actions),
+                                        activity.getString(R.string.ga_tapped_add_note),
+                                        Installation.id(activity));
                                 CommonUtils.loadAddNote(personId, activity, activity.getFragmentManager(), backStackInfo);
                                 return true;
                             case R.id.person_fragment_remove:
                                 personManager.ignorePerson(personId);
+                                removedLabel.setVisibility(View.VISIBLE);
                                 return true;
                             case R.id.person_fragment_add:
                                 personManager.unignorePerson(personId);
+                                removedLabel.setVisibility(View.INVISIBLE);
                                 return true;
                             case R.id.person_fragment_send_message:
-                            case R.id.person_fragment_invite:
+                                AnalyticsUtils.sendEventWithCategory(AnalyticsUtils.getDefaultTracker(activity),
+                                        activity.getString(R.string.ga_person_card_actions),
+                                        activity.getString(R.string.ga_tapped_send_message),
+                                        Installation.id(activity));
                                 Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long.parseLong(personId));
                                 ContactsContract.QuickContact.showQuickContact(activity, v, contactUri, ContactsContract.QuickContact.MODE_MEDIUM, null);
+                                return true;
+                            case R.id.person_fragment_invite:
+                                AnalyticsUtils.sendEventWithCategory(AnalyticsUtils.getDefaultTracker(activity),
+                                        activity.getString(R.string.ga_person_card_actions),
+                                        activity.getString(R.string.ga_tapped_invite),
+                                        Installation.id(activity));
+                                Uri contactUri1 = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long.parseLong(personId));
+                                ContactsContract.QuickContact.showQuickContact(activity, v, contactUri1, ContactsContract.QuickContact.MODE_MEDIUM, null);
                                 return true;
                             case R.id.person_fragment_favorite:
                                 favorite.setText(activity.getString(R.string.favorite_on));

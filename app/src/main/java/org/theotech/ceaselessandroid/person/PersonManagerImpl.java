@@ -360,12 +360,9 @@ public class PersonManagerImpl implements PersonManager {
                     getNumPrayed());
 
             // TODO further analytics
-            // tapped_send_message
-            // tapped_add_note
             // button_press
             // share_scripture
             // tapped_view_contact
-            // tapped_invite
             // tapped_show_more_people
 
             // categories
