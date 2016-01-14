@@ -23,6 +23,7 @@
 
     <string name="verse_share">Share</string>
     <string name="progress">Progress</string>
+    <string name="day">Day</string>
     <string name="prayed_for">You have prayed for \u0025s of \u0025s people</string>
     <string name="prayed_for_text">You have prayed for</string>
     <string name="prayer_settings">PRAYER SETTINGS</string>

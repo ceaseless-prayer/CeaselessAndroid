@@ -12,6 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.cache.CacheManager;
+import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.util.AnalyticsUtils;
@@ -33,8 +35,11 @@ public class ProgressCardSupportFragment extends Fragment implements ICardPageFr
     LinearLayout showMorePeople;
     @Bind(R.id.progress_card_background)
     ImageView progressCardBackground;
+    @Bind(R.id.number_of_days_praying)
+    TextView numberOfDaysPraying;
 
     private PersonManager personManager = null;
+    private CacheManager cacheManager = null;
 
     public ProgressCardSupportFragment() {
         // Required empty public constructor
@@ -46,6 +51,7 @@ public class ProgressCardSupportFragment extends Fragment implements ICardPageFr
         setHasOptionsMenu(true);
 
         personManager = PersonManagerImpl.getInstance(getActivity());
+        cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
     }
 
     @Override
@@ -61,6 +67,8 @@ public class ProgressCardSupportFragment extends Fragment implements ICardPageFr
         prayedFor.setText(String.format(getString(R.string.prayed_for), numPrayed, numPeople));
         progress.setProgress((int) ((float) numPrayed / numPeople * 100.0f));
         progress.requestLayout();
+
+        numberOfDaysPraying.setText(getString(R.string.day) + " " + cacheManager.numberOfCacheEntries());
 
         CommonUtils.setDynamicImage(getActivity(), progressCardBackground);
 

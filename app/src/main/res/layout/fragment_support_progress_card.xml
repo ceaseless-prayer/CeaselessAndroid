@@ -41,6 +41,19 @@
             android:textColor="@color/cardLabelText"
             android:textSize="@dimen/card_label_text_size" />
 
+        <TextView
+            android:id="@+id/number_of_days_praying"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/card_label_height"
+            android:background="@color/transparentBackground"
+            android:gravity="center|end"
+            android:paddingLeft="@dimen/card_label_start_margin"
+            android:paddingRight="@dimen/card_label_end_margin"
+            android:paddingStart="@dimen/card_label_start_margin"
+            android:paddingEnd="@dimen/card_label_end_margin"
+            android:textColor="@color/cardLabelText"
+            android:textSize="@dimen/card_label_text_size" />
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

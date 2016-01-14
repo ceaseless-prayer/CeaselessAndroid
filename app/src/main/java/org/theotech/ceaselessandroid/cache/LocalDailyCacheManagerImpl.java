@@ -116,6 +116,11 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
         }
     }
 
+    @Override
+    public long numberOfCacheEntries() {
+        return realm.where(LocalCacheData.class).count();
+    }
+
     private LocalCacheDataPOJO getCacheData() {
         return RealmUtils.toLocalCacheDataPOJO(getRealmCacheData());
     }
@@ -132,7 +137,6 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
             realmCacheData = realm.createObject(LocalCacheData.class);
         }
         populateCacheData(realmCacheData, newCacheData);
-
         realm.commitTransaction();
     }
 

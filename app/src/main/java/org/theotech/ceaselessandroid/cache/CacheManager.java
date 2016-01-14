@@ -19,4 +19,6 @@ public interface CacheManager {
     List<String> getCachedPersonIdsToPrayFor();
 
     void cachePersonIdsToPrayFor(List<String> personIdsToPrayFor);
+
+    long numberOfCacheEntries();
 }
