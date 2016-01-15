@@ -23,9 +23,23 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="org.theotech.ceaselessandroid.SHOW_PERSON" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".activity.SearchResultsActivity" />
+        </activity>
+
+        <activity android:name=".activity.SearchResultsActivity" android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
         </activity>
 
         <service

@@ -44,4 +44,6 @@ public interface PersonManager {
     void unfavoritePerson(String personId);
 
     void populateContacts();
+
+    List<PersonPOJO> queryPeopleByName(String query);
 }

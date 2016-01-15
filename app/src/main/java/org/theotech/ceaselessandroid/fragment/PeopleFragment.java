@@ -1,14 +1,21 @@
 package org.theotech.ceaselessandroid.fragment;
 
 import android.app.Fragment;
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.google.android.gms.analytics.Tracker;
@@ -17,7 +24,9 @@ import com.viewpagerindicator.UnderlinePageIndicator;
 import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.util.AnalyticsUtils;
+import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.Container;
+import org.theotech.ceaselessandroid.util.FragmentUtils;
 import org.theotech.ceaselessandroid.util.Refreshable;
 
 import butterknife.Bind;
@@ -161,10 +170,29 @@ public class PeopleFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (runPager != null) {
-            handler.post(runPager);
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG)) {
+            FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null,
+                    R.id.person_card, bundle, new FragmentState(getString(R.string.nav_people)));
+        } else {
+            if (runPager != null) {
+                handler.post(runPager);
+            }
         }
         mCreated = true;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.options_menu, menu);
+        MenuItem searchItem = menu.findItem(R.id.search);
+        SearchManager searchManager =
+                (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getActivity().getComponentName()));
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

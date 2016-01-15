@@ -14,4 +14,6 @@ public class Constants {
     public static final String NOTE_ID_BUNDLE_ARG = "noteId";
     public static final String NEXT_BACKGROUND_IMAGE = "nextBackgroundImage";
     public static final String CURRENT_BACKGROUND_IMAGE = "currentBackgroundImage";
+
+    public static final String SHOW_PERSON_INTENT = "org.theotech.ceaselessandroid.SHOW_PERSON";
 }

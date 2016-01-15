@@ -25,9 +25,11 @@ import org.theotech.ceaselessandroid.fragment.FragmentBackStackManager;
 import org.theotech.ceaselessandroid.fragment.FragmentState;
 import org.theotech.ceaselessandroid.fragment.FragmentStateListener;
 import org.theotech.ceaselessandroid.fragment.HomeFragment;
+import org.theotech.ceaselessandroid.fragment.PeopleFragment;
 import org.theotech.ceaselessandroid.notification.DailyNotificationReceiver;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.util.CommonUtils;
+import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.FragmentUtils;
 
 import butterknife.Bind;
@@ -77,9 +79,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // initialize the back stack
             backStackManager = new FragmentBackStackManager();
 
-            // load the main fragment
-            getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeFragment(),
-                    getString(R.string.nav_home)).commit();
+            // if we were called with a special action, load the right fragment
+            Intent intent = getIntent();
+            if (intent.getAction().equals(Constants.SHOW_PERSON_INTENT)) {
+                PeopleFragment peopleFragment = new PeopleFragment();
+                peopleFragment.setArguments(getIntent().getExtras());
+                getFragmentManager().beginTransaction().replace(R.id.fragment, peopleFragment,
+                        getString(R.string.nav_people)).commit();
+            } else {
+                // load the main fragment
+                getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeFragment(),
+                        getString(R.string.nav_home)).commit();
+            }
+
+
         }
     }
 

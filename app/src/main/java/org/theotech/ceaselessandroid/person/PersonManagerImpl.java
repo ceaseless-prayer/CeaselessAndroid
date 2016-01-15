@@ -323,6 +323,15 @@ public class PersonManagerImpl implements PersonManager {
         sampleAndPostMetrics();
     }
 
+    @Override
+    public List<PersonPOJO> queryPeopleByName(String query) {
+        List<PersonPOJO> people = RealmUtils.toPersonPOJOs(realm.where(Person.class)
+                .contains(Person.Column.NAME, query, false)
+                .equalTo(Person.Column.ACTIVE, true)
+                .findAllSorted(Person.Column.NAME));
+        return people;
+    }
+
     private boolean isValidContact(Cursor cursor) {
         boolean hasPhoneNumber = cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) == 1;
         String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Ceaseless</string>
+    <string name="search_hint">Search contacts and notes</string>
 
     <string name="contacts_access_required">Ceaseless requires access to contacts in order to show who to pray for.</string>
     <string name="nav_home">Home</string>
@@ -12,6 +13,7 @@
     <string name="nav_contact_us">Contact Us</string>
 
     <string name="nav_rate_this_app">Rate This App</string>
+    <string name="search_title">Search</string>
 
     <string name="person_view">Person</string>
 
