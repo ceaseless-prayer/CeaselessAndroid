@@ -11,19 +11,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.commonsware.cwac.merge.MergeAdapter;
+import com.google.common.base.Joiner;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.note.NoteManager;
+import org.theotech.ceaselessandroid.note.NoteManagerImpl;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
+import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -31,15 +39,19 @@ import java.util.List;
  */
 public class SearchResultsActivity extends ListActivity {
 
-    private static final String TAG = SearchResultsActivity.class.getSimpleName();;
+    private static final String TAG = SearchResultsActivity.class.getSimpleName();
     PersonManager personManager;
+    NoteManager noteManager;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         personManager = PersonManagerImpl.getInstance(this);
+        noteManager = NoteManagerImpl.getInstance(this);
         handleIntent(getIntent());
+        CommonUtils.setupBackgroundImage(this, (ImageView) this.findViewById(R.id.backgroundImageView));
     }
 
     @Override
@@ -51,17 +63,38 @@ public class SearchResultsActivity extends ListActivity {
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
-            final List<PersonPOJO> results = personManager.queryPeopleByName(query);
-            // search for the person
-            setListAdapter(new PeopleSearchArrayAdapter(SearchResultsActivity.this, results));
+            final List<PersonPOJO> people = personManager.queryPeopleByName(query);
+            final List<NotePOJO> notes = noteManager.queryNotesByText(query);
+
+            final MergeAdapter mergeAdapter = new MergeAdapter() {
+                @Override
+                public boolean isEmpty() {
+                    return people.isEmpty() && notes.isEmpty();
+                }
+            };
+
+            mergeAdapter.addAdapter(new PeopleSearchArrayAdapter(SearchResultsActivity.this, people));
+            mergeAdapter.addAdapter(new NotesSearchArrayAdapter(SearchResultsActivity.this, notes));
+            setListAdapter(mergeAdapter);
+
             getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Bundle bundle = new Bundle();
-                    bundle.putString(Constants.PERSON_ID_BUNDLE_ARG, results.get(position).getId());
-                    Intent intent = new Intent(Constants.SHOW_PERSON_INTENT);
-                    intent.putExtras(bundle);
-                    startActivity(intent);
+                    if (mergeAdapter.getItem(position) instanceof PersonPOJO) {
+                        PersonPOJO person = (PersonPOJO) mergeAdapter.getItem(position);
+                        bundle.putString(Constants.PERSON_ID_BUNDLE_ARG, person.getId());
+                        Intent intent = new Intent(Constants.SHOW_PERSON_INTENT);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    } else if (mergeAdapter.getItem(position) instanceof NotePOJO) {
+                        NotePOJO note = (NotePOJO) mergeAdapter.getItem(position);
+                        bundle.putString(Constants.NOTE_ID_BUNDLE_ARG, note.getId());
+                        Intent intent = new Intent(Constants.SHOW_NOTE_INTENT);
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+
                 }
             });
         }
@@ -107,6 +140,82 @@ public class SearchResultsActivity extends ListActivity {
             IconTextView favorite;
             RoundedImageView personThumbnail;
             TextView personListName;
+        }
+    }
+
+    private class NotesSearchArrayAdapter extends ArrayAdapter<NotePOJO> {
+        private final Context context;
+        private final List<NotePOJO> notes;
+        private final LayoutInflater inflater;
+
+        public NotesSearchArrayAdapter(Context context, List<NotePOJO> notes) {
+            super(context, -1, notes);
+            this.context = context;
+            this.notes = notes;
+            this.inflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public View getView(int position, View view, ViewGroup parent) {
+            final ViewHolder holder;
+            if (view == null) {
+                holder = new ViewHolder();
+                view = inflater.inflate(R.layout.list_item_notes, parent, false);
+                holder.noteDate = (TextView) view.findViewById(R.id.note_date);
+                holder.noteText = (TextView) view.findViewById(R.id.note_text);
+                holder.notePeopleTagged = (TextView) view.findViewById(R.id.note_people_tagged);
+                holder.thumbnail1 = (RoundedImageView) view.findViewById(R.id.person_tagged_thumbnail_1);
+                holder.thumbnail2 = (RoundedImageView) view.findViewById(R.id.person_tagged_thumbnail_2);
+                view.setTag(holder);
+            } else {
+                holder = (ViewHolder) view.getTag();
+            }
+            NotePOJO note = notes.get(position);
+            DateFormat formatter = SimpleDateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.SHORT);
+            holder.noteDate.setText(formatter.format(note.getLastUpdatedDate()));
+            holder.noteText.setText(note.getText());
+            holder.notePeopleTagged.setText(Joiner.on(", ").join(note.getPeopleTaggedNames()));
+
+            List<String> peopleTagged = note.getPeopleTagged();
+            if (peopleTagged == null || peopleTagged.size() == 0) {
+                holder.notePeopleTagged.setVisibility(View.GONE);
+                holder.thumbnail1.setVisibility(View.INVISIBLE);
+                holder.thumbnail2.setVisibility(View.INVISIBLE);
+            } else {
+                holder.notePeopleTagged.setVisibility(View.VISIBLE);
+                holder.thumbnail1.setVisibility(View.VISIBLE);
+                holder.thumbnail2.setVisibility(View.VISIBLE);
+
+                if (peopleTagged.size() > 0) {
+                    Uri thumbnailUri = CommonUtils.getContactPhotoUri(context.getContentResolver(), note.getPeopleTagged().get(0), false);
+                    Picasso.with(context)
+                            .load(thumbnailUri)
+                            .placeholder(R.drawable.placeholder_user)
+                            .fit()
+                            .into(holder.thumbnail1);
+                }
+
+                if (peopleTagged.size() > 1) {
+                    Uri thumbnailUri = CommonUtils.getContactPhotoUri(context.getContentResolver(), note.getPeopleTagged().get(1), false);
+                    Picasso.with(context)
+                            .load(thumbnailUri)
+                            .placeholder(R.drawable.placeholder_user)
+                            .fit()
+                            .into(holder.thumbnail2);
+                } else {
+                    holder.thumbnail2.setVisibility(View.INVISIBLE);
+                }
+            }
+
+            return view;
+        }
+
+        private class ViewHolder {
+            TextView notePeopleTagged;
+            TextView noteDate;
+            TextView noteText;
+            RoundedImageView thumbnail1;
+            RoundedImageView thumbnail2;
         }
     }
 }

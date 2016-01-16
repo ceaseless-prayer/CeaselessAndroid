@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import org.codechimp.apprater.AppRater;
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.fragment.AddNoteFragment;
 import org.theotech.ceaselessandroid.fragment.FragmentBackStackManager;
 import org.theotech.ceaselessandroid.fragment.FragmentState;
 import org.theotech.ceaselessandroid.fragment.FragmentStateListener;
@@ -81,19 +82,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             // if we were called with a special action, load the right fragment
             Intent intent = getIntent();
-            if (intent.getAction().equals(Constants.SHOW_PERSON_INTENT)) {
+            if (Constants.SHOW_PERSON_INTENT.equals(intent.getAction())) {
                 PeopleFragment peopleFragment = new PeopleFragment();
                 peopleFragment.setArguments(getIntent().getExtras());
                 getFragmentManager().beginTransaction().replace(R.id.fragment, peopleFragment,
                         getString(R.string.nav_people)).commit();
+            } else if (Constants.SHOW_NOTE_INTENT.equals(intent.getAction())) {
+                AddNoteFragment addNoteFragment = new AddNoteFragment();
+                addNoteFragment.setArguments(getIntent().getExtras());
+                getFragmentManager().beginTransaction().replace(R.id.fragment, addNoteFragment,
+                        getString(R.string.nav_journal)).commit();
             } else {
-                // load the main fragment
-                getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeFragment(),
-                        getString(R.string.nav_home)).commit();
+                loadMainFragment();
             }
-
-
         }
+    }
+
+    private void loadMainFragment() {
+        getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeFragment(),
+                getString(R.string.nav_home)).commit();
     }
 
     @Override

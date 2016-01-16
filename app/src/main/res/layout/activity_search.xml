@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cardBackground">
+    <ImageView
+        android:id="@+id/backgroundImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top"
+        android:scaleType="centerCrop"
+        android:src="@drawable/at_the_beach"
+        android:contentDescription="@string/scenic_photo"
+        android:tint="@color/homeBackgroundTint" />
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_height="@dimen/no_results_height"
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:textSize="@dimen/no_results_text_size"
+        android:text="@string/no_results_msg"
+        android:textColor="@color/cardTextColor"/>
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:divider="@color/listDividerColor"
+        android:dividerHeight="@dimen/note_list_divider_height"
+        android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb">
     </ListView>
-</LinearLayout>
+</RelativeLayout>

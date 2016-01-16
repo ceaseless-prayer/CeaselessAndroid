@@ -131,4 +131,13 @@ public class NoteManagerImpl implements NoteManager {
     public void untagNote(String noteId, String personId) {
         // TODO: Implement
     }
+
+    @Override
+    public List<NotePOJO> queryNotesByText(String query) {
+        List<Note> results = realm.where(Note.class)
+                .equalTo(Note.Column.ACTIVE, true)
+                .contains(Note.Column.TEXT, query, false)
+                .findAllSorted(Note.Column.LAST_UPDATED_DATE);
+        return RealmUtils.toNotePOJOs(results);
+    }
 }

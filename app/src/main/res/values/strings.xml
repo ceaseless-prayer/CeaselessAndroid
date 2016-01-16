@@ -102,4 +102,7 @@
     <string name="default_verse_text">And whatever you ask in prayer, you will receive, if you have faith.</string>
     <string name="default_verse_citation">Matthew 21:22, ESV</string>
     <string name="default_verse_link">http://www.bible.is/ENGESV/Matt/21/22</string>
+
+    <!-- search -->
+    <string name="no_results_msg">No results</string>
 </resources>

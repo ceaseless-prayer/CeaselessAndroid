@@ -23,4 +23,6 @@ public interface NoteManager {
     void tagNote(String noteId, String personId);
 
     void untagNote(String noteId, String personId);
+
+    List<NotePOJO> queryNotesByText(String query);
 }

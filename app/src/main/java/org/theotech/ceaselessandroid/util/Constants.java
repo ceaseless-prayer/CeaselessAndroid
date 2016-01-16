@@ -16,4 +16,5 @@ public class Constants {
     public static final String CURRENT_BACKGROUND_IMAGE = "currentBackgroundImage";
 
     public static final String SHOW_PERSON_INTENT = "org.theotech.ceaselessandroid.SHOW_PERSON";
+    public static final String SHOW_NOTE_INTENT = "org.theotech.ceaselessandroid.SHOW_NOTE";
 }

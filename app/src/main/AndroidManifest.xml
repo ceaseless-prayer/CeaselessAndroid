@@ -29,6 +29,10 @@
                 <action android:name="org.theotech.ceaselessandroid.SHOW_PERSON" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="org.theotech.ceaselessandroid.SHOW_NOTE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".activity.SearchResultsActivity" />
