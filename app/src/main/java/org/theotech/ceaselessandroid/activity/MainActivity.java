@@ -58,43 +58,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            Log.d(TAG, "reloading from savedInstanceState");
+            Log.d(TAG, "reloading from savedInstanceState " + savedInstanceState);
         } else {
             Log.d(TAG, "Starting activity fresh");
-            setContentView(R.layout.activity_main);
-            ButterKnife.bind(this);
-            setSupportActionBar(toolbar);
+        }
 
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.setDrawerListener(toggle);
-            toggle.syncState();
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
 
-            navigation.setCheckedItem(R.id.nav_home);
-            navigation.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
-            populateContacts();
-            setNotification();
-            CommonUtils.setupBackgroundImage(this, backgroundImageView);
+        navigation.setCheckedItem(R.id.nav_home);
+        navigation.setNavigationItemSelectedListener(this);
 
-            // initialize the back stack
-            backStackManager = new FragmentBackStackManager();
+        populateContacts();
+        setNotification();
+        CommonUtils.setupBackgroundImage(this, backgroundImageView);
 
-            // if we were called with a special action, load the right fragment
-            Intent intent = getIntent();
-            if (Constants.SHOW_PERSON_INTENT.equals(intent.getAction())) {
-                PeopleFragment peopleFragment = new PeopleFragment();
-                peopleFragment.setArguments(getIntent().getExtras());
-                getFragmentManager().beginTransaction().replace(R.id.fragment, peopleFragment,
-                        getString(R.string.nav_people)).commit();
-            } else if (Constants.SHOW_NOTE_INTENT.equals(intent.getAction())) {
-                AddNoteFragment addNoteFragment = new AddNoteFragment();
-                addNoteFragment.setArguments(getIntent().getExtras());
-                getFragmentManager().beginTransaction().replace(R.id.fragment, addNoteFragment,
-                        getString(R.string.nav_journal)).commit();
-            } else {
-                loadMainFragment();
-            }
+        // initialize the back stack
+        backStackManager = new FragmentBackStackManager();
+
+        // if we were called with a special action, load the right fragment
+        Intent intent = getIntent();
+        if (Constants.SHOW_PERSON_INTENT.equals(intent.getAction())) {
+            PeopleFragment peopleFragment = new PeopleFragment();
+            peopleFragment.setArguments(getIntent().getExtras());
+            getFragmentManager().beginTransaction().replace(R.id.fragment, peopleFragment,
+                    getString(R.string.nav_people)).commit();
+        } else if (Constants.SHOW_NOTE_INTENT.equals(intent.getAction())) {
+            AddNoteFragment addNoteFragment = new AddNoteFragment();
+            addNoteFragment.setArguments(getIntent().getExtras());
+            getFragmentManager().beginTransaction().replace(R.id.fragment, addNoteFragment,
+                    getString(R.string.nav_journal)).commit();
+        } else {
+            loadMainFragment();
         }
     }
 
