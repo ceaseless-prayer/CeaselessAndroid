@@ -33,7 +33,6 @@
             android:layout_height="match_parent"
             android:layout_gravity="top"
             android:scaleType="centerCrop"
-            android:src="@drawable/at_the_beach"
             android:contentDescription="@string/scenic_photo"
             android:tint="@color/homeBackgroundTint" />
 

@@ -291,6 +291,12 @@ public class CommonUtils {
                     .transform(new BlurTransformation(context, 25, 2))
                     .into(target);
             Log.d(TAG, "Background image has been set to " + currentBackgroundImage);
+        } else {
+            Log.d(TAG, "Showing default background image");
+            Picasso.with(context)
+                    .load(R.drawable.at_the_beach)
+                    .transform(new BlurTransformation(context, 25, 2))
+                    .into(target);
         }
     }
 
