@@ -57,6 +57,10 @@
         </receiver>
 
         <meta-data
+            android:name="com.google.android.backup.api_key"
+            android:value="AEdPqrEAAAAIq_eQFC3kEU6Cd7IDXppvX-25irs8hIpqyZ62yA" />
+
+        <meta-data
             android:name="io.fabric.ApiKey"
             android:value="35238d8ee6233285febbb5eb6178e2ce7b2e866d" />
 
