@@ -17,7 +17,6 @@ import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.util.AnalyticsUtils;
-import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.FragmentUtils;
 import org.theotech.ceaselessandroid.util.Installation;
@@ -70,7 +69,9 @@ public class ProgressCardSupportFragment extends Fragment implements ICardPageFr
 
         numberOfDaysPraying.setText(getString(R.string.day) + " " + cacheManager.numberOfCacheEntries());
 
-        CommonUtils.setDynamicImage(getActivity(), progressCardBackground);
+        // TODO for performance reasons we do not make the progress card have a blurred background
+        // until we can reuse a blurred version of the image to prevent out of memory issues.
+        // CommonUtils.setDynamicImage(getActivity(), progressCardBackground);
 
         showMorePeople.setOnClickListener(new View.OnClickListener() {
             @Override

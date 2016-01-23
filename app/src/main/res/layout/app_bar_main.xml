@@ -34,7 +34,8 @@
             android:layout_gravity="top"
             android:scaleType="centerCrop"
             android:contentDescription="@string/scenic_photo"
-            android:tint="@color/homeBackgroundTint" />
+            android:tint="@color/homeBackgroundTint"
+            android:background="@color/homeBackgroundTint"/>
 
         <RelativeLayout
             android:id="@+id/fragment"

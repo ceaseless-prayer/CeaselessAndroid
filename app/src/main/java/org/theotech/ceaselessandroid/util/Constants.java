@@ -17,4 +17,6 @@ public class Constants {
 
     public static final String SHOW_PERSON_INTENT = "org.theotech.ceaselessandroid.SHOW_PERSON";
     public static final String SHOW_NOTE_INTENT = "org.theotech.ceaselessandroid.SHOW_NOTE";
+    public static final String DEFAULT_PREFERENCES_FILE = "org.theotech.ceaselessandroid_preferences";
+
 }

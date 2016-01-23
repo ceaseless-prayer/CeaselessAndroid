@@ -288,14 +288,14 @@ public class CommonUtils {
         if (currentBackgroundImage.exists()) {
             Picasso.with(context)
                     .load(currentBackgroundImage)
-                    .transform(new BlurTransformation(context, 25, 2))
+                    .transform(new BlurTransformation(context, 25, 3))
                     .into(target);
             Log.d(TAG, "Background image has been set to " + currentBackgroundImage);
         } else {
             Log.d(TAG, "Showing default background image");
             Picasso.with(context)
                     .load(R.drawable.at_the_beach)
-                    .transform(new BlurTransformation(context, 25, 2))
+                    .transform(new BlurTransformation(context, 25, 3))
                     .into(target);
         }
     }

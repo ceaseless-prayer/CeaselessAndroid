@@ -29,7 +29,7 @@ public class DailyNotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        boolean showNotifications = preferences.getBoolean("showNotifications", false);
+        boolean showNotifications = preferences.getBoolean("showNotifications", true);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent notificationIntent = new Intent(context, DailyNotificationService.class);

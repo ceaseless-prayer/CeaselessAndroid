@@ -1,6 +1,7 @@
 package org.theotech.ceaselessandroid.activity;
 
 import android.Manifest;
+import android.app.backup.BackupManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -99,9 +100,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    public void requestBackup() {
+        BackupManager bm = new BackupManager(this);
+        Log.i(TAG, "Backing up database and preferences");
+        bm.dataChanged();
+    }
+
     private void loadMainFragment() {
         getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeFragment(),
                 getString(R.string.nav_home)).commit();
+        // TODO when do we request backups?
+        requestBackup();
     }
 
     @Override
