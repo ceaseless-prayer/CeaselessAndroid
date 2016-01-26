@@ -5,6 +5,8 @@
     <dimen name="nav_header_height">100dp</dimen>
     <dimen name="nav_header_image_height">75dp</dimen>
     <dimen name="nav_header_image_width">200dp</dimen>
+    <dimen name="app_bar_elevation">4dp</dimen>
+    <dimen name="app_bar_back_arrow_size">24sp</dimen>
 
     <dimen name="circle_indicator_radius">4dp</dimen>
     <dimen name="indicator_padding">4dp</dimen>

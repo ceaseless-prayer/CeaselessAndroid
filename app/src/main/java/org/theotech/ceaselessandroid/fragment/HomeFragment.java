@@ -73,6 +73,8 @@ public class HomeFragment extends Fragment {
     private PersonManager personManager = null;
     private Tracker mTracker;
 
+    private SearchView searchView;
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -296,9 +298,11 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
         AnalyticsUtils.sendScreenViewHit(mTracker, "HomeScreen");
+        //InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        boolean searchViewFocused = searchView != null && searchView.hasFocus();
 
         // activate the pager so we see the cards
-        if (mCreated && runPager != null) {
+        if (mCreated && runPager != null && !searchViewFocused) {
             handler.post(runPager);
         }
     }
@@ -309,7 +313,7 @@ public class HomeFragment extends Fragment {
         MenuItem searchItem = menu.findItem(R.id.search);
         SearchManager searchManager =
                 (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView =
+        searchView =
                 (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(getActivity().getComponentName()));

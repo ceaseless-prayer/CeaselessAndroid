@@ -2,12 +2,11 @@ package org.theotech.ceaselessandroid.fragment;
 
 
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +25,7 @@ import org.theotech.ceaselessandroid.person.PersonManagerImpl;
 import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.util.AnalyticsUtils;
+import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.view.PersonsCompletionView;
 
@@ -147,17 +147,19 @@ public class AddNoteFragment extends Fragment {
     }
 
     private void hideKeyboard() {
-        // hide keyboard if it's open
-        View view = getActivity().getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
+        CommonUtils.hideKeyboard(getActivity());
     }
 
     @Override
     public void onResume() {
         super.onResume();
         AnalyticsUtils.sendScreenViewHit(mTracker, "NoteScreen");
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+    }
+
+    @Override
+    public void onPause() {
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
+        super.onPause();
     }
 }

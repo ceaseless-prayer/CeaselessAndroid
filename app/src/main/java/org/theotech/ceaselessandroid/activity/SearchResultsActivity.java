@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by chrislim on 1/14/16.
  */
@@ -43,15 +47,28 @@ public class SearchResultsActivity extends ListActivity {
     PersonManager personManager;
     NoteManager noteManager;
 
+    @Bind(R.id.backgroundImageView)
+    ImageView backgroundImageView;
+    @Bind(R.id.search_toolbar)
+    Toolbar search_toolbar;
+    @Bind(R.id.search_back_btn)
+    IconTextView search_back_btn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        ButterKnife.bind(this);
         personManager = PersonManagerImpl.getInstance(this);
         noteManager = NoteManagerImpl.getInstance(this);
         handleIntent(getIntent());
-        CommonUtils.setupBackgroundImage(this, (ImageView) this.findViewById(R.id.backgroundImageView));
+        CommonUtils.setupBackgroundImage(this, backgroundImageView);
+        search_back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SearchResultsActivity.this.finish();
+            }
+        });
     }
 
     @Override
