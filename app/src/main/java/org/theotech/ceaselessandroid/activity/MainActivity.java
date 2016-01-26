@@ -98,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             loadMainFragment();
         }
+        // TODO decide if we want to use AppRater's logic to surface a review request
+        // AppRater.app_launched(this);
     }
 
     public void requestBackup() {
@@ -154,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         if (id == R.id.nav_rate_this_app) { // easter egg - option to load home fragment without using cache data
             // rate my app dialog
-            AppRater.app_launched(this);
+            AppRater.rateNow(this);
         } else {
             // replace fragment if it's not already visible
             FragmentUtils.loadFragment(this, getFragmentManager(), navigation, id, currentFragment);
