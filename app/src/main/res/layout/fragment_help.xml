@@ -6,10 +6,11 @@
     tools:context="org.theotech.ceaselessandroid.fragment.HelpFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <WebView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/helpWebView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/hello_blank_fragment" />
+        android:gravity="center" />
 
 </FrameLayout>
