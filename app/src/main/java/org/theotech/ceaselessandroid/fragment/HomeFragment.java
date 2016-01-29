@@ -1,6 +1,7 @@
 package org.theotech.ceaselessandroid.fragment;
 
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.SearchManager;
 import android.content.Context;
@@ -130,7 +131,7 @@ public class HomeFragment extends Fragment {
         String verseImageURL = cacheManager.getCachedVerseImageURL();
         if (!useCache || verseImageURL == null) {
             updateBackgroundImage();
-            new ImageFetcher().execute();
+            new ImageFetcher(getActivity()).execute();
         }
 
         // verse title and text
@@ -321,6 +322,13 @@ public class HomeFragment extends Fragment {
     }
 
     private class ImageFetcher extends AsyncTask<String, Void, String> {
+
+        private Activity activity;
+
+        public ImageFetcher(Activity activity) {
+            this.activity = activity;
+        }
+
         @Override
         protected String doInBackground(String... params) {
             return imageService.getImageURL();
@@ -332,11 +340,14 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "imageUrl = " + imageUrl);
                 // cache
                 cacheManager.cacheVerseImageURL(imageUrl);
-
-                // fetch new background image
-                updateBackgroundImage();
-                File nextBackgroundImage = new File(getActivity().getCacheDir(), Constants.NEXT_BACKGROUND_IMAGE);
-                new DownloadFileAsyncTask(getActivity(), imageUrl, nextBackgroundImage).execute();
+                try {
+                    // fetch new background image
+                    File nextBackgroundImage = new File(activity.getCacheDir(), Constants.NEXT_BACKGROUND_IMAGE);
+                    new DownloadFileAsyncTask(activity, imageUrl, nextBackgroundImage).execute();
+                } catch (Exception e) {
+                    Log.e(TAG, "Error fetching scripture image!");
+                    e.printStackTrace();
+                }
             } else {
                 Log.e(TAG, "Could not fetch scripture image!");
             }

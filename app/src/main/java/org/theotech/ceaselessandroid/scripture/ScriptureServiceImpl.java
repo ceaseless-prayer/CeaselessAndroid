@@ -61,7 +61,6 @@ public class ScriptureServiceImpl implements ScriptureService {
         ScriptureData result = null;
         if (cachedScriptures.size() > 0) {
             result = cachedScriptures.remove(0);
-            Log.d(TAG, "scripture " + result);
         }
         new ScriptureCacher().execute();
         return result;
