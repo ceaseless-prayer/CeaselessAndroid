@@ -47,6 +47,7 @@ public class PeopleFragment extends Fragment {
     private Runnable runPager;
     private FragmentStateListener mListener;
     private boolean mCreated = false;
+    private boolean showingPerson = false;
     private Tracker mTracker;
 
     public PeopleFragment() {
@@ -108,6 +109,7 @@ public class PeopleFragment extends Fragment {
                         return TABS.length;
                     }
                 });
+                viewPager.clearOnPageChangeListeners();
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -160,10 +162,6 @@ public class PeopleFragment extends Fragment {
             }
         });
 
-        if (mCreated) {
-            handler.post(runPager);
-        }
-
         return view;
     }
 
@@ -174,10 +172,9 @@ public class PeopleFragment extends Fragment {
         if (bundle != null && bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG)) {
             FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null,
                     R.id.person_card, bundle, new FragmentState(getString(R.string.nav_people)));
+            showingPerson = true;
         } else {
-            if (runPager != null) {
-                handler.post(runPager);
-            }
+            showingPerson = false;
         }
         mCreated = true;
     }
@@ -204,6 +201,9 @@ public class PeopleFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (runPager != null && mCreated && !showingPerson) {
+            handler.post(runPager);
+        }
         AnalyticsUtils.sendScreenViewHit(mTracker, "PeopleScreen");
     }
 }
