@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.google.android.gms.analytics.Tracker;
 
@@ -54,7 +55,10 @@ public class HelpFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_help, container, false);
         ButterKnife.bind(this, view);
 
-        helpWV.getSettings().setJavaScriptEnabled(true);
+        // helpWV.getSettings().setJavaScriptEnabled(true);
+        // the above line causes a Lint security warning
+        // Will the help url page require JavaScript??
+        helpWV.setWebViewClient(new WebViewClient());
         helpWV.loadUrl(getString(R.string.help_url));
 
         return view;
