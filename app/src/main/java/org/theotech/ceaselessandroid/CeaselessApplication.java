@@ -10,7 +10,11 @@ import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
+import org.theotech.ceaselessandroid.util.Constants;
+
 import io.fabric.sdk.android.Fabric;
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 /**
  * Created by Andrew Ma on 10/5/15.
@@ -48,5 +52,14 @@ public class CeaselessApplication extends Application {
         Picasso.setSingletonInstance(picasso);
 
         Iconify.with(new FontAwesomeModule());
+
+        // realm (added by T. Kopp on 2/2/16)
+        RealmConfiguration config = new RealmConfiguration.Builder(this)
+                .name(Constants.REALM_FILE_NAME)
+                .schemaVersion(Constants.SCHEMA_VERSION)
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(config);
+
     }
 }
