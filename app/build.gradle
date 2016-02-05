@@ -54,10 +54,15 @@ android {
                 'ButtonStyle',
                 'HardcodedText',
                 'RtlSymmetry',
+                'RtlSymmetry',
                 'RtlHardcoded'
     }
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+    dexOptions {
+        // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
+        preDexLibraries = preDexEnabled && !travisBuild
     }
 }
 
