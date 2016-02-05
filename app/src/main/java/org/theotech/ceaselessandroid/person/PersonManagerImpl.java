@@ -13,7 +13,6 @@ import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.util.AnalyticsUtils;
-import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.Installation;
 import org.theotech.ceaselessandroid.util.RealmUtils;
 
@@ -24,7 +23,6 @@ import java.util.List;
 import java.util.Random;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmList;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
@@ -46,12 +44,6 @@ public class PersonManagerImpl implements PersonManager {
 
     private PersonManagerImpl(Activity activity) {
         this.activity = activity;
-        RealmConfiguration config = new RealmConfiguration.Builder(this.activity)
-                .name(Constants.REALM_FILE_NAME)
-                .schemaVersion(Constants.SCHEMA_VERSION)
-                .deleteRealmIfMigrationNeeded()
-                .build();
-        Realm.setDefaultConfiguration(config);
         this.realm = Realm.getDefaultInstance();
         this.contentResolver = this.activity.getContentResolver();
 

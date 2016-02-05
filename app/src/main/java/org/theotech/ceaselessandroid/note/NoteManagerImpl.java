@@ -9,7 +9,6 @@ import org.theotech.ceaselessandroid.realm.Note;
 import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
-import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.RealmUtils;
 
 import java.util.Date;
@@ -17,7 +16,6 @@ import java.util.List;
 import java.util.UUID;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmList;
 
 /**
@@ -32,13 +30,6 @@ public class NoteManagerImpl implements NoteManager {
 
     private NoteManagerImpl(Activity activity) {
         this.activity = activity;
-        // TODO this is also in the PersonManager, but maybe it should be in one place?
-        RealmConfiguration config = new RealmConfiguration.Builder(activity)
-                .name(Constants.REALM_FILE_NAME)
-                .schemaVersion(Constants.SCHEMA_VERSION)
-                .deleteRealmIfMigrationNeeded()
-                .build();
-        Realm.setDefaultConfiguration(config);
         this.realm = Realm.getDefaultInstance();
         this.contentResolver = activity.getContentResolver();
     }

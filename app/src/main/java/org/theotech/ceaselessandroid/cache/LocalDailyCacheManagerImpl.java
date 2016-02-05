@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 import io.realm.RealmList;
 
 /**
@@ -26,12 +25,6 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
     private Realm realm;
 
     public LocalDailyCacheManagerImpl(Context context) {
-        RealmConfiguration config = new RealmConfiguration.Builder(context)
-                .name("org.theotech.ceaselessandroid")
-                .schemaVersion(0)
-                .deleteRealmIfMigrationNeeded()
-                .build();
-        Realm.setDefaultConfiguration(config);
         this.realm = Realm.getDefaultInstance();
     }
 
