@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.google.android.gms.analytics.Tracker;
 
@@ -13,9 +15,13 @@ import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class HelpFragment extends Fragment {
+
+    @Bind(R.id.helpWebView)
+    WebView helpWV;
 
     private FragmentStateListener mListener;
     private Tracker mTracker;
@@ -48,6 +54,12 @@ public class HelpFragment extends Fragment {
         // create view and bind
         View view = inflater.inflate(R.layout.fragment_help, container, false);
         ButterKnife.bind(this, view);
+
+        // helpWV.getSettings().setJavaScriptEnabled(true);
+        // the above line causes a Lint security warning
+        // Will the help url page require JavaScript??
+        helpWV.setWebViewClient(new WebViewClient());
+        helpWV.loadUrl(getString(R.string.help_url));
 
         return view;
     }
