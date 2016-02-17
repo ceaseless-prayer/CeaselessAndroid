@@ -30,6 +30,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.Tutorial;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.image.DownloadFileAsyncTask;
@@ -67,6 +68,7 @@ public class HomeFragment extends Fragment {
     private Runnable runPager;
     private boolean mCreated = false;
     private boolean useCache;
+    private boolean showTutorial;
     private FragmentStateListener mListener;
     private CacheManager cacheManager = null;
     private ImageURLService imageService = null;
@@ -113,8 +115,16 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        // decide if tutorial should be shown
+        showTutorial = Tutorial.shouldShowTutorial(getActivity(), Tutorial.HOME_FRAGMENT);
+
         // set title
-        getActivity().setTitle(getString(R.string.nav_home));
+        String title = getString(R.string.nav_home);
+        if(showTutorial) {
+            title = title + " (Tutorial)";
+        }
+        getActivity().setTitle(title);
 
         // create view and bind
         View view = inflater.inflate(R.layout.fragment_home, container, false);

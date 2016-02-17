@@ -10,7 +10,9 @@ import android.content.SharedPreferences;
 public class Tutorial {
     private static Tutorial ourInstance = new Tutorial();
     private static final String LAST_ACCESSED = "Last_Accessed_";
-    private static final boolean DEBUG_MODE = false;
+    private static final boolean DEBUG_MODE = true;
+
+    public static final String HOME_FRAGMENT = "Home_Fragment";
 
     public static Tutorial getInstance() {
         return ourInstance;
