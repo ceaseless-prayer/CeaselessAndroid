@@ -29,6 +29,7 @@ import org.theotech.ceaselessandroid.fragment.FragmentBackStackManager;
 import org.theotech.ceaselessandroid.fragment.FragmentState;
 import org.theotech.ceaselessandroid.fragment.FragmentStateListener;
 import org.theotech.ceaselessandroid.fragment.HomeFragment;
+import org.theotech.ceaselessandroid.fragment.HomeTutorialFragment;
 import org.theotech.ceaselessandroid.fragment.PeopleFragment;
 import org.theotech.ceaselessandroid.notification.DailyNotificationReceiver;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
