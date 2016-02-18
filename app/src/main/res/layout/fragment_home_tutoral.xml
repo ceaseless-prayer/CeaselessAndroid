@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/transparentBackground"
+    tools:context="org.theotech.ceaselessandroid.fragment.HomeFragment">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:background="@color/verseBackground"
+        android:textColor="@color/verseTextColor"
+        android:shadowColor="@color/verseTextColor"
+        android:shadowRadius="4"
+        android:text="@string/home_tutorial_intro"
+        android:onClick="onTutorialIntroButton"/>
+
+
+</FrameLayout>

@@ -1,6 +1,7 @@
 package org.theotech.ceaselessandroid.activity;
 
 import android.Manifest;
+import android.app.Fragment;
 import android.app.backup.BackupManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import org.codechimp.apprater.AppRater;
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.Tutorial;
 import org.theotech.ceaselessandroid.fragment.AddNoteFragment;
 import org.theotech.ceaselessandroid.fragment.FragmentBackStackManager;
 import org.theotech.ceaselessandroid.fragment.FragmentState;
@@ -109,8 +111,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void loadMainFragment() {
-        getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeFragment(),
-                getString(R.string.nav_home)).commit();
+        Fragment frag;
+        String title;
+        if(Tutorial.shouldShowTutorial(this, Tutorial.HOME_FRAGMENT)) {
+            frag = new HomeTutorialFragment();
+            title = getString(R.string.nav_home) + " (Tutorial)";
+        } else {
+            frag = new HomeFragment();
+            title = getString(R.string.nav_home);
+        }
+        getFragmentManager().beginTransaction().replace(R.id.fragment, frag, title).commit();
         // TODO when do we request backups?
         requestBackup();
     }
