@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getFragmentManager().beginTransaction().replace(R.id.fragment, addNoteFragment,
                     getString(R.string.nav_journal)).commit();
         } else {
-            loadMainFragment();
+            loadMainFragment(Tutorial.shouldShowTutorial(this, Tutorial.HOME_FRAGMENT));
         }
         // TODO decide if we want to use AppRater's logic to surface a review request
         // AppRater.app_launched(this);
@@ -111,10 +111,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bm.dataChanged();
     }
 
-    private void loadMainFragment() {
+    public void loadMainFragment(boolean showTutorial) {
         Fragment frag;
         String title;
-        if(Tutorial.shouldShowTutorial(this, Tutorial.HOME_FRAGMENT)) {
+        if(showTutorial) {
             frag = new HomeTutorialFragment();
             title = getString(R.string.nav_home) + " (Tutorial)";
         } else {

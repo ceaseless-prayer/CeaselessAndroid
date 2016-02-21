@@ -111,49 +111,14 @@ public class HomeFragment extends Fragment {
         CeaselessApplication application = (CeaselessApplication) getActivity().getApplication();
         mTracker = application.getDefaultTracker();
 
-        // decide if tutorial should be shown
-        showTutorial = Tutorial.shouldShowTutorial(getActivity(), Tutorial.HOME_FRAGMENT);
-    }
-
-    public View onCreateTutorialView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        // set title
-        String title = getString(R.string.nav_home) + " (Tutorial)";
-        getActivity().setTitle(title);
-
-        // create view and bind
-        View view = inflater.inflate(R.layout.fragment_home_tutorial, container, false);
-        // ButterKnife.bind(this, view);
-
-        return view;
-    }
-
-    public void onTutorialIntroButton(View view) {
-        showTutorial = false;
-        // The reload fragment code here !
-        if (!this.isDetached()) {
-            getFragmentManager().beginTransaction()
-                    .detach(this)
-                    .attach(this)
-                    .commit();
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if(showTutorial) {
-            return onCreateTutorialView(inflater, container, savedInstanceState);
-        }
-
         // set title
-        String title = getString(R.string.nav_home);
-        if(showTutorial) {
-            title = title + " (Tutorial)";
-        }
-        getActivity().setTitle(title);
+        getActivity().setTitle(getString(R.string.nav_home));
 
         // create view and bind
         View view = inflater.inflate(R.layout.fragment_home, container, false);

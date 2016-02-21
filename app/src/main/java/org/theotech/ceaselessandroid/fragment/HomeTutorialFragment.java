@@ -6,15 +6,17 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.SearchView;
 
 import com.google.android.gms.analytics.Tracker;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.activity.MainActivity;
 import org.theotech.ceaselessandroid.util.Constants;
 
 public class HomeTutorialFragment extends Fragment {
-    private static final String TAG = HomeTutorialFragment.class.getSimpleName();
+//    private static final String TAG = HomeTutorialFragment.class.getSimpleName();
 
     private final Handler handler = new Handler();
 /*
@@ -29,7 +31,7 @@ public class HomeTutorialFragment extends Fragment {
 //    private boolean showTutorial;
     private FragmentStateListener mListener;
 
-    private Tracker mTracker;
+//    private Tracker mTracker;
 
     private SearchView searchView;
     public HomeTutorialFragment() {
@@ -48,7 +50,7 @@ public class HomeTutorialFragment extends Fragment {
         }
         Bundle currentState = new Bundle();
         currentState.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, 0);
-        mListener.notify(new FragmentState(getString(R.string.nav_home), currentState));
+        mListener.notify(new FragmentState(getString(R.string.nav_home)+" (Tutorial)", currentState));
 
         // do not use the cache if we're trying to get more people.
         Bundle bundle = getArguments();
@@ -72,6 +74,13 @@ public class HomeTutorialFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_tutorial, container, false);
         // ButterKnife.bind(this, view);
 
+        Button button = (Button) view.findViewById(R.id.intro_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                ((MainActivity) getActivity()).loadMainFragment(false);
+//                getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeFragment(), getString(R.string.nav_home) ).commit();
+            }
+        });
         return view;
     }
 
