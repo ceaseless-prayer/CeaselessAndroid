@@ -30,7 +30,6 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
-import org.theotech.ceaselessandroid.Tutorial;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.image.DownloadFileAsyncTask;

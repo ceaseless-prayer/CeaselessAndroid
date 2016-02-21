@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void loadMainFragment(boolean showTutorial) {
         Fragment frag;
         String title;
-        if(showTutorial) {
+        if (showTutorial) {
             frag = new HomeTutorialFragment();
             title = getString(R.string.nav_home) + " (Tutorial)";
         } else {

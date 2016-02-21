@@ -19,8 +19,7 @@
         android:textColor="@color/verseTextColor"
         android:shadowColor="@color/verseTextColor"
         android:shadowRadius="4"
-        android:text="@string/home_tutorial_intro"
-        android:onClick="onTutorialIntroButton"/>
+        android:text="@string/home_tutorial_intro" />
 
 
 </FrameLayout>
