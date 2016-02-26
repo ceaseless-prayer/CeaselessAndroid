@@ -2,10 +2,17 @@ package org.theotech.ceaselessandroid.fragment;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.view.GestureDetectorCompat;
+import android.support.v7.widget.CardView;
+import android.support.v4.view.MotionEventCompat;
+import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.activity.MainActivity;
@@ -17,6 +24,7 @@ public class HomeTutorialFragment extends Fragment {
     private boolean mCreated = false;
     private boolean useCache;
     private FragmentStateListener mListener;
+    private TextView text;
 
     public HomeTutorialFragment() {
         // Required empty public constructor
@@ -62,9 +70,42 @@ public class HomeTutorialFragment extends Fragment {
                 ((MainActivity) getActivity()).loadMainFragment(false);
             }
         });
+        text = (TextView) view.findViewById(R.id.info_text);
+        CardView card = (android.support.v7.widget.CardView) view.findViewById(R.id.card_view);
+        card.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                GestureDetectorCompat mDetector = new GestureDetectorCompat(getActivity(), new HomeTutorialFragment.HTFGestureListener());
+                mDetector.onTouchEvent(event);
+                return true;
+            }
+        });
+
         return view;
     }
 
+    class HTFGestureListener extends GestureDetector.SimpleOnGestureListener {
+        private static final String DEBUG_TAG = "Gestures";
+
+        @Override
+        public boolean onDown(MotionEvent event) {
+            text.setText("onDown: ");
+            return true;
+        }
+
+        @Override
+        public boolean onFling(MotionEvent event1, MotionEvent event2,
+                               float velocityX, float velocityY) {
+            text.setText("onFling: " + event1.toString() + event2.toString());
+            return true;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent event1, MotionEvent event2,
+                                float distanceX, float distanceY) {
+            text.setText("onScroll: " + distanceX);
+            return true;
+        }
+    }
 
 
     @Override
