@@ -24,7 +24,8 @@ public class HomeTutorialFragment extends Fragment {
     private boolean mCreated = false;
     private boolean useCache;
     private FragmentStateListener mListener;
-    private TextView text;
+    private TextView mtext;
+    private CardView[] mCard = new CardView[2];
 
     public HomeTutorialFragment() {
         // Required empty public constructor
@@ -70,9 +71,12 @@ public class HomeTutorialFragment extends Fragment {
                 ((MainActivity) getActivity()).loadMainFragment(false);
             }
         });
-        text = (TextView) view.findViewById(R.id.info_text);
-        CardView card = (android.support.v7.widget.CardView) view.findViewById(R.id.card_view);
-        card.setOnTouchListener(new View.OnTouchListener() {
+        mtext = (TextView) view.findViewById(R.id.info_text1);
+        mCard[0] = (CardView) view.findViewById(R.id.card_view1);
+        mCard[1] = (CardView) view.findViewById(R.id.card_view2);
+//      mCard.setVisibility(View.GONE);
+        TextView continueText = (TextView) view.findViewById(R.id.continue_text);
+        continueText.setOnTouchListener(new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 GestureDetectorCompat mDetector = new GestureDetectorCompat(getActivity(), new HomeTutorialFragment.HTFGestureListener());
                 mDetector.onTouchEvent(event);
@@ -88,21 +92,23 @@ public class HomeTutorialFragment extends Fragment {
 
         @Override
         public boolean onDown(MotionEvent event) {
-            text.setText("onDown: ");
+            mtext.setText("onDown: ");
             return true;
         }
 
         @Override
         public boolean onFling(MotionEvent event1, MotionEvent event2,
                                float velocityX, float velocityY) {
-            text.setText("onFling: " + event1.toString() + event2.toString());
+            mtext.setText("onFling: ");
             return true;
         }
 
         @Override
         public boolean onScroll(MotionEvent event1, MotionEvent event2,
                                 float distanceX, float distanceY) {
-            text.setText("onScroll: " + distanceX);
+            mCard[0].setVisibility(View.GONE);
+            mCard[1].setVisibility(View.VISIBLE);
+//          mtext.setText("onScroll: " + distanceX);
             return true;
         }
     }

@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/transparentBackground"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.theotech.ceaselessandroid.fragment.HomeFragment">
+
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
-        android:layout_gravity="center"
-        android:layout_height="match_parent"
+        android:id="@+id/card_view1"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
@@ -25,8 +26,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/info_text"
-                android:text="Sample Text"
+                android:id="@+id/info_text1"
+                android:text="This is the first card"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,7 +48,41 @@
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view2"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:background="@color/transparentBackground"
+        android:foreground="@color/transparentBackground"
+        card_view:cardCornerRadius="10dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/info_text2"
+                android:text="This is the second card"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
-
-</FrameLayout>
+    <TextView
+        android:id="@+id/continue_text"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp"
+        android:textColor="@color/verseTextColor"
+        android:text="--- Swipe to Continue ---" />
+</LinearLayout>
