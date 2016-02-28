@@ -8,4 +8,11 @@
         <item>6</item>
         <item>7</item>
     </string-array>
+
+    <string-array name="contact_name_blacklist">
+        <item>Directory Assistance</item>
+        <item>Conference Bridge</item>
+        <item>Verizon Wireless Accessories</item>
+        <item>Voice Mail</item>
+    </string-array>
 </resources>

@@ -21,6 +21,7 @@ import org.theotech.ceaselessandroid.util.Installation;
 import org.theotech.ceaselessandroid.util.RealmUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -367,7 +368,17 @@ public class PersonManagerImpl implements PersonManager {
         boolean hasPhoneNumber = cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) == 1;
         String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
         // TODO: filter out "Conference Bridge" and "Directory Assistance" as other common things to ignore
-        return hasPhoneNumber && !name.startsWith("#");
+        return hasPhoneNumber && !name.startsWith("#") && !name.startsWith("+") && contactNameFilter(name);
+    }
+
+    private boolean contactNameFilter(String name) {
+        List<String> blacklist = Arrays.asList(activity.getResources().getStringArray(R.array.contact_name_blacklist));
+        for (String s : blacklist) {
+            if (s.matches(name)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void sampleAndPostMetrics() {
