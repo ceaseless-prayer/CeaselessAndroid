@@ -67,6 +67,7 @@ public class HomeFragment extends Fragment {
     private Runnable runPager;
     private boolean mCreated = false;
     private boolean useCache;
+    private Bundle savedInstanceState;
     private FragmentStateListener mListener;
     private CacheManager cacheManager = null;
     private ImageURLService imageService = null;
@@ -75,6 +76,7 @@ public class HomeFragment extends Fragment {
     private Tracker mTracker;
 
     private SearchView searchView;
+    private Integer numberOfPeopleToPrayForDaily;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -121,11 +123,115 @@ public class HomeFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        final Integer numberOfPeopleToPrayForDaily = Integer.parseInt(preferences.getString("numberOfPeopleToPrayForDaily", "3"));
+        numberOfPeopleToPrayForDaily = Integer.parseInt(preferences.getString("numberOfPeopleToPrayForDaily", "3"));
+        prepareCache();
 
-        /*
-         * cache data if needed
-         */
+        // wire up the home view pager
+        runPager = new Runnable() {
+            @Override
+            public void run() {
+                viewPager.setOffscreenPageLimit(numberOfPeopleToPrayForDaily + 1);
+                final FragmentStatePagerAdapter pagerAdapter = getFragmentStatePagerAdapter();
+                viewPager.setAdapter(pagerAdapter);
+                viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+                // since this gets called multiple times, we need to clear any existing onpagechangelisteners.
+                // otherwise the listeners will accumulate. For example, open a quickcontent intent and go back.
+                // suddenly you have two onPageChangeListeners attached.
+                // Question: Does this mean that we maybe don't even need to configure the viewpager every single time?
+                viewPager.clearOnPageChangeListeners();
+                viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                    }
+
+                    @Override
+                    public void onPageSelected(int position) {
+                        ICardPageFragment card = (ICardPageFragment) pagerAdapter.getItem(position);
+                        Log.v(TAG, "Page selected " + position);
+                        AnalyticsUtils.sendScreenViewHit(mTracker, card.getCardName());
+
+                        Bundle newState = new Bundle();
+                        newState.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
+                        if (position > 0 && position < numberOfPeopleToPrayForDaily + 1) {
+                            List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
+                            if (personIds != null && personIds.size() >= position) {
+                                String personId = personIds.get(position - 1);
+                                newState.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
+                            }
+                        }
+                        // notify fragment state
+                        FragmentState fragmentState = new FragmentState(getString(R.string.nav_home), newState);
+                        mListener.notify(fragmentState);
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+                    }
+                });
+
+                // wire up the indicator
+                indicator.setViewPager(viewPager);
+
+                // set the page if required
+                Integer cachedPageIndex = cacheManager.getCachedPageIndex();
+                if (cachedPageIndex != null) {
+                    Log.d(TAG, "setting pager to " + cachedPageIndex);
+                    viewPager.setCurrentItem(cachedPageIndex);
+                }
+            }
+
+            private FragmentStatePagerAdapter getFragmentStatePagerAdapter() {
+                return new FragmentStatePagerAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager()) {
+                    @Override
+                    public android.support.v4.app.Fragment getItem(int position) {
+                        android.support.v4.app.Fragment fragment;
+                        Bundle bundle = new Bundle();
+                        if (position == 0) {
+                            fragment = new VerseCardSupportFragment();
+                        } else if (position == getCount() - 1) {
+                            fragment = new ProgressCardSupportFragment();
+                        } else {
+                            List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
+                            // we need at least as many people as there are slots to fill
+                            if (personIds != null && personIds.size() >= position) {
+                                String personId = personIds.get(position - 1);
+                                fragment = PersonSupportFragment.newInstance(personId);
+                                bundle.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
+                            } else {
+                                fragment = new BlankSupportFragment();
+                            }
+                        }
+
+                        // update the fragment's bundle so it has the data it needs
+                        bundle.putBoolean(Constants.USE_CACHE_BUNDLE_ARG, useCache);
+                        if (fragment.getArguments() != null) {
+                            fragment.getArguments().putAll(bundle);
+                        } else {
+                            fragment.setArguments(bundle);
+                        }
+
+                        return fragment;
+                    }
+
+                    @Override
+                    public int getCount() {
+                        return numberOfPeopleToPrayForDaily + Constants.NUM_AUXILIARY_CARDS;
+                    }
+                };
+            }
+        };
+
+        return view;
+    }
+
+    /*
+     * cache data if needed
+     */
+    private void prepareCache() {
+        // if we're not using the cache, set the default page to the first
+        if (!useCache) {
+            cacheManager.cachePageIndex(0);
+        }
 
         // decide whether or not to fetch a new verse image
         String verseImageURL = cacheManager.getCachedVerseImageURL();
@@ -168,102 +274,6 @@ public class HomeFragment extends Fragment {
             }
             cacheManager.cachePersonIdsToPrayFor(personIds);
         }
-
-        // wire up the home view pager
-        runPager = new Runnable() {
-            @Override
-            public void run() {
-                viewPager.setOffscreenPageLimit(numberOfPeopleToPrayForDaily + 1);
-                final FragmentStatePagerAdapter pagerAdapter = new FragmentStatePagerAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager()) {
-                    @Override
-                    public android.support.v4.app.Fragment getItem(int position) {
-                        android.support.v4.app.Fragment fragment;
-                        Bundle bundle = new Bundle();
-                        if (position == 0) {
-                            fragment = new VerseCardSupportFragment();
-                        } else if (position == getCount() - 1) {
-                            fragment = new ProgressCardSupportFragment();
-                        } else {
-                            List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
-                            // we need at least as many people as there are slots to fill
-                            if (personIds != null && personIds.size() >= position) {
-                                String personId = personIds.get(position - 1);
-                                fragment = PersonSupportFragment.newInstance(personId);
-                                bundle.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
-                            } else {
-                                fragment = new BlankSupportFragment();
-                            }
-                        }
-                        bundle.putBoolean(Constants.USE_CACHE_BUNDLE_ARG, useCache);
-                        if (fragment.getArguments() != null) {
-                            fragment.getArguments().putAll(bundle);
-                        } else {
-                            fragment.setArguments(bundle);
-                        }
-
-                        return fragment;
-                    }
-
-                    @Override
-                    public int getCount() {
-                        return numberOfPeopleToPrayForDaily + Constants.NUM_AUXILIARY_CARDS;
-                    }
-                };
-                viewPager.setAdapter(pagerAdapter);
-                viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
-                // since this gets called multiple times, we need to clear any existing onpagechangelisteners.
-                // otherwise the listeners will accumulate. For example, open a quickcontent intent and go back.
-                // suddenly you have two onPageChangeListeners attached.
-                // Question: Does this mean that we maybe don't even need to configure the viewpager every single time?
-                viewPager.clearOnPageChangeListeners();
-                viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                    @Override
-                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                    }
-
-                    @Override
-                    public void onPageSelected(int position) {
-                        ICardPageFragment card = (ICardPageFragment) pagerAdapter.getItem(position);
-                        Log.v(TAG, "Page selected " + position);
-                        AnalyticsUtils.sendScreenViewHit(mTracker, card.getCardName());
-
-                        Bundle newState = new Bundle();
-                        newState.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
-                        if (position > 0 && position < numberOfPeopleToPrayForDaily + 1) {
-                            List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
-                            if (personIds != null && personIds.size() >= position) {
-                                String personId = personIds.get(position - 1);
-                                newState.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
-                            }
-                        }
-                        // notify fragment state
-                        FragmentState fragmentState = new FragmentState(getString(R.string.nav_home), newState);
-                        mListener.notify(fragmentState);
-                    }
-
-                    @Override
-                    public void onPageScrollStateChanged(int state) {
-                    }
-                });
-
-                // wire up the indicator
-                indicator.setViewPager(viewPager);
-
-                // set the page if required
-                Bundle bundle = getArguments();
-                if (bundle != null && bundle.containsKey(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG)) {
-                    Integer page = bundle.getInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG);
-                    Log.d(TAG, "setting pager to " + page);
-                    viewPager.setCurrentItem(page);
-                } else {
-                    // this defaults to page 0, scripture card
-                    Log.d(TAG, "No bundle argument for page");
-                    AnalyticsUtils.sendScreenViewHit(mTracker, ((ICardPageFragment) pagerAdapter.getItem(0)).getCardName());
-                }
-            }
-        };
-
-        return view;
     }
 
     private void updateBackgroundImage() {
@@ -292,6 +302,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+        // save the page we are on
+        cacheManager.cachePageIndex(viewPager.getCurrentItem());
+        Log.d(TAG, "Saving page " + cacheManager.getCachedPageIndex());
         handler.removeCallbacks(runPager);
     }
 
@@ -301,7 +314,6 @@ public class HomeFragment extends Fragment {
         AnalyticsUtils.sendScreenViewHit(mTracker, "HomeScreen");
         //InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         boolean searchViewFocused = searchView != null && searchView.hasFocus();
-
         // activate the pager so we see the cards
         if (mCreated && runPager != null && !searchViewFocused) {
             handler.post(runPager);
