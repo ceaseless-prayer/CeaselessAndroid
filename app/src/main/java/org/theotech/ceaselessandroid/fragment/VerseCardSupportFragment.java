@@ -109,13 +109,11 @@ public class VerseCardSupportFragment extends Fragment implements ICardPageFragm
             Log.d(TAG, "Showing verse image");
 
             Picasso.with(getActivity()).load(currentBackgroundImage)
-                    .placeholder(R.drawable.placeholder_rectangle_scene)
                     .fit()
                     .centerCrop()
                     .into(verseImage);
 
             Picasso.with(getActivity()).load(currentBackgroundImage)
-                    .placeholder(R.drawable.placeholder_rectangle_scene)
                     .fit()
                     .centerCrop()
                     .transform(transformations)
@@ -123,13 +121,11 @@ public class VerseCardSupportFragment extends Fragment implements ICardPageFragm
         } else {
             Log.d(TAG, "Showing default verse image");
             Picasso.with(getActivity()).load(R.drawable.at_the_beach)
-                    .placeholder(R.drawable.placeholder_rectangle_scene)
                     .fit()
                     .centerCrop()
                     .into(verseImage);
 
             Picasso.with(getActivity()).load(R.drawable.at_the_beach)
-                    .placeholder(R.drawable.placeholder_rectangle_scene)
                     .fit()
                     .centerCrop()
                     .transform(transformations)
