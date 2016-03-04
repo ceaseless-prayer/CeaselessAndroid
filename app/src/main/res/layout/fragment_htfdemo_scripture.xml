@@ -1,0 +1,26 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.HTFDemoScriptureFragment">
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/transparentBackground"
+        android:foreground="@color/transparentBackground"
+        card_view:cardCornerRadius="10dp">
+        <TextView
+            android:id="@+id/info_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="@color/colorPrimary"
+            android:text="This is the Demo Scripture Screen" />
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

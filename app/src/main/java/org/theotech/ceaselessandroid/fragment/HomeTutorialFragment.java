@@ -10,13 +10,11 @@ import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.viewpagerindicator.CirclePageIndicator;
 
 import org.theotech.ceaselessandroid.R;
-import org.theotech.ceaselessandroid.activity.MainActivity;
 import org.theotech.ceaselessandroid.util.Constants;
 
 import butterknife.Bind;
@@ -103,27 +101,32 @@ public class HomeTutorialFragment extends Fragment {
                 new HomeTutorialFragment.HTFFragmentPagerAdapter(
                         ((AppCompatActivity) getActivity()).getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
-
+        indicator.setViewPager(viewPager);
         return view;
     }
 
     class HTFFragmentPagerAdapter extends FragmentPagerAdapter {
 
+        private android.support.v4.app.Fragment[] fragArray;
         public HTFFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
+            fragArray = new android.support.v4.app.Fragment[4];
+            fragArray[0] = new HTFDemoScriptureFragment();
+            fragArray[1] = new HTFDemoPersonFragment();
+            fragArray[2] = new HTFDemoProgressFragment();
+            fragArray[3] = new HTFDemoConclusionFragment();
+
         }
 
 
         @Override
         public android.support.v4.app.Fragment getItem(int i) {
-            android.support.v4.app.Fragment fragment;
-            fragment = new HTFHomeViewFragment();
-            return fragment;
+            return fragArray[i];
         }
 
         @Override
         public int getCount() {
-            return 2;
+            return 4;
         }
     }
 /*
