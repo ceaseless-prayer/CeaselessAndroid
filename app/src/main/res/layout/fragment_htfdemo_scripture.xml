@@ -15,12 +15,10 @@
         android:background="@color/transparentBackground"
         android:foreground="@color/transparentBackground"
         card_view:cardCornerRadius="10dp">
-        <TextView
-            android:id="@+id/info_text"
+        <FrameLayout
+            android:id="@+id/frag_placeholder"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textColor="@color/colorPrimary"
-            android:text="This is the Demo Scripture Screen" />
+            android:layout_height="match_parent" />
     </android.support.v7.widget.CardView>
 
 </FrameLayout>

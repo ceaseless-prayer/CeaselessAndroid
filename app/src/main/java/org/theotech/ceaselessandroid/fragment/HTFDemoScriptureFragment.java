@@ -2,6 +2,8 @@ package org.theotech.ceaselessandroid.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +36,13 @@ public class HTFDemoScriptureFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_htfdemo_scripture, container, false);
 
         mText = (TextView) view.findViewById(R.id.info_text);
-
+        FragmentManager childFragMan = getChildFragmentManager();
+        FragmentTransaction childFragTrans = childFragMan.beginTransaction();
+ //       LastUpdatedFragment fragB = new LastUpdatedFragment();
+        Fragment verseFragment = new VerseCardSupportFragment();
+        childFragTrans.add(R.id.frag_placeholder, verseFragment);
+//        childFragTrans.addToBackStack("B");
+        childFragTrans.commit();
 
         return view;
     }
