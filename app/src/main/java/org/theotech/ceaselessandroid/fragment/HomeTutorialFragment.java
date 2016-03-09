@@ -112,7 +112,7 @@ public class HomeTutorialFragment extends Fragment {
             super(fm);
             fragArray = new android.support.v4.app.Fragment[4];
             fragArray[0] = new HTFDemoScriptureFragment();
-            fragArray[1] = new HTFDemoPersonFragment();
+            fragArray[1] = HTFDemoPersonFragment.newInstance("");
             fragArray[2] = new HTFDemoProgressFragment();
             fragArray[3] = new HTFDemoConclusionFragment();
 
