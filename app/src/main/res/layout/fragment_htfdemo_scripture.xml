@@ -109,19 +109,13 @@
 
         </LinearLayout>
 
-        <TableLayout
+        <LinearLayout
             android:id="@+id/tool_tip_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="horizontal"
             android:background="@color/homeBackgroundTint">
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3"/>
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1">
+
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -147,13 +141,9 @@
                     android:textColor="@color/tutorialHintTextColor"
                     android:text="{fa-long-arrow-right}"
                     android:textSize="@dimen/favorite_icon_font_size"/>
-            </TableRow>
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3"/>
 
-        </TableLayout>
+
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 
 
