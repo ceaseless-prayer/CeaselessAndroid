@@ -6,8 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.joanzapata.iconify.widget.IconTextView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -27,14 +29,14 @@ public class HTFDemoScriptureFragment extends Fragment {
     ImageView verseImage;
     @Bind(R.id.verse_image_reflection)
     ImageView verseImageReflection;
-//    @Bind(R.id.verse_text_container)
-//    RelativeLayout verseTextContainer;
     @Bind(R.id.verse_title)
     TextView verseTitle;
     @Bind(R.id.verse_text)
     TextView verseText;
-//    @Bind(R.id.verse_share)
-//    IconTextView verseShare;
+    @Bind(R.id.tool_tip_layout)
+    LinearLayout toolTipLayout;
+
+
 
 //    private CacheManager cacheManager = null;
 
@@ -61,6 +63,16 @@ public class HTFDemoScriptureFragment extends Fragment {
 
         // verse title and text
         populateVerse(getString(R.string.default_verse_text), getString(R.string.default_verse_citation));
+
+        toolTipLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toolTipLayout.setVisibility(View.INVISIBLE);
+            }
+        });
+
+//        populateToolTip();
+
 /*
         verseShare.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +124,7 @@ public class HTFDemoScriptureFragment extends Fragment {
         verseTitle.setText(citation);
         verseText.setText(text);
     }
+
 /*
     @Override
     public String getCardName() {

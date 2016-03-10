@@ -24,53 +24,14 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical">
-            <RelativeLayout
-                android:layout_width="fill_parent"
+
+            <ImageView
+                android:id="@+id/verse_image"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@color/verseBackground">
-                <ImageView
-                    android:id="@+id/verse_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/placeholder_rectangle_scene"
-                    android:contentDescription="@string/scenic_photo"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:orientation="horizontal"
-                    android:layout_alignBottom="@id/verse_image">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:textColor="@color/tutorialHintTextColor"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/tutorial_hint_text_size"
-                        android:text=""/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="3"
-                        android:textColor="@color/tutorialHintTextColor"
-                        android:textStyle="normal"
-                        android:textSize="@dimen/tutorial_hint_text_size"
-                        android:text="Swipe to see who to\n\t\t\tpray for today"/>
-                    <com.joanzapata.iconify.widget.IconTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical"
-                        android:scaleX="3"
-                        android:textColor="@color/tutorialHintTextColor"
-                        android:text="{fa-long-arrow-right}"
-                        android:textSize="@dimen/favorite_icon_font_size"/>
-
-
-                </LinearLayout>
-            </RelativeLayout>
+                android:src="@drawable/placeholder_rectangle_scene"
+                android:contentDescription="@string/scenic_photo"/>
 
             <RelativeLayout
                 android:id="@+id/verse_text_container"
@@ -148,7 +109,54 @@
 
         </LinearLayout>
 
+        <TableLayout
+            android:id="@+id/tool_tip_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/homeBackgroundTint">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"/>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:text=""/>
+                <TextView
+                    android:id="@+id/tool_tip_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/tutorialHintTextColor"
+                    android:textStyle="normal"
+                    android:textSize="@dimen/tutorial_hint_text_size"
+                    android:text="Swipe to see who\nto pray for today"/>
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:id="@+id/tool_tip_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:scaleX="3"
+                    android:textColor="@color/tutorialHintTextColor"
+                    android:text="{fa-long-arrow-right}"
+                    android:textSize="@dimen/favorite_icon_font_size"/>
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"/>
+
+        </TableLayout>
     </android.support.v7.widget.CardView>
+
+
 
 
 </RelativeLayout>
