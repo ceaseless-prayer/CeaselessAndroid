@@ -23,7 +23,7 @@
     <dimen name="card_label_start_margin">10dp</dimen>
     <dimen name="card_label_end_margin">10dp</dimen>
     <dimen name="card_label_text_size">20sp</dimen>
-    <dimen name="card_separator_height">2dp</dimen>
+    <dimen name="card_separator_height">1dp</dimen>
     <dimen name="card_separator_margin">20dp</dimen>
 
     <dimen name="verse_text_padding">8dp</dimen>
@@ -32,7 +32,9 @@
     <dimen name="share_verse_text_size">24sp</dimen>
     <dimen name="verse_info_bar_height">24dp</dimen>
 
-    <dimen name="person_image_size">200dp</dimen>
+    <dimen name="person_name_height">44dp</dimen>
+    <dimen name="person_name_text_size">20sp</dimen>
+    <dimen name="person_image_size">175dp</dimen>
     <dimen name="person_list_image_size">50dp</dimen>
     <dimen name="person_list_image_padding">2dp</dimen>
     <dimen name="person_list_name_left_padding">9dp</dimen>
@@ -42,7 +44,7 @@
     <dimen name="person_removed_overlay_height">30dp</dimen>
     <dimen name="person_removed_overlay_text_size">24sp</dimen>
 
-    <dimen name="person_card_shortcut_size">50dp</dimen>
+    <dimen name="person_card_shortcut_size">45dp</dimen>
     <dimen name="person_card_shortcut_bottom_margin">20dp</dimen>
 
     <dimen name="progress_card_buttons_margin">10dp</dimen>

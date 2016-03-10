@@ -26,18 +26,16 @@
             <TextView
                 android:id="@+id/person_name"
                 android:layout_width="fill_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/person_name_height"
                 android:gravity="center"
                 android:textColor="@color/cardTextColor"
-                android:textSize="20sp"
+                android:textSize="@dimen/person_name_text_size"
                 android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/card_separator_height"
-                android:layout_marginLeft="@dimen/card_separator_margin"
-                android:layout_marginRight="@dimen/card_separator_margin"
-                android:background="@color/lightGray" />
+                android:background="@color/hintTextColor" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -68,10 +66,11 @@
                     android:text="@string/people_removed"/>
 
                 <LinearLayout
-                    android:layout_width="@dimen/person_list_image_size"
+                    android:layout_width="@dimen/person_card_shortcut_size"
                     android:layout_height="@dimen/person_image_size"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@id/person_image"
+                    android:layout_toRightOf="@+id/person_image"
+                    android:layout_marginLeft="18dp"
                     android:orientation="vertical">
 
                     <com.joanzapata.iconify.widget.IconTextView
@@ -107,25 +106,10 @@
                 </LinearLayout>
             </RelativeLayout>
 
-            <!-- TODO: Remove after verifying that this is not needed
-            <TextView
-                android:id="@+id/person_notes_title"
-                android:layout_width="fill_parent"
-                android:layout_height="30dp"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:gravity="center"
-                android:text="@string/person_notes"
-                android:textColor="@color/titleColor"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            -->
-
             <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="@dimen/card_separator_height"
-                android:layout_marginLeft="@dimen/card_separator_margin"
-                android:layout_marginRight="@dimen/card_separator_margin"
-                android:background="@color/lightGray" />
+                android:background="@color/hintTextColor" />
 
             <ListView
                 android:id="@+id/person_notes_list"
