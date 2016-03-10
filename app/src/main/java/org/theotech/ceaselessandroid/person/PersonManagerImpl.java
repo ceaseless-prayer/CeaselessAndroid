@@ -2,8 +2,11 @@ package org.theotech.ceaselessandroid.person;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.android.gms.analytics.Tracker;
@@ -13,10 +16,12 @@ import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.util.AnalyticsUtils;
+import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.Installation;
 import org.theotech.ceaselessandroid.util.RealmUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -33,7 +38,7 @@ import io.realm.RealmResults;
 public class PersonManagerImpl implements PersonManager {
     private static final String TAG = PersonManagerImpl.class.getSimpleName();
     private static final String CONTACTS_SOURCE = "Contacts";
-    private static final int RANDOM_FAVORITE_THRESHOLD = 4;
+    private static final int RANDOM_FAVORITE_THRESHOLD = 5;
     private static final int RANDOM_SAMPLE_POST_METRICS = 2;
 
     private static PersonManager instance;
@@ -85,16 +90,54 @@ public class PersonManagerImpl implements PersonManager {
     @Override
     public List<PersonPOJO> getNextPeopleToPrayFor(int n) throws AlreadyPrayedForAllContactsException {
         List<PersonPOJO> people = new ArrayList<>();
+
         RealmResults<Person> results = realm.where(Person.class)
                 .equalTo(Person.Column.ACTIVE, true)
                 .equalTo(Person.Column.IGNORED, false)
                 .equalTo(Person.Column.PRAYED, false)
                 .findAllSorted(Person.Column.LAST_PRAYED);
-        RealmResults<Person> favoritedResults = realm.where(Person.class)
-                .equalTo(Person.Column.ACTIVE, true)
-                .equalTo(Person.Column.FAVORITE, true)
-                .findAllSorted(Person.Column.LAST_PRAYED);
+        handleAllPrayedFor(results);
+        List<Person> allPeople = getShuffledListOfAllPeople(results);
+        if (allPeople.size() < 1) {
+            return people;
+        }
 
+        Person preselectedPerson = loadPreselectedPerson();
+        if (preselectedPerson != null) {
+            selectPerson(preselectedPerson, people);
+            allPeople.remove(preselectedPerson);
+        }
+
+        // select the desired number of people.
+        // Exclude anyone already who has already been selected from being chosen again
+        Integer numToSelect = Math.min(n, allPeople.size());
+        int i = 0;
+        while (people.size() < numToSelect) {
+            Person person = allPeople.get(i);
+            if (!people.contains(getPerson(person.getId()))) {
+                // select this person if they haven't been chosen yet
+                selectPerson(person, people);
+                allPeople.remove(person);
+            }
+            i++;
+        }
+
+        preselectPerson(allPeople);
+        return people;
+    }
+
+    @NonNull
+    private List<Person> getShuffledListOfAllPeople(RealmResults<Person> results) {
+        // shuffle the list of people
+        List<Person> allPeople = new ArrayList<>();
+        for (int i = 0; i < results.size(); i++) {
+            allPeople.add(results.get(i));
+        }
+        Collections.shuffle(allPeople);
+        return allPeople;
+    }
+
+    private void handleAllPrayedFor(RealmResults<Person> results) throws AlreadyPrayedForAllContactsException {
         // if all people are prayed for, then reset and throw exception
         if (getNumPeople() > 0 && results.size() == 0) {
             // Reset all the prayed flags
@@ -110,53 +153,50 @@ public class PersonManagerImpl implements PersonManager {
             // Throw Exception
             throw new AlreadyPrayedForAllContactsException(getNumPeople());
         }
+    }
 
-        List<Person> favoritedPeople = new ArrayList<>();
-        for (int i = 0; i < favoritedResults.size(); i++) {
-            favoritedPeople.add(favoritedResults.get(i));
-        }
+    private Person selectFavoritedPerson() {
+        RealmResults<Person> favoritedPeople = realm.where(Person.class)
+                .equalTo(Person.Column.ACTIVE, true)
+                .equalTo(Person.Column.FAVORITE, true)
+                .findAllSorted(Person.Column.LAST_PRAYED);
 
         if (favoritedPeople.size() > 0) {
             if (favoritedPeople.size() < RANDOM_FAVORITE_THRESHOLD) {
                 // 1/4 chance of getting a favorited person
                 Random random = new Random();
                 if (random.nextInt(RANDOM_FAVORITE_THRESHOLD) == 0) {
-                    selectPerson(favoritedPeople.get(0), people);
+                    return favoritedPeople.get(0);
                 }
             } else {
                 // always show a favorited person if they have
                 // favorited more than 7 people
-                selectPerson(favoritedPeople.get(0), people);
+                return favoritedPeople.get(0);
             }
-
         }
 
-        // shuffle the list of people
-        List<Person> allPeople = new ArrayList<>();
-        for (int i = 0; i < results.size(); i++) {
-            allPeople.add(results.get(i));
-        }
-        Collections.shuffle(allPeople);
+        return null;
+    }
 
-        // Get N people, and set last prayed and the prayed flag
-        if (allPeople.size() < 1) {
-            return people;
+    private void preselectPerson(List<Person> allPeople) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
+        Person theChosenOne = selectFavoritedPerson();
+        if (theChosenOne == null) {
+            theChosenOne = allPeople.get(0);
         }
+        sp.edit()
+                .putString(Constants.PRESELECTED_PERSON_ID, theChosenOne.getId())
+                .putString(Constants.PRESELECTED_PERSON_NAME, theChosenOne.getName())
+                .commit();
+    }
 
-        // select the desired number of people.
-        // Excluding anyone already favorited who has already been selected
-        Integer numToSelect = Math.min(n, allPeople.size());
-        int i = 0;
-        while (people.size() < numToSelect) {
-            Person person = allPeople.get(i);
-            if (!people.contains(getPerson(person.getId()))) {
-                // select this person if they haven't been chosen yet
-                selectPerson(person, people);
-            }
-            i++;
+    private Person loadPreselectedPerson() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(activity);
+        String personId = sp.getString(Constants.PRESELECTED_PERSON_ID, null);
+        if (personId == null) {
+            return null;
         }
-
-        return people;
+        return getRealmPerson(personId);
     }
 
     private void selectPerson(Person person, List<PersonPOJO> people) {
@@ -328,7 +368,17 @@ public class PersonManagerImpl implements PersonManager {
         boolean hasPhoneNumber = cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) == 1;
         String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
         // TODO: filter out "Conference Bridge" and "Directory Assistance" as other common things to ignore
-        return hasPhoneNumber && !name.startsWith("#");
+        return hasPhoneNumber && !name.startsWith("#") && !name.startsWith("+") && contactNameFilter(name);
+    }
+
+    private boolean contactNameFilter(String name) {
+        List<String> blacklist = Arrays.asList(activity.getResources().getStringArray(R.array.contact_name_blacklist));
+        for (String s : blacklist) {
+            if (s.matches(name)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private void sampleAndPostMetrics() {

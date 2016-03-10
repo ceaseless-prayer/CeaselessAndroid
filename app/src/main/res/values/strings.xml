@@ -22,7 +22,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="reminder_notification_title">Prayer reminder</string>
-    <string name="reminder_notification_message">Pray for others today.</string>
+    <string name="reminder_notification_message">Pray for %1$s and others today.</string>
+    <string name="reminder_notification_message_default">Remember to pray for others today.</string>
 
     <string name="verse_share">Share</string>
     <string name="progress">Progress</string>

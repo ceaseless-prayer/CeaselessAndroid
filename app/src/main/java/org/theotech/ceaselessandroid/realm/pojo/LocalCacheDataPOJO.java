@@ -14,11 +14,12 @@ public class LocalCacheDataPOJO implements Serializable {
     private String scriptureJson;
     private String verseImageURL;
     private List<String> personIdsToPrayFor;
+    private Integer pageIndex;
 
     public LocalCacheDataPOJO() {
     }
 
-    public LocalCacheDataPOJO(String creationDate, String scriptureCitation, String scriptureText, String scriptureLink, String scriptureJson, String verseImageURL, List<String> personIdsToPrayFor) {
+    public LocalCacheDataPOJO(String creationDate, String scriptureCitation, String scriptureText, String scriptureLink, String scriptureJson, String verseImageURL, List<String> personIdsToPrayFor, Integer cachedPageIndex) {
         this.creationDate = creationDate;
         this.scriptureCitation = scriptureCitation;
         this.scriptureText = scriptureText;
@@ -26,6 +27,7 @@ public class LocalCacheDataPOJO implements Serializable {
         this.scriptureJson = scriptureJson;
         this.verseImageURL = verseImageURL;
         this.personIdsToPrayFor = personIdsToPrayFor;
+        this.pageIndex = cachedPageIndex;
     }
 
     public String getCreationDate() {
@@ -83,5 +85,11 @@ public class LocalCacheDataPOJO implements Serializable {
 
     public void setPersonIdsToPrayFor(List<String> personIdsToPrayFor) {
         this.personIdsToPrayFor = personIdsToPrayFor;
+    }
+
+    public Integer getPageIndex() { return pageIndex; }
+
+    public void setPageIndex(Integer pageIndex) {
+        this.pageIndex = pageIndex;
     }
 }

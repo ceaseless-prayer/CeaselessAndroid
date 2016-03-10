@@ -110,6 +110,24 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
     }
 
     @Override
+    public Integer getCachedPageIndex() {
+        LocalCacheDataPOJO cacheData = getCacheData();
+        if (cacheData != null && cacheData.getPageIndex() != null) {
+            return cacheData.getPageIndex();
+        }
+        return null;
+    }
+
+    @Override
+    public void cachePageIndex(Integer pageIndex) {
+        if (pageIndex != null) {
+            LocalCacheDataPOJO newCacheData = new LocalCacheDataPOJO();
+            newCacheData.setPageIndex(pageIndex);
+            cacheData(newCacheData);
+        }
+    }
+
+    @Override
     public long numberOfCacheEntries() {
         return realm.where(LocalCacheData.class).count();
     }
@@ -157,6 +175,9 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
         }
         if (newCacheData.getVerseImageURL() != null) {
             realmCacheData.setVerseImageURL(newCacheData.getVerseImageURL());
+        }
+        if (newCacheData.getPageIndex() != null) {
+            realmCacheData.setPageIndex(newCacheData.getPageIndex());
         }
     }
 }

@@ -20,5 +20,10 @@ public interface CacheManager {
 
     void cachePersonIdsToPrayFor(List<String> personIdsToPrayFor);
 
+    // used to cache which page a user is on so we return on resume
+    Integer getCachedPageIndex();
+
+    void cachePageIndex(Integer pageIndex);
+
     long numberOfCacheEntries();
 }

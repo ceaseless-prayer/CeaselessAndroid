@@ -87,7 +87,7 @@ public class RealmUtils {
                     localCacheData.getScriptureCitation(), localCacheData.getScriptureText(),
                     localCacheData.getScriptureLink(), localCacheData.getScriptureJson(),
                     localCacheData.getVerseImageURL(),
-                    convertRealmStringToString(localCacheData.getPersonIdsToPrayFor()));
+                    convertRealmStringToString(localCacheData.getPersonIdsToPrayFor()), localCacheData.getPageIndex());
         }
         return null;
     }

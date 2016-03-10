@@ -39,7 +39,7 @@ public class DailyNotificationReceiver extends BroadcastReceiver {
         alarmManager.cancel(pendingIntent);
 
         if (showNotifications) {
-            String notificationTime = preferences.getString("notificationTime", "08:30");
+            String notificationTime = preferences.getString("notificationTime", "08:00");
             Calendar firingCal = getNotificationFiringCalendar(notificationTime);
 
             Log.d(TAG, "Setting daily notification alarm for time: " + notificationTime);

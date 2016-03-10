@@ -16,6 +16,7 @@ public class LocalCacheData extends RealmObject {
     private String scriptureJson;
     private String verseImageURL;
     private RealmList<RealmString> personIdsToPrayFor;
+    private Integer pageIndex;
 
     public String getCreationDate() {
         return creationDate;
@@ -71,5 +72,11 @@ public class LocalCacheData extends RealmObject {
 
     public void setPersonIdsToPrayFor(RealmList<RealmString> personIdsToPrayFor) {
         this.personIdsToPrayFor = personIdsToPrayFor;
+    }
+
+    public Integer getPageIndex() { return pageIndex; }
+
+    public void setPageIndex(Integer pageIndex) {
+        this.pageIndex = pageIndex;
     }
 }
