@@ -76,9 +76,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/progress_bar_margin"
                 android:layout_marginRight="@dimen/progress_bar_margin"
+                android:minHeight="4dp"
+                android:maxHeight="6dp"
                 android:progress="60"
-                android:progressBackgroundTint="@color/progressBackgroundTint"
-                android:progressTint="@color/cardTextColor" />
+                android:progressDrawable="@drawable/custom_progressbar" />
 
             <LinearLayout
                 android:id="@+id/show_more_people"
