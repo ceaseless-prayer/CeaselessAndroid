@@ -98,8 +98,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             addNoteFragment.setArguments(getIntent().getExtras());
             getFragmentManager().beginTransaction().replace(R.id.fragment, addNoteFragment,
                     getString(R.string.nav_journal)).commit();
+        } else if (Tutorial.shouldShowTutorial(this, Tutorial.HOME_FRAGMENT)) {
+            loadHomeTutorialFragment();
         } else {
-            loadMainFragment(Tutorial.shouldShowTutorial(this, Tutorial.HOME_FRAGMENT));
+            loadMainFragment();
         }
         // TODO decide if we want to use AppRater's logic to surface a review request
         // AppRater.app_launched(this);
@@ -111,19 +113,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bm.dataChanged();
     }
 
-    public void loadMainFragment(boolean showTutorial) {
+    public void loadMainFragment() {
         Fragment frag;
         String title;
-        if (showTutorial) {
-            frag = new HomeTutorialFragment();
-            title = getString(R.string.nav_home) + " (Tutorial)";
-        } else {
-            frag = new HomeFragment();
-            title = getString(R.string.nav_home);
-        }
+        frag = new HomeFragment();
+        title = getString(R.string.nav_home);
         getFragmentManager().beginTransaction().replace(R.id.fragment, frag, title).commit();
         // TODO when do we request backups?
         requestBackup();
+    }
+
+    public void loadHomeTutorialFragment() {
+        Fragment frag;
+        String title;
+        frag = new HomeTutorialFragment();
+        title = getString(R.string.nav_home) + " (Tutorial)";
+        getFragmentManager().beginTransaction().replace(R.id.fragment, frag, title).commit();
     }
 
     @Override

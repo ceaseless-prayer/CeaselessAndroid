@@ -40,7 +40,7 @@ public class HTFDemoConclusionFragment extends Fragment {
         mButton = (Button) view.findViewById(R.id.exit_button);
         mButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                ((MainActivity) getActivity()).loadMainFragment(false);
+                ((MainActivity) getActivity()).loadMainFragment();
             }
         });
 
