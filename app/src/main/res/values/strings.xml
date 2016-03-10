@@ -59,10 +59,10 @@
     <!-- do not localize -->
     <string name="person_add_note">Add Note</string>
     <string name="empty_notes">There are no notes</string>
-    <string name="note_tag_hint">Tag People</string>
+    <string name="note_tag_hint">Tap to tag people</string>
+    <string name="note_content_hint">Enter note</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
-    <string name="note_text_hint">Note Text</string>
 
     <string name="contact_us_message">If you have any questions or feedback about Ceaseless, we\'d love to hear from you.</string>
     <string name="contact_us_social">You can also connect with us on social media.</string>

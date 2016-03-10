@@ -21,7 +21,7 @@
     <LinearLayout
         android:id="@+id/note_buttons"
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/add_note_content_height"
+        android:layout_height="@dimen/add_note_action_height"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal">
 
@@ -32,15 +32,10 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
-            android:background="@color/buttonDefault"
             android:gravity="center"
-            android:shadowColor="@color/buttonDefaultShadow"
-            android:shadowDx="@integer/button_default_shadow_dx"
-            android:shadowDy="@integer/button_default_shadow_dy"
-            android:shadowRadius="@integer/button_default_shadow_radius"
+            android:background="@color/transparentBackground"
             android:text="@string/cancel"
-            android:textColor="@color/buttonTextColor"
-            android:textAllCaps="false"/>
+            android:textColor="@color/buttonTextColor" />
 
         <Button
             android:id="@+id/save_note"
@@ -49,15 +44,10 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
-            android:background="@color/buttonDefault"
             android:gravity="center"
-            android:shadowColor="@color/buttonDefaultShadow"
-            android:shadowDx="@integer/button_default_shadow_dx"
-            android:shadowDy="@integer/button_default_shadow_dy"
-            android:shadowRadius="@integer/button_default_shadow_radius"
+            android:background="@color/transparentBackground"
             android:textColor="@color/buttonTextColor"
-            android:text="@string/save"
-            android:textAllCaps="false"/>
+            android:text="@string/save" />
 
     </LinearLayout>
 
@@ -70,6 +60,7 @@
         android:gravity="top|start"
         android:textColor="@color/cardTextColor"
         android:textColorHint="@color/hintTextColor"
+        android:hint="@string/note_content_hint"
         android:inputType="text|textCapSentences|textMultiLine" />
 
 </RelativeLayout>
