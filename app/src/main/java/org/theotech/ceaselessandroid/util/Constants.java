@@ -19,4 +19,5 @@ public class Constants {
     public static final String SHOW_NOTE_INTENT = "org.theotech.ceaselessandroid.SHOW_NOTE";
     public static final String DEFAULT_PREFERENCES_FILE = "org.theotech.ceaselessandroid_preferences";
 
+    public static final String DEMO_NAME_BUNDLE_ARG = "demoName";
 }

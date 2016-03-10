@@ -73,4 +73,6 @@
 
     <dimen name="no_results_text_size">24sp</dimen>
     <dimen name="no_results_height">30dp</dimen>
+
+    <dimen name="tutorial_hint_text_size">18sp</dimen>
 </resources>

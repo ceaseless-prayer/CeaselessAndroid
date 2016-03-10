@@ -1,4 +1,4 @@
-package org.theotech.ceaselessandroid.fragment;
+package org.theotech.ceaselessandroid.tutorial;
 
 import android.os.Bundle;
 import android.app.Fragment;
@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.fragment.FragmentState;
+import org.theotech.ceaselessandroid.fragment.FragmentStateListener;
 import org.theotech.ceaselessandroid.util.Constants;
 
 import butterknife.Bind;
@@ -112,7 +114,7 @@ public class HomeTutorialFragment extends Fragment {
             super(fm);
             fragArray = new android.support.v4.app.Fragment[4];
             fragArray[0] = new HTFDemoScriptureFragment();
-            fragArray[1] = HTFDemoPersonFragment.newInstance("");
+            fragArray[1] = HTFDemoPersonFragment.newInstance("Bob Flores");
             fragArray[2] = new HTFDemoProgressFragment();
             fragArray[3] = new HTFDemoConclusionFragment();
 

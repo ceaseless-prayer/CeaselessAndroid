@@ -1,4 +1,4 @@
-package org.theotech.ceaselessandroid;
+package org.theotech.ceaselessandroid.tutorial;
 
 import android.app.Activity;
 import android.content.Context;

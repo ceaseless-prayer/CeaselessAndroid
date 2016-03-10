@@ -39,4 +39,6 @@
     <color name="peopleTabActiveTextColor">#BF00012F</color>
     <color name="peopleTabInactiveBackground">#00FFFFFF</color>
     <color name="peopleTabInactiveTextColor">#FFFFFF</color>
+
+    <color name="tutorialHintTextColor">#FFFFFF</color>
 </resources>

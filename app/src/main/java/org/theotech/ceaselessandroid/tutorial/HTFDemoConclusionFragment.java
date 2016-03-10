@@ -1,4 +1,4 @@
-package org.theotech.ceaselessandroid.fragment;
+package org.theotech.ceaselessandroid.tutorial;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -1,24 +1,149 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.HTFDemoScriptureFragment">
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/transparentBackground"
-        android:foreground="@color/transparentBackground"
-        card_view:cardCornerRadius="10dp">
-        <FrameLayout
-            android:id="@+id/frag_placeholder"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    tools:context="org.theotech.ceaselessandroid.tutorial.HTFDemoPersonFragment">
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/person_card"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/card_vertical_margin"
+        android:layout_marginLeft="@dimen/card_horizontal_margin"
+        android:layout_marginRight="@dimen/card_horizontal_margin"
+        android:layout_marginTop="@dimen/card_vertical_margin"
+        card_view:cardCornerRadius="@dimen/card_corner_radius"
+        card_view:cardElevation="@dimen/card_elevation"
+        card_view:cardBackgroundColor="@color/cardBackground">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/person_name"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:textColor="@color/cardTextColor"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/card_separator_height"
+                android:layout_marginLeft="@dimen/card_separator_margin"
+                android:layout_marginRight="@dimen/card_separator_margin"
+                android:background="@color/lightGray" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/person_image"
+                    android:layout_width="@dimen/person_image_size"
+                    android:layout_height="@dimen/person_image_size"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:contentDescription="@string/person_image"
+                    app:riv_corner_radius="@dimen/person_image_corner_radius" />
+
+                <TextView
+                    android:id="@+id/person_removed_label"
+                    android:layout_width="@dimen/person_image_size"
+                    android:layout_height="@dimen/person_removed_overlay_height"
+                    android:layout_alignBottom="@+id/person_image"
+                    android:layout_alignLeft="@+id/person_image"
+                    android:textAlignment="center"
+                    android:visibility="invisible"
+                    android:background="@color/cardBackground"
+                    android:textColor="@color/cardTextColor"
+                    android:textSize="@dimen/person_removed_overlay_text_size"
+                    android:text="@string/people_removed"/>
+
+                <LinearLayout
+                    android:layout_width="@dimen/person_list_image_size"
+                    android:layout_height="@dimen/person_image_size"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/person_image"
+                    android:orientation="vertical">
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:id="@+id/favorite_btn"
+                        android:layout_width="@dimen/person_card_shortcut_size"
+                        android:layout_height="@dimen/person_card_shortcut_size"
+                        android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                        android:gravity="center"
+                        android:text="{fa-heart-o}"
+                        android:textSize="@dimen/favorite_icon_font_size"
+                        android:textColor="@color/cardTextColor"/>
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:id="@+id/message_btn"
+                        android:layout_width="@dimen/person_card_shortcut_size"
+                        android:layout_height="@dimen/person_card_shortcut_size"
+                        android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                        android:gravity="center"
+                        android:text="{fa-paper-plane}"
+                        android:textSize="@dimen/favorite_icon_font_size"
+                        android:textColor="@color/cardTextColor"/>
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:id="@+id/note_btn"
+                        android:layout_width="@dimen/person_card_shortcut_size"
+                        android:layout_height="@dimen/person_card_shortcut_size"
+                        android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                        android:gravity="center"
+                        android:text="{fa-pencil}"
+                        android:textSize="@dimen/favorite_icon_font_size"
+                        android:textColor="@color/cardTextColor"/>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <!-- TODO: Remove after verifying that this is not needed
+            <TextView
+                android:id="@+id/person_notes_title"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:text="@string/person_notes"
+                android:textColor="@color/titleColor"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            -->
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/card_separator_height"
+                android:layout_marginLeft="@dimen/card_separator_margin"
+                android:layout_marginRight="@dimen/card_separator_margin"
+                android:background="@color/lightGray" />
+
+            <ListView
+                android:id="@+id/person_notes_list"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:divider="@color/listDividerColor"
+                android:dividerHeight="@dimen/note_list_divider_height"
+                android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"/>
+
+            <ListView
+                android:id="@+id/empty_person_notes"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
     </android.support.v7.widget.CardView>
 
-</FrameLayout>
+</RelativeLayout>
+

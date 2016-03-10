@@ -46,28 +46,28 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:textColor="@color/verseTextColor"
+                        android:textColor="@color/tutorialHintTextColor"
                         android:textStyle="bold"
-                        android:textSize="@dimen/verse_title_text_size"
+                        android:textSize="@dimen/tutorial_hint_text_size"
                         android:text=""/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:textColor="@color/verseTextColor"
+                        android:layout_weight="3"
+                        android:textColor="@color/tutorialHintTextColor"
                         android:textStyle="normal"
-                        android:drawableRight="@drawable/ic_star_rate_black_18dp"
-                        android:textSize="@dimen/verse_title_text_size"
+                        android:textSize="@dimen/tutorial_hint_text_size"
                         android:text="Swipe to see who to\n\t\t\tpray for today"/>
-                    <TextView
+                    <com.joanzapata.iconify.widget.IconTextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:layout_gravity="right"
-                        android:textColor="@color/verseTextColor"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/verse_title_text_size"
-                        android:text="--------->"/>
+                        android:gravity="center_vertical"
+                        android:scaleX="3"
+                        android:textColor="@color/tutorialHintTextColor"
+                        android:text="{fa-long-arrow-right}"
+                        android:textSize="@dimen/favorite_icon_font_size"/>
+
 
                 </LinearLayout>
             </RelativeLayout>
@@ -83,7 +83,8 @@
                     android:id="@+id/verse_image_reflection"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleY="-1"/>
+                    android:scaleY="-1"
+                    android:contentDescription="@string/scenic_photo"/>
 
                 <View
                     android:layout_width="match_parent"
