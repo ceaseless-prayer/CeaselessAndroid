@@ -16,7 +16,6 @@ import org.theotech.ceaselessandroid.activity.MainActivity;
 public class HTFDemoConclusionFragment extends Fragment {
 
     private boolean mCreated = false;
-    private TextView mText;
     private Button mButton;
 
     public HTFDemoConclusionFragment() {
@@ -36,7 +35,6 @@ public class HTFDemoConclusionFragment extends Fragment {
         // create view
         View view = inflater.inflate(R.layout.fragment_htfdemo_conclusion, container, false);
 
-        mText = (TextView) view.findViewById(R.id.info_text);
         mButton = (Button) view.findViewById(R.id.exit_button);
         mButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

@@ -2,39 +2,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".tutorial.HTFDemoScriptureFragment">
+    tools:context="org.theotech.ceaselessandroid.tutorial.HTFDemoScriptureFragment">
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/transparentBackground"
-        android:foreground="@color/transparentBackground"
-        card_view:cardCornerRadius="10dp">
-        <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/card_vertical_margin"
+        android:layout_marginLeft="@dimen/card_horizontal_margin"
+        android:layout_marginRight="@dimen/card_horizontal_margin"
+        android:layout_marginTop="@dimen/card_vertical_margin"
+        card_view:cardBackgroundColor="@color/cardBackground"
+        card_view:cardCornerRadius="@dimen/card_corner_radius"
+        card_view:cardElevation="@dimen/card_elevation">
+        <Button
+            android:id="@+id/exit_button"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TextView
-                android:id="@+id/info_text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="top"
-                android:textColor="@color/colorPrimary"
-                android:text="This is the Demo Conclusion Screen" />
-            <Button
-                android:id="@+id/exit_button"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_margin="50dp"
-                android:layout_gravity="bottom"
-                android:background="@color/verseBackground"
-                android:textColor="@color/verseTextColor"
-                android:text="@string/home_tutorial_intro" />
-        </FrameLayout>
+            android:layout_height="50dp"
+            android:layout_margin="50dp"
+            android:layout_gravity="center"
+            android:background="@color/buttonDefault"
+            android:textColor="@color/buttonTextColor"
+            android:text="@string/home_tutorial_intro" />
     </android.support.v7.widget.CardView>
 
 </FrameLayout>
