@@ -22,4 +22,5 @@ public class Constants {
     public static final String DEFAULT_PREFERENCES_FILE = "org.theotech.ceaselessandroid_preferences";
 
     public static final String DEMO_NAME_BUNDLE_ARG = "demoName";
+    public static final String DEMO_TOOLTIP_BUNDLE_ARG = "demoShowToolTip";
 }

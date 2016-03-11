@@ -3,7 +3,7 @@ package org.theotech.ceaselessandroid.tutorial;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -17,6 +17,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.fragment.FragmentState;
 import org.theotech.ceaselessandroid.fragment.FragmentStateListener;
+import org.theotech.ceaselessandroid.transformer.ZoomOutPageTransformer;
 import org.theotech.ceaselessandroid.util.Constants;
 
 import butterknife.Bind;
@@ -99,25 +100,33 @@ public class HomeTutorialFragment extends Fragment {
             }
         });
 */
-        HomeTutorialFragment.HTFFragmentPagerAdapter pagerAdapter =
-                new HomeTutorialFragment.HTFFragmentPagerAdapter(
+        HomeTutorialFragment.HTFFragmentStatePagerAdapter pagerAdapter =
+                new HomeTutorialFragment.HTFFragmentStatePagerAdapter(
                         ((AppCompatActivity) getActivity()).getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+        viewPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int i) {
+                ((HTFFragmentStatePagerAdapter) viewPager.getAdapter()).getItem(i).onResume();
+            }
+        });
         indicator.setViewPager(viewPager);
         return view;
     }
 
-    class HTFFragmentPagerAdapter extends FragmentPagerAdapter {
+    class HTFFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
         private android.support.v4.app.Fragment[] fragArray;
-        public HTFFragmentPagerAdapter(FragmentManager fm) {
+        public HTFFragmentStatePagerAdapter(FragmentManager fm) {
             super(fm);
-            fragArray = new android.support.v4.app.Fragment[4];
+            fragArray = new android.support.v4.app.Fragment[6];
             fragArray[0] = new HTFDemoScriptureFragment();
-            fragArray[1] = HTFDemoPersonFragment.newInstance("Bob Flores");
-            fragArray[2] = new HTFDemoProgressFragment();
-            fragArray[3] = new HTFDemoConclusionFragment();
-
+            fragArray[1] = HTFDemoPersonFragment.newInstance("Bob Flores", true);
+            fragArray[2] = HTFDemoPersonFragment.newInstance("Joy Wong", false);
+            fragArray[3] = HTFDemoPersonFragment.newInstance("Abby Anderson", false);
+            fragArray[4] = new HTFDemoProgressFragment();
+            fragArray[5] = new HTFDemoConclusionFragment();
         }
 
 
@@ -128,8 +137,9 @@ public class HomeTutorialFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 4;
+            return 6;
         }
+
     }
 /*
     class HTFGestureListener extends GestureDetector.SimpleOnGestureListener {

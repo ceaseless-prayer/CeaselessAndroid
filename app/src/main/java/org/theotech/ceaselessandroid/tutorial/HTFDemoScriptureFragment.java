@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.joanzapata.iconify.widget.IconTextView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -125,6 +124,11 @@ public class HTFDemoScriptureFragment extends Fragment {
         verseText.setText(text);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        toolTipLayout.setVisibility(View.VISIBLE);
+    }
 /*
     @Override
     public String getCardName() {

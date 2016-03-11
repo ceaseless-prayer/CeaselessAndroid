@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,18 +33,22 @@ public class HTFDemoPersonFragment extends Fragment {
     ListView notes;
     @Bind(R.id.note_btn)
     IconTextView noteButton;
-
+    @Bind(R.id.tool_tip_layout)
+    LinearLayout toolTipLayout;
 //    private CacheManager cacheManager;
 //    private PersonManager personManager;
+
+    private boolean showToolTip;
 
     public HTFDemoPersonFragment() {
         // Required empty public constructor
     }
 
-    public static HTFDemoPersonFragment newInstance(String personName) {
+    public static HTFDemoPersonFragment newInstance(String personName, boolean showToolTip) {
         HTFDemoPersonFragment fragment = new HTFDemoPersonFragment();
         Bundle args = new Bundle();
         args.putString(Constants.DEMO_NAME_BUNDLE_ARG, personName);
+        args.putBoolean(Constants.DEMO_TOOLTIP_BUNDLE_ARG, showToolTip);
         fragment.setArguments(args);
 
         return fragment;
@@ -68,6 +73,7 @@ public class HTFDemoPersonFragment extends Fragment {
         // display person
         Bundle bundle = getArguments();
         String personName = bundle.getString(Constants.DEMO_NAME_BUNDLE_ARG);
+        showToolTip = bundle.getBoolean(Constants.DEMO_TOOLTIP_BUNDLE_ARG);
   /*      if (bundle != null && bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG) && bundle.containsKey(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG)) {
             final String personId = bundle.getString(Constants.PERSON_ID_BUNDLE_ARG);
             int homeIndex = bundle.getInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG);
@@ -87,6 +93,7 @@ public class HTFDemoPersonFragment extends Fragment {
         }
 */
         injectPersonIntoView(getActivity(), personName, view);
+
 
         return view;
     }
@@ -109,6 +116,19 @@ public class HTFDemoPersonFragment extends Fragment {
         ListView emptyNotes = (ListView) view.findViewById(R.id.empty_person_notes);
         emptyNotes.setAdapter(new ArrayAdapter<>(activity, R.layout.list_item_empty_notes, new String[]{getString(R.string.empty_notes)}));
 
+    }
+
+    public void onResume() {
+        super.onResume();
+        if (showToolTip) {
+            toolTipLayout.setVisibility(View.VISIBLE);
+            toolTipLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    toolTipLayout.setVisibility(View.INVISIBLE);
+                }
+            });
+        }
     }
 /*
     public String getCardName() {
