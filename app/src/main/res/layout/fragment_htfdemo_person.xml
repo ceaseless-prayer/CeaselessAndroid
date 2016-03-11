@@ -143,6 +143,170 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/homeBackgroundTint">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/card_separator_height"
+                android:layout_marginLeft="@dimen/card_separator_margin"
+                android:layout_marginRight="@dimen/card_separator_margin"
+                android:visibility="invisible" />
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TableLayout
+                    android:id="@+id/overlay_person_image"
+                    android:layout_width="@dimen/person_image_size"
+                    android:layout_height="@dimen/person_image_size"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin" >
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:text=""/>
+                        <TextView
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:text="Favorite\nthis person"
+                            android:textColor="@color/tutorialHintTextColor"
+                            android:textSize="@dimen/tutorial_hint_text_size"
+                            android:gravity="center" />
+                        <com.joanzapata.iconify.widget.IconTextView
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:scaleX="1.5"
+                            android:textColor="@color/tutorialHintTextColor"
+                            android:text="{fa-long-arrow-right}"
+                            android:textSize="@dimen/favorite_icon_font_size"/>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:text=""/>
+                        <TextView
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:text="Send them\na message"
+                            android:textColor="@color/tutorialHintTextColor"
+                            android:textSize="@dimen/tutorial_hint_text_size"
+                            android:gravity="center" />
+                        <com.joanzapata.iconify.widget.IconTextView
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:scaleX="1.5"
+                            android:textColor="@color/tutorialHintTextColor"
+                            android:text="{fa-long-arrow-right}"
+                            android:textSize="@dimen/favorite_icon_font_size"/>
+                    </TableRow>
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:text=""/>
+                        <TextView
+                            android:layout_height="match_parent"
+                            android:layout_weight="3"
+                            android:text="Write a\nprivate note"
+                            android:textColor="@color/tutorialHintTextColor"
+                            android:textSize="@dimen/tutorial_hint_text_size"
+                            android:gravity="center" />
+                        <com.joanzapata.iconify.widget.IconTextView
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:scaleX="1.5"
+                            android:textColor="@color/tutorialHintTextColor"
+                            android:text="{fa-long-arrow-right}"
+                            android:textSize="@dimen/favorite_icon_font_size"/>
+                    </TableRow>
+
+                </TableLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/person_list_image_size"
+                    android:layout_height="@dimen/person_image_size"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/overlay_person_image"
+                    android:orientation="vertical">
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:layout_width="@dimen/person_card_shortcut_size"
+                        android:layout_height="@dimen/person_card_shortcut_size"
+                        android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                        android:gravity="center"
+                        android:text="{fa-circle-thin}"
+                        android:scaleX="2"
+                        android:scaleY="2"
+                        android:textSize="@dimen/favorite_icon_font_size"
+                        android:textColor="@color/tutorialHintTextColor"/>
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:layout_width="@dimen/person_card_shortcut_size"
+                        android:layout_height="@dimen/person_card_shortcut_size"
+                        android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                        android:gravity="center"
+                        android:text="{fa-circle-thin}"
+                        android:scaleX="2"
+                        android:scaleY="2"
+                        android:textSize="@dimen/favorite_icon_font_size"
+                        android:textColor="@color/tutorialHintTextColor"/>
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:layout_width="@dimen/person_card_shortcut_size"
+                        android:layout_height="@dimen/person_card_shortcut_size"
+                        android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                        android:gravity="center"
+                        android:text="{fa-circle-thin}"
+                        android:scaleX="2"
+                        android:scaleY="2"
+                        android:textSize="@dimen/favorite_icon_font_size"
+                        android:textColor="@color/tutorialHintTextColor"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!-- TODO: Remove after verifying that this is not needed
+            <TextView
+                android:id="@+id/person_notes_title"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:gravity="center"
+                android:text="@string/person_notes"
+                android:textColor="@color/titleColor"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 
 </RelativeLayout>
