@@ -6,16 +6,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
-
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.activity.MainActivity;
 
+/**
+ * created by travis Feb/Mar 2016
+ */
 
-public class HTFDemoConclusionFragment extends Fragment {
+public class HTFDemoConclusionFragment extends Fragment implements HTFDemoFragment {
 
-    private boolean mCreated = false;
     private Button mButton;
 
     public HTFDemoConclusionFragment() {
@@ -46,24 +46,7 @@ public class HTFDemoConclusionFragment extends Fragment {
         return view;
     }
 
-
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mCreated = true;
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
+    public void onSelected() {}
 
 
 }

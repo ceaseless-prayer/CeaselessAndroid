@@ -41,4 +41,6 @@
     <color name="peopleTabInactiveTextColor">#FFFFFF</color>
 
     <color name="tutorialHintTextColor">#FFFFFF</color>
+    <color name="tooltipBackgroundTint">#9000012F</color>
+
 </resources>

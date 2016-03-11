@@ -14,7 +14,11 @@ import org.theotech.ceaselessandroid.R;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class HTFDemoProgressFragment extends Fragment {
+/**
+ * created by travis Feb/Mar 2016
+ */
+
+public class HTFDemoProgressFragment extends Fragment implements HTFDemoFragment {
     private static final String TAG = HTFDemoProgressFragment.class.getSimpleName();
     @Bind(R.id.prayed_for_text)
     TextView prayedFor;
@@ -22,9 +26,6 @@ public class HTFDemoProgressFragment extends Fragment {
     ProgressBar progress;
     @Bind(R.id.number_of_days_praying)
     TextView numberOfDaysPraying;
-
-//    private PersonManager personManager = null;
-//    private CacheManager cacheManager = null;
 
     public HTFDemoProgressFragment() {
         // Required empty public constructor
@@ -34,9 +35,6 @@ public class HTFDemoProgressFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-//        personManager = PersonManagerImpl.getInstance(getActivity());
-//        cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
     }
 
     @Override
@@ -58,5 +56,7 @@ public class HTFDemoProgressFragment extends Fragment {
 
         return view;
     }
+
+    public void onSelected() {}
 
 }

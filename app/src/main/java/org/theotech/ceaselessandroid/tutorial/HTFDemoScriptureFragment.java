@@ -21,7 +21,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
-public class HTFDemoScriptureFragment extends Fragment {
+/**
+ *  created by travis Feb. 2016
+ */
+
+public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragment {
     private static final String TAG = HTFDemoScriptureFragment.class.getSimpleName();
 
     @Bind(R.id.verse_image)
@@ -35,10 +39,6 @@ public class HTFDemoScriptureFragment extends Fragment {
     @Bind(R.id.tool_tip_layout)
     LinearLayout toolTipLayout;
 
-
-
-//    private CacheManager cacheManager = null;
-
     public HTFDemoScriptureFragment() {
         // Required empty public constructor
     }
@@ -47,8 +47,6 @@ public class HTFDemoScriptureFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-//        cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
     }
 
     @Override
@@ -70,41 +68,14 @@ public class HTFDemoScriptureFragment extends Fragment {
             }
         });
 
-//        populateToolTip();
-
-/*
-        verseShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                String shareLink = scriptureData.getLink();
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, shareLink);
-                AnalyticsUtils.sendEventWithCategory(AnalyticsUtils.getDefaultTracker(getActivity()),
-                        getString(R.string.ga_scripture_card_actions),
-                        getString(R.string.ga_tapped_share_scripture),
-                        Installation.id(getActivity()));
-                startActivity(Intent.createChooser(sharingIntent, "Share via"));
-            }
-        });
-*/
         return view;
     }
-/*
-    private ScriptureData getScripture() {
 
-        return new ScriptureData(getString(R.string.default_verse_text),
-                        getString(R.string.default_verse_citation),
-                        getString(R.string.default_verse_link),
-                        null);
-
-    }
-*/
     private void drawVerseImage() {
         List<Transformation> transformations = new ArrayList<>();
 
         transformations.add(new BlurTransformation(getActivity(), 25, 4));
-//        Log.d(TAG, "Showing default verse image");
+
         Picasso.with(getActivity()).load(R.drawable.at_the_beach)
                 .placeholder(R.drawable.placeholder_rectangle_scene)
                 .fit()
@@ -124,16 +95,9 @@ public class HTFDemoScriptureFragment extends Fragment {
         verseText.setText(text);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+    public void onSelected() {
         toolTipLayout.setVisibility(View.VISIBLE);
     }
-/*
-    @Override
-    public String getCardName() {
-        return "VerseCard";
-    }
-    */
+
 }
 
