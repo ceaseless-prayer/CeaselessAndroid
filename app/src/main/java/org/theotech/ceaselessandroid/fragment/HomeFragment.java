@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.MenuItemCompat;
@@ -30,6 +29,7 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.activity.MainActivity;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.image.DownloadFileAsyncTask;
@@ -57,16 +57,13 @@ import butterknife.ButterKnife;
 public class HomeFragment extends Fragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
 
-    private final Handler handler = new Handler();
-
     @Bind(R.id.home_view)
     ViewPager viewPager;
     @Bind(R.id.home_indicator)
     CirclePageIndicator indicator;
 
-    private boolean mCreated = false;
+    private MainActivity activity;
     private boolean useCache;
-    private Bundle savedInstanceState;
     private FragmentStateListener mListener;
     private CacheManager cacheManager = null;
     private ImageURLService imageService = null;
@@ -91,6 +88,13 @@ public class HomeFragment extends Fragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(getActivity().toString() + " must implement FragmentStateListener");
         }
+
+        try {
+            activity = (MainActivity) getActivity();
+        } catch (ClassCastException e) {
+            throw new ClassCastException(getActivity().toString() + " must be an instanceof MainActivity");
+        }
+
         Bundle currentState = new Bundle();
         currentState.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, 0);
         mListener.notify(new FragmentState(getString(R.string.nav_home), currentState));
@@ -103,11 +107,11 @@ public class HomeFragment extends Fragment {
             this.useCache = true;
         }
 
-        cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
+        cacheManager = LocalDailyCacheManagerImpl.getInstance(activity);
         imageService = ImageURLServiceImpl.getInstance();
-        scriptureService = ScriptureServiceImpl.getInstance(getActivity());
-        personManager = PersonManagerImpl.getInstance(getActivity());
-        CeaselessApplication application = (CeaselessApplication) getActivity().getApplication();
+        scriptureService = ScriptureServiceImpl.getInstance(activity);
+        personManager = PersonManagerImpl.getInstance(activity);
+        CeaselessApplication application = (CeaselessApplication) activity.getApplication();
         mTracker = application.getDefaultTracker();
     }
 
@@ -115,13 +119,13 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // set title
-        getActivity().setTitle(getString(R.string.nav_home));
+        activity.setTitle(getString(R.string.nav_home));
 
         // create view and bind
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         numberOfPeopleToPrayForDaily = Integer.parseInt(preferences.getString("numberOfPeopleToPrayForDaily", "3"));
         return view;
     }
@@ -129,6 +133,7 @@ public class HomeFragment extends Fragment {
     private void prepareCache() {
         // if we're not using the cache, set the default page to the first
         if (!useCache) {
+            Log.d(TAG, "resetting page index to 0");
             cacheManager.cachePageIndex(0);
         }
 
@@ -136,7 +141,7 @@ public class HomeFragment extends Fragment {
         String verseImageURL = cacheManager.getCachedVerseImageURL();
         if (!useCache || verseImageURL == null) {
             updateBackgroundImage();
-            new ImageFetcher(getActivity()).execute();
+            new ImageFetcher(activity).execute();
         }
 
         // verse title and text
@@ -196,7 +201,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onPageSelected(int position) {
                 ICardPageFragment card = (ICardPageFragment) pagerAdapter.getItem(position);
-                Log.v(TAG, "Page selected " + position);
+                cacheManager.cachePageIndex(viewPager.getCurrentItem());
                 AnalyticsUtils.sendScreenViewHit(mTracker, card.getCardName());
 
                 Bundle newState = new Bundle();
@@ -208,6 +213,7 @@ public class HomeFragment extends Fragment {
                         newState.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
                     }
                 }
+
                 // notify fragment state
                 FragmentState fragmentState = new FragmentState(getString(R.string.nav_home), newState);
                 mListener.notify(fragmentState);
@@ -230,7 +236,7 @@ public class HomeFragment extends Fragment {
     }
 
     private FragmentStatePagerAdapter getFragmentStatePagerAdapter() {
-        return new FragmentStatePagerAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager()) {
+        return new FragmentStatePagerAdapter(((AppCompatActivity) activity).getSupportFragmentManager()) {
             @Override
             public android.support.v4.app.Fragment getItem(int position) {
                 android.support.v4.app.Fragment fragment;
@@ -270,16 +276,16 @@ public class HomeFragment extends Fragment {
     }
 
     private void updateBackgroundImage() {
-        File nextBackgroundImage = new File(getActivity().getCacheDir(), Constants.NEXT_BACKGROUND_IMAGE);
-        File currentBackgroundImage = new File(getActivity().getCacheDir(), Constants.CURRENT_BACKGROUND_IMAGE);
+        File nextBackgroundImage = new File(activity.getCacheDir(), Constants.NEXT_BACKGROUND_IMAGE);
+        File currentBackgroundImage = new File(activity.getCacheDir(), Constants.CURRENT_BACKGROUND_IMAGE);
 
         // move cached next background image
         if (nextBackgroundImage.exists()) {
             if (nextBackgroundImage.renameTo(currentBackgroundImage)) {
                 Log.d(TAG, "Updated the background image to use from " + nextBackgroundImage + " to " + currentBackgroundImage);
                 Log.d(TAG, "New image size: " + currentBackgroundImage.length());
-                Picasso.with(getActivity()).invalidate(currentBackgroundImage); // clear the picasso cache
-                CommonUtils.setupBackgroundImage(getActivity(), (ImageView) getActivity().findViewById(R.id.backgroundImageView));
+                Picasso.with(activity).invalidate(currentBackgroundImage); // clear the picasso cache
+                CommonUtils.setupBackgroundImage(activity, (ImageView) activity.findViewById(R.id.backgroundImageView));
             } else {
                 Log.d(TAG, "Could not update the background image to use.");
             }
@@ -289,32 +295,22 @@ public class HomeFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (!mCreated) {
-            // if the activity was just created
-            // start on the first page
-            // instead of starting on the page where the app was before
+        if (!activity.getHomeFragmentCreated()) {
+            // if the activity was just created and hence the HomeFragment
+            // was created for the first time, start on the first page.
+            // otherwise, we start on the page where the HomeFragment was before
             cacheManager.cachePageIndex(0);
-            mCreated = true;
+            activity.setHomeFragmentCreated(true);
         }
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        // save the page we are on
-        cacheManager.cachePageIndex(viewPager.getCurrentItem());
-        Log.d(TAG, "Saving page " + cacheManager.getCachedPageIndex());
     }
 
     @Override
     public void onResume() {
         super.onResume();
         AnalyticsUtils.sendScreenViewHit(mTracker, "HomeScreen");
-        //InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         boolean searchViewFocused = searchView != null && searchView.hasFocus();
-        // activate the pager so we see the cards
-        if (mCreated && !searchViewFocused) {
+        // create the pager so we see the cards
+        if (activity.getHomeFragmentCreated() && !searchViewFocused) {
             prepareCache();
             prepareViewPager();
         }
@@ -325,11 +321,11 @@ public class HomeFragment extends Fragment {
         inflater.inflate(R.menu.menu, menu);
         MenuItem searchItem = menu.findItem(R.id.search);
         SearchManager searchManager =
-                (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+                (SearchManager) activity.getSystemService(Context.SEARCH_SERVICE);
         searchView =
                 (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setSearchableInfo(
-                searchManager.getSearchableInfo(getActivity().getComponentName()));
+                searchManager.getSearchableInfo(activity.getComponentName()));
         super.onCreateOptionsMenu(menu, inflater);
     }
 

@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActivityCompat.OnRequestPermissionsResultCallback {
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int POPULATE_CONTACTS_REQUEST_CODE = 1;
+    private boolean homeFragmentCreated = false;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -102,10 +103,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // AppRater.app_launched(this);
     }
 
+    /**
+     * Requests a backup operation to be done.
+     */
     public void requestBackup() {
         BackupManager bm = new BackupManager(this);
         Log.i(TAG, "Backing up database and preferences");
         bm.dataChanged();
+    }
+
+    /**
+     * Get a variable representing whether or not this activity
+     * has ever created a {@link HomeFragment}.
+     * The HomeFragment tracks which page it is on and returns to that
+     * page when it is recreated unless the MainActivity has never created it before.
+     * So for example, when a user starts the app, HomeFragment starts on the first page,
+     * but when the user returns to Home from an AddNote fragment, it returns to the page
+     * the user was on.
+     * @return true if this activity has created a HomeFragment before, false otherwise.
+     */
+    public boolean getHomeFragmentCreated() {
+        return homeFragmentCreated;
+    }
+
+    public void setHomeFragmentCreated(boolean homeFragmentCreated) {
+        this.homeFragmentCreated = homeFragmentCreated;
     }
 
     private void loadMainFragment() {
