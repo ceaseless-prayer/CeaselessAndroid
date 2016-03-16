@@ -1,20 +1,28 @@
 package org.theotech.ceaselessandroid.tutorial;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.viewpagerindicator.CirclePageIndicator;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.activity.MainActivity;
 import org.theotech.ceaselessandroid.fragment.FragmentState;
 import org.theotech.ceaselessandroid.fragment.FragmentStateListener;
 import org.theotech.ceaselessandroid.transformer.ZoomOutPageTransformer;
@@ -108,6 +116,27 @@ public class HomeTutorialFragment extends Fragment {
             return 6;
         }
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.menu, menu);
+        MenuItem search = menu.findItem(R.id.search);
+        MenuItem addNote = menu.findItem(R.id.person_add_note);
+        MenuItem skipTutorial = menu.findItem(R.id.skip_tutorial);
+        search.setVisible(false);
+        addNote.setVisible(false);
+        skipTutorial.setVisible(true);
+        skipTutorial.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                ((MainActivity) getActivity()).loadMainFragment();
+                return false;
+            }
+        });
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
 

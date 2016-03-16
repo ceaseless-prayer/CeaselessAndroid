@@ -12,4 +12,9 @@
         android:id="@+id/person_add_note"
         android:title="@string/person_add_note"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/skip_tutorial"
+        android:title="Skip Tutorial"
+        android:visible="false"
+        app:showAsAction="ifRoom"/>
 </menu>

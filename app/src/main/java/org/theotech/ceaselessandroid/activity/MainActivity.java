@@ -71,10 +71,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+
 
         navigation.setCheckedItem(R.id.nav_home);
         navigation.setNavigationItemSelectedListener(this);
@@ -118,6 +115,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         String title;
         frag = new HomeFragment();
         title = getString(R.string.nav_home);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+
         getFragmentManager().beginTransaction().replace(R.id.fragment, frag, title).commit();
         // TODO when do we request backups?
         requestBackup();
@@ -127,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fragment frag;
         String title;
         frag = new HomeTutorialFragment();
-        title = getString(R.string.nav_home) + " (Tutorial)";
+        title = getString(R.string.nav_home_tutorial);
         getFragmentManager().beginTransaction().replace(R.id.fragment, frag, title).commit();
     }
 
