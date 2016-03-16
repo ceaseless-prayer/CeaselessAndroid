@@ -44,9 +44,9 @@ public class DailyNotificationService extends Service {
         String notificationMessage;
 
         if (nextPersonName != null) {
-            Integer numberOfPeopleToPrayForDaily = Integer.parseInt(sp.getString(Constants.NUMBER_OF_PEOPLE_TO_PRAY_FOR, "3"));
+            Integer count = Integer.parseInt(sp.getString(Constants.NUMBER_OF_PEOPLE_TO_PRAY_FOR, "3")) - 1;
             Resources res = getResources();
-            String otherString = res.getQuantityString(R.plurals.number_of_other_people, numberOfPeopleToPrayForDaily - 1);
+            String otherString = res.getQuantityString(R.plurals.number_of_other_people, count, count);
             notificationMessage = getString(R.string.reminder_notification_message, nextPersonName, otherString);
         } else {
             notificationMessage = getString(R.string.reminder_notification_message_default);
