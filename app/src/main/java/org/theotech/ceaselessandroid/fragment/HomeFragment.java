@@ -126,7 +126,7 @@ public class HomeFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
-        numberOfPeopleToPrayForDaily = Integer.parseInt(preferences.getString("numberOfPeopleToPrayForDaily", "3"));
+        numberOfPeopleToPrayForDaily = Integer.parseInt(preferences.getString(Constants.NUMBER_OF_PEOPLE_TO_PRAY_FOR, "3"));
         return view;
     }
 
