@@ -36,9 +36,10 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
     TextView verseTitle;
     @Bind(R.id.verse_text)
     TextView verseText;
+/*
     @Bind(R.id.tool_tip_layout)
     LinearLayout toolTipLayout;
-
+*/
     public HTFDemoScriptureFragment() {
         // Required empty public constructor
     }
@@ -59,15 +60,15 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
         drawVerseImage();
 
         // verse title and text
-        populateVerse(getString(R.string.default_verse_text), getString(R.string.default_verse_citation));
-
+        populateVerse( getString(R.string.default_verse_citation), getString(R.string.default_verse_text));
+/*
         toolTipLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 toolTipLayout.setVisibility(View.INVISIBLE);
             }
         });
-
+*/
         return view;
     }
 
@@ -96,7 +97,8 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
     }
 
     public void onSelected() {
-        toolTipLayout.setVisibility(View.VISIBLE);
+
+//       toolTipLayout.setVisibility(View.VISIBLE);
     }
 
 }
