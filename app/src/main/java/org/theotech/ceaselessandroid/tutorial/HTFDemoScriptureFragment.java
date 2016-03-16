@@ -5,6 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,6 +39,8 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
     TextView verseTitle;
     @Bind(R.id.verse_text)
     TextView verseText;
+    @Bind(R.id.right_arrow)
+    TextView rightArrow;
 /*
     @Bind(R.id.tool_tip_layout)
     LinearLayout toolTipLayout;
@@ -60,7 +65,7 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
         drawVerseImage();
 
         // verse title and text
-        populateVerse( getString(R.string.default_verse_citation), getString(R.string.default_verse_text));
+        populateVerse(getString(R.string.default_verse_citation), getString(R.string.default_verse_text));
 /*
         toolTipLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +74,8 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
             }
         });
 */
+        animateArrow();
+
         return view;
     }
 
@@ -94,6 +101,17 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
     private void populateVerse(String citation, String text) {
         verseTitle.setText(citation);
         verseText.setText(text);
+    }
+
+    private void animateArrow() {
+        TranslateAnimation mAnimation = new TranslateAnimation(
+                -3, 3, 0, 0);
+        mAnimation.setDuration(150);
+        mAnimation.setStartOffset(20);
+        mAnimation.setRepeatCount(-1);
+        mAnimation.setRepeatMode(Animation.REVERSE);
+        mAnimation.setInterpolator(new LinearInterpolator());
+        rightArrow.setAnimation(mAnimation);
     }
 
     public void onSelected() {

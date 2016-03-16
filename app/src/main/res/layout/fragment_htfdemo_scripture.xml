@@ -163,6 +163,7 @@
                     android:textSize="@dimen/tutorial_hint_text_size"
                     android:text="Swipe to see who\nto pray for today"/>
                 <com.joanzapata.iconify.widget.IconTextView
+                    android:id="@+id/right_arrow"
                     android:layout_height="match_parent"
                     android:layout_width="0dp"
                     android:layout_weight="1"
