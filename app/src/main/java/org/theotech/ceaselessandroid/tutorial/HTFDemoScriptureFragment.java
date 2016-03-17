@@ -5,10 +5,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -40,10 +42,9 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
     TextView verseText;
     @Bind(R.id.right_arrow)
     TextView rightArrow;
-/*
     @Bind(R.id.tool_tip_layout)
     LinearLayout toolTipLayout;
-*/
+
     public HTFDemoScriptureFragment() {
         // Required empty public constructor
     }
@@ -73,7 +74,7 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
             }
         });
 */
-        animateArrow();
+        animate();
 
         return view;
     }
@@ -102,15 +103,27 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
         verseText.setText(text);
     }
 
-    private void animateArrow() {
-        TranslateAnimation mAnimation = new TranslateAnimation(
+    private void animate() {
+        final long fadeDuration= 4000;
+        final long startFadeTime = 1000;
+
+        LinearInterpolator linInter = new LinearInterpolator();
+
+        TranslateAnimation mTrAnimation = new TranslateAnimation(
                 -3, 3, 0, 0);
-        mAnimation.setDuration(150);
-        mAnimation.setStartOffset(20);
-        mAnimation.setRepeatCount(-1);
-        mAnimation.setRepeatMode(Animation.REVERSE);
-        mAnimation.setInterpolator(new LinearInterpolator());
-        rightArrow.setAnimation(mAnimation);
+        mTrAnimation.setDuration(150);
+        mTrAnimation.setStartOffset(20);
+        mTrAnimation.setRepeatCount(-1);
+        mTrAnimation.setRepeatMode(Animation.REVERSE);
+        mTrAnimation.setInterpolator(linInter);
+        rightArrow.setAnimation(mTrAnimation);
+
+        AlphaAnimation mAlAnimation = new AlphaAnimation(0, 1);
+        mAlAnimation.setDuration(fadeDuration);
+        mAlAnimation.setStartOffset(startFadeTime);
+        mAlAnimation.setInterpolator(linInter);
+        toolTipLayout.setAnimation(mAlAnimation);
+
     }
 
     public void onSelected() {
