@@ -32,8 +32,10 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
     TextView personName;
     @Bind(R.id.person_image)
     RoundedImageView personImage;
-    @Bind(R.id.tool_tip_layout)
-    LinearLayout toolTipLayout;
+    @Bind(R.id.tool_tip_overlay)
+    LinearLayout toolTipOverlay;
+    @Bind(R.id.person_image_overlay)
+    View personImageOverlay;
 
     private boolean showToolTip;
 
@@ -70,14 +72,9 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
         showToolTip = bundle.getBoolean(Constants.DEMO_TOOLTIP_BUNDLE_ARG);
 
         injectPersonIntoView(getActivity(), personName, view);
+
         if (showToolTip) {
-            toolTipLayout.setVisibility(View.VISIBLE);
-            toolTipLayout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    toolTipLayout.setVisibility(View.INVISIBLE);
-                }
-            });
+            setUpToolTip();
         }
         return view;
     }
@@ -95,9 +92,19 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
 
     }
 
+    private void setUpToolTip() {
+        toolTipOverlay.setVisibility(View.VISIBLE);
+        personImageOverlay.setVisibility(View.INVISIBLE);
+        toolTipOverlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toolTipOverlay.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
     public void onSelected() {
         if (showToolTip) {
-            toolTipLayout.setVisibility(View.VISIBLE);
+            toolTipOverlay.setVisibility(View.VISIBLE);
         }
     }
 
