@@ -2,15 +2,21 @@ package org.theotech.ceaselessandroid.tutorial;
 
 
 import android.app.Activity;
+import android.content.ContentUris;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.joanzapata.iconify.widget.IconTextView;
@@ -18,7 +24,10 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
+import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 import org.theotech.ceaselessandroid.util.Constants;
+import org.theotech.ceaselessandroid.util.Installation;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -79,6 +88,7 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
 
     private boolean showToolTip;
     private int sceneNum = 0;
+    private PopupMenu popup;
 
     public HTFDemoPersonFragment() {
         // Required empty public constructor
@@ -137,6 +147,8 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
         toolTipOverlay.setVisibility(View.VISIBLE);
         personImageOverlay.setVisibility(View.INVISIBLE);
         toolTipOne.setVisibility(View.VISIBLE);
+        popup = getMenu();
+
         personImage.setOnClickListener(new HTFDemoPersonOnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,8 +187,10 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
                 case 1:
                     toolTipOne.setVisibility(View.INVISIBLE);
                     toolTipTwo.setVisibility(View.VISIBLE);
+                    popup.show();
                     break;
                 case 2:
+                    popup.dismiss();
                     toolTipTwo.setVisibility(View.INVISIBLE);
                     personImageOverlay.setVisibility(View.VISIBLE);
                     favoriteCover.setVisibility(View.VISIBLE);
@@ -187,6 +201,7 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
                     favoriteToolTip.setVisibility(View.VISIBLE);
                     toolTipThree.setVisibility(View.VISIBLE);
                     toolTipOverlay.setClickable(true);
+                    personImage.setClickable(false);
                     break;
                 case 3:
                     favoriteToolTip.setVisibility(View.INVISIBLE);
@@ -206,14 +221,28 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
                     noteToolTip.setVisibility(View.VISIBLE);
                     toolTipFour.setVisibility(View.VISIBLE);
                     toolTipOverlay.setClickable(false);
-                    personImage.setClickable(false);
                     break;
             }
 
         }
     }
 
+    private PopupMenu getMenu() {
+        PopupMenu popup = new PopupMenu(getActivity(), personImage);
+     /*
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return false;
+            }
+        });
+     */
+        popup.inflate(R.menu.person_menu);
+        return popup;
+    }
+
     private void setAllInvisible() {
+        toolTipOne.setVisibility(View.INVISIBLE);
         toolTipTwo.setVisibility(View.INVISIBLE);
         toolTipThree.setVisibility(View.INVISIBLE);
         toolTipFour.setVisibility(View.INVISIBLE);
