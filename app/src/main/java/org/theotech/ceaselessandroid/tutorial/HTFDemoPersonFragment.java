@@ -36,6 +36,18 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
     LinearLayout toolTipOverlay;
     @Bind(R.id.person_image_overlay)
     View personImageOverlay;
+    @Bind(R.id.favorite_btn_tooltip)
+    TextView favoriteToolTip;
+    @Bind(R.id.message_btn_tooltip)
+    TextView messageToolTip;
+    @Bind(R.id.note_btn_tooltip)
+    TextView noteToolTip;
+    @Bind(R.id.tool_tip_one)
+    LinearLayout toolTipOne;
+    @Bind(R.id.tool_tip_two)
+    LinearLayout toolTipTwo;
+    @Bind(R.id.tool_tip_three)
+    LinearLayout toolTipThree;
 
 
     private boolean showToolTip;
@@ -95,7 +107,9 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
 
     private void setUpToolTip() {
         toolTipOverlay.setVisibility(View.VISIBLE);
-        personImageOverlay.setVisibility(View.INVISIBLE);
+        noteToolTip.setVisibility(View.VISIBLE);
+        toolTipThree.setVisibility(View.VISIBLE);
+//        personImageOverlay.setVisibility(View.INVISIBLE);
 //        toolTips.setVisibility(View.VISIBLE);
         toolTipOverlay.setOnClickListener(new View.OnClickListener() {
             @Override

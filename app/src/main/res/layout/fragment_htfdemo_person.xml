@@ -190,13 +190,109 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
-                <View
+                <LinearLayout
                     android:id="@+id/person_image_tooltip"
                     android:layout_width="@dimen/person_image_size"
                     android:layout_height="@dimen/person_image_size"
                     android:layout_centerInParent="true"
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:layout_marginTop="@dimen/activity_vertical_margin" />
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:orientation="horizontal">
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/favorite_btn_tooltip"
+                                android:layout_height="0dp"
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:textColor="@color/tutorialHintTextColor"
+                                android:textStyle="normal"
+                                android:textSize="@dimen/tutorial_hint_text_size"
+                                android:text="Favorite this person so you can pray for them more often"
+                                android:visibility="invisible"/>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/message_btn_tooltip"
+                                android:layout_height="match_parent"
+                                android:layout_width="match_parent"
+                                android:gravity="center"
+                                android:textColor="@color/tutorialHintTextColor"
+                                android:textStyle="normal"
+                                android:textSize="@dimen/tutorial_hint_text_size"
+                                android:text="Send them a message to encourage them"
+                                android:visibility="invisible"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"/>
+                            <TextView
+                                android:id="@+id/note_btn_tooltip"
+                                android:layout_height="0dp"
+                                android:layout_width="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:textColor="@color/tutorialHintTextColor"
+                                android:textStyle="normal"
+                                android:textSize="@dimen/tutorial_hint_text_size"
+                                android:text="Write a private note so you remember how to pray for them"
+                                android:visibility="invisible"/>
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+                        <com.joanzapata.iconify.widget.IconTextView
+                            android:id="@+id/favorite_btn_arrow"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="{fa-arrow-right}"
+                            android:textSize="@dimen/favorite_icon_font_size"
+                            android:textColor="@color/cardTextColor"/>
+                        <com.joanzapata.iconify.widget.IconTextView
+                            android:id="@+id/message_btn_arrow"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="{fa-arrow-right}"
+                            android:textSize="@dimen/favorite_icon_font_size"
+                            android:textColor="@color/cardTextColor"/>
+                        <com.joanzapata.iconify.widget.IconTextView
+                            android:id="@+id/note_btn_arrow"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="{fa-arrow-right}"
+                            android:textSize="@dimen/favorite_icon_font_size"
+                            android:textColor="@color/cardTextColor"/>
+                    </LinearLayout>
+                </LinearLayout>>
                 <LinearLayout
                     android:layout_width="@dimen/person_list_image_size"
                     android:layout_height="@dimen/person_image_size"
@@ -204,7 +300,7 @@
                     android:layout_toRightOf="@id/person_image_tooltip"
                     android:orientation="vertical">
                     <com.joanzapata.iconify.widget.IconTextView
-                        android:id="@+id/favorite_btn_tooltip"
+                        android:id="@+id/favorite_btn_cover"
                         android:layout_width="@dimen/person_card_shortcut_size"
                         android:layout_height="@dimen/person_card_shortcut_size"
                         android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
@@ -214,7 +310,7 @@
                         android:textColor="@color/cardTextColor"/>
 
                     <com.joanzapata.iconify.widget.IconTextView
-                        android:id="@+id/message_btn_tooltip"
+                        android:id="@+id/message_btn_cover"
                         android:layout_width="@dimen/person_card_shortcut_size"
                         android:layout_height="@dimen/person_card_shortcut_size"
                         android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
@@ -224,7 +320,7 @@
                         android:textColor="@color/cardTextColor"/>
 
                     <com.joanzapata.iconify.widget.IconTextView
-                        android:id="@+id/note_btn_tooltip"
+                        android:id="@+id/note_btn_cover"
                         android:layout_width="@dimen/person_card_shortcut_size"
                         android:layout_height="@dimen/person_card_shortcut_size"
                         android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
@@ -277,32 +373,90 @@
                         android:scaleY="1.8"/>
                 </LinearLayout>
             </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/tool_tip_one"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <com.joanzapata.iconify.widget.IconTextView
-                    android:id="@+id/up_arrow"
-                    android:layout_height="0dp"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:id="@+id/tool_tip_one"
                     android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:textColor="@color/tutorialHintTextColor"
-                    android:text="{fa-arrow-up}"
-                    android:textSize="@dimen/favorite_icon_font_size"/>
-                <TextView
-                    android:layout_height="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="invisible">
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:id="@+id/up_arrow"
+                        android:layout_height="0dp"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textColor="@color/tutorialHintTextColor"
+                        android:text="{fa-arrow-up}"
+                        android:textSize="@dimen/favorite_icon_font_size"/>
+                    <TextView
+                        android:layout_height="0dp"
+                        android:layout_width="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:textColor="@color/tutorialHintTextColor"
+                        android:textStyle="normal"
+                        android:textSize="@dimen/tutorial_hint_text_size"
+                        android:text="Tap the picture to\nsee actions you can\ntake after praying"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/tool_tip_two"
                     android:layout_width="match_parent"
-                    android:layout_weight="2"
-                    android:gravity="center"
-                    android:textColor="@color/tutorialHintTextColor"
-                    android:textStyle="normal"
-                    android:textSize="@dimen/tutorial_hint_text_size"
-                    android:text="Tap the picture to\nsee actions you can\ntake after praying"/>
-            </LinearLayout>
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="invisible">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+                    <TextView
+                        android:layout_height="0dp"
+                        android:layout_width="match_parent"
+                        android:layout_weight="2"
+                        android:gravity="center"
+                        android:textColor="@color/tutorialHintTextColor"
+                        android:textStyle="normal"
+                        android:textSize="@dimen/tutorial_hint_text_size"
+                        android:text="TAP TO SEE NEXT TIP"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/tool_tip_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="invisible">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+                    <LinearLayout
+                        android:layout_height="0dp"
+                        android:layout_width="match_parent"
+                        android:layout_weight="2"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_height="match_parent"
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:gravity="center"
+                            android:textColor="@color/tutorialHintTextColor"
+                            android:textStyle="normal"
+                            android:textSize="@dimen/tutorial_hint_text_size"
+                            android:text="Swipe to continue"/>
+                        <com.joanzapata.iconify.widget.IconTextView
+                            android:id="@+id/right_arrow"
+                            android:layout_height="match_parent"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textColor="@color/tutorialHintTextColor"
+                            android:text="{fa-arrow-right}"
+                            android:textSize="@dimen/favorite_icon_font_size"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
