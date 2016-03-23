@@ -272,7 +272,8 @@
                             android:gravity="center"
                             android:text="{fa-arrow-right}"
                             android:textSize="@dimen/favorite_icon_font_size"
-                            android:textColor="@color/cardTextColor"/>
+                            android:textColor="@color/cardTextColor"
+                            android:visibility="invisible"/>
                         <com.joanzapata.iconify.widget.IconTextView
                             android:id="@+id/message_btn_arrow"
                             android:layout_width="match_parent"
@@ -281,7 +282,8 @@
                             android:gravity="center"
                             android:text="{fa-arrow-right}"
                             android:textSize="@dimen/favorite_icon_font_size"
-                            android:textColor="@color/cardTextColor"/>
+                            android:textColor="@color/cardTextColor"
+                            android:visibility="invisible"/>
                         <com.joanzapata.iconify.widget.IconTextView
                             android:id="@+id/note_btn_arrow"
                             android:layout_width="match_parent"
@@ -290,7 +292,8 @@
                             android:gravity="center"
                             android:text="{fa-arrow-right}"
                             android:textSize="@dimen/favorite_icon_font_size"
-                            android:textColor="@color/cardTextColor"/>
+                            android:textColor="@color/cardTextColor"
+                            android:visibility="invisible"/>
                     </LinearLayout>
                 </LinearLayout>>
                 <LinearLayout
@@ -307,7 +310,8 @@
                         android:gravity="center"
                         android:text="{fa-heart-o}"
                         android:textSize="@dimen/favorite_icon_font_size"
-                        android:textColor="@color/cardTextColor"/>
+                        android:textColor="@color/cardTextColor"
+                        android:visibility="invisible"/>
 
                     <com.joanzapata.iconify.widget.IconTextView
                         android:id="@+id/message_btn_cover"
@@ -317,7 +321,8 @@
                         android:gravity="center"
                         android:text="{fa-paper-plane}"
                         android:textSize="@dimen/favorite_icon_font_size"
-                        android:textColor="@color/cardTextColor"/>
+                        android:textColor="@color/cardTextColor"
+                        android:visibility="invisible"/>
 
                     <com.joanzapata.iconify.widget.IconTextView
                         android:id="@+id/note_btn_cover"
@@ -327,7 +332,8 @@
                         android:gravity="center"
                         android:text="{fa-pencil}"
                         android:textSize="@dimen/favorite_icon_font_size"
-                        android:textColor="@color/cardTextColor"/>
+                        android:textColor="@color/cardTextColor"
+                        android:visibility="invisible"/>
 
                 </LinearLayout>
                 <LinearLayout
@@ -346,7 +352,8 @@
                         android:textSize="@dimen/favorite_icon_font_size"
                         android:textColor="@color/cardTextColor"
                         android:scaleX="1.8"
-                        android:scaleY="1.8"/>
+                        android:scaleY="1.8"
+                        android:visibility="invisible"/>
 
                     <com.joanzapata.iconify.widget.IconTextView
                         android:id="@+id/message_btn_circle"
@@ -358,7 +365,8 @@
                         android:textSize="@dimen/favorite_icon_font_size"
                         android:textColor="@color/cardTextColor"
                         android:scaleX="1.8"
-                        android:scaleY="1.8"/>
+                        android:scaleY="1.8"
+                        android:visibility="invisible"/>
 
                     <com.joanzapata.iconify.widget.IconTextView
                         android:id="@+id/note_btn_circle"
@@ -370,8 +378,11 @@
                         android:textSize="@dimen/favorite_icon_font_size"
                         android:textColor="@color/cardTextColor"
                         android:scaleX="1.8"
-                        android:scaleY="1.8"/>
+                        android:scaleY="1.8"
+                        android:visibility="invisible"/>
+
                 </LinearLayout>
+
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -402,7 +413,7 @@
                         android:text="Tap the picture to\nsee actions you can\ntake after praying"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/tool_tip_two"
+                    android:id="@+id/tool_tip_three"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -422,7 +433,7 @@
                         android:text="TAP TO SEE NEXT TIP"/>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/tool_tip_three"
+                    android:id="@+id/tool_tip_four"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
@@ -460,7 +471,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/tool_tips_screen2"
+            android:id="@+id/tool_tip_two"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
