@@ -80,7 +80,7 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
     @Bind(R.id.tool_tip_one)
     LinearLayout toolTipOne;
     @Bind(R.id.tool_tip_two)
-    LinearLayout toolTipTwo;
+    TextView toolTipTwo;
     @Bind(R.id.tool_tip_three)
     LinearLayout toolTipThree;
     @Bind(R.id.tool_tip_four)
@@ -149,17 +149,17 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
         toolTipOne.setVisibility(View.VISIBLE);
         popup = getMenu();
 
-        personImage.setOnClickListener(new HTFDemoPersonOnClickListener() {
+        personImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                personImageClick();
+                progressScene();
             }
         });
 
-        toolTipOverlay.setOnClickListener(new HTFDemoPersonOnClickListener() {
+        toolTipOverlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                overlayClick();
+                progressScene();
             }
         });
 
@@ -167,64 +167,49 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
 
     }
 
-    abstract class HTFDemoPersonOnClickListener implements View.OnClickListener {
-
-        protected void personImageClick() {
-            if (sceneNum < 2) {
-                progressScene();
-            }
+    private void progressScene() {
+        sceneNum++;
+        Log.d(TAG, "Scene Num = " + sceneNum);
+        switch (sceneNum) {
+            case 1:
+                toolTipOne.setVisibility(View.INVISIBLE);
+                toolTipTwo.setVisibility(View.VISIBLE);
+                personImage.setClickable(false);
+                popup.show();
+                break;
+            case 2:
+                toolTipTwo.setVisibility(View.INVISIBLE);
+                personImageOverlay.setVisibility(View.VISIBLE);
+                favoriteCover.setVisibility(View.VISIBLE);
+                messageCover.setVisibility(View.VISIBLE);
+                noteCover.setVisibility(View.VISIBLE);
+                favoriteCircle.setVisibility(View.VISIBLE);
+                favoriteArrow.setVisibility(View.VISIBLE);
+                favoriteToolTip.setVisibility(View.VISIBLE);
+                toolTipThree.setVisibility(View.VISIBLE);
+                toolTipOverlay.setClickable(true);
+                break;
+            case 3:
+                favoriteToolTip.setVisibility(View.INVISIBLE);
+                favoriteArrow.setVisibility(View.INVISIBLE);
+                favoriteCircle.setVisibility(View.INVISIBLE);
+                messageCircle.setVisibility(View.VISIBLE);
+                messageArrow.setVisibility(View.VISIBLE);
+                messageToolTip.setVisibility(View.VISIBLE);
+                break;
+            case 4:
+                messageToolTip.setVisibility(View.INVISIBLE);
+                messageArrow.setVisibility(View.INVISIBLE);
+                messageCircle.setVisibility(View.INVISIBLE);
+                toolTipThree.setVisibility(View.INVISIBLE);
+                noteCircle.setVisibility(View.VISIBLE);
+                noteArrow.setVisibility(View.VISIBLE);
+                noteToolTip.setVisibility(View.VISIBLE);
+                toolTipFour.setVisibility(View.VISIBLE);
+                toolTipOverlay.setClickable(false);
+                break;
         }
 
-        protected void overlayClick() {
-            if (sceneNum == 2 || sceneNum == 3) {
-                progressScene();
-            }
-        }
-        private void progressScene() {
-            sceneNum++;
-            Log.d(TAG, "Scene Num = " + sceneNum);
-            switch (sceneNum) {
-                case 1:
-                    toolTipOne.setVisibility(View.INVISIBLE);
-                    toolTipTwo.setVisibility(View.VISIBLE);
-                    popup.show();
-                    break;
-                case 2:
-                    popup.dismiss();
-                    toolTipTwo.setVisibility(View.INVISIBLE);
-                    personImageOverlay.setVisibility(View.VISIBLE);
-                    favoriteCover.setVisibility(View.VISIBLE);
-                    messageCover.setVisibility(View.VISIBLE);
-                    noteCover.setVisibility(View.VISIBLE);
-                    favoriteCircle.setVisibility(View.VISIBLE);
-                    favoriteArrow.setVisibility(View.VISIBLE);
-                    favoriteToolTip.setVisibility(View.VISIBLE);
-                    toolTipThree.setVisibility(View.VISIBLE);
-                    toolTipOverlay.setClickable(true);
-                    personImage.setClickable(false);
-                    break;
-                case 3:
-                    favoriteToolTip.setVisibility(View.INVISIBLE);
-                    favoriteArrow.setVisibility(View.INVISIBLE);
-                    favoriteCircle.setVisibility(View.INVISIBLE);
-                    messageCircle.setVisibility(View.VISIBLE);
-                    messageArrow.setVisibility(View.VISIBLE);
-                    messageToolTip.setVisibility(View.VISIBLE);
-                    break;
-                case 4:
-                    messageToolTip.setVisibility(View.INVISIBLE);
-                    messageArrow.setVisibility(View.INVISIBLE);
-                    messageCircle.setVisibility(View.INVISIBLE);
-                    toolTipThree.setVisibility(View.INVISIBLE);
-                    noteCircle.setVisibility(View.VISIBLE);
-                    noteArrow.setVisibility(View.VISIBLE);
-                    noteToolTip.setVisibility(View.VISIBLE);
-                    toolTipFour.setVisibility(View.VISIBLE);
-                    toolTipOverlay.setClickable(false);
-                    break;
-            }
-
-        }
     }
 
     private PopupMenu getMenu() {
@@ -237,6 +222,12 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
             }
         });
      */
+        popup.setOnDismissListener(new PopupMenu.OnDismissListener() {
+            @Override
+            public void onDismiss(PopupMenu m) {
+                progressScene();
+            }
+        });
         popup.inflate(R.menu.person_menu);
         return popup;
     }
