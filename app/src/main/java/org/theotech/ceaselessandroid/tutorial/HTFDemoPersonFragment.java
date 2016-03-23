@@ -37,6 +37,7 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
     @Bind(R.id.person_image_overlay)
     View personImageOverlay;
 
+
     private boolean showToolTip;
 
     public HTFDemoPersonFragment() {
@@ -95,6 +96,7 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
     private void setUpToolTip() {
         toolTipOverlay.setVisibility(View.VISIBLE);
         personImageOverlay.setVisibility(View.INVISIBLE);
+//        toolTips.setVisibility(View.VISIBLE);
         toolTipOverlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,6 +107,7 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
     public void onSelected() {
         if (showToolTip) {
             toolTipOverlay.setVisibility(View.VISIBLE);
+//            toolTips.setVisibility(View.VISIBLE);
         }
     }
 

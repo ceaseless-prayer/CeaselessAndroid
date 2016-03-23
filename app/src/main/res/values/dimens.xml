@@ -34,9 +34,6 @@
 
     <dimen name="person_image_size">200dp</dimen>
 
-    <dimen name="person_image_overlay_size">224dp</dimen>
-    <!-- = person_image_size + 2 * activity_vertical_margin -->
-
     <dimen name="person_list_image_size">50dp</dimen>
     <dimen name="person_list_image_padding">2dp</dimen>
     <dimen name="person_list_name_left_padding">9dp</dimen>
