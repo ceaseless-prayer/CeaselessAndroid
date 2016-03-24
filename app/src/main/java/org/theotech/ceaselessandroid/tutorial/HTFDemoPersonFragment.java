@@ -2,15 +2,10 @@ package org.theotech.ceaselessandroid.tutorial;
 
 
 import android.app.Activity;
-import android.content.ContentUris;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -28,10 +23,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.R;
-import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
-import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 import org.theotech.ceaselessandroid.util.Constants;
-import org.theotech.ceaselessandroid.util.Installation;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -174,7 +166,7 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
     }
 
     private void animate() {
-        final long fadeDuration= 4000;
+        final long fadeDuration = 4000;
         final long startFadeTime = 1000;
 
         LinearInterpolator linInter = new LinearInterpolator();
@@ -246,6 +238,8 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
                 noteToolTip.setVisibility(View.VISIBLE);
                 toolTipFour.setVisibility(View.VISIBLE);
                 toolTipOverlay.setClickable(false);
+                break;
+            default:
                 break;
         }
 

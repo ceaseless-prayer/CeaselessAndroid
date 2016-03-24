@@ -104,7 +104,7 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
     }
 
     private void animate() {
-        final long fadeDuration= 4000;
+        final long fadeDuration = 4000;
         final long startFadeTime = 1000;
 
         LinearInterpolator linInter = new LinearInterpolator();
