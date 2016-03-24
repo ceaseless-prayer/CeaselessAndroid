@@ -13,6 +13,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -86,6 +90,11 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
     @Bind(R.id.tool_tip_four)
     LinearLayout toolTipFour;
 
+    @Bind(R.id.up_arrow)
+    IconTextView upArrow;
+    @Bind(R.id.right_arrow)
+    IconTextView rightArrow;
+
     private boolean showToolTip;
     private int sceneNum = 0;
     private PopupMenu popup;
@@ -124,9 +133,6 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
 
         injectPersonIntoView(getActivity(), personName, view);
 
-        if (showToolTip) {
-            setUpToolTip();
-        }
         return view;
     }
 
@@ -164,6 +170,39 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
         });
 
         toolTipOverlay.setClickable(false);
+
+    }
+
+    private void animate() {
+        final long fadeDuration= 4000;
+        final long startFadeTime = 1000;
+
+        LinearInterpolator linInter = new LinearInterpolator();
+
+        TranslateAnimation mHorAnimation = new TranslateAnimation(
+                -3, 3, 0, 0);
+        mHorAnimation.setDuration(150);
+        mHorAnimation.setStartOffset(20);
+        mHorAnimation.setRepeatCount(-1);
+        mHorAnimation.setRepeatMode(Animation.REVERSE);
+        mHorAnimation.setInterpolator(linInter);
+        rightArrow.setAnimation(mHorAnimation);
+
+        TranslateAnimation mVerAnimation = new TranslateAnimation(
+                0, 0, -3, 3);
+        mVerAnimation.setDuration(150);
+        mVerAnimation.setStartOffset(20);
+        mVerAnimation.setRepeatCount(-1);
+        mVerAnimation.setRepeatMode(Animation.REVERSE);
+        mVerAnimation.setInterpolator(linInter);
+        upArrow.setAnimation(mVerAnimation);
+
+        AlphaAnimation mAlAnimation = new AlphaAnimation(0, 1);
+        mAlAnimation.setDuration(fadeDuration);
+        mAlAnimation.setStartOffset(startFadeTime);
+        mAlAnimation.setInterpolator(linInter);
+        toolTipOverlay.setAnimation(mAlAnimation);
+        toolTipOne.setAnimation(mAlAnimation);
 
     }
 
@@ -260,6 +299,7 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
             sceneNum = 0;
             setAllInvisible();
             setUpToolTip();
+            animate();
         }
     }
 
