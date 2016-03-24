@@ -92,15 +92,12 @@ public class HomeTutorialFragment extends Fragment {
         private android.support.v4.app.Fragment[] fragArray;
         public HTFFragmentStatePagerAdapter(FragmentManager fm) {
             super(fm);
-            fragArray = new android.support.v4.app.Fragment[6];
+            fragArray = new android.support.v4.app.Fragment[4];
             fragArray[0] = new HTFDemoScriptureFragment();
-            fragArray[1] = HTFDemoPersonFragment.newInstance("Bob Flores", true);
-            fragArray[2] = HTFDemoPersonFragment.newInstance("Joy Wong", false);
-            fragArray[3] = HTFDemoPersonFragment.newInstance("Abby Anderson", false);
-            fragArray[4] = new HTFDemoProgressFragment();
-            fragArray[5] = new HTFDemoConclusionFragment();
+            fragArray[1] = HTFDemoPersonFragment.newInstance("Your Best Friend", true);
+            fragArray[2] = new HTFDemoProgressFragment();
+            fragArray[3] = new HTFDemoConclusionFragment();
         }
-
 
         @Override
         public android.support.v4.app.Fragment getItem(int i) {
@@ -109,7 +106,7 @@ public class HomeTutorialFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 6;
+            return 4;
         }
 
     }
