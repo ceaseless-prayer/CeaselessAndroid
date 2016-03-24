@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context="org.theotech.ceaselessandroid.tutorial.HTFDemoProgressFragment">
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -106,6 +106,51 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"/>
+            <TextView
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:textColor="@color/tutorialHintTextColor"
+                android:textStyle="normal"
+                android:textSize="@dimen/tutorial_hint_text_size"
+                android:text="Watch your progress\npraying for others"/>
+            <com.joanzapata.iconify.widget.IconTextView
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="3"
+                android:gravity="center"
+                android:textColor="@color/tutorialHintTextColor"
+                android:text="{fa-arrow-down}"
+                android:textSize="@dimen/favorite_icon_font_size"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="7"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="8">
+                <Button
+                    android:id="@+id/exit_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="50dp"
+                    android:layout_gravity="center"
+                    android:background="@color/buttonDefault"
+                    android:textColor="@color/buttonTextColor"
+                    android:text="@string/home_tutorial_intro" />
+
+            </RelativeLayout>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 
 </RelativeLayout>

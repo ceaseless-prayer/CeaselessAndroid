@@ -266,6 +266,8 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
     }
 
     private void setAllInvisible() {
+        toolTipOverlay.setVisibility(View.INVISIBLE);
+
         toolTipOne.setVisibility(View.INVISIBLE);
         toolTipTwo.setVisibility(View.INVISIBLE);
         toolTipThree.setVisibility(View.INVISIBLE);
