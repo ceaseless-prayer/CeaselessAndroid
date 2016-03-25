@@ -6,10 +6,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.activity.MainActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,6 +28,9 @@ public class HTFDemoProgressFragment extends Fragment implements HTFDemoFragment
     ProgressBar progress;
     @Bind(R.id.number_of_days_praying)
     TextView numberOfDaysPraying;
+
+    @Bind(R.id.exit_button)
+    Button mButton;
 
     public HTFDemoProgressFragment() {
         // Required empty public constructor
@@ -53,6 +58,11 @@ public class HTFDemoProgressFragment extends Fragment implements HTFDemoFragment
 
         numberOfDaysPraying.setText(getString(R.string.day) + " " + 1);
 
+        mButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                ((MainActivity) getActivity()).loadMainFragment();
+            }
+        });
 
         return view;
     }

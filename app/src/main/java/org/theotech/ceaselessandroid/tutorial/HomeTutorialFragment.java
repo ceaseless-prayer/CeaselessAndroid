@@ -96,7 +96,6 @@ public class HomeTutorialFragment extends Fragment {
             fragArray[0] = new HTFDemoScriptureFragment();
             fragArray[1] = HTFDemoPersonFragment.newInstance("Your Best Friend", true);
             fragArray[2] = new HTFDemoProgressFragment();
-            fragArray[3] = new HTFDemoConclusionFragment();
         }
 
         @Override
@@ -106,7 +105,7 @@ public class HomeTutorialFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 4;
+            return 3;
         }
 
     }
