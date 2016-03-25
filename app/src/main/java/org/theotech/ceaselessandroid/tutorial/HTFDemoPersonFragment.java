@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -90,6 +91,8 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
     private boolean showToolTip;
     private int sceneNum = 0;
     private PopupMenu popup;
+    private View view;
+    private boolean menuItemClicked = false;
 
     public HTFDemoPersonFragment() {
         // Required empty public constructor
@@ -115,7 +118,7 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // create view and bind
-        View view = inflater.inflate(R.layout.fragment_htfdemo_person, container, false);
+        view = inflater.inflate(R.layout.fragment_htfdemo_person, container, false);
         ButterKnife.bind(this, view);
 
         // display person
@@ -247,17 +250,21 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
 
     private PopupMenu getMenu() {
         PopupMenu popup = new PopupMenu(getActivity(), personImage);
-     /*
+
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                return false;
+                menuItemClicked = true;
+                return true;
             }
         });
-     */
+
         popup.setOnDismissListener(new PopupMenu.OnDismissListener() {
             @Override
             public void onDismiss(PopupMenu m) {
+                if (!menuItemClicked) {
+                    view.playSoundEffect(android.view.SoundEffectConstants.CLICK);
+                }
                 progressScene();
             }
         });
@@ -293,6 +300,7 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
     public void onSelected() {
         if (showToolTip) {
             sceneNum = 0;
+            menuItemClicked = false;
             setAllInvisible();
             setUpToolTip();
             animate();
