@@ -120,5 +120,5 @@
     <string name="tutorial_person_name">Your Best Friend</string>
     <string name="skip_tutorial_text">Skip Tutorial</string>
     <string name="home_tutorial_intro">Start Praying For Others</string>
-
+    <string name="scripture_tutorial_explanation">Learn about prayer\nfrom scripture</string>
 </resources>
