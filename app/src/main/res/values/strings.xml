@@ -68,6 +68,8 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
 
+    <string name="add_contact">Add Contact</string>
+
     <string name="contact_us_message">If you have any questions or feedback about Ceaseless, we\'d love to hear from you.</string>
     <string name="contact_us_social">You can also connect with us on social media.</string>
     <string name="contact_us_web">Visit us on the web: <a href="http://www.ceaselessprayer.com/">ceaselessprayer.com</a></string>

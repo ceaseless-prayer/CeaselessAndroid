@@ -181,7 +181,7 @@ public class PeopleFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.options_menu, menu);
+        inflater.inflate(R.menu.people_menu, menu);
         MenuItem searchItem = menu.findItem(R.id.search);
         SearchManager searchManager =
                 (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);

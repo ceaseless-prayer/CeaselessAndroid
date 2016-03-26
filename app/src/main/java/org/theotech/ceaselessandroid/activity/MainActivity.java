@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActivityCompat.OnRequestPermissionsResultCallback {
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int POPULATE_CONTACTS_REQUEST_CODE = 1;
+    private static final int ADD_CONTACT_REQUEST_CODE = 2;
     private boolean homeFragmentCreated = false;
 
     @Bind(R.id.toolbar)
@@ -202,7 +204,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return true;
         }
 
+        if (id == R.id.add_contact) {
+            Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
+            intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
+            startActivityForResult(intent, ADD_CONTACT_REQUEST_CODE);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ADD_CONTACT_REQUEST_CODE) {
+            // pick up any new contacts that have been added.
+            // TODO make this more efficient by adding just the one that has been added.
+            // I did this because I noticed that the data was coming back null even though a contact was added.
+            // Also right now the populateContacts has a filtering logic and so if they add a contact
+            // without email or phone number, it still won't show up in Ceaseless unfortunately.
+            populateContacts();
+        }
     }
 
     public FragmentBackStackManager getFragmentBackStackManager() {
