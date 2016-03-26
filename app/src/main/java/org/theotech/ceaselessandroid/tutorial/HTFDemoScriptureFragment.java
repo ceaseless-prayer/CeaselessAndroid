@@ -85,13 +85,11 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
         transformations.add(new BlurTransformation(getActivity(), 25, 4));
 
         Picasso.with(getActivity()).load(R.drawable.at_the_beach)
-                .placeholder(R.drawable.placeholder_rectangle_scene)
                 .fit()
                 .centerCrop()
                 .into(verseImage);
 
         Picasso.with(getActivity()).load(R.drawable.at_the_beach)
-                .placeholder(R.drawable.placeholder_rectangle_scene)
                 .fit()
                 .centerCrop()
                 .transform(transformations)
