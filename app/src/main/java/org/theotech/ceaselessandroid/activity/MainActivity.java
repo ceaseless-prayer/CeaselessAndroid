@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActivityCompat.OnRequestPermissionsResultCallback {
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final int POPULATE_CONTACTS_REQUEST_CODE = 1;
+    private static final int ADD_CONTACT_REQUEST_CODE = 2;
+    private boolean homeFragmentCreated = false;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -71,7 +74,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
 
         navigation.setCheckedItem(R.id.nav_home);
         navigation.setNavigationItemSelectedListener(this);
@@ -104,25 +110,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // AppRater.app_launched(this);
     }
 
+    /**
+     * Requests a backup operation to be done.
+     */
     public void requestBackup() {
         BackupManager bm = new BackupManager(this);
         Log.i(TAG, "Backing up database and preferences");
         bm.dataChanged();
     }
 
-    public void loadMainFragment() {
-        Fragment frag;
-        String title;
-        frag = new HomeFragment();
-        title = getString(R.string.nav_home);
+    /**
+     * Get a variable representing whether or not this activity
+     * has ever created a {@link HomeFragment}.
+     * The HomeFragment tracks which page it is on and returns to that
+     * page when it is recreated unless the MainActivity has never created it before.
+     * So for example, when a user starts the app, HomeFragment starts on the first page,
+     * but when the user returns to Home from an AddNote fragment, it returns to the page
+     * the user was on.
+     * @return true if this activity has created a HomeFragment before, false otherwise.
+     */
+    public boolean getHomeFragmentCreated() {
+        return homeFragmentCreated;
+    }
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+    public void setHomeFragmentCreated(boolean homeFragmentCreated) {
+        this.homeFragmentCreated = homeFragmentCreated;
+    }
 
-
-        getFragmentManager().beginTransaction().replace(R.id.fragment, frag, title).commit();
+    private void loadMainFragment() {
+        getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeFragment(),
+                getString(R.string.nav_home)).commit();
         // TODO when do we request backups?
         requestBackup();
     }
@@ -200,7 +217,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return true;
         }
 
+        if (id == R.id.add_contact) {
+            Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
+            intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
+            startActivityForResult(intent, ADD_CONTACT_REQUEST_CODE);
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ADD_CONTACT_REQUEST_CODE) {
+            // pick up any new contacts that have been added.
+            // TODO make this more efficient by adding just the one that has been added.
+            // I did this because I noticed that the data was coming back null even though a contact was added.
+            // Also right now the populateContacts has a filtering logic and so if they add a contact
+            // without email or phone number, it still won't show up in Ceaseless unfortunately.
+            populateContacts();
+        }
     }
 
     public FragmentBackStackManager getFragmentBackStackManager() {

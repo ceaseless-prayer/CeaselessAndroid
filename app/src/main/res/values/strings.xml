@@ -24,7 +24,11 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="reminder_notification_title">Prayer reminder</string>
-    <string name="reminder_notification_message">Pray for %1$s and others today.</string>
+    <string name="reminder_notification_message">Pray for %1$s and %2$s today.</string>
+    <plurals name="number_of_other_people">
+        <item quantity="one">%d other</item>
+        <item quantity="other">%d others</item>
+    </plurals>
     <string name="reminder_notification_message_default">Remember to pray for others today.</string>
 
     <string name="verse_share">Share</string>
@@ -61,10 +65,12 @@
     <!-- do not localize -->
     <string name="person_add_note">Add Note</string>
     <string name="empty_notes">There are no notes</string>
-    <string name="note_tag_hint">Tag People</string>
+    <string name="note_tag_hint">Tap to tag people</string>
+    <string name="note_content_hint">Enter note</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
-    <string name="note_text_hint">Note Text</string>
+
+    <string name="add_contact">Add Contact</string>
 
     <string name="contact_us_message">If you have any questions or feedback about Ceaseless, we\'d love to hear from you.</string>
     <string name="contact_us_social">You can also connect with us on social media.</string>

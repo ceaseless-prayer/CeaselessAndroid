@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -43,7 +44,10 @@ public class DailyNotificationService extends Service {
         String notificationMessage;
 
         if (nextPersonName != null) {
-            notificationMessage = getString(R.string.reminder_notification_message, nextPersonName);
+            Integer count = Integer.parseInt(sp.getString(Constants.NUMBER_OF_PEOPLE_TO_PRAY_FOR, "3")) - 1;
+            Resources res = getResources();
+            String otherString = res.getQuantityString(R.plurals.number_of_other_people, count, count);
+            notificationMessage = getString(R.string.reminder_notification_message, nextPersonName, otherString);
         } else {
             notificationMessage = getString(R.string.reminder_notification_message_default);
         }
