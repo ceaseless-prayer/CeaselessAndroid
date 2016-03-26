@@ -104,14 +104,14 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
     }
 
     private void animate() {
-        final long fadeDuration = 4000;
-        final long startFadeTime = 1000;
+        final long fadeDuration = 500;
+        final long startFadeTime = 500;
 
         LinearInterpolator linInter = new LinearInterpolator();
 
         TranslateAnimation mTrAnimation = new TranslateAnimation(
                 -3, 3, 0, 0);
-        mTrAnimation.setDuration(150);
+        mTrAnimation.setDuration(250);
         mTrAnimation.setStartOffset(20);
         mTrAnimation.setRepeatCount(-1);
         mTrAnimation.setRepeatMode(Animation.REVERSE);

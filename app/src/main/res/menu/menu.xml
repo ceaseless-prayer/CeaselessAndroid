@@ -14,7 +14,7 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/skip_tutorial"
-        android:title="Skip Tutorial"
+        android:title="@string/skip_tutorial_text"
         android:visible="false"
-        app:showAsAction="ifRoom"/>
+        app:showAsAction="always"/>
 </menu>

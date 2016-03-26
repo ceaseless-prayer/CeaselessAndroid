@@ -32,6 +32,7 @@ import butterknife.ButterKnife;
 
 public class HomeTutorialFragment extends Fragment {
     private static final String TAG = HomeTutorialFragment.class.getSimpleName();
+    private static final Integer CARD_COUNT = 3;
 
     @Bind(R.id.tutorial_viewpager)
     ViewPager viewPager;
@@ -39,8 +40,6 @@ public class HomeTutorialFragment extends Fragment {
     CirclePageIndicator indicator;
 
     private FragmentStateListener mListener;
-    private TextView mText;
-    private CardView[] mCard = new CardView[2];
 
     public HomeTutorialFragment() {
         // Required empty public constructor
@@ -94,7 +93,7 @@ public class HomeTutorialFragment extends Fragment {
             super(fm);
             fragArray = new android.support.v4.app.Fragment[4];
             fragArray[0] = new HTFDemoScriptureFragment();
-            fragArray[1] = HTFDemoPersonFragment.newInstance("Your Best Friend", true);
+            fragArray[1] = HTFDemoPersonFragment.newInstance(getString(R.string.tutorial_person_name), true);
             fragArray[2] = new HTFDemoProgressFragment();
         }
 
@@ -105,7 +104,7 @@ public class HomeTutorialFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return 3;
+            return CARD_COUNT;
         }
 
     }

@@ -51,7 +51,7 @@ public class HTFDemoProgressFragment extends Fragment implements HTFDemoFragment
 
         // progress
         long numPrayed = 3;
-        long numPeople = 48;
+        long numPeople = 130;
         prayedFor.setText(String.format(getString(R.string.prayed_for), numPrayed, numPeople));
         progress.setProgress((int) ((float) numPrayed / numPeople * 100.0f));
         progress.requestLayout();

@@ -169,14 +169,14 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
     }
 
     private void animate() {
-        final long fadeDuration = 4000;
-        final long startFadeTime = 1000;
+        final long fadeDuration = 1000;
+        final long startFadeTime = 500;
 
         LinearInterpolator linInter = new LinearInterpolator();
 
         TranslateAnimation mHorAnimation = new TranslateAnimation(
                 -3, 3, 0, 0);
-        mHorAnimation.setDuration(150);
+        mHorAnimation.setDuration(250);
         mHorAnimation.setStartOffset(20);
         mHorAnimation.setRepeatCount(-1);
         mHorAnimation.setRepeatMode(Animation.REVERSE);
