@@ -17,6 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.joanzapata.iconify.widget.IconTextView;
@@ -46,40 +47,17 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
     @Bind(R.id.person_image_overlay)
     View personImageOverlay;
 
-    @Bind(R.id.favorite_btn_arrow)
-    IconTextView favoriteArrow;
-    @Bind(R.id.message_btn_arrow)
-    IconTextView messageArrow;
-    @Bind(R.id.note_btn_arrow)
-    IconTextView noteArrow;
-
-    @Bind(R.id.favorite_btn_circle)
-    IconTextView favoriteCircle;
-    @Bind(R.id.message_btn_circle)
-    IconTextView messageCircle;
-    @Bind(R.id.note_btn_circle)
-    IconTextView noteCircle;
-
-    @Bind(R.id.favorite_btn_cover)
-    IconTextView favoriteCover;
-    @Bind(R.id.message_btn_cover)
-    IconTextView messageCover;
-    @Bind(R.id.note_btn_cover)
-    IconTextView noteCover;
-
-    @Bind(R.id.favorite_btn_tooltip)
-    TextView favoriteToolTip;
-    @Bind(R.id.message_btn_tooltip)
-    TextView messageToolTip;
-    @Bind(R.id.note_btn_tooltip)
-    TextView noteToolTip;
+    @Bind(R.id.favorite_tooltip)
+    RelativeLayout favoriteTooltip;
+    @Bind(R.id.message_tooltip)
+    RelativeLayout messageTooltip;
+    @Bind(R.id.add_note_tooltip)
+    RelativeLayout addNoteTooltip;
 
     @Bind(R.id.tool_tip_one)
-    LinearLayout toolTipOne;
+    RelativeLayout toolTipOne;
     @Bind(R.id.tool_tip_two)
     TextView toolTipTwo;
-    @Bind(R.id.tool_tip_three)
-    LinearLayout toolTipThree;
     @Bind(R.id.tool_tip_four)
     LinearLayout toolTipFour;
 
@@ -169,20 +147,26 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
     }
 
     private void animate() {
-        final long fadeDuration = 1000;
+        final long fadeDuration = 750;
         final long startFadeTime = 500;
 
         LinearInterpolator linInter = new LinearInterpolator();
+        animateRightArrow(linInter);
+        animateUpArrow(linInter);
+        animateTooltip(fadeDuration, startFadeTime, linInter);
 
-        TranslateAnimation mHorAnimation = new TranslateAnimation(
-                -3, 3, 0, 0);
-        mHorAnimation.setDuration(250);
-        mHorAnimation.setStartOffset(20);
-        mHorAnimation.setRepeatCount(-1);
-        mHorAnimation.setRepeatMode(Animation.REVERSE);
-        mHorAnimation.setInterpolator(linInter);
-        rightArrow.setAnimation(mHorAnimation);
+    }
 
+    private void animateTooltip(long fadeDuration, long startFadeTime, LinearInterpolator linInter) {
+        AlphaAnimation mAlAnimation = new AlphaAnimation(0, 1);
+        mAlAnimation.setDuration(fadeDuration);
+        mAlAnimation.setStartOffset(startFadeTime);
+        mAlAnimation.setInterpolator(linInter);
+        toolTipOverlay.setAnimation(mAlAnimation);
+        toolTipOne.setAnimation(mAlAnimation);
+    }
+
+    private void animateUpArrow(LinearInterpolator linInter) {
         TranslateAnimation mVerAnimation = new TranslateAnimation(
                 0, 0, -3, 3);
         mVerAnimation.setDuration(150);
@@ -191,14 +175,17 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
         mVerAnimation.setRepeatMode(Animation.REVERSE);
         mVerAnimation.setInterpolator(linInter);
         upArrow.setAnimation(mVerAnimation);
+    }
 
-        AlphaAnimation mAlAnimation = new AlphaAnimation(0, 1);
-        mAlAnimation.setDuration(fadeDuration);
-        mAlAnimation.setStartOffset(startFadeTime);
-        mAlAnimation.setInterpolator(linInter);
-        toolTipOverlay.setAnimation(mAlAnimation);
-        toolTipOne.setAnimation(mAlAnimation);
-
+    private void animateRightArrow(LinearInterpolator linInter) {
+        TranslateAnimation mHorAnimation = new TranslateAnimation(
+                -3, 3, 0, 0);
+        mHorAnimation.setDuration(250);
+        mHorAnimation.setStartOffset(20);
+        mHorAnimation.setRepeatCount(-1);
+        mHorAnimation.setRepeatMode(Animation.REVERSE);
+        mHorAnimation.setInterpolator(linInter);
+        rightArrow.setAnimation(mHorAnimation);
     }
 
     private void progressScene() {
@@ -214,31 +201,16 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
             case 2:
                 toolTipTwo.setVisibility(View.INVISIBLE);
                 personImageOverlay.setVisibility(View.VISIBLE);
-                favoriteCover.setVisibility(View.VISIBLE);
-                messageCover.setVisibility(View.VISIBLE);
-                noteCover.setVisibility(View.VISIBLE);
-                favoriteCircle.setVisibility(View.VISIBLE);
-                favoriteArrow.setVisibility(View.VISIBLE);
-                favoriteToolTip.setVisibility(View.VISIBLE);
-                toolTipThree.setVisibility(View.VISIBLE);
+                favoriteTooltip.setVisibility(View.VISIBLE);
                 toolTipOverlay.setClickable(true);
                 break;
             case 3:
-                favoriteToolTip.setVisibility(View.INVISIBLE);
-                favoriteArrow.setVisibility(View.INVISIBLE);
-                favoriteCircle.setVisibility(View.INVISIBLE);
-                messageCircle.setVisibility(View.VISIBLE);
-                messageArrow.setVisibility(View.VISIBLE);
-                messageToolTip.setVisibility(View.VISIBLE);
+                favoriteTooltip.setVisibility(View.INVISIBLE);
+                messageTooltip.setVisibility(View.VISIBLE);
                 break;
             case 4:
-                messageToolTip.setVisibility(View.INVISIBLE);
-                messageArrow.setVisibility(View.INVISIBLE);
-                messageCircle.setVisibility(View.INVISIBLE);
-                toolTipThree.setVisibility(View.INVISIBLE);
-                noteCircle.setVisibility(View.VISIBLE);
-                noteArrow.setVisibility(View.VISIBLE);
-                noteToolTip.setVisibility(View.VISIBLE);
+                messageTooltip.setVisibility(View.INVISIBLE);
+                addNoteTooltip.setVisibility(View.VISIBLE);
                 toolTipFour.setVisibility(View.VISIBLE);
                 toolTipOverlay.setClickable(false);
                 break;
@@ -277,23 +249,11 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
 
         toolTipOne.setVisibility(View.INVISIBLE);
         toolTipTwo.setVisibility(View.INVISIBLE);
-        toolTipThree.setVisibility(View.INVISIBLE);
         toolTipFour.setVisibility(View.INVISIBLE);
 
-        favoriteCover.setVisibility(View.INVISIBLE);
-        favoriteCircle.setVisibility(View.INVISIBLE);
-        favoriteArrow.setVisibility(View.INVISIBLE);
-        favoriteToolTip.setVisibility(View.INVISIBLE);
-
-        messageCover.setVisibility(View.INVISIBLE);
-        messageCircle.setVisibility(View.INVISIBLE);
-        messageArrow.setVisibility(View.INVISIBLE);
-        messageToolTip.setVisibility(View.INVISIBLE);
-
-        noteCover.setVisibility(View.INVISIBLE);
-        noteCircle.setVisibility(View.INVISIBLE);
-        noteArrow.setVisibility(View.INVISIBLE);
-        noteToolTip.setVisibility(View.INVISIBLE);
+        favoriteTooltip.setVisibility(View.INVISIBLE);
+        messageTooltip.setVisibility(View.INVISIBLE);
+        addNoteTooltip.setVisibility(View.INVISIBLE);
 
     }
 

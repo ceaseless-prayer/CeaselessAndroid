@@ -139,7 +139,7 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
         LinearInterpolator interpolator = new LinearInterpolator();
         AlphaAnimation mAlAnimation = new AlphaAnimation(0, 1);
         mAlAnimation.setDuration(600);
-        mAlAnimation.setStartOffset(2400);
+        mAlAnimation.setStartOffset(2000);
         mAlAnimation.setInterpolator(interpolator);
         swipeToContinue.setAnimation(mAlAnimation);
     }

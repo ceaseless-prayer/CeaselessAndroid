@@ -156,7 +156,7 @@
                     android:textColor="@color/tutorialHintTextColor"
                     android:textStyle="normal"
                     android:textSize="@dimen/tutorial_hint_text_size"
-                    android:text="@string/tutorial_swipe_to_continue"/>
+                    android:text="@string/tutorial_swipe_to_see_person"/>
                 <com.joanzapata.iconify.widget.IconTextView
                     android:id="@+id/right_arrow"
                     android:layout_height="wrap_content"
@@ -171,8 +171,4 @@
             </RelativeLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
-
-
-
-
 </RelativeLayout>

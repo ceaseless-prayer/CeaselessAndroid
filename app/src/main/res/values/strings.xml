@@ -121,5 +121,11 @@
     <string name="skip_tutorial_text">Skip Tutorial</string>
     <string name="home_tutorial_intro">Start Praying For Others</string>
     <string name="scripture_tutorial_explanation">Learn to pray from scripture</string>
-    <string name="tutorial_swipe_to_continue">Swipe to see who to pray for</string>
+    <string name="tutorial_swipe_to_see_person">Swipe to see who to pray for</string>
+    <string name="tutorial_tap_anywhere_to_hide_menu">Tap anywhere to continue</string>
+    <string name="tutorial_favorite_person">Favorite this person if they are important</string>
+    <string name="tutorial_send_message">Send a message to encourage this person</string>
+    <string name="tutorial_add_note">Write a private note so you remember how to pray for this person</string>
+    <string name="tutorial_tap_picture_for_actions">Tap the picture to see actions you can take after praying</string>
+    <string name="tutorial_swipe_to_view_progress">Swipe to view progress</string>
 </resources>

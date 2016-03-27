@@ -139,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         toggle.syncState();
 
         // TODO when do we request backups?
@@ -149,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fragment frag = new HomeTutorialFragment();
         String title = getString(R.string.nav_home_tutorial);
         getFragmentManager().beginTransaction().replace(R.id.fragment, frag, title).commit();
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
     @Override
