@@ -46,6 +46,7 @@
 
     <dimen name="person_card_shortcut_size">45dp</dimen>
     <dimen name="person_card_shortcut_bottom_margin">20dp</dimen>
+    <dimen name="person_card_shortcut_left_margin">18dp</dimen>
 
     <dimen name="progress_card_buttons_margin">10dp</dimen>
     <dimen name="progress_bar_margin">25dp</dimen>
@@ -53,7 +54,9 @@
 
     <dimen name="button_height">50dp</dimen>
     <dimen name="button_width">250dp</dimen>
+
     <dimen name="contact_us_margin">30dp</dimen>
+    <dimen name="contact_us_text_size">18sp</dimen>
 
     <dimen name="fb_image_width">64dp</dimen>
     <dimen name="fb_image_height">64dp</dimen>
@@ -75,4 +78,15 @@
 
     <dimen name="no_results_text_size">24sp</dimen>
     <dimen name="no_results_height">30dp</dimen>
+
+    <dimen name="tutorial_hint_text_size">20sp</dimen>
+    <dimen name="tutorial_arrow_size">24sp</dimen>
+    <dimen name="tutorial_margin_for_text_to_arrow">36dp</dimen>
+    <dimen name="tutorial_arrow_bottom_margin">4dp</dimen>
+    <dimen name="tutorial_large_text_height">50dp</dimen>
+    <dimen name="tutorial_tooltip_text_height">120dp</dimen>
+    <dimen name="tutorial_shortcut_text_padding_right">24dp</dimen>
+    <dimen name="tutorial_shortcut_margin_top">4dp</dimen>
+    <dimen name="tutorial_shortcut_circle_margin_left">16dp</dimen>
+
 </resources>

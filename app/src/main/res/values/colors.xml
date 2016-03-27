@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#00012F</color>
     <color name="colorPrimaryDark">#00012F</color>
-    <color name="colorAccent">#00B9E6</color>
+    <color name="colorAccent">#FFFFFF</color>
 
     <color name="lightGray">#CCC</color>
     <color name="fragmentBackground">#FFFFFF</color>
@@ -39,4 +39,8 @@
     <color name="peopleTabActiveTextColor">#BF00012F</color>
     <color name="peopleTabInactiveBackground">#00FFFFFF</color>
     <color name="peopleTabInactiveTextColor">#FFFFFF</color>
+
+    <color name="tutorialHintTextColor">#FFFFFF</color>
+    <color name="tooltipBackgroundTint">#e100012f</color>
+
 </resources>

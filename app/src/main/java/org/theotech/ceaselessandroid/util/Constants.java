@@ -23,4 +23,6 @@ public class Constants {
 
     public static final String NUMBER_OF_PEOPLE_TO_PRAY_FOR = "numberOfPeopleToPrayForDaily";
 
+    public static final String DEMO_NAME_BUNDLE_ARG = "demoName";
+    public static final String DEMO_TOOLTIP_BUNDLE_ARG = "demoShowToolTip";
 }

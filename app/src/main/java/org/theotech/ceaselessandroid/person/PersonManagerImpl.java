@@ -111,6 +111,7 @@ public class PersonManagerImpl implements PersonManager {
         // select the desired number of people.
         // Exclude anyone already who has already been selected from being chosen again
         Integer numToSelect = Math.min(n, allPeople.size());
+        Log.d(TAG, "allPeople size = " + allPeople.size() + " numToSelect = " + numToSelect);
         int i = 0;
         while (people.size() < numToSelect) {
             Person person = allPeople.get(i);
@@ -118,11 +119,14 @@ public class PersonManagerImpl implements PersonManager {
                 // select this person if they haven't been chosen yet
                 selectPerson(person, people);
                 allPeople.remove(person);
+                i--;
             }
             i++;
         }
 
-        preselectPerson(allPeople);
+        if (allPeople.size() > 0) {
+            preselectPerson(allPeople);
+        }
         return people;
     }
 

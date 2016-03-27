@@ -1,6 +1,7 @@
 package org.theotech.ceaselessandroid.activity;
 
 import android.Manifest;
+import android.app.Fragment;
 import android.app.backup.BackupManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,11 +24,13 @@ import android.widget.Toast;
 
 import org.codechimp.apprater.AppRater;
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.tutorial.Tutorial;
 import org.theotech.ceaselessandroid.fragment.AddNoteFragment;
 import org.theotech.ceaselessandroid.fragment.FragmentBackStackManager;
 import org.theotech.ceaselessandroid.fragment.FragmentState;
 import org.theotech.ceaselessandroid.fragment.FragmentStateListener;
 import org.theotech.ceaselessandroid.fragment.HomeFragment;
+import org.theotech.ceaselessandroid.tutorial.HomeTutorialFragment;
 import org.theotech.ceaselessandroid.fragment.PeopleFragment;
 import org.theotech.ceaselessandroid.notification.DailyNotificationReceiver;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
@@ -71,11 +74,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
         navigation.setCheckedItem(R.id.nav_home);
         navigation.setNavigationItemSelectedListener(this);
 
@@ -98,6 +96,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             addNoteFragment.setArguments(getIntent().getExtras());
             getFragmentManager().beginTransaction().replace(R.id.fragment, addNoteFragment,
                     getString(R.string.nav_journal)).commit();
+        } else if (Tutorial.shouldShowTutorial(this, HomeFragment.class.getSimpleName())) {
+            loadHomeTutorialFragment();
         } else {
             loadMainFragment();
         }
@@ -132,11 +132,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         this.homeFragmentCreated = homeFragmentCreated;
     }
 
-    private void loadMainFragment() {
+    public void loadMainFragment() {
         getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeFragment(),
                 getString(R.string.nav_home)).commit();
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        toggle.syncState();
+
         // TODO when do we request backups?
         requestBackup();
+    }
+
+    public void loadHomeTutorialFragment() {
+        Fragment frag = new HomeTutorialFragment();
+        String title = getString(R.string.nav_home_tutorial);
+        getFragmentManager().beginTransaction().replace(R.id.fragment, frag, title).commit();
+        drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
     @Override

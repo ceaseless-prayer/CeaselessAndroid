@@ -3,13 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_marginBottom="@dimen/card_vertical_margin"
-    android:layout_marginLeft="@dimen/card_horizontal_margin"
-    android:layout_marginRight="@dimen/card_horizontal_margin"
-    android:layout_marginTop="@dimen/card_vertical_margin"
     android:gravity="center"
     android:orientation="vertical"
-    android:background="@color/fragmentBackground"
+    android:background="@color/cardBackground"
     tools:context="org.theotech.ceaselessandroid.fragment.ContactUsFragment">
 
     <ScrollView
@@ -29,7 +25,8 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="@string/contact_us_message"
-                android:textSize="20sp" />
+                android:textSize="@dimen/contact_us_text_size"
+                android:textColor="@color/cardTextColor"/>
 
             <Button
                 android:id="@+id/contact_us_button"
@@ -40,11 +37,6 @@
                 android:background="@color/buttonDefault"
                 android:textColor="@color/buttonTextColor"
                 android:gravity="center"
-                android:shadowColor="@color/buttonDefaultShadow"
-                android:shadowDx="@integer/button_default_shadow_dx"
-                android:shadowDy="@integer/button_default_shadow_dy"
-                android:textAllCaps="false"
-                android:shadowRadius="@integer/button_default_shadow_radius"
                 android:text="@string/contact_us_button" />
 
             <TextView
@@ -53,7 +45,8 @@
                 android:layout_marginBottom="40dp"
                 android:gravity="center|start"
                 android:text="@string/contact_us_social"
-                android:textSize="20sp" />
+                android:textColor="@color/cardTextColor"
+                android:textSize="@dimen/contact_us_text_size" />
 
             <LinearLayout
                 android:layout_width="fill_parent"
@@ -83,7 +76,8 @@
                 android:autoLink="web"
                 android:gravity="center|start"
                 android:text="@string/contact_us_web"
-                android:textSize="20sp" />
+                android:textColor="@color/cardTextColor"
+                android:textSize="@dimen/contact_us_text_size" />
 
         </LinearLayout>
     </ScrollView>

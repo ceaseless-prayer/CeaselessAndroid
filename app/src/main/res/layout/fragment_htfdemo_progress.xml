@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    tools:context="org.theotech.ceaselessandroid.fragment.ProgressCardSupportFragment">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.theotech.ceaselessandroid.tutorial.HTFDemoProgressFragment">
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/progress_card"
@@ -106,6 +106,57 @@
 
         </LinearLayout>
 
+        <!-- The tooltips are here -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"/>
+            <TextView
+                android:id="@+id/watch_progress_text"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="4"
+                android:gravity="center"
+                android:textColor="@color/tutorialHintTextColor"
+                android:textStyle="normal"
+                android:textSize="@dimen/tutorial_hint_text_size"
+                android:text="@string/tutorial_watch_progress"
+                android:visibility="invisible"/>
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/watch_progress_arrow"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:textColor="@color/tutorialHintTextColor"
+                android:text="{fa-arrow-down}"
+                android:textSize="@dimen/favorite_icon_font_size"
+                android:visibility="invisible"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="9"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10">
+                <Button
+                    android:id="@+id/exit_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="50dp"
+                    android:layout_gravity="center"
+                    android:background="@color/buttonDefault"
+                    android:textColor="@color/buttonTextColor"
+                    android:text="@string/home_tutorial_intro"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 
 </RelativeLayout>
