@@ -31,8 +31,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
-public class VerseCardSupportFragment extends Fragment implements ICardPageFragment {
-    private static final String TAG = VerseCardSupportFragment.class.getSimpleName();
+public class ScriptureCardSupportFragment extends Fragment implements ICardPageFragment {
+    private static final String TAG = ScriptureCardSupportFragment.class.getSimpleName();
 
     @Bind(R.id.verse_image)
     ImageView verseImage;
@@ -49,7 +49,7 @@ public class VerseCardSupportFragment extends Fragment implements ICardPageFragm
 
     private CacheManager cacheManager = null;
 
-    public VerseCardSupportFragment() {
+    public ScriptureCardSupportFragment() {
         // Required empty public constructor
     }
 
@@ -65,7 +65,7 @@ public class VerseCardSupportFragment extends Fragment implements ICardPageFragm
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // create view and bind
-        View view = inflater.inflate(R.layout.fragment_support_verse_card, container, false);
+        View view = inflater.inflate(R.layout.fragment_support_scripture_card, container, false);
         ButterKnife.bind(this, view);
 
         drawVerseImage();

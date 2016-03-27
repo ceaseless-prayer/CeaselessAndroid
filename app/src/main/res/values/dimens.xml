@@ -76,5 +76,9 @@
     <dimen name="no_results_text_size">24sp</dimen>
     <dimen name="no_results_height">30dp</dimen>
 
-    <dimen name="tutorial_hint_text_size">18sp</dimen>
+    <dimen name="tutorial_hint_text_size">20sp</dimen>
+    <dimen name="tutorial_arrow_size">24sp</dimen>
+    <dimen name="tutorial_margin_for_text_to_arrow">36dp</dimen>
+    <dimen name="tutorial_arrow_bottom_margin">4dp</dimen>
+
 </resources>

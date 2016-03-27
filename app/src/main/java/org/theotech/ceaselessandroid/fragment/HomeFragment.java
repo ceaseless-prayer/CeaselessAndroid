@@ -242,7 +242,7 @@ public class HomeFragment extends Fragment {
                 android.support.v4.app.Fragment fragment;
                 Bundle bundle = new Bundle();
                 if (position == 0) {
-                    fragment = new VerseCardSupportFragment();
+                    fragment = new ScriptureCardSupportFragment();
                 } else if (position == getCount() - 1) {
                     fragment = new ProgressCardSupportFragment();
                 } else {

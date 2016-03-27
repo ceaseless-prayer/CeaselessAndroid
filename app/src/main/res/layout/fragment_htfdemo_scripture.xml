@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="org.theotech.ceaselessandroid.fragment.VerseCardSupportFragment">
+    tools:context=".fragment.ScriptureCardSupportFragment">
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/verse_card"
@@ -105,70 +105,68 @@
 
         </LinearLayout>
 
+        <!-- The tooltips go here -->
+
         <LinearLayout
             android:id="@+id/tool_tip_layout"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <!-- Top half of the card -->
+            <RelativeLayout
                 android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_weight="6"
-                android:orientation="vertical">
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"
-                    android:background="@color/tooltipBackgroundTint"/>
+                android:background="@color/tooltipBackgroundTint">
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/tutorial_margin_for_text_to_arrow"
+                    android:layout_alignParentBottom="true"
                     android:gravity="center"
                     android:textColor="@color/tutorialHintTextColor"
                     android:textStyle="normal"
                     android:textSize="@dimen/tutorial_hint_text_size"
-                    android:text="@string/scripture_tutorial_explanation"
-                    android:layout_weight="1"
-                    android:background="@color/tooltipBackgroundTint"/>
+                    android:text="@string/scripture_tutorial_explanation" />
                 <com.joanzapata.iconify.widget.IconTextView
+                    android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_marginBottom="@dimen/tutorial_arrow_bottom_margin"
+                    android:layout_alignParentBottom="true"
                     android:gravity="center"
                     android:textColor="@color/tutorialHintTextColor"
                     android:text="{fa-arrow-down}"
-                    android:textSize="@dimen/favorite_icon_font_size"
-                    android:layout_weight="1"
-                    android:background="@color/tooltipBackgroundTint"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"/>
-            </LinearLayout>
-            <LinearLayout
+                    android:textSize="@dimen/tutorial_arrow_size" />
+            </RelativeLayout>
+            <!-- Bottom half of the card -->
+            <RelativeLayout
                 android:layout_height="0dp"
-                android:layout_width="match_parent"
-                android:layout_weight="2"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:layout_width="match_parent">
                 <TextView
-                    android:layout_height="match_parent"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/tutorial_margin_for_text_to_arrow"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/tutorial_margin_for_text_to_arrow"
                     android:textColor="@color/tutorialHintTextColor"
                     android:textStyle="normal"
                     android:textSize="@dimen/tutorial_hint_text_size"
-                    android:text="Swipe to see who\nto pray for today"/>
+                    android:text="@string/tutorial_swipe_to_continue"/>
                 <com.joanzapata.iconify.widget.IconTextView
                     android:id="@+id/right_arrow"
-                    android:layout_height="match_parent"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/tutorial_margin_for_text_to_arrow"
+                    android:layout_marginRight="@dimen/tutorial_arrow_bottom_margin"
                     android:textColor="@color/tutorialHintTextColor"
                     android:text="{fa-arrow-right}"
-                    android:textSize="@dimen/favorite_icon_font_size"/>
-            </LinearLayout>
+                    android:textSize="@dimen/tutorial_arrow_size"/>
+            </RelativeLayout>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 
