@@ -18,6 +18,7 @@
     <string name="nav_rate_this_app">Rate This App</string>
     <string name="search_title">Search</string>
 
+
     <string name="person_view">Person</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -118,6 +119,7 @@
 
     <!-- tutorial -->
     <string name="tutorial_person_name">Your Best Friend</string>
+    <string name="start_tutorial_text">Start Tutorial</string>
     <string name="skip_tutorial_text">Skip Tutorial</string>
     <string name="home_tutorial_intro">Start Praying For Others</string>
     <string name="scripture_tutorial_explanation">Learn to pray from scripture</string>

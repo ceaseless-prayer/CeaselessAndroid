@@ -4,6 +4,9 @@ package org.theotech.ceaselessandroid.fragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -13,6 +16,7 @@ import com.google.android.gms.analytics.Tracker;
 
 import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.activity.MainActivity;
 import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 
 import butterknife.Bind;
@@ -66,5 +70,22 @@ public class HelpFragment extends Fragment {
     public void onResume() {
         super.onResume();
         AnalyticsUtils.sendScreenViewHit(mTracker, "HelpScreen");
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.help_menu, menu);
+        MenuItem startTutorial = menu.findItem(R.id.start_tutorial);
+
+        startTutorial.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                ((MainActivity) getActivity()).loadHomeTutorialFragment();
+                return false;
+            }
+        });
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }
