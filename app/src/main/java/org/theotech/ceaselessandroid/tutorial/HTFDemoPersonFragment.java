@@ -148,7 +148,7 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
 
     private void animate() {
         final long fadeDuration = 750;
-        final long startFadeTime = 500;
+        final long startFadeTime = 400;
 
         LinearInterpolator linInter = new LinearInterpolator();
         animateRightArrow(linInter);
@@ -169,7 +169,7 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
     private void animateUpArrow(LinearInterpolator linInter) {
         TranslateAnimation mVerAnimation = new TranslateAnimation(
                 0, 0, -3, 3);
-        mVerAnimation.setDuration(150);
+        mVerAnimation.setDuration(250);
         mVerAnimation.setStartOffset(20);
         mVerAnimation.setRepeatCount(-1);
         mVerAnimation.setRepeatMode(Animation.REVERSE);
@@ -179,7 +179,7 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
 
     private void animateRightArrow(LinearInterpolator linInter) {
         TranslateAnimation mHorAnimation = new TranslateAnimation(
-                -3, 3, 0, 0);
+                -4, 4, 0, 0);
         mHorAnimation.setDuration(250);
         mHorAnimation.setStartOffset(20);
         mHorAnimation.setRepeatCount(-1);

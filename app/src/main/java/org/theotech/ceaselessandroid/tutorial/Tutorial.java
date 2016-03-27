@@ -9,10 +9,8 @@ import android.content.SharedPreferences;
  */
 public class Tutorial {
     private static Tutorial ourInstance = new Tutorial();
-    private static final String LAST_ACCESSED = "Last_Accessed_";
-    private static final boolean DEBUG_MODE = true;
-
-    public static final String HOME_FRAGMENT = "Home_Fragment";
+    private static final String LAST_ACCESSED = "Tutorial_Last_Accessed_";
+    private static final boolean ALWAYS_SHOW_TUTORIAL = false;
 
     public static Tutorial getInstance() {
         return ourInstance;
@@ -21,14 +19,19 @@ public class Tutorial {
     private Tutorial() {
     }
 
-    public static boolean shouldShowTutorial(Activity activity, String app_Context) {
+    /**
+     * @param activity the context needed to get preferences
+     * @param fragmentClassName the name of the fragment that the tutorial is for
+     * @return whether or not the tutorial should be shown
+     */
+    public static boolean shouldShowTutorial(Activity activity, String fragmentClassName) {
         boolean retBool;
-        String key = LAST_ACCESSED + app_Context;
+        String key = LAST_ACCESSED + fragmentClassName;
 
-        SharedPreferences shPr = activity.getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = shPr.edit();
+        SharedPreferences preferences = activity.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
 
-        retBool = DEBUG_MODE || (shPr.getLong(key, 0) == 0);
+        retBool = ALWAYS_SHOW_TUTORIAL || (preferences.getLong(key, 0) == 0);
         editor.putLong(key, System.currentTimeMillis());
         editor.apply();
 

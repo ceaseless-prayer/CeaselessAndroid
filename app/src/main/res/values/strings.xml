@@ -128,4 +128,5 @@
     <string name="tutorial_add_note">Write a private note so you remember how to pray for this person</string>
     <string name="tutorial_tap_picture_for_actions">Tap the picture to see actions you can take after praying</string>
     <string name="tutorial_swipe_to_view_progress">Swipe to view progress</string>
+    <string name="tutorial_watch_progress">Watch your progress praying for others</string>
 </resources>

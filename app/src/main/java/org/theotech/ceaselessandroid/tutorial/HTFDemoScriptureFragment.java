@@ -118,7 +118,7 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
         LinearInterpolator interpolator = new LinearInterpolator();
         TranslateAnimation mTrAnimation = new TranslateAnimation(
                 -4, 4, 0, 0);
-        mTrAnimation.setDuration(200);
+        mTrAnimation.setDuration(250);
         mTrAnimation.setStartOffset(20);
         mTrAnimation.setRepeatCount(-1);
         mTrAnimation.setRepeatMode(Animation.REVERSE);
@@ -139,7 +139,7 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
         LinearInterpolator interpolator = new LinearInterpolator();
         AlphaAnimation mAlAnimation = new AlphaAnimation(0, 1);
         mAlAnimation.setDuration(600);
-        mAlAnimation.setStartOffset(2000);
+        mAlAnimation.setStartOffset(1800);
         mAlAnimation.setInterpolator(interpolator);
         swipeToContinue.setAnimation(mAlAnimation);
     }

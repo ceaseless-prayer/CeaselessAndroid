@@ -106,6 +106,7 @@
 
         </LinearLayout>
 
+        <!-- The tooltips are here -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -113,32 +114,36 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3"/>
+                android:layout_weight="5"/>
             <TextView
+                android:id="@+id/watch_progress_text"
                 android:layout_height="0dp"
                 android:layout_width="match_parent"
-                android:layout_weight="3"
+                android:layout_weight="4"
                 android:gravity="center"
                 android:textColor="@color/tutorialHintTextColor"
                 android:textStyle="normal"
                 android:textSize="@dimen/tutorial_hint_text_size"
-                android:text="Watch your progress\npraying for others"/>
+                android:text="@string/tutorial_watch_progress"
+                android:visibility="invisible"/>
             <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/watch_progress_arrow"
                 android:layout_height="0dp"
                 android:layout_width="match_parent"
-                android:layout_weight="3"
+                android:layout_weight="2"
                 android:gravity="center"
                 android:textColor="@color/tutorialHintTextColor"
                 android:text="{fa-arrow-down}"
-                android:textSize="@dimen/favorite_icon_font_size"/>
+                android:textSize="@dimen/favorite_icon_font_size"
+                android:visibility="invisible"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="7"/>
+                android:layout_weight="9"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="8">
+                android:layout_weight="10">
                 <Button
                     android:id="@+id/exit_button"
                     android:layout_width="match_parent"
@@ -147,7 +152,8 @@
                     android:layout_gravity="center"
                     android:background="@color/buttonDefault"
                     android:textColor="@color/buttonTextColor"
-                    android:text="@string/home_tutorial_intro" />
+                    android:text="@string/home_tutorial_intro"
+                    android:visibility="invisible" />
 
             </RelativeLayout>
         </LinearLayout>

@@ -6,9 +6,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.joanzapata.iconify.widget.IconTextView;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.activity.MainActivity;
@@ -28,9 +32,13 @@ public class HTFDemoProgressFragment extends Fragment implements HTFDemoFragment
     ProgressBar progress;
     @Bind(R.id.number_of_days_praying)
     TextView numberOfDaysPraying;
+    @Bind(R.id.watch_progress_arrow)
+    IconTextView watchProgressArrow;
+    @Bind(R.id.watch_progress_text)
+    TextView watchProgressText;
 
     @Bind(R.id.exit_button)
-    Button mButton;
+    Button exitButton;
 
     public HTFDemoProgressFragment() {
         // Required empty public constructor
@@ -58,7 +66,7 @@ public class HTFDemoProgressFragment extends Fragment implements HTFDemoFragment
 
         numberOfDaysPraying.setText(getString(R.string.day) + " " + 1);
 
-        mButton.setOnClickListener(new View.OnClickListener() {
+        exitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 ((MainActivity) getActivity()).loadMainFragment();
             }
@@ -67,6 +75,38 @@ public class HTFDemoProgressFragment extends Fragment implements HTFDemoFragment
         return view;
     }
 
-    public void onSelected() {}
+    private void animate() {
+        final long fadeDuration = 1000;
+        final long startFadeTime = 0;
+        LinearInterpolator linInter = new LinearInterpolator();
+        animateTooltip(fadeDuration, startFadeTime, linInter);
+        animateButton();
+    }
+
+    private void animateTooltip(long fadeDuration, long startFadeTime, LinearInterpolator linInter) {
+        AlphaAnimation mAlAnimation = new AlphaAnimation(0, 1);
+        mAlAnimation.setDuration(fadeDuration);
+        mAlAnimation.setStartOffset(startFadeTime);
+        mAlAnimation.setInterpolator(linInter);
+
+        watchProgressArrow.startAnimation(mAlAnimation);
+        watchProgressText.startAnimation(mAlAnimation);
+        watchProgressArrow.setVisibility(View.VISIBLE);
+        watchProgressText.setVisibility(View.VISIBLE);
+    }
+
+    private void animateButton() {
+        AlphaAnimation mAlAnimation = new AlphaAnimation(0, 1);
+        mAlAnimation.setDuration(750);
+        mAlAnimation.setStartOffset(750);
+        mAlAnimation.setInterpolator(new LinearInterpolator());
+
+        exitButton.startAnimation(mAlAnimation);
+        exitButton.setVisibility(View.VISIBLE);
+    }
+
+    public void onSelected() {
+        animate();
+    }
 
 }
