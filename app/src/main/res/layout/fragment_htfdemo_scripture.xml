@@ -115,6 +115,7 @@
 
             <!-- Top half of the card -->
             <RelativeLayout
+                android:id="@+id/learn_from_scripture"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
@@ -141,6 +142,7 @@
             </RelativeLayout>
             <!-- Bottom half of the card -->
             <RelativeLayout
+                android:id="@+id/swipe_to_continue"
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:layout_width="match_parent">

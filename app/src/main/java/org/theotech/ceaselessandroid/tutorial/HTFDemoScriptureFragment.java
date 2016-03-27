@@ -11,6 +11,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -36,6 +37,8 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
     ImageView verseImage;
     @Bind(R.id.verse_image_reflection)
     ImageView verseImageReflection;
+    @Bind(R.id.verse_title_and_share)
+    LinearLayout verseTitleAndShare;
     @Bind(R.id.verse_title)
     TextView verseTitle;
     @Bind(R.id.verse_text)
@@ -44,6 +47,10 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
     TextView rightArrow;
     @Bind(R.id.tool_tip_layout)
     LinearLayout toolTipLayout;
+    @Bind(R.id.learn_from_scripture)
+    RelativeLayout learnFromScripture;
+    @Bind(R.id.swipe_to_continue)
+    RelativeLayout swipeToContinue;
 
     public HTFDemoScriptureFragment() {
         // Required empty public constructor
@@ -102,26 +109,39 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
     }
 
     private void animate() {
-        final long fadeDuration = 500;
-        final long startFadeTime = 500;
+        animateTooltip();
+        animateSwipeToContinue();
+        animateRightArrow();
+    }
 
-        LinearInterpolator linInter = new LinearInterpolator();
-
+    private void animateRightArrow() {
+        LinearInterpolator interpolator = new LinearInterpolator();
         TranslateAnimation mTrAnimation = new TranslateAnimation(
-                -3, 3, 0, 0);
-        mTrAnimation.setDuration(250);
+                -4, 4, 0, 0);
+        mTrAnimation.setDuration(200);
         mTrAnimation.setStartOffset(20);
         mTrAnimation.setRepeatCount(-1);
         mTrAnimation.setRepeatMode(Animation.REVERSE);
-        mTrAnimation.setInterpolator(linInter);
+        mTrAnimation.setInterpolator(interpolator);
         rightArrow.setAnimation(mTrAnimation);
+    }
 
+    private void animateTooltip() {
+        LinearInterpolator interpolator = new LinearInterpolator();
         AlphaAnimation mAlAnimation = new AlphaAnimation(0, 1);
-        mAlAnimation.setDuration(fadeDuration);
-        mAlAnimation.setStartOffset(startFadeTime);
-        mAlAnimation.setInterpolator(linInter);
+        mAlAnimation.setDuration(600);
+        mAlAnimation.setStartOffset(500);
+        mAlAnimation.setInterpolator(interpolator);
         toolTipLayout.setAnimation(mAlAnimation);
+    }
 
+    private void animateSwipeToContinue() {
+        LinearInterpolator interpolator = new LinearInterpolator();
+        AlphaAnimation mAlAnimation = new AlphaAnimation(0, 1);
+        mAlAnimation.setDuration(600);
+        mAlAnimation.setStartOffset(2400);
+        mAlAnimation.setInterpolator(interpolator);
+        swipeToContinue.setAnimation(mAlAnimation);
     }
 
     public void onSelected() {
