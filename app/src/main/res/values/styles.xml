@@ -10,12 +10,22 @@
         <item name="windowActionModeOverlay">true</item>
     </style>
 
+    <!-- HACK. Styling preferences is very messy/convoluted/broken in android -->
+    <!-- Hence we use the following two styles to apply and undo a specific change only when people are in the preferences screen. -->
+    <style name="AppTheme.PreferenceScreen">
+        <item name="colorAccent">@color/controlColor</item>
+    </style>
+    <style name="AppTheme.RevertFromPreferenceScreen">
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!-- KitKat phones like the Kindle Fire need this to make the overflow icons white. -->
         <item name="android:tint">@android:color/white</item>
     </style>
 

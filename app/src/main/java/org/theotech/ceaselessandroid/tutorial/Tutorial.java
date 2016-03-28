@@ -1,8 +1,8 @@
 package org.theotech.ceaselessandroid.tutorial;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 /**
  * Created by travis on 2/17/16.
@@ -25,16 +25,16 @@ public class Tutorial {
      * @return whether or not the tutorial should be shown
      */
     public static boolean shouldShowTutorial(Activity activity, String fragmentClassName) {
-        boolean retBool;
+        boolean result;
         String key = LAST_ACCESSED + fragmentClassName;
 
-        SharedPreferences preferences = activity.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         SharedPreferences.Editor editor = preferences.edit();
 
-        retBool = ALWAYS_SHOW_TUTORIAL || (preferences.getLong(key, 0) == 0);
+        result = ALWAYS_SHOW_TUTORIAL || (preferences.getLong(key, 0) == 0);
         editor.putLong(key, System.currentTimeMillis());
         editor.apply();
 
-        return retBool;
+        return result;
     }
 }

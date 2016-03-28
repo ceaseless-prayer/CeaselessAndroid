@@ -45,13 +45,27 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // set title
+
         getActivity().setTitle(getString(R.string.nav_settings));
+
+        // HACK since styling preferences is convoluted/messy/broken we apply a style on create
+        // and undo what we applied back to the our app's overall theme on destroy.
+        // Selectively apply needed styling for preference page.
+        // otherwise things like the switch will be invisible because our original accent color is white.
+        getActivity().getTheme().applyStyle(R.style.AppTheme_PreferenceScreen, true);
 
         // create view
         View v = super.onCreateView(inflater, container, savedInstanceState);
         v.setBackgroundColor(getResources().getColor(R.color.preferenceBackgroundColor));
         return v;
+    }
+
+    @Override
+    public void onDestroyView() {
+        // HACK see the note in onCreateView about styling preferences.
+        // this is where we undo what we applied.
+        getActivity().getTheme().applyStyle(R.style.AppTheme_RevertFromPreferenceScreen, true);
+        super.onDestroyView();
     }
 
     @Override

@@ -3,6 +3,7 @@
     <color name="colorPrimary">#00012F</color>
     <color name="colorPrimaryDark">#00012F</color>
     <color name="colorAccent">#FFFFFF</color>
+    <color name="controlColor">#2d3861</color>
 
     <color name="lightGray">#CCC</color>
     <color name="fragmentBackground">#FFFFFF</color>
