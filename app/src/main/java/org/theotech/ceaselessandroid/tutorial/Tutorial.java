@@ -9,7 +9,7 @@ import android.preference.PreferenceManager;
  */
 public class Tutorial {
     private static Tutorial ourInstance = new Tutorial();
-    private static final String LAST_ACCESSED = "Tutorial_Last_Accessed_";
+    private static final String LAST_ACCESSED = "Tutorial_Last_Accessed_Date";
     private static final boolean ALWAYS_SHOW_TUTORIAL = false;
 
     public static Tutorial getInstance() {
@@ -21,18 +21,16 @@ public class Tutorial {
 
     /**
      * @param activity the context needed to get preferences
-     * @param fragmentClassName the name of the fragment that the tutorial is for
      * @return whether or not the tutorial should be shown
      */
-    public static boolean shouldShowTutorial(Activity activity, String fragmentClassName) {
+    public static boolean shouldShowTutorial(Activity activity) {
         boolean result;
-        String key = LAST_ACCESSED + fragmentClassName;
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity);
         SharedPreferences.Editor editor = preferences.edit();
 
-        result = ALWAYS_SHOW_TUTORIAL || (preferences.getLong(key, 0) == 0);
-        editor.putLong(key, System.currentTimeMillis());
+        result = ALWAYS_SHOW_TUTORIAL || (preferences.getLong(LAST_ACCESSED, 0) == 0);
+        editor.putLong(LAST_ACCESSED, System.currentTimeMillis());
         editor.apply();
 
         return result;

@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             addNoteFragment.setArguments(getIntent().getExtras());
             getFragmentManager().beginTransaction().replace(R.id.fragment, addNoteFragment,
                     getString(R.string.nav_journal)).commit();
-        } else if (Tutorial.shouldShowTutorial(this, HomeFragment.class.getSimpleName())) {
+        } else if (Tutorial.shouldShowTutorial(this)) {
             loadHomeTutorialFragment();
         } else {
             loadMainFragment();
