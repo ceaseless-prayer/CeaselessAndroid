@@ -92,22 +92,22 @@
     <string name="ceaseless_logo">Ceaseless dove logo</string>
 
     <!-- Analytics strings -->
-    <string name="ga_post_total_active_contacts">post_total_active_ceaseless_contacts</string>
-    <string name="ga_post_total_removed_contacts">post_total_removed_ceaseless_contacts</string>
-    <string name="ga_post_total_favorited">post_total_favorited_ceaseless_contacts</string>
-    <string name="ga_post_total_prayed_for">post_people_prayed_for_this_cycle</string>
+    <string name="ga_post_total_active_contacts" translatable="false">post_total_active_ceaseless_contacts</string>
+    <string name="ga_post_total_removed_contacts" translatable="false">post_total_removed_ceaseless_contacts</string>
+    <string name="ga_post_total_favorited" translatable="false">post_total_favorited_ceaseless_contacts</string>
+    <string name="ga_post_total_prayed_for" translatable="false">post_people_prayed_for_this_cycle</string>
 
-    <string name="ga_tapped_send_message">tapped_send_message</string>
-    <string name="ga_tapped_add_note">tapped_add_note</string>
-    <string name="ga_tapped_share_scripture">share_scripture</string>
-    <string name="ga_tapped_invite">tapped_invite</string>
-    <string name="ga_tapped_show_more_people">tapped_show_more_people</string>
+    <string name="ga_tapped_send_message" translatable="false">tapped_send_message</string>
+    <string name="ga_tapped_add_note" translatable="false">tapped_add_note</string>
+    <string name="ga_tapped_share_scripture" translatable="false">share_scripture</string>
+    <string name="ga_tapped_invite" translatable="false">tapped_invite</string>
+    <string name="ga_tapped_show_more_people" translatable="false">tapped_show_more_people</string>
 
-    <string name="ga_address_book_sync">address_book_sync</string>
-    <string name="ga_prayer_progress">prayer_progress</string>
-    <string name="ga_person_card_actions">person_card_actions</string>
-    <string name="ga_scripture_card_actions">scripture_card_actions</string>
-    <string name="ga_progress_card_actions">progress_card_actions</string>
+    <string name="ga_address_book_sync" translatable="false">address_book_sync</string>
+    <string name="ga_prayer_progress" translatable="false">prayer_progress</string>
+    <string name="ga_person_card_actions" translatable="false">person_card_actions</string>
+    <string name="ga_scripture_card_actions" translatable="false">scripture_card_actions</string>
+    <string name="ga_progress_card_actions" translatable="false">progress_card_actions</string>
 
     <!-- default scripture -->
     <string name="default_verse_text">And whatever you ask in prayer, you will receive, if you have faith.</string>
