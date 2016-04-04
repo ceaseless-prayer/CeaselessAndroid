@@ -2,6 +2,8 @@ package org.theotech.ceaselessandroid.fragment;
 
 
 import android.app.Fragment;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -60,7 +62,18 @@ public class HelpFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         helpWV.getSettings().setJavaScriptEnabled(true);
-        helpWV.setWebViewClient(new WebViewClient());
+        helpWV.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView wv, String url) {
+                if (url.startsWith("mailto:")) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    startActivity(intent);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
         helpWV.loadUrl(getString(R.string.help_url));
 
         return view;
