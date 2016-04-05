@@ -376,9 +376,17 @@ public class PersonManagerImpl implements PersonManager {
     }
 
     private boolean contactNameFilter(String name) {
+        if (name == null || name.isEmpty()) {
+            return false;
+        }
+
         List<String> blacklist = Arrays.asList(activity.getResources().getStringArray(R.array.contact_name_blacklist));
         for (String s : blacklist) {
-            if (s.matches(name)) {
+            // match the name to the blacklist elements
+            // since the argument to matches is a regular expression
+            // note that we can also use Pattern.quote to not treat it as a regular expression.
+            // we do it this way since in the future our blacklist may want to consist in regular expressions
+            if (name.matches(s)) {
                 return false;
             }
         }
