@@ -10,6 +10,7 @@ import android.util.Log;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.activity.MainActivity;
+import org.theotech.ceaselessandroid.fragment.AboutFragment;
 import org.theotech.ceaselessandroid.fragment.AddNoteFragment;
 import org.theotech.ceaselessandroid.fragment.ContactUsFragment;
 import org.theotech.ceaselessandroid.fragment.FragmentState;
@@ -93,6 +94,8 @@ public class FragmentUtils {
             return new PersonFragment();
         } else if (resourceId == R.id.add_note_fragment) {
             return new AddNoteFragment();
+        } else if (resourceId == R.id.nav_about) {
+            return new AboutFragment();
         }
         return null;
     }
@@ -112,6 +115,8 @@ public class FragmentUtils {
             return context.getString(R.string.nav_contact_us);
         } else if (resourceId == R.id.nav_rate_this_app) {
             return context.getString(R.string.nav_rate_this_app);
+        } else if (resourceId == R.id.nav_about) {
+            return context.getString(R.string.nav_about);
         } else if (resourceId == R.id.person_add_note) {
             return context.getString(R.string.person_add_note);
         }
@@ -133,6 +138,8 @@ public class FragmentUtils {
             return R.id.nav_contact_us;
         } else if (fragmentName.equals(context.getString(R.string.nav_rate_this_app))) {
             return R.id.nav_rate_this_app;
+        } else if (fragmentName.equals(context.getString(R.string.nav_about))) {
+            return R.id.nav_about;
         } else if (fragmentName.equals(context.getString(R.string.person_add_note))) {
             return R.id.nav_journal;
         } else if (fragmentName.equals(context.getString(R.string.person_view))) {

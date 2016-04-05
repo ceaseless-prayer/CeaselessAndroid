@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context="org.theotech.ceaselessandroid.fragment.HelpFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <WebView
         android:id="@+id/helpWebView"
         android:layout_width="match_parent"

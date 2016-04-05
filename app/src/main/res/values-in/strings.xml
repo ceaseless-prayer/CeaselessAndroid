@@ -85,5 +85,7 @@
     <string name="tutorial_tap_picture_for_actions">Tekan gambar untuk melihat tindakan yang dapat dilakukan setelah berdoa</string>
     <string name="tutorial_watch_progress">Melihat kemajuan Anda berdoa untuk orang lain</string>
     <string name="twitter">logo Twitter</string>
+    <string name="nav_about">Tentang</string>
+    <string name="empty_notes">Tidak ada catatan</string>
 
 </resources>
