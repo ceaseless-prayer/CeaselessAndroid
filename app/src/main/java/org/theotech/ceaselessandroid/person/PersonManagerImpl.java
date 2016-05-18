@@ -96,7 +96,9 @@ public class PersonManagerImpl implements PersonManager {
                 .equalTo(Person.Column.IGNORED, false)
                 .equalTo(Person.Column.PRAYED, false)
                 .findAllSorted(Person.Column.LAST_PRAYED);
-        handleAllPrayedFor(results);
+
+        handleAllPrayedFor(results, n);
+
         List<Person> allPeople = getShuffledListOfAllPeople(results);
         if (allPeople.size() < 1) {
             return people;
@@ -141,14 +143,17 @@ public class PersonManagerImpl implements PersonManager {
         return allPeople;
     }
 
-    private void handleAllPrayedFor(RealmResults<Person> results) throws AlreadyPrayedForAllContactsException {
+    private void handleAllPrayedFor(RealmResults<Person> results, int n) throws AlreadyPrayedForAllContactsException {
         // if all people are prayed for, then reset and throw exception
-        if (getNumPeople() > 0 && results.size() == 0) {
-            // Reset all the prayed flags
+        if (getNumPeople() > 0 && results.size() < n) {
+            // we can't check just for result size
+
+            // Reset prayed to false for each person that had the prayed flag set
             realm.beginTransaction();
             RealmResults<Person> resultsToReset = realm.where(Person.class)
                     .equalTo(Person.Column.ACTIVE, true)
                     .equalTo(Person.Column.IGNORED, false)
+                    .equalTo(Person.Column.PRAYED, true)
                     .findAll();
             for (int i = 0; i < resultsToReset.size(); i++) {
                 resultsToReset.get(i).setPrayed(false);
