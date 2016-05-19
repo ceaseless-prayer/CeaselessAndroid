@@ -89,45 +89,50 @@ public class PersonManagerImpl implements PersonManager {
 
     @Override
     public List<PersonPOJO> getNextPeopleToPrayFor(int n) throws AlreadyPrayedForAllContactsException {
-        List<PersonPOJO> people = new ArrayList<>();
+        List<PersonPOJO> peopleToPrayFor = new ArrayList<>();
 
+        // Get all people who haven't been prayed for, sorted by last_prayed
         RealmResults<Person> results = realm.where(Person.class)
                 .equalTo(Person.Column.ACTIVE, true)
                 .equalTo(Person.Column.IGNORED, false)
                 .equalTo(Person.Column.PRAYED, false)
                 .findAllSorted(Person.Column.LAST_PRAYED);
-        handleAllPrayedFor(results);
-        List<Person> allPeople = getShuffledListOfAllPeople(results);
-        if (allPeople.size() < 1) {
-            return people;
+        handleAllPrayedFor(results); // resets all the prayed flags and
+                                     // throws AlreadyPrayedForAllContactsException when needed
+        // We still have people available to be prayed for
+        List<Person> peopleAvailableToBePrayedFor = getShuffledListOfAllPeople(results);
+        if (peopleAvailableToBePrayedFor.size() < 1) {
+            return peopleToPrayFor;
         }
 
+        // Add preselectedPerson to prayer list if available
         Person preselectedPerson = loadPreselectedPerson();
         if (preselectedPerson != null) {
-            selectPerson(preselectedPerson, people);
-            allPeople.remove(preselectedPerson);
+            selectPerson(preselectedPerson);
+            peopleToPrayFor.add(getPerson(preselectedPerson.getId()));
+            peopleAvailableToBePrayedFor.remove(preselectedPerson);
         }
 
-        // select the desired number of people.
-        // Exclude anyone already who has already been selected from being chosen again
-        Integer numToSelect = Math.min(n, allPeople.size());
-        Log.d(TAG, "allPeople size = " + allPeople.size() + " numToSelect = " + numToSelect);
-        int i = 0;
-        while (people.size() < numToSelect) {
-            Person person = allPeople.get(i);
-            if (!people.contains(getPerson(person.getId()))) {
-                // select this person if they haven't been chosen yet
-                selectPerson(person, people);
-                allPeople.remove(person);
-                i--;
+        // Add more people to pray for (until we run out of unprayed people or have enough)
+        Integer numToSelect = Math.min(n - peopleToPrayFor.size(),
+                peopleAvailableToBePrayedFor.size());
+        int personIndex = 0;
+        for (int i = 0; i < numToSelect; i++) {
+            Person person = peopleAvailableToBePrayedFor.get(personIndex);
+            // Select this person if they haven't been chosen yet
+            if (!peopleToPrayFor.contains(getPerson(person.getId()))) {
+                selectPerson(person);
+                peopleToPrayFor.add(getPerson(person.getId()));
+                peopleAvailableToBePrayedFor.remove(person);
+                personIndex--;
             }
-            i++;
+            personIndex++;
         }
 
-        if (allPeople.size() > 0) {
-            preselectPerson(allPeople);
+        if (peopleAvailableToBePrayedFor.size() > 0) {
+            preselectPerson(peopleAvailableToBePrayedFor);
         }
-        return people;
+        return peopleToPrayFor;
     }
 
     @NonNull
@@ -191,7 +196,7 @@ public class PersonManagerImpl implements PersonManager {
         sp.edit()
                 .putString(Constants.PRESELECTED_PERSON_ID, theChosenOne.getId())
                 .putString(Constants.PRESELECTED_PERSON_NAME, theChosenOne.getName())
-                .commit();
+                .apply();
     }
 
     private Person loadPreselectedPerson() {
@@ -203,12 +208,11 @@ public class PersonManagerImpl implements PersonManager {
         return getRealmPerson(personId);
     }
 
-    private void selectPerson(Person person, List<PersonPOJO> people) {
+    private void selectPerson(Person person) {
         realm.beginTransaction();
         person.setLastPrayed(new Date());
         person.setPrayed(true);
         realm.commitTransaction();
-        people.add(getPerson(person.getId()));
         Log.d(TAG, "Selecting person " + person);
     }
 

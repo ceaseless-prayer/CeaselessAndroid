@@ -270,7 +270,8 @@ public class HomeFragment extends Fragment {
 
             @Override
             public int getCount() {
-                return numberOfPeopleToPrayForDaily + Constants.NUM_AUXILIARY_CARDS;
+                return cacheManager.getCachedPersonIdsToPrayFor().size()
+                        + Constants.NUM_AUXILIARY_CARDS;
             }
         };
     }
