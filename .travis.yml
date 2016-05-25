@@ -18,3 +18,6 @@ notifications:
 
 after_failure:
   - cat /home/travis/build/ceaseless-prayer/CeaselessAndroid/app/build/outputs/lint-results.xml 
+
+env:
+  - GRADLE_OPTS="-Xmx768m -Xms256m -Xss1m"
