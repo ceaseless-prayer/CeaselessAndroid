@@ -8,8 +8,8 @@ android:
     - extra
 
 script:
-  - gradle build
-  - gradle check
+  - ./gradlew build
+  - ./gradlew check
 
 notifications:
   slack:
