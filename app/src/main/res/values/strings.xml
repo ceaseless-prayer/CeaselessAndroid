@@ -37,7 +37,7 @@
     <string name="verse_share">Share</string>
     <string name="progress">Progress</string>
     <string name="day">Day</string>
-    <string name="prayed_for">You have prayed for \u0025s of \u0025s people</string>
+    <string name="prayed_for">You have prayed for %1$s of %2$s people</string>
     <string name="prayed_for_text">You have prayed for</string>
     <string name="prayer_settings">PRAYER SETTINGS</string>
 
@@ -61,7 +61,7 @@
     <string name="person_favorite">Favorite Contact</string>
     <string name="person_unfavorite">Unfavorite Contact</string>
 
-    <string name="bulk_selected">\u0025s Selected</string>
+    <string name="bulk_selected">%s Selected</string>
     <string name="favorite_on" translatable="false">{fa-heart}</string>
     <!-- do not localize -->
     <string name="favorite_off" translatable="false">{fa-heart-o}</string>
