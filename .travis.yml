@@ -21,3 +21,6 @@ after_failure:
 
 env:
   - GRADLE_OPTS="-Xmx2048m -Xms256m"
+
+jdk:
+  - oraclejdk8
