@@ -50,7 +50,7 @@
     <string name="no_results_msg">Tidak ada hasil</string>
     <string name="note_content_hint">Masukkan catatan</string>
     <string name="note_tag_hint">Ketuk untuk menandai orang</string>
-    <string name="number_of_people_each_day">Jumlah orang yang di doakan setiap hari:</string>
+    <string name="number_of_people_each_day">Jumlah orang yang akan di doakan setiap hari:</string>
     <string name="people_active">Aktif</string>
     <string name="people_removed">Dihapus</string>
     <string name="person_add_note">Menambahkan Catatan</string>
