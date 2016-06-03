@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -40,6 +41,7 @@ public class PersonManagerImpl implements PersonManager {
     private static final String CONTACTS_SOURCE = "Contacts";
     private static final int RANDOM_FAVORITE_THRESHOLD = 5;
     private static final int RANDOM_SAMPLE_POST_METRICS = 2;
+    private static final Pattern emailMatcher = Pattern.compile("^[\\w._%+-]+@[\\w.-]+\\\\.[\\w]{2,4}$");
 
     private static PersonManager instance;
     private Activity activity;
@@ -335,6 +337,7 @@ public class PersonManagerImpl implements PersonManager {
                             .equalTo(Person.Column.ID, id)
                             .findFirst();
                     if (person == null) {
+
                         person = realm.createObject(Person.class);
                         person.setId(id);
                         person.setName(name);
@@ -342,6 +345,11 @@ public class PersonManagerImpl implements PersonManager {
                         person.setActive(true);
                         person.setIgnored(false);
                         person.setLastPrayed(new Date(0L));
+
+                        // auto-favorite contacts that were starred by user.
+                        boolean starred = cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.STARRED)) == 1;
+                        person.setFavorite(starred);
+
                         ++added;
                     } else {
                         Log.v(TAG, "User already existed, updating information.");
@@ -374,13 +382,38 @@ public class PersonManagerImpl implements PersonManager {
 
     private boolean isValidContact(Cursor cursor) {
         boolean hasPhoneNumber = cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) == 1;
+        String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+        boolean hasEmail = contactHasEmail(id);
         String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-        // TODO: filter out "Conference Bridge" and "Directory Assistance" as other common things to ignore
-        return hasPhoneNumber && !name.startsWith("#") && !name.startsWith("+") && contactNameFilter(name);
+        return (hasPhoneNumber || hasEmail) && !name.startsWith("#") && !name.startsWith("+") && contactNameFilter(name);
+    }
+
+    private boolean contactHasEmail(String id) {
+        boolean result = false;
+        Cursor cursor = contentResolver.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI,
+                null,
+                ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?",
+                new String[] { id },
+                null);
+        if (cursor.getCount() > 0) {
+            result = true;
+        }
+        cursor.close();
+        return result;
     }
 
     private boolean contactNameFilter(String name) {
+
         if (name == null || name.isEmpty()) {
+            return false;
+        }
+
+        if (Character.isDigit(name.charAt(0))) {
+            // if the name starts with a number ignore it.
+            return false;
+        }
+
+        if (emailMatcher.matcher(name).matches()) {
             return false;
         }
 
@@ -394,6 +427,7 @@ public class PersonManagerImpl implements PersonManager {
                 return false;
             }
         }
+
         return true;
     }
 
