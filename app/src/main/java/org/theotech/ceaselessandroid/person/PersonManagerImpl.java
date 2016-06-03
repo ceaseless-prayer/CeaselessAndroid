@@ -13,6 +13,7 @@ import com.google.android.gms.analytics.Tracker;
 
 import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.realm.Note;
 import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.util.AnalyticsUtils;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -322,20 +324,26 @@ public class PersonManagerImpl implements PersonManager {
     public void populateContacts() {
         Cursor cursor = null;
         realm.beginTransaction();
+
         int added = 0;
         int updated = 0;
+        List<String> ids = new ArrayList<>();
+        List<Person> people = new ArrayList<>();
+
         try {
             cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null, null);
 
             while (cursor.moveToNext()) {
                 if (isValidContact(cursor)) {
                     String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
+                    ids.add(id);
                     String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
                     Log.v(TAG, String.format("Person: id=%s name=%s", id, name));
 
                     Person person = realm.where(Person.class)
                             .equalTo(Person.Column.ID, id)
                             .findFirst();
+
                     if (person == null) {
 
                         person = realm.createObject(Person.class);
@@ -358,6 +366,7 @@ public class PersonManagerImpl implements PersonManager {
                         person.setActive(true);
                         ++updated;
                     }
+                    people.add(person);
                 }
             }
         } finally {
@@ -365,10 +374,74 @@ public class PersonManagerImpl implements PersonManager {
                 cursor.close();
             }
         }
+
+        // Clean up contacts whose ids have now changed
+        // Copy their contents to an existing contact if there is a matching one.
+        RealmResults<Person> fullList = realm.where(Person.class)
+                .equalTo(Person.Column.ACTIVE, true)
+                .findAll();
+        for (int i = 0; i < fullList.size(); i++) {
+            Person p = fullList.get(i);
+            if (!ids.contains(p.getId())) {
+                Log.v(TAG, "Contact with id " + p.getId() + " no longer exists.");
+                Person matchingContact = findPersonWithName(p.getName(), people);
+                if (matchingContact != null) {
+                    Log.v(TAG, "A contact with name " + p.getName() + " exists. Merging details.");
+                    copyContact(p, matchingContact);
+                    // cleanup the obsolete contact
+                    p.removeFromRealm();
+                } else {
+                    Log.v(TAG, "Marking this contact inactive because it no longer exists on the phone.");
+                    p.setActive(false);
+                }
+            }
+        }
+
         realm.commitTransaction();
 
         Log.d(TAG, String.format("Successfully added %d and updated %d contacts.", added, updated));
         sampleAndPostMetrics();
+    }
+
+    private Person findPersonWithName(String name, List<Person> people) {
+        for (Person p : people) {
+            if (p.getName().equals(name)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+    private void copyContact(Person src, Person dst) {
+        // do not copy id or name.
+        // copy over everything else
+        dst.setActive(src.isActive());
+        dst.setFavorite(src.isFavorite());
+        dst.setIgnored(src.isIgnored());
+        dst.setLastPrayed(src.getLastPrayed());
+        dst.setPrayed(src.isPrayed());
+        dst.setSource(src.getSource());
+
+        // transfer notes over
+        RealmList<Note> notes = src.getNotes();
+        for (Note n : notes) {
+            RealmList<Person> peopleTagged = n.getPeopleTagged();
+            Iterator<Person> i = peopleTagged.iterator();
+            // remove the old version of this person on the note
+            while (i.hasNext()) {
+                Person p = i.next();
+                if (p.getId().equals(src.getId())) {
+                    i.remove();
+                }
+            }
+            // add the new version of this person on the note
+            peopleTagged.add(dst);
+            n.setPeopleTagged(peopleTagged);
+        }
+        dst.setNotes(src.getNotes());
+
+        // TODO potentially update the Cache
+        // so all ids that pointed to the old contact, point to the new.
     }
 
     @Override
