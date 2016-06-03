@@ -199,7 +199,6 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
                 popup.show();
                 break;
             case 2:
-                toolTipTwo.setVisibility(View.INVISIBLE);
                 personImageOverlay.setVisibility(View.VISIBLE);
                 favoriteTooltip.setVisibility(View.VISIBLE);
                 toolTipOverlay.setClickable(true);
@@ -209,6 +208,7 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
                 messageTooltip.setVisibility(View.VISIBLE);
                 break;
             case 4:
+                toolTipTwo.setVisibility(View.INVISIBLE);
                 messageTooltip.setVisibility(View.INVISIBLE);
                 addNoteTooltip.setVisibility(View.VISIBLE);
                 toolTipFour.setVisibility(View.VISIBLE);

@@ -430,7 +430,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="@dimen/tutorial_arrow_bottom_margin"
                     android:textColor="@color/tutorialHintTextColor"
-                    android:text="{fa-arrow-right}"
+                    android:text="{fa-arrow-left}"
                     android:textSize="@dimen/tutorial_arrow_size"/>
                 <TextView
                     android:layout_width="wrap_content"

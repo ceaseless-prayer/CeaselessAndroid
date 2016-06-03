@@ -166,7 +166,7 @@
                     android:layout_marginBottom="@dimen/tutorial_margin_for_text_to_arrow"
                     android:layout_marginRight="@dimen/tutorial_arrow_bottom_margin"
                     android:textColor="@color/tutorialHintTextColor"
-                    android:text="{fa-arrow-right}"
+                    android:text="{fa-arrow-left}"
                     android:textSize="@dimen/tutorial_arrow_size"/>
             </RelativeLayout>
         </LinearLayout>

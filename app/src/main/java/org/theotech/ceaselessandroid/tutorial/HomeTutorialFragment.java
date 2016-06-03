@@ -80,7 +80,7 @@ public class HomeTutorialFragment extends Fragment {
                        if (pages.get(i) == null) {
                            switch (i) {
                                case 0:
-                                   pages.set(i, new HTFDemoScriptureFragment());
+                                   pages.set(i, HTFDemoScriptureFragment.newInstance(viewPager));
                                    break;
                                case 1:
                                    pages.set(i, HTFDemoPersonFragment.newInstance(getString(R.string.tutorial_person_name), true));

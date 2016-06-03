@@ -2,6 +2,7 @@ package org.theotech.ceaselessandroid.tutorial;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,8 +53,20 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
     @Bind(R.id.swipe_to_continue)
     RelativeLayout swipeToContinue;
 
+    ViewPager parentViewPager;
+
     public HTFDemoScriptureFragment() {
         // Required empty public constructor
+    }
+
+    public static HTFDemoScriptureFragment newInstance(ViewPager pager) {
+        HTFDemoScriptureFragment fragment = new HTFDemoScriptureFragment();
+        fragment.setParentViewPager(pager);
+        return fragment;
+    }
+
+    private void setParentViewPager(ViewPager pager) {
+        this.parentViewPager = pager;
     }
 
     @Override
@@ -73,14 +86,14 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
 
         // verse title and text
         populateVerse(getString(R.string.default_verse_citation), getString(R.string.default_verse_text));
-/*
-        toolTipLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
+
+        swipeToContinue.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
-                toolTipLayout.setVisibility(View.INVISIBLE);
+                int nextPage = parentViewPager.getCurrentItem() + 1;
+                parentViewPager.setCurrentItem(nextPage);
             }
         });
-*/
+
         animate();
 
         return view;
@@ -129,8 +142,8 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
     private void animateTooltip() {
         LinearInterpolator interpolator = new LinearInterpolator();
         AlphaAnimation mAlAnimation = new AlphaAnimation(0, 1);
-        mAlAnimation.setDuration(600);
-        mAlAnimation.setStartOffset(500);
+        mAlAnimation.setDuration(500);
+        mAlAnimation.setStartOffset(400);
         mAlAnimation.setInterpolator(interpolator);
         toolTipLayout.setAnimation(mAlAnimation);
     }
@@ -138,15 +151,14 @@ public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragmen
     private void animateSwipeToContinue() {
         LinearInterpolator interpolator = new LinearInterpolator();
         AlphaAnimation mAlAnimation = new AlphaAnimation(0, 1);
-        mAlAnimation.setDuration(600);
-        mAlAnimation.setStartOffset(1800);
+        mAlAnimation.setDuration(500);
+        mAlAnimation.setStartOffset(1100);
         mAlAnimation.setInterpolator(interpolator);
         swipeToContinue.setAnimation(mAlAnimation);
     }
 
     public void onSelected() {
 
-//       toolTipLayout.setVisibility(View.VISIBLE);
     }
 
 }
