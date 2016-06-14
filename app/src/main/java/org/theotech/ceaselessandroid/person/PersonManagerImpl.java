@@ -422,6 +422,13 @@ public class PersonManagerImpl implements PersonManager {
         dst.setPrayed(src.isPrayed());
         dst.setSource(src.getSource());
 
+        transferNotes(src, dst);
+
+        // TODO potentially update the Cache
+        // so all ids that pointed to the old contact, point to the new.
+    }
+
+    private void transferNotes(Person src, Person dst) {
         // transfer notes over
         RealmList<Note> notes = src.getNotes();
         for (Note n : notes) {
@@ -439,9 +446,6 @@ public class PersonManagerImpl implements PersonManager {
             n.setPeopleTagged(peopleTagged);
         }
         dst.setNotes(src.getNotes());
-
-        // TODO potentially update the Cache
-        // so all ids that pointed to the old contact, point to the new.
     }
 
     @Override
