@@ -46,12 +46,12 @@
     <string name="person_thumbnail">연락처 사진 썸네일</string>
     <string name="person_unfavorite">마음에 안드는 연락처</string>
     <string name="person_view">사람</string>
-    <string name="prayed_for">당신은 %2$중 %1$의 사람들을 위해 기도 했다</string>
+    <string name="prayed_for">당신은 %2$s 중 %1$s 의 사람들을 위해 기도 했다</string>
     <string name="prayed_for_text">당신은 를 위해기도 했다</string>
     <string name="prayer_reminders">리마인더</string>
     <string name="prayer_settings">기도설정</string>
     <string name="progress">진행</string>
-    <string name="reminder_notification_message">오늘 %1$와 %2$를 위해 기도하세요 </string>
+    <string name="reminder_notification_message">오늘 %1$s 와 %2$s 를 위해 기도하세요</string>
     <string name="reminder_notification_message_default">오늘 다른 사람을 위해 기도하세요 </string>
     <string name="reminder_notification_title">기도 알림 시간</string>
     <string name="reminder_time_picker_dialog_title">알림 시간 수정</string>
