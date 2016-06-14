@@ -86,7 +86,7 @@
     <string name="show_more_people">Show more people</string>
 
     <!-- Image descriptions -->
-    <string name="fb">Facebook logo</string>
+    <string name="fb" translatable="false">Facebook logo</string>
     <string name="twitter">Twitter logo</string>
     <string name="scenic_photo">Scenic photo</string>
     <string name="person_image">Contact photo</string>
