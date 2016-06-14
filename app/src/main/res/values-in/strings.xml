@@ -43,7 +43,6 @@
     <string name="default_verse_citation">Matius 21:22 NTV</string>
     <string name="default_verse_text">Dan apa saja yang kamu minta dalam doa dengan penuh kepercayaan, kamu akan menerimanya.</string>
     <string name="default_verse_link">http://www.bible.is/INZNTV/Matt/21/22</string>
-    <string name="fb">logo Facebook</string>
     <string name="home_tutorial_intro">Mulai Berdoa untuk Teman</string>
     <string name="nav_home_tutorial">Belajar Ceaseless</string>
     <string name="nav_journal">Journal</string>
@@ -87,5 +86,6 @@
     <string name="twitter">logo Twitter</string>
     <string name="nav_about">Tentang</string>
     <string name="empty_notes">Tidak ada catatan</string>
+    <string name="contact_us_button">Email Ceaseless</string>
 
 </resources>
