@@ -63,7 +63,7 @@ public class ProgressCardSupportFragment extends Fragment implements ICardPageFr
         // progress
         long numPrayed = personManager.getNumPrayed();
         long numPeople = personManager.getNumPeople();
-        prayedFor.setText(String.format(getString(R.string.prayed_for), numPrayed, numPeople));
+        prayedFor.setText(String.format(getString(R.string.prayed_for), Long.toString(numPrayed), Long.toString(numPeople)));
         progress.setProgress((int) ((float) numPrayed / numPeople * 100.0f));
         progress.requestLayout();
 

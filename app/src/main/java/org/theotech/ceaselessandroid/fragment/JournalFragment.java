@@ -131,7 +131,7 @@ public class JournalFragment extends Fragment implements Refreshable {
                 @Override
                 public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
                     final int checkedCount = journal.getCheckedItemCount();
-                    mode.setTitle(String.format(getString(R.string.bulk_selected), checkedCount));
+                    mode.setTitle(String.format(getString(R.string.bulk_selected), Integer.toString(checkedCount)));
                 }
 
                 @Override
