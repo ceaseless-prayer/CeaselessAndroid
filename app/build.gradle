@@ -100,7 +100,7 @@ task checkstyle(type: Checkstyle) {
     classpath = files()
 }
 
-task findbugs(type: FindBugs, dependsOn: assembleDebug) {
+task findbugs(type: FindBugs, dependsOn: "assembleDebug") {
     ignoreFailures = false
     effort = "max"
     reportLevel = "low"
@@ -126,7 +126,7 @@ task findbugs(type: FindBugs, dependsOn: assembleDebug) {
 }
 
 
-task pmd(type: Pmd, dependsOn: assembleDebug) {
+task pmd(type: Pmd, dependsOn: "assembleDebug") {
     ignoreFailures = false
     ruleSetFiles = files(new File(projectDir, "config/pmd/pmd-ruleset.xml"))
     ruleSets = []
