@@ -86,14 +86,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // if we were called with a special action, load the right fragment
         Intent intent = getIntent();
+        handleIntent(intent);
+        // TODO decide if we want to use AppRater's logic to surface a review request
+        // AppRater.app_launched(this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        handleIntent(intent);
+        super.onNewIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+        // if we were called with a special action, load the right fragment
         if (Constants.SHOW_PERSON_INTENT.equals(intent.getAction())) {
             PeopleFragment peopleFragment = new PeopleFragment();
-            peopleFragment.setArguments(getIntent().getExtras());
+            peopleFragment.setArguments(intent.getExtras());
             getFragmentManager().beginTransaction().replace(R.id.fragment, peopleFragment,
                     getString(R.string.nav_people)).commit();
         } else if (Constants.SHOW_NOTE_INTENT.equals(intent.getAction())) {
             AddNoteFragment addNoteFragment = new AddNoteFragment();
-            addNoteFragment.setArguments(getIntent().getExtras());
+            addNoteFragment.setArguments(intent.getExtras());
             getFragmentManager().beginTransaction().replace(R.id.fragment, addNoteFragment,
                     getString(R.string.nav_journal)).commit();
         } else if (Tutorial.shouldShowTutorial(this)) {
@@ -101,8 +114,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             loadMainFragment();
         }
-        // TODO decide if we want to use AppRater's logic to surface a review request
-        // AppRater.app_launched(this);
     }
 
     /**

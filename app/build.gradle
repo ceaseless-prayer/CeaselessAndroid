@@ -81,7 +81,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.0'
     compile 'com.makeramen:roundedimageview:2.2.1'
-    compile 'com.splitwise:tokenautocomplete:2.0.2@aar'
+    compile 'com.splitwise:tokenautocomplete:2.0.7@aar'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'

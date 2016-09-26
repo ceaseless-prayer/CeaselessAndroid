@@ -28,7 +28,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import java.util.regex.Pattern;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -43,7 +42,6 @@ public class PersonManagerImpl implements PersonManager {
     private static final String CONTACTS_SOURCE = "Contacts";
     private static final int RANDOM_FAVORITE_THRESHOLD = 5;
     private static final int RANDOM_SAMPLE_POST_METRICS = 2;
-    private static final Pattern emailMatcher = Pattern.compile("^[\\w._%+-]+@[\\w.-]+\\\\.[\\w]{2,4}$");
 
     private static PersonManager instance;
     private Activity activity;
@@ -422,6 +420,13 @@ public class PersonManagerImpl implements PersonManager {
         dst.setPrayed(src.isPrayed());
         dst.setSource(src.getSource());
 
+        transferNotes(src, dst);
+
+        // TODO potentially update the Cache
+        // so all ids that pointed to the old contact, point to the new.
+    }
+
+    private void transferNotes(Person src, Person dst) {
         // transfer notes over
         RealmList<Note> notes = src.getNotes();
         for (Note n : notes) {
@@ -439,9 +444,6 @@ public class PersonManagerImpl implements PersonManager {
             n.setPeopleTagged(peopleTagged);
         }
         dst.setNotes(src.getNotes());
-
-        // TODO potentially update the Cache
-        // so all ids that pointed to the old contact, point to the new.
     }
 
     @Override
@@ -455,24 +457,8 @@ public class PersonManagerImpl implements PersonManager {
 
     private boolean isValidContact(Cursor cursor) {
         boolean hasPhoneNumber = cursor.getInt(cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER)) == 1;
-        String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-        boolean hasEmail = contactHasEmail(id);
         String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-        return (hasPhoneNumber || hasEmail) && !name.startsWith("#") && !name.startsWith("+") && contactNameFilter(name);
-    }
-
-    private boolean contactHasEmail(String id) {
-        boolean result = false;
-        Cursor cursor = contentResolver.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI,
-                null,
-                ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?",
-                new String[] { id },
-                null);
-        if (cursor.getCount() > 0) {
-            result = true;
-        }
-        cursor.close();
-        return result;
+        return hasPhoneNumber && !name.startsWith("#") && !name.startsWith("+") && contactNameFilter(name);
     }
 
     private boolean contactNameFilter(String name) {
@@ -486,7 +472,7 @@ public class PersonManagerImpl implements PersonManager {
             return false;
         }
 
-        if (emailMatcher.matcher(name).matches()) {
+        if (android.util.Patterns.EMAIL_ADDRESS.matcher(name).matches()) {
             return false;
         }
 
