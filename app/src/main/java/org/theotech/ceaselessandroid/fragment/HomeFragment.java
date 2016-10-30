@@ -270,6 +270,10 @@ public class HomeFragment extends Fragment {
 
             @Override
             public int getCount() {
+                if (cacheManager == null || cacheManager.getCachedPersonIdsToPrayFor() == null) {
+                    return Constants.NUM_AUXILIARY_CARDS;
+                }
+
                 return cacheManager.getCachedPersonIdsToPrayFor().size()
                         + Constants.NUM_AUXILIARY_CARDS;
             }

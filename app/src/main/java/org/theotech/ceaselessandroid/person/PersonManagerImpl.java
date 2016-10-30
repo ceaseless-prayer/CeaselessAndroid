@@ -431,17 +431,19 @@ public class PersonManagerImpl implements PersonManager {
         RealmList<Note> notes = src.getNotes();
         for (Note n : notes) {
             RealmList<Person> peopleTagged = n.getPeopleTagged();
+            RealmList<Person> newPeopleTagged = new RealmList<>();
             Iterator<Person> i = peopleTagged.iterator();
             // remove the old version of this person on the note
             while (i.hasNext()) {
                 Person p = i.next();
                 if (p.getId().equals(src.getId())) {
-                    i.remove();
+                    // add the new version of this person on the note
+                    newPeopleTagged.add(dst);
+                } else {
+                    newPeopleTagged.add(p);
                 }
             }
-            // add the new version of this person on the note
-            peopleTagged.add(dst);
-            n.setPeopleTagged(peopleTagged);
+            n.setPeopleTagged(newPeopleTagged);
         }
         dst.setNotes(src.getNotes());
     }
