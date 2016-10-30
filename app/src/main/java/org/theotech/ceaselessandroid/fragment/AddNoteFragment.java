@@ -53,6 +53,8 @@ public class AddNoteFragment extends Fragment {
     private String noteId = null;
     private Tracker mTracker;
 
+    private static final String TAG = AddNoteFragment.class.getSimpleName();
+
     public AddNoteFragment() {
         // Required empty public constructor
     }
