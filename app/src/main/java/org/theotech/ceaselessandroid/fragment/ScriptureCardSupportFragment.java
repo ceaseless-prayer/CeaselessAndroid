@@ -78,8 +78,9 @@ public class ScriptureCardSupportFragment extends Fragment implements ICardPageF
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareLink = scriptureData.getLink();
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, shareLink);
+                String shareContent = scriptureData.getText() + " "
+                        + scriptureData.getCitation() + " " + scriptureData.getLink();
+                sharingIntent.putExtra(Intent.EXTRA_TEXT, shareContent);
                 AnalyticsUtils.sendEventWithCategory(AnalyticsUtils.getDefaultTracker(getActivity()),
                         getString(R.string.ga_scripture_card_actions),
                         getString(R.string.ga_tapped_share_scripture),
