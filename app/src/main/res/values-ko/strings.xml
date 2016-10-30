@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Ceaseless</string>
     <string name="add_contact">연락처 추가</string>
-    <string name="bulk_selected">%s 선택됨</string>
+    <string name="bulk_selected">%d 선택됨</string>
     <string name="cancel">취소</string>
     <string name="ceaseless_logo">시슬리스 비둘기 로고</string>
     <string name="contact_us_button">시슬리스에 이메일 보내기 </string>
@@ -46,7 +46,7 @@
     <string name="person_thumbnail">연락처 사진 썸네일</string>
     <string name="person_unfavorite">마음에 안드는 연락처</string>
     <string name="person_view">사람</string>
-    <string name="prayed_for">당신은 %2$s 중 %1$s 의 사람들을 위해 기도 했다</string>
+    <string name="prayed_for">당신은 %2$d 중 %1$d 의 사람들을 위해 기도 했다</string>
     <string name="prayed_for_text">당신은 를 위해기도 했다</string>
     <string name="prayer_reminders">리마인더</string>
     <string name="prayer_settings">기도설정</string>
