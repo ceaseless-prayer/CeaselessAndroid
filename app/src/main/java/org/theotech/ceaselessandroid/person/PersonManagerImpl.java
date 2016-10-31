@@ -13,6 +13,8 @@ import com.google.android.gms.analytics.Tracker;
 
 import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.cache.CacheManager;
+import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
 import org.theotech.ceaselessandroid.realm.Note;
 import org.theotech.ceaselessandroid.realm.Person;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
@@ -47,12 +49,14 @@ public class PersonManagerImpl implements PersonManager {
     private Activity activity;
     private Realm realm;
     private ContentResolver contentResolver;
+    private CacheManager cacheManager;
     private Tracker mTracker;
 
     private PersonManagerImpl(Activity activity) {
         this.activity = activity;
         this.realm = Realm.getDefaultInstance();
         this.contentResolver = this.activity.getContentResolver();
+        this.cacheManager = LocalDailyCacheManagerImpl.getInstance(activity);
 
         // setup analytics
         CeaselessApplication application = (CeaselessApplication) activity.getApplication();
@@ -378,6 +382,7 @@ public class PersonManagerImpl implements PersonManager {
         RealmResults<Person> fullList = realm.where(Person.class)
                 .equalTo(Person.Column.ACTIVE, true)
                 .findAll();
+
         for (int i = 0; i < fullList.size(); i++) {
             Person p = fullList.get(i);
             if (!ids.contains(p.getId())) {
@@ -386,11 +391,14 @@ public class PersonManagerImpl implements PersonManager {
                 if (matchingContact != null) {
                     Log.v(TAG, "A contact with name " + p.getName() + " exists. Merging details.");
                     copyContact(p, matchingContact);
-                    // cleanup the obsolete contact
+                    // update daily cache with new ids if any persons selected for today are affected
+                    updateCachedPersonIds(p, matchingContact);
+                    // cleanup the obsolete contact (must be after we've update the cache)
                     p.removeFromRealm();
                 } else {
                     Log.v(TAG, "Marking this contact inactive because it no longer exists on the phone.");
                     p.setActive(false);
+                    updateCachedPersonIds(p, null);
                 }
             }
         }
@@ -399,6 +407,18 @@ public class PersonManagerImpl implements PersonManager {
 
         Log.d(TAG, String.format("Successfully added %d and updated %d contacts.", added, updated));
         sampleAndPostMetrics();
+    }
+
+    private void updateCachedPersonIds(Person oldContact, Person newContact) {
+        List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
+        if (personIds != null && personIds.contains(oldContact.getId())) {
+            Log.i(TAG, "Updating a selected contact in daily cache.");
+            personIds.remove(oldContact.getId());
+            if (newContact != null) {
+                personIds.add(newContact.getId());
+            }
+            cacheManager.cachePersonIdsToPrayFor(personIds);
+        }
     }
 
     private Person findPersonWithName(String name, List<Person> people) {
