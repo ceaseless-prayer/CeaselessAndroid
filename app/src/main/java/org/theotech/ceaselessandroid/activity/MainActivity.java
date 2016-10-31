@@ -110,7 +110,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getFragmentManager().beginTransaction().replace(R.id.fragment, addNoteFragment,
                     getString(R.string.nav_journal)).commit();
         } else if (Tutorial.shouldShowTutorial(this)) {
-            loadHomeTutorialFragment();
+            //loadHomeTutorialFragment();
+            // We are testing to see response rates when we disable the tutorial and jump
+            // straight to the main screen.
+            loadMainFragment();
         } else {
             loadMainFragment();
         }
