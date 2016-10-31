@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //loadHomeTutorialFragment();
             // We are testing to see response rates when we disable the tutorial and jump
             // straight to the main screen.
+            Log.i(TAG, "Skipping tutorial for testing user response.");
             loadMainFragment();
         } else {
             loadMainFragment();
