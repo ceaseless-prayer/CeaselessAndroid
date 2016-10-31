@@ -262,18 +262,16 @@ public class JournalFragment extends Fragment implements Refreshable {
                 holder.thumbnail2.setVisibility(View.VISIBLE);
 
                 if (peopleTagged.size() > 0) {
-                    Uri thumbnailUri = CommonUtils.getContactPhotoUri(context.getContentResolver(), note.getPeopleTagged().get(0), false);
                     Picasso.with(context)
-                            .load(thumbnailUri)
+                            .load(CommonUtils.getContactUri(note.getPeopleTagged().get(0)))
                             .placeholder(R.drawable.placeholder_user)
                             .fit()
                             .into(holder.thumbnail1);
                 }
 
                 if (peopleTagged.size() > 1) {
-                    Uri thumbnailUri = CommonUtils.getContactPhotoUri(context.getContentResolver(), note.getPeopleTagged().get(1), false);
                     Picasso.with(context)
-                            .load(thumbnailUri)
+                            .load(CommonUtils.getContactUri(note.getPeopleTagged().get(1)))
                             .placeholder(R.drawable.placeholder_user)
                             .fit()
                             .into(holder.thumbnail2);

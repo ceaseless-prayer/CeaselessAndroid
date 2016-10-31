@@ -145,8 +145,7 @@ public class SearchResultsActivity extends ListActivity {
             }
             final PersonPOJO person = personManager.getPerson(persons.get(position).getId());
             // thumbnail picture
-            Uri thumbnailUri = CommonUtils.getContactPhotoUri(context.getContentResolver(), person.getId(), false);
-            Picasso.with(context).load(thumbnailUri).placeholder(R.drawable.placeholder_user).fit().into(holder.personThumbnail);
+            Picasso.with(context).load(CommonUtils.getContactUri(person.getId())).placeholder(R.drawable.placeholder_user).fit().into(holder.personThumbnail);
             // person name
             holder.personListName.setText(person.getName());
 
@@ -204,18 +203,16 @@ public class SearchResultsActivity extends ListActivity {
                 holder.thumbnail2.setVisibility(View.VISIBLE);
 
                 if (peopleTagged.size() > 0) {
-                    Uri thumbnailUri = CommonUtils.getContactPhotoUri(context.getContentResolver(), note.getPeopleTagged().get(0), false);
                     Picasso.with(context)
-                            .load(thumbnailUri)
+                            .load(CommonUtils.getContactUri(note.getPeopleTagged().get(0)))
                             .placeholder(R.drawable.placeholder_user)
                             .fit()
                             .into(holder.thumbnail1);
                 }
 
                 if (peopleTagged.size() > 1) {
-                    Uri thumbnailUri = CommonUtils.getContactPhotoUri(context.getContentResolver(), note.getPeopleTagged().get(1), false);
                     Picasso.with(context)
-                            .load(thumbnailUri)
+                            .load(CommonUtils.getContactUri(note.getPeopleTagged().get(1)))
                             .placeholder(R.drawable.placeholder_user)
                             .fit()
                             .into(holder.thumbnail2);

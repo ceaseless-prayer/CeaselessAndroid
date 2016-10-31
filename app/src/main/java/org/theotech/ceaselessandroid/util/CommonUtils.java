@@ -53,33 +53,19 @@ public class CommonUtils {
 
     private static final String TAG = CommonUtils.class.getSimpleName();
 
-    public static Uri getContactPhotoUri(ContentResolver cr, String contactId, boolean highRes) {
-        Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long.parseLong(contactId));
-        Uri displayPhoto = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.DISPLAY_PHOTO);
-        Uri lowResPhoto = Uri.withAppendedPath(contactUri, ContactsContract.Contacts.Photo.CONTENT_DIRECTORY);
-        if (highRes) {
-            // check existence of high resolution photo and return low res version otherwise.
-            try {
-                AssetFileDescriptor fd = cr.openAssetFileDescriptor(displayPhoto, "r");
-                fd.close();
-            } catch (IOException e) {
-                return lowResPhoto;
-            }
-            return displayPhoto;
-        } else {
-            return lowResPhoto;
-        }
+    public static Uri getContactUri(String contactId) {
+        return ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long.parseLong(contactId));
     }
 
     public static void injectPersonIntoView(final Activity activity, final PersonManager personManager, TextView personName,
                                             RoundedImageView personImage, ListView notes, View view, final String personId,
                                             String emptyNotesMessage, final FragmentManager fragmentManager, final FragmentState backStackInfo) {
         PersonPOJO personPOJO = personManager.getPerson(personId);
-        Uri personPhotoUri = CommonUtils.getContactPhotoUri(activity.getContentResolver(), personPOJO.getId(), true);
+        Uri contactUri = getContactUri(personPOJO.getId());
 
         // display name and picture
         personName.setText(personPOJO.getName());
-        Picasso.with(activity).load(personPhotoUri).placeholder(R.drawable.placeholder_user)
+        Picasso.with(activity).load(contactUri).placeholder(R.drawable.placeholder_user)
                 .fit().centerInside().into(personImage);
 
         TextView removedLabel = (TextView) view.findViewById(R.id.person_removed_label);
