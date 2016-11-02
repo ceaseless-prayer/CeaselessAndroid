@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
             case POPULATE_CONTACTS_REQUEST_CODE:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     PersonManagerImpl.getInstance(this).populateContacts();
                 } else {
                     // Permission Denied
