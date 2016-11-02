@@ -5,15 +5,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import org.theotech.ceaselessandroid.R;
+import org.theotech.ceaselessandroid.util.FragmentUtils;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
  * Created by chrislim on 10/31/15.
  */
 public class BlankSupportFragment extends Fragment implements ICardPageFragment {
+
+    @Bind(R.id.contact_us_button)
+    Button contactUsButton;
 
     public BlankSupportFragment() {
         // Required empty public constructor
@@ -31,7 +37,12 @@ public class BlankSupportFragment extends Fragment implements ICardPageFragment 
         // create view and bind
         View view = inflater.inflate(R.layout.fragment_support_blank_card, container, false);
         ButterKnife.bind(this, view);
-
+        contactUsButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null,
+                        R.id.nav_contact_us, new FragmentState(getString(R.string.nav_home)));
+            }
+        });
         return view;
     }
 
