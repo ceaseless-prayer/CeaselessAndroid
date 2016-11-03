@@ -243,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == ADD_CONTACT_REQUEST_CODE) {
             // pick up any new contacts that have been added.

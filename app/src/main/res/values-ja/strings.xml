@@ -73,4 +73,8 @@
     <string name="twitter">ツイッターロゴ</string>
     <string name="verse_share">シェアする</string>
     <string name="default_notification_time">08:30</string>
+    <string name="contact_us_social">また、ソーシャルメディア上で私たちと一緒に接続することができます。</string>
+    <string name="day">日</string>
+    <string name="hello_blank_fragment">ごめんなさい！何かが間違っていました。</string>
+    <string name="nav_home_tutorial">Ceaseless チュートリアル</string>
 </resources>
