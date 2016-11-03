@@ -16,11 +16,13 @@
 
     <string name="reminder_notification_title">Pengingat doa:</string>
     <string name="reminder_notification_message">Doa untuk %1$s dan %2$s orang lain hari ini.</string>
+    <plurals name="number_of_other_people">
+        <item quantity="other">%d orang lain</item>
+    </plurals>
 
     <string name="verse_share">Bagikan</string>
     <string name="progress">Kemajuan</string>
     <string name="prayed_for">Anda telah berdoa untuk %1$d dari %2$d orang</string>
-    <string name="prayer_settings">Pengaturan Doa</string>
 
     <string name="prayer_reminders">Peringatan:</string>
     <string name="reminder_time_picker_title">Waktu pengingat doa:</string>
@@ -30,7 +32,7 @@
     <string name="default_notification_time">08:30</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Belum diimplementasikan</string>
+    <string name="hello_blank_fragment">Maaf, ada yang tidak beres...</string>
     <string name="cancel">Batal</string>
     <string name="ceaseless_logo">Ceaseless logo merpati</string>
     <string name="add_contact">Tambah Kontak</string>

@@ -49,7 +49,6 @@
     <string name="prayed_for">당신은 %2$d 중 %1$d 의 사람들을 위해 기도 했다</string>
     <string name="prayed_for_text">당신은 를 위해기도 했다</string>
     <string name="prayer_reminders">리마인더</string>
-    <string name="prayer_settings">기도설정</string>
     <string name="progress">진행</string>
     <string name="reminder_notification_message">오늘 %1$s 와 %2$s 를 위해 기도하세요</string>
     <string name="reminder_notification_message_default">오늘 다른 사람을 위해 기도하세요 </string>
@@ -77,4 +76,5 @@
     <string name="tutorial_watch_progress">다른 사람을 위한 기도 진행 상황 보기 </string>
     <string name="twitter">트위터 로고 </string>
     <string name="verse_share">공유</string>
+    <string name="default_verse_link">http://www.bible.is/KO1SKV/Matt/21/22</string>
 </resources>
