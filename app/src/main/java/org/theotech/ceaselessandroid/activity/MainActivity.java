@@ -3,10 +3,10 @@ package org.theotech.ceaselessandroid.activity;
 import android.Manifest;
 import android.app.Fragment;
 import android.app.backup.BackupManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -24,16 +25,16 @@ import android.widget.Toast;
 
 import org.codechimp.apprater.AppRater;
 import org.theotech.ceaselessandroid.R;
-import org.theotech.ceaselessandroid.tutorial.Tutorial;
 import org.theotech.ceaselessandroid.fragment.AddNoteFragment;
 import org.theotech.ceaselessandroid.fragment.FragmentBackStackManager;
 import org.theotech.ceaselessandroid.fragment.FragmentState;
 import org.theotech.ceaselessandroid.fragment.FragmentStateListener;
 import org.theotech.ceaselessandroid.fragment.HomeFragment;
-import org.theotech.ceaselessandroid.tutorial.HomeTutorialFragment;
 import org.theotech.ceaselessandroid.fragment.PeopleFragment;
 import org.theotech.ceaselessandroid.notification.DailyNotificationReceiver;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
+import org.theotech.ceaselessandroid.tutorial.HomeTutorialFragment;
+import org.theotech.ceaselessandroid.tutorial.Tutorial;
 import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.FragmentUtils;
@@ -179,7 +180,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     // Permission Denied
                     Toast.makeText(MainActivity.this, getString(R.string.contacts_access_required),
                             Toast.LENGTH_SHORT).show();
-                    finish();
                 }
                 break;
             default:
@@ -272,18 +272,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                     this, Manifest.permission.READ_CONTACTS)) {
                 Log.d(TAG, "Should show rationale");
-                // TODO: Display a fragment or something here.
                 // From the developers handbook:
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        populateContacts();
-                    }
-                }, 100);
+                showMessageOKCancel(getString(R.string.contacts_access_required),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                ActivityCompat.requestPermissions(MainActivity.this,
+                                        new String[]{Manifest.permission.READ_CONTACTS},
+                                        POPULATE_CONTACTS_REQUEST_CODE);
+                            }
+                        });
             } else {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.READ_CONTACTS},
@@ -292,6 +293,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             return;
         }
         PersonManagerImpl.getInstance(this).populateContacts();
+    }
+
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+
+        new AlertDialog.Builder(this, R.style.AlertDialogTheme)
+                .setMessage(message)
+                .setPositiveButton(getString(android.R.string.ok), okListener)
+                .create()
+                .show();
     }
 
     private void setNotification() {
