@@ -6,6 +6,7 @@ import android.app.backup.BackupManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -210,6 +211,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_rate_this_app) { // easter egg - option to load home fragment without using cache data
             // rate my app dialog
             AppRater.rateNow(this);
+        } else if (id == R.id.nav_subscribe_to_newsletter) {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.mailing_list_url)));
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            }
         } else {
             // replace fragment if it's not already visible
             FragmentUtils.loadFragment(this, getFragmentManager(), navigation, id, currentFragment);

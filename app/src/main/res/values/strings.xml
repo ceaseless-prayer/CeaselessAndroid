@@ -16,6 +16,8 @@
     <string name="about_url" translatable="false">http://www.ceaselessprayer.com/android_about.html</string>
     <string name="nav_contact_us">Contact Us</string>
     <string name="nav_about">About</string>
+    <string name="nav_subscribe_to_newsletter">Subscribe To Newsletter</string>
+    <string name="mailing_list_url" translatable="false">http://www.ceaselessprayer.com/ios_mailing_list.html</string>
 
     <string name="nav_rate_this_app">Rate This App</string>
     <string name="search_title">Search</string>

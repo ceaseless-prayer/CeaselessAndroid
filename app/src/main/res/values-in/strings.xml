@@ -89,5 +89,8 @@
     <string name="nav_about">Tentang</string>
     <string name="empty_notes">Tidak ada catatan</string>
     <string name="contact_us_button">Email Ceaseless</string>
+    <string name="sync_contacts">Kontak Sync</string>
+    <string name="syncing_contacts">Kontak sedang diperbarui...</string>
+    <string name="nav_subscribe_to_newsletter">Berlangganan Milis</string>
 
 </resources>
