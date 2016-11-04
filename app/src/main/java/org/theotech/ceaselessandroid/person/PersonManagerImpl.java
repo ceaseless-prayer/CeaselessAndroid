@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
 import android.util.Log;
 
 import com.google.android.gms.analytics.Tracker;
@@ -383,6 +384,8 @@ public class PersonManagerImpl implements PersonManager {
                 .equalTo(Person.Column.ACTIVE, true)
                 .findAll();
 
+        List<Pair<Person, Person>> peopleWithUpdatedIds = new ArrayList<>();
+
         for (int i = 0; i < fullList.size(); i++) {
             Person p = fullList.get(i);
             if (!ids.contains(p.getId())) {
@@ -392,18 +395,23 @@ public class PersonManagerImpl implements PersonManager {
                     Log.v(TAG, "A contact with name " + p.getName() + " exists. Merging details.");
                     copyContact(p, matchingContact);
                     // update daily cache with new ids if any persons selected for today are affected
-                    updateCachedPersonIds(p, matchingContact);
+                    peopleWithUpdatedIds.add(Pair.create(p, matchingContact));
                     // cleanup the obsolete contact (must be after we've update the cache)
                     p.removeFromRealm();
                 } else {
                     Log.v(TAG, "Marking this contact inactive because it no longer exists on the phone.");
                     p.setActive(false);
-                    updateCachedPersonIds(p, null);
+                    peopleWithUpdatedIds.add(Pair.create(p, (Person) null));
                 }
             }
         }
 
         realm.commitTransaction();
+
+        // we need to update the cache in a separate transaction
+        for (Pair<Person, Person> p : peopleWithUpdatedIds) {
+            updateCachedPersonIds(p.first, p.second);
+        }
 
         Log.d(TAG, String.format("Successfully added %d and updated %d contacts.", added, updated));
         sampleAndPostMetrics();

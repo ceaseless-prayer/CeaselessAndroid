@@ -73,6 +73,8 @@
     <string name="cancel">Cancel</string>
 
     <string name="add_contact">Add Contact</string>
+    <string name="sync_contacts">Sync Contacts</string>
+    <string name="syncing_contacts">Syncing Contacts...</string>
 
     <string name="contact_us_message">If you have any questions or feedback about Ceaseless, we\'d love to hear from you.</string>
     <string name="contact_us_social">You can also connect with us on social media.</string>

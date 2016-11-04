@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // handle navigation view item clicks here
         int id = item.getItemId();
         if (id == R.id.nav_rate_this_app) { // easter egg - option to load home fragment without using cache data
@@ -238,6 +238,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
             startActivityForResult(intent, ADD_CONTACT_REQUEST_CODE);
             return true;
+        }
+
+        if (id == R.id.sync_contacts) {
+            // Permission Denied
+            Toast.makeText(MainActivity.this, getString(R.string.syncing_contacts),
+                    Toast.LENGTH_SHORT).show();
+            populateContacts();
         }
 
         return super.onOptionsItemSelected(item);
