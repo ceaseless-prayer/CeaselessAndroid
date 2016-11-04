@@ -250,8 +250,13 @@ public class HomeFragment extends Fragment {
                     // we need at least as many people as there are slots to fill
                     if (personIds != null && personIds.size() >= position) {
                         String personId = personIds.get(position - 1);
-                        fragment = PersonSupportFragment.newInstance(personId);
-                        bundle.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
+                        PersonPOJO person = personManager.getPerson(personId);
+                        if (person == null) {
+                            fragment = new BlankSupportFragment();
+                        } else {
+                            fragment = PersonSupportFragment.newInstance(personId);
+                            bundle.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
+                        }
                     } else {
                         fragment = new BlankSupportFragment();
                     }
