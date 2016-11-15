@@ -384,7 +384,7 @@ public class PersonManagerImpl implements PersonManager {
                 .equalTo(Person.Column.ACTIVE, true)
                 .findAll();
 
-        List<Pair<Person, Person>> peopleWithUpdatedIds = new ArrayList<>();
+        List<Pair<String, Person>> peopleWithUpdatedIds = new ArrayList<>();
 
         for (int i = 0; i < fullList.size(); i++) {
             Person p = fullList.get(i);
@@ -395,13 +395,13 @@ public class PersonManagerImpl implements PersonManager {
                     Log.v(TAG, "A contact with name " + p.getName() + " exists. Merging details.");
                     copyContact(p, matchingContact);
                     // update daily cache with new ids if any persons selected for today are affected
-                    peopleWithUpdatedIds.add(Pair.create(p, matchingContact));
+                    peopleWithUpdatedIds.add(Pair.create(p.getId(), matchingContact));
                     // cleanup the obsolete contact (must be after we've update the cache)
                     p.removeFromRealm();
                 } else {
                     Log.v(TAG, "Marking this contact inactive because it no longer exists on the phone.");
                     p.setActive(false);
-                    peopleWithUpdatedIds.add(Pair.create(p, (Person) null));
+                    peopleWithUpdatedIds.add(Pair.create(p.getId(), (Person) null));
                 }
             }
         }
@@ -409,7 +409,7 @@ public class PersonManagerImpl implements PersonManager {
         realm.commitTransaction();
 
         // we need to update the cache in a separate transaction
-        for (Pair<Person, Person> p : peopleWithUpdatedIds) {
+        for (Pair<String, Person> p : peopleWithUpdatedIds) {
             updateCachedPersonIds(p.first, p.second);
         }
 
@@ -417,11 +417,11 @@ public class PersonManagerImpl implements PersonManager {
         sampleAndPostMetrics();
     }
 
-    private void updateCachedPersonIds(Person oldContact, Person newContact) {
+    private void updateCachedPersonIds(String oldContactId, Person newContact) {
         List<String> personIds = cacheManager.getCachedPersonIdsToPrayFor();
-        if (personIds != null && personIds.contains(oldContact.getId())) {
+        if (personIds != null && personIds.contains(oldContactId)) {
             Log.i(TAG, "Updating a selected contact in daily cache.");
-            personIds.remove(oldContact.getId());
+            personIds.remove(oldContactId);
             if (newContact != null) {
                 personIds.add(newContact.getId());
             }
