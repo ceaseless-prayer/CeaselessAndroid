@@ -28,7 +28,7 @@ android {
         applicationId "org.theotech.ceaselessandroid"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 13
+        versionCode 14
         versionName "1.0.1"
         // blur effects https://android-arsenal.com/details/1/2192
         // Warning: Renderscript support mode is not currently supported with renderscript target 21+
