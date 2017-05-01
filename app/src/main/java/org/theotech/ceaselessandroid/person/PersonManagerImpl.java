@@ -175,6 +175,7 @@ public class PersonManagerImpl implements PersonManager {
         RealmResults<Person> favoritedPeople = realm.where(Person.class)
                 .equalTo(Person.Column.ACTIVE, true)
                 .equalTo(Person.Column.FAVORITE, true)
+                .equalTo(Person.Column.IGNORED, false)
                 .findAllSorted(Person.Column.LAST_PRAYED);
 
         if (favoritedPeople.size() > 0) {
