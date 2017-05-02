@@ -43,7 +43,7 @@ import io.realm.RealmResults;
 public class PersonManagerImpl implements PersonManager {
     private static final String TAG = PersonManagerImpl.class.getSimpleName();
     private static final String CONTACTS_SOURCE = "Contacts";
-    private static final int RANDOM_FAVORITE_THRESHOLD = 5;
+    private static final int RANDOM_FAVORITE_THRESHOLD = 7;
     private static final int RANDOM_SAMPLE_POST_METRICS = 2;
 
     private static PersonManager instance;
@@ -180,7 +180,6 @@ public class PersonManagerImpl implements PersonManager {
 
         if (favoritedPeople.size() > 0) {
             if (favoritedPeople.size() < RANDOM_FAVORITE_THRESHOLD) {
-                // 1/4 chance of getting a favorited person
                 Random random = new Random();
                 if (random.nextInt(RANDOM_FAVORITE_THRESHOLD) == 0) {
                     return favoritedPeople.get(0);
