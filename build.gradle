@@ -21,6 +21,19 @@ allprojects {
     }
 }
 
+
+// Following answer from here: http://stackoverflow.com/questions/42581963/all-com-android-support-libraries-must-use-the-exact-same-version
+subprojects {
+    project.configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == 'com.android.support'
+                    && !details.requested.name.contains('multidex') ) {
+                details.useVersion "$supportlib_version"
+            }
+        }
+    }
+}
+
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
@@ -29,4 +42,5 @@ ext {
     travisBuild = System.getenv("TRAVIS") == "true"
     // allows for -Dpre-dex=false to be set
     preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
+    supportlib_version = '25.3.1'
 }
