@@ -112,9 +112,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getFragmentManager().beginTransaction().replace(R.id.fragment, addNoteFragment,
                     getString(R.string.nav_journal)).commit();
         } else if (Tutorial.shouldShowTutorial(this)) {
-            //loadHomeTutorialFragment();
-            // We are testing to see response rates when we disable the tutorial and jump
-            // straight to the main screen.
+            loadHomeTutorialFragment();
             Log.i(TAG, "Skipping tutorial for testing user response.");
             loadMainFragment();
         } else {
@@ -155,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         toggle.syncState();
 
