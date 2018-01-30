@@ -32,18 +32,18 @@ import org.theotech.ceaselessandroid.view.PersonsCompletionView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AddNoteFragment extends Fragment {
 
-    @Bind(R.id.note_tags)
+    @BindView(R.id.note_tags)
     PersonsCompletionView noteTags;
-    @Bind(R.id.add_note_text)
+    @BindView(R.id.add_note_text)
     EditText noteText;
-    @Bind(R.id.cancel_note)
+    @BindView(R.id.cancel_note)
     Button cancelNote;
-    @Bind(R.id.save_note)
+    @BindView(R.id.save_note)
     Button saveNote;
 
     private List<PersonPOJO> taggedPeople = new ArrayList<>();

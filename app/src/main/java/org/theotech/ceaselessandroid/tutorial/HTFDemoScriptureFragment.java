@@ -23,7 +23,7 @@ import org.theotech.ceaselessandroid.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
@@ -34,23 +34,23 @@ import jp.wasabeef.picasso.transformations.BlurTransformation;
 public class HTFDemoScriptureFragment extends Fragment implements HTFDemoFragment {
     private static final String TAG = HTFDemoScriptureFragment.class.getSimpleName();
 
-    @Bind(R.id.verse_image)
+    @BindView(R.id.verse_image)
     ImageView verseImage;
-    @Bind(R.id.verse_image_reflection)
+    @BindView(R.id.verse_image_reflection)
     ImageView verseImageReflection;
-    @Bind(R.id.verse_title_and_share)
+    @BindView(R.id.verse_title_and_share)
     LinearLayout verseTitleAndShare;
-    @Bind(R.id.verse_title)
+    @BindView(R.id.verse_title)
     TextView verseTitle;
-    @Bind(R.id.verse_text)
+    @BindView(R.id.verse_text)
     TextView verseText;
-    @Bind(R.id.right_arrow)
+    @BindView(R.id.right_arrow)
     TextView rightArrow;
-    @Bind(R.id.tool_tip_layout)
+    @BindView(R.id.tool_tip_layout)
     LinearLayout toolTipLayout;
-    @Bind(R.id.learn_from_scripture)
+    @BindView(R.id.learn_from_scripture)
     RelativeLayout learnFromScripture;
-    @Bind(R.id.swipe_to_continue)
+    @BindView(R.id.swipe_to_continue)
     RelativeLayout swipeToContinue;
 
     ViewPager parentViewPager;

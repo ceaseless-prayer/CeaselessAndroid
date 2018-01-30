@@ -27,7 +27,7 @@ import com.squareup.picasso.Picasso;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.util.Constants;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -37,33 +37,33 @@ import butterknife.ButterKnife;
 public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
     private static final String TAG = HTFDemoPersonFragment.class.getSimpleName();
 
-    @Bind(R.id.person_name)
+    @BindView(R.id.person_name)
     TextView personName;
-    @Bind(R.id.person_image)
+    @BindView(R.id.person_image)
     RoundedImageView personImage;
 
-    @Bind(R.id.tool_tip_overlay)
+    @BindView(R.id.tool_tip_overlay)
     LinearLayout toolTipOverlay;
-    @Bind(R.id.person_image_overlay)
+    @BindView(R.id.person_image_overlay)
     View personImageOverlay;
 
-    @Bind(R.id.favorite_tooltip)
+    @BindView(R.id.favorite_tooltip)
     RelativeLayout favoriteTooltip;
-    @Bind(R.id.message_tooltip)
+    @BindView(R.id.message_tooltip)
     RelativeLayout messageTooltip;
-    @Bind(R.id.add_note_tooltip)
+    @BindView(R.id.add_note_tooltip)
     RelativeLayout addNoteTooltip;
 
-    @Bind(R.id.tool_tip_one)
+    @BindView(R.id.tool_tip_one)
     RelativeLayout toolTipOne;
-    @Bind(R.id.tool_tip_two)
+    @BindView(R.id.tool_tip_two)
     TextView toolTipTwo;
-    @Bind(R.id.tool_tip_four)
+    @BindView(R.id.tool_tip_four)
     LinearLayout toolTipFour;
 
-    @Bind(R.id.up_arrow)
+    @BindView(R.id.up_arrow)
     IconTextView upArrow;
-    @Bind(R.id.right_arrow)
+    @BindView(R.id.right_arrow)
     IconTextView rightArrow;
 
     private boolean showToolTip;

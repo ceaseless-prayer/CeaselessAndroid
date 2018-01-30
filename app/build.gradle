@@ -23,13 +23,13 @@ repositories {
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "org.theotech.ceaselessandroid"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 15
-        versionName "1.0.2"
+        versionCode 16
+        versionName "1.0.3"
     }
     buildTypes {
         release {
@@ -65,7 +65,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile('com.crashlytics.sdk.android:crashlytics:2.5.2@aar') {
-        transitive = true;
+        transitive = true
     }
 
     compile "com.android.support:appcompat-v7:$supportlib_version"
@@ -74,7 +74,7 @@ dependencies {
     compile "com.android.support:recyclerview-v7:$supportlib_version"
     compile 'com.github.codechimp-org.apprater:library:1.0.30'
     compile 'com.google.guava:guava:20.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.jakewharton:butterknife:8.8.1'
     compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.0'
     compile 'com.makeramen:roundedimageview:2.2.1'
     compile 'com.splitwise:tokenautocomplete:2.0.7@aar'
@@ -83,9 +83,12 @@ dependencies {
     compile 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
     compile 'io.realm:realm-android:0.84.2'
     compile 'jp.wasabeef:picasso-transformations:2.1.1'
-    compile 'com.google.android.gms:play-services-analytics:10.2.4'
+    compile 'com.google.android.gms:play-services-analytics:11.8.0'
     compile 'com.commonsware.cwac:merge:1.1.+'
     compile "com.android.support:support-v4:$supportlib_version"
+
+    annotationProcessor 'io.realm:realm-android:0.84.2'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
 
 task checkstyle(type: Checkstyle) {

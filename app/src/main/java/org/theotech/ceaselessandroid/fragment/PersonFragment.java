@@ -21,19 +21,19 @@ import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PersonFragment extends Fragment {
 
     private static final String TAG = PersonFragment.class.getSimpleName();
-    @Bind(R.id.person_name)
+    @BindView(R.id.person_name)
     TextView personName;
-    @Bind(R.id.person_image)
+    @BindView(R.id.person_image)
     RoundedImageView personImage;
-    @Bind(R.id.person_notes_list)
+    @BindView(R.id.person_notes_list)
     ListView notes;
-    @Bind(R.id.note_btn)
+    @BindView(R.id.note_btn)
     IconTextView noteButton;
 
     private FragmentStateListener mListener;

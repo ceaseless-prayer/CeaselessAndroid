@@ -27,24 +27,24 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 public class ScriptureCardSupportFragment extends Fragment implements ICardPageFragment {
     private static final String TAG = ScriptureCardSupportFragment.class.getSimpleName();
 
-    @Bind(R.id.verse_image)
+    @BindView(R.id.verse_image)
     ImageView verseImage;
-    @Bind(R.id.verse_image_reflection)
+    @BindView(R.id.verse_image_reflection)
     ImageView verseImageReflection;
-    @Bind(R.id.verse_text_container)
+    @BindView(R.id.verse_text_container)
     RelativeLayout verseTextContainer;
-    @Bind(R.id.verse_title)
+    @BindView(R.id.verse_title)
     TextView verseTitle;
-    @Bind(R.id.verse_text)
+    @BindView(R.id.verse_text)
     TextView verseText;
-    @Bind(R.id.verse_share)
+    @BindView(R.id.verse_share)
     IconTextView verseShare;
 
     private CacheManager cacheManager = null;

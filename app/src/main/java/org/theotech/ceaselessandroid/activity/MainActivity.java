@@ -40,7 +40,7 @@ import org.theotech.ceaselessandroid.util.CommonUtils;
 import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.FragmentUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
@@ -51,13 +51,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private static final int ADD_CONTACT_REQUEST_CODE = 2;
     private boolean homeFragmentCreated = false;
 
-    @Bind(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @Bind(R.id.drawer_layout)
+    @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
-    @Bind(R.id.nav_view)
+    @BindView(R.id.nav_view)
     NavigationView navigation;
-    @Bind(R.id.backgroundImageView)
+    @BindView(R.id.backgroundImageView)
     ImageView backgroundImageView;
 
     private FragmentBackStackManager backStackManager;

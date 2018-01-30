@@ -17,7 +17,7 @@ import com.joanzapata.iconify.widget.IconTextView;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.activity.MainActivity;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -26,18 +26,18 @@ import butterknife.ButterKnife;
 
 public class HTFDemoProgressFragment extends Fragment implements HTFDemoFragment {
     private static final String TAG = HTFDemoProgressFragment.class.getSimpleName();
-    @Bind(R.id.prayed_for_text)
+    @BindView(R.id.prayed_for_text)
     TextView prayedFor;
-    @Bind(R.id.prayer_progress)
+    @BindView(R.id.prayer_progress)
     ProgressBar progress;
-    @Bind(R.id.number_of_days_praying)
+    @BindView(R.id.number_of_days_praying)
     TextView numberOfDaysPraying;
-    @Bind(R.id.watch_progress_arrow)
+    @BindView(R.id.watch_progress_arrow)
     IconTextView watchProgressArrow;
-    @Bind(R.id.watch_progress_text)
+    @BindView(R.id.watch_progress_text)
     TextView watchProgressText;
 
-    @Bind(R.id.exit_button)
+    @BindView(R.id.exit_button)
     Button exitButton;
 
     public HTFDemoProgressFragment() {

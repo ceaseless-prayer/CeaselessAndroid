@@ -44,16 +44,16 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class JournalFragment extends Fragment implements Refreshable {
 
     private static final String TAG = JournalFragment.class.getSimpleName();
 
-    @Bind(R.id.journal)
+    @BindView(R.id.journal)
     ListView journal;
-    @Bind(R.id.empty_journal_notes)
+    @BindView(R.id.empty_journal_notes)
     TextView emptyNotes;
     private FragmentStateListener mListener;
     private NoteManager noteManager = null;

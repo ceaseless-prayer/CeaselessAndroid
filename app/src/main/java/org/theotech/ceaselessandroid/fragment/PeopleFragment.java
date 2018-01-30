@@ -29,19 +29,19 @@ import org.theotech.ceaselessandroid.util.Container;
 import org.theotech.ceaselessandroid.util.FragmentUtils;
 import org.theotech.ceaselessandroid.util.Refreshable;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PeopleFragment extends Fragment {
     private static final String TAG = PeopleFragment.class.getSimpleName();
     private final Handler handler = new Handler();
-    @Bind(R.id.people_view)
+    @BindView(R.id.people_view)
     ViewPager viewPager;
-    @Bind(R.id.people_indicator)
+    @BindView(R.id.people_indicator)
     UnderlinePageIndicator indicator;
-    @Bind(R.id.people_active_tab)
+    @BindView(R.id.people_active_tab)
     TextView activeTab;
-    @Bind(R.id.people_removed_tab)
+    @BindView(R.id.people_removed_tab)
     TextView removedTab;
     private String[] TABS;
     private Runnable runPager;

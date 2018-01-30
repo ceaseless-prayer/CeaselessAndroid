@@ -21,20 +21,20 @@ import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.FragmentUtils;
 import org.theotech.ceaselessandroid.util.Installation;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ProgressCardSupportFragment extends Fragment implements ICardPageFragment {
     private static final String TAG = ProgressCardSupportFragment.class.getSimpleName();
-    @Bind(R.id.prayed_for_text)
+    @BindView(R.id.prayed_for_text)
     TextView prayedFor;
-    @Bind(R.id.prayer_progress)
+    @BindView(R.id.prayer_progress)
     ProgressBar progress;
-    @Bind(R.id.show_more_people)
+    @BindView(R.id.show_more_people)
     LinearLayout showMorePeople;
-    @Bind(R.id.progress_card_background)
+    @BindView(R.id.progress_card_background)
     ImageView progressCardBackground;
-    @Bind(R.id.number_of_days_praying)
+    @BindView(R.id.number_of_days_praying)
     TextView numberOfDaysPraying;
 
     private PersonManager personManager = null;

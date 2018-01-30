@@ -12,7 +12,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -51,15 +50,15 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class HomeFragment extends Fragment {
     private static final String TAG = HomeFragment.class.getSimpleName();
 
-    @Bind(R.id.home_view)
+    @BindView(R.id.home_view)
     ViewPager viewPager;
-    @Bind(R.id.home_indicator)
+    @BindView(R.id.home_indicator)
     CirclePageIndicator indicator;
 
     private MainActivity activity;
@@ -236,7 +235,7 @@ public class HomeFragment extends Fragment {
     }
 
     private FragmentStatePagerAdapter getFragmentStatePagerAdapter() {
-        return new FragmentStatePagerAdapter(((AppCompatActivity) activity).getSupportFragmentManager()) {
+        return new FragmentStatePagerAdapter(activity.getSupportFragmentManager()) {
             @Override
             public android.support.v4.app.Fragment getItem(int position) {
                 android.support.v4.app.Fragment fragment;

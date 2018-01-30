@@ -24,7 +24,7 @@ import org.theotech.ceaselessandroid.transformer.ZoomOutPageTransformer;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -34,9 +34,9 @@ import butterknife.ButterKnife;
 public class HomeTutorialFragment extends Fragment {
     private static final String TAG = HomeTutorialFragment.class.getSimpleName();
     private static final Integer CARD_COUNT = 3;
-    @Bind(R.id.tutorial_viewpager)
+    @BindView(R.id.tutorial_viewpager)
     ViewPager viewPager;
-    @Bind(R.id.tutorial_indicator)
+    @BindView(R.id.tutorial_indicator)
     CirclePageIndicator indicator;
 
     private FragmentStateListener mListener;

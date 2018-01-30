@@ -34,7 +34,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -46,11 +46,11 @@ public class SearchResultsActivity extends ListActivity {
     PersonManager personManager;
     NoteManager noteManager;
 
-    @Bind(R.id.backgroundImageView)
+    @BindView(R.id.backgroundImageView)
     ImageView backgroundImageView;
-    @Bind(R.id.search_toolbar)
+    @BindView(R.id.search_toolbar)
     Toolbar search_toolbar;
-    @Bind(R.id.search_back_btn)
+    @BindView(R.id.search_back_btn)
     IconTextView search_back_btn;
 
     @Override

@@ -10,15 +10,16 @@ import android.widget.Button;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.util.FragmentUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * Created by chrislim on 10/31/15.
+ * A blank placeholder card.
  */
 public class BlankSupportFragment extends Fragment implements ICardPageFragment {
 
-    @Bind(R.id.contact_us_button)
+    @BindView(R.id.contact_us_button)
     Button contactUsButton;
 
     public BlankSupportFragment() {

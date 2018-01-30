@@ -19,7 +19,7 @@ import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -27,11 +27,11 @@ import butterknife.ButterKnife;
  */
 public class ContactUsFragment extends Fragment {
 
-    @Bind(R.id.contact_us_button)
+    @BindView(R.id.contact_us_button)
     TextView contactUsButton;
-    @Bind(R.id.fb_image)
+    @BindView(R.id.fb_image)
     ImageView fbImage;
-    @Bind(R.id.twitter_image)
+    @BindView(R.id.twitter_image)
     ImageView twitterImage;
 
     private FragmentStateListener mListener;

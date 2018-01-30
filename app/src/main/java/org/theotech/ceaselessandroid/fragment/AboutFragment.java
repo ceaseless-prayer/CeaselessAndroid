@@ -17,12 +17,12 @@ import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AboutFragment extends Fragment {
 
-    @Bind(R.id.helpWebView)
+    @BindView(R.id.helpWebView)
     WebView aboutWV;
 
     private FragmentStateListener mListener;

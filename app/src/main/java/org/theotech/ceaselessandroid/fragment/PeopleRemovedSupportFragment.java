@@ -31,13 +31,13 @@ import org.theotech.ceaselessandroid.util.Refreshable;
 
 import java.util.List;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PeopleRemovedSupportFragment extends Fragment implements Refreshable {
     private static final String TAG = PeopleRemovedSupportFragment.class.getSimpleName();
 
-    @Bind(R.id.people_removed)
+    @BindView(R.id.people_removed)
     ListView peopleRemoved;
 
     private PersonManager personManager;
