@@ -100,13 +100,6 @@ public class JournalFragment extends Fragment implements Refreshable {
 
         // display notes
         final List<NotePOJO> notePOJOs = noteManager.getNotes();
-        // TODO take care of this in the realm query?
-        Collections.sort(notePOJOs, new Comparator<NotePOJO>() { // sort by latest first
-            @Override
-            public int compare(NotePOJO lhs, NotePOJO rhs) {
-                return -1 * lhs.getLastUpdatedDate().compareTo(rhs.getLastUpdatedDate());
-            }
-        });
 
         if (notePOJOs.isEmpty()) {
             emptyNotes.setText(getString(R.string.empty_notes));

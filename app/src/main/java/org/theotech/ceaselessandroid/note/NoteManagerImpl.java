@@ -11,6 +11,7 @@ import org.theotech.ceaselessandroid.realm.pojo.NotePOJO;
 import org.theotech.ceaselessandroid.realm.pojo.PersonPOJO;
 import org.theotech.ceaselessandroid.util.RealmUtils;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -43,9 +44,12 @@ public class NoteManagerImpl implements NoteManager {
 
     @Override
     public List<NotePOJO> getNotes() {
-        return RealmUtils.toNotePOJOs(realm.where(Note.class)
+        List<NotePOJO> notes = RealmUtils.toNotePOJOs(realm.where(Note.class)
                 .equalTo(Note.Column.ACTIVE, true)
                 .findAllSorted(Note.Column.LAST_UPDATED_DATE));
+        // reverse collection to put most recent first
+        Collections.reverse(notes);
+        return notes;
     }
 
     @Override
