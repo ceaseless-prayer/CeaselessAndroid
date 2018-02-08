@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/nav_top"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/nav_home" />
+        <item
+            android:id="@+id/nav_people"
+            android:icon="@drawable/ic_people_black_24dp"
+            android:title="@string/nav_people" />
+        <item
+            android:id="@+id/nav_journal"
+            android:icon="@drawable/ic_subject_black_24dp"
+            android:title="@string/nav_journal" />
+    </group>
+
+    <group
+        android:id="@+id/nav_middle"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/nav_settings" />
+        <item
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_help_black_24dp"
+            android:title="@string/nav_help" />
+        <item
+            android:id="@+id/nav_contact_us"
+            android:icon="@drawable/ic_announcement_black_24dp"
+            android:title="@string/nav_contact_us" />
+    </group>
+
+    <group
+        android:id="@+id/nav_bottom"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_rate_this_app"
+            android:icon="@drawable/ic_star_rate_black_18dp"
+            android:title="@string/nav_rate_this_app" />
+        <item
+            android:id="@+id/nav_subscribe_to_newsletter"
+            android:icon="@drawable/ic_email_black_24dp"
+            android:title="@string/nav_subscribe_to_newsletter" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info"
+            android:title="@string/nav_about" />
+    </group>
+
+</menu>

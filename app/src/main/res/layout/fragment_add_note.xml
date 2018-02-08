@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparentBackground"
+    android:orientation="vertical"
+    tools:context="org.theotech.ceaselessandroid.fragment.AddNoteFragment"
+    android:id="@+id/add_note_fragment">
+
+    <org.theotech.ceaselessandroid.view.PersonsCompletionView
+        android:id="@+id/note_tags"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:hint="@string/note_tag_hint"
+        android:textColorHint="@color/hintTextColor"
+        android:textColor="@color/cardTextColor"
+        android:lines="2" />
+
+    <LinearLayout
+        android:id="@+id/note_buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/add_note_action_height"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/cancel_note"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@color/transparentBackground"
+            android:text="@string/cancel"
+            android:textColor="@color/buttonTextColor" />
+
+        <Button
+            android:id="@+id/save_note"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@color/transparentBackground"
+            android:textColor="@color/buttonTextColor"
+            android:text="@string/save" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/add_note_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/note_buttons"
+        android:layout_below="@id/note_tags"
+        android:gravity="top|start"
+        android:textColor="@color/cardTextColor"
+        android:textColorHint="@color/hintTextColor"
+        android:hint="@string/note_content_hint"
+        android:inputType="text|textCapSentences|textMultiLine" />
+
+</RelativeLayout>

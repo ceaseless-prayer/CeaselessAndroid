@@ -1,0 +1,45 @@
+{
+  "project_info": {
+    "project_id": "ceaseless-44b7f",
+    "project_number": "276621012817",
+    "name": "ceaseless"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276621012817:android:0c4350c761806b53",
+        "client_id": "android:org.theotech.ceaselessandroid",
+        "client_type": 1,
+        "android_client_info": {
+          "package_name": "org.theotech.ceaselessandroid"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [{"current_key":""}],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-44378341-3"
+          }
+        },
+        "cloud_messaging_service": {
+          "status": 1,
+          "apns_config": []
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "google_signin_service": {
+          "status": 1
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "client_info": [],
+  "ARTIFACT_VERSION": "1"
+}

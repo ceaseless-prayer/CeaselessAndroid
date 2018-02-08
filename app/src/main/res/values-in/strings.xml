@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ceaseless</string>
+
+    <string name="nav_home">Tempat Asal</string>
+    <string name="nav_people">Orang-Orang</string>
+
+    <string name="nav_settings">Konfigurasi</string>
+    <string name="nav_help">Bantuan</string>
+    <string name="nav_contact_us">Hubungi kami</string>
+
+    <string name="nav_rate_this_app">Nilai Aplikasi ini</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="reminder_notification_title">Pengingat doa:</string>
+    <string name="reminder_notification_message">Doa untuk %1$s dan %2$s orang lain hari ini.</string>
+    <plurals name="number_of_other_people">
+        <item quantity="other">%d orang lain</item>
+    </plurals>
+
+    <string name="verse_share">Bagikan</string>
+    <string name="progress">Kemajuan</string>
+    <string name="prayed_for">Anda telah berdoa untuk %1$d dari %2$d orang</string>
+
+    <string name="prayer_reminders">Peringatan:</string>
+    <string name="reminder_time_picker_title">Waktu pengingat doa:</string>
+    <string name="reminder_time_picker_dialog_title">Mengedit waktu pengingat:</string>
+    <string name="reminders_on_text">Pengingat nyala</string>
+    <string name="reminders_off_text">Pengingat mati</string>
+    <string name="default_notification_time">08:30</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Maaf, ada yang tidak beres...</string>
+    <string name="cancel">Batal</string>
+    <string name="ceaseless_logo">Ceaseless logo merpati</string>
+    <string name="add_contact">Tambah Kontak</string>
+    <string name="bulk_selected">%d Terpilih</string>
+    <string name="contact_us_message">Jika Anda memiliki pertanyaan atau umpan balik tentang Ceaseless, kami senang mendengar dari Anda.</string>
+    <string name="contact_us_social">Anda juga dapat terhubung dengan kami di media sosial.</string>
+    <string name="contact_us_web">Kunjungi kami di web: <a href="http://www.ceaselessprayer.com">ceaselessprayer.com</a></string>
+    <string name="contacts_access_required">Ceaseless membutuhkan akses ke knotak untuk menunjukkan siapa  yang di doakan.</string>
+    <string name="day">Hari</string>
+    <string name="default_verse_citation">Matius 21:22 NTV</string>
+    <string name="default_verse_text">Dan apa saja yang kamu minta dalam doa dengan penuh kepercayaan, kamu akan menerimanya.</string>
+    <string name="default_verse_link">http://www.bible.is/INZNTV/Matt/21/22</string>
+    <string name="home_tutorial_intro">Mulai Berdoa untuk Teman</string>
+    <string name="nav_home_tutorial">Belajar Ceaseless</string>
+    <string name="nav_journal">Journal</string>
+    <string name="no_results_msg">Tidak ada hasil</string>
+    <string name="note_content_hint">Masukkan catatan</string>
+    <string name="note_tag_hint">Ketuk untuk menandai orang</string>
+    <string name="number_of_people_each_day">Jumlah orang yang akan di doakan setiap hari:</string>
+    <string name="people_active">Aktif</string>
+    <string name="people_removed">Dihapus</string>
+    <string name="person_add_note">Menambahkan Catatan</string>
+    <string name="person_add_to_ceaseless">Tambahkan ke Ceaseless</string>
+    <string name="person_favorite">Favorit Kontak</string>
+    <string name="person_image">Foto Kontak</string>
+    <string name="person_invite">Mengundang ke Ceaseless</string>
+    <string name="person_reactivate">Mengaktifkan kembali</string>
+    <string name="person_remove">Menghapus</string>
+    <string name="person_remove_from_ceaseless">Menghapus dari Ceaseless</string>
+    <string name="person_send_message">Mengirim pesan</string>
+    <string name="person_thumbnail">Foto kontak thumbnail</string>
+    <string name="person_unfavorite">Tidak Favorit Kontak</string>
+    <string name="person_view">Orang</string>
+    <string name="prayed_for_text">Anda telah berdoa untuk</string>
+    <string name="reminder_notification_message_default">Ingat untuk berdoa bagi orang lain hari ini.</string>
+    <string name="save">Menyimpan</string>
+    <string name="scenic_photo">Foto pemandangan</string>
+    <string name="scripture_tutorial_explanation">Belajar berdoa dari Alkitab</string>
+    <string name="search_hint">Mencari kontat dan catatan</string>
+    <string name="search_title">Mencari</string>
+    <string name="show_more_people">Menunjukkan orang lagi</string>
+    <string name="skip_tutorial_text">Melewatkan tutorial</string>
+    <string name="start_tutorial_text">Mulai tutorial</string>
+    <string name="tutorial_add_note">Menulis catatan pribadi sehingga Anda ingat bagaimana berdoa untuk orang ini.</string>
+    <string name="tutorial_favorite_person">Favorit orang ini jika dia penting</string>
+    <string name="tutorial_person_name">Sahabatmu</string>
+    <string name="tutorial_send_message">Kirim pesan untuk memberi semangat orang ini</string>
+    <string name="tutorial_swipe_to_see_person">Menggesek untuk melihat siapa di doakan</string>
+    <string name="tutorial_swipe_to_view_progress">Menggesek untuk melihat kemajuan</string>
+    <string name="tutorial_tap_anywhere_to_hide_menu">Taken di mana saja untuk melanjutkan</string>
+    <string name="tutorial_tap_picture_for_actions">Tekan gambar untuk melihat tindakan yang dapat dilakukan setelah berdoa</string>
+    <string name="tutorial_watch_progress">Melihat kemajuan Anda berdoa untuk orang lain</string>
+    <string name="twitter">logo Twitter</string>
+    <string name="nav_about">Tentang</string>
+    <string name="empty_notes">Tidak ada catatan</string>
+    <string name="contact_us_button">Email Ceaseless</string>
+    <string name="sync_contacts">Kontak Sync</string>
+    <string name="syncing_contacts">Kontak sedang diperbarui...</string>
+    <string name="nav_subscribe_to_newsletter">Berlangganan Milis</string>
+
+</resources>

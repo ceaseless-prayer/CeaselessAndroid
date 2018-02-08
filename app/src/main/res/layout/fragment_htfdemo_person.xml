@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.theotech.ceaselessandroid.tutorial.HTFDemoPersonFragment">
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/person_card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/card_vertical_margin"
+        android:layout_marginLeft="@dimen/card_horizontal_margin"
+        android:layout_marginRight="@dimen/card_horizontal_margin"
+        android:layout_marginTop="@dimen/card_vertical_margin"
+        card_view:cardCornerRadius="@dimen/card_corner_radius"
+        card_view:cardElevation="@dimen/card_elevation"
+        card_view:cardBackgroundColor="@color/cardBackground">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/person_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/person_name_height"
+                android:gravity="center"
+                android:textColor="@color/cardTextColor"
+                android:textSize="@dimen/person_name_text_size"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/card_separator_height"
+                android:background="@color/hintTextColor" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/person_image"
+                    android:layout_width="@dimen/person_image_size"
+                    android:layout_height="@dimen/person_image_size"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:contentDescription="@string/person_image"
+                    app:riv_corner_radius="@dimen/person_image_corner_radius" />
+
+                <TextView
+                    android:id="@+id/person_removed_label"
+                    android:layout_width="@dimen/person_image_size"
+                    android:layout_height="@dimen/person_removed_overlay_height"
+                    android:layout_alignBottom="@+id/person_image"
+                    android:layout_alignLeft="@+id/person_image"
+                    android:textAlignment="center"
+                    android:visibility="invisible"
+                    android:background="@color/cardBackground"
+                    android:textColor="@color/cardTextColor"
+                    android:textSize="@dimen/person_removed_overlay_text_size"
+                    android:text="@string/people_removed"/>
+
+                <LinearLayout
+                    android:layout_width="@dimen/person_card_shortcut_size"
+                    android:layout_height="@dimen/person_image_size"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/person_image"
+                    android:layout_marginLeft="@dimen/person_card_shortcut_left_margin"
+                    android:orientation="vertical">
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:id="@+id/favorite_btn"
+                        android:layout_width="@dimen/person_card_shortcut_size"
+                        android:layout_height="@dimen/person_card_shortcut_size"
+                        android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                        android:gravity="center"
+                        android:text="{fa-heart-o}"
+                        android:textSize="@dimen/favorite_icon_font_size"
+                        android:textColor="@color/cardTextColor"/>
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:id="@+id/message_btn"
+                        android:layout_width="@dimen/person_card_shortcut_size"
+                        android:layout_height="@dimen/person_card_shortcut_size"
+                        android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                        android:gravity="center"
+                        android:text="{fa-paper-plane}"
+                        android:textSize="@dimen/favorite_icon_font_size"
+                        android:textColor="@color/cardTextColor"/>
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:id="@+id/note_btn"
+                        android:layout_width="@dimen/person_card_shortcut_size"
+                        android:layout_height="@dimen/person_card_shortcut_size"
+                        android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                        android:gravity="center"
+                        android:text="{fa-pencil}"
+                        android:textSize="@dimen/favorite_icon_font_size"
+                        android:textColor="@color/cardTextColor"/>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/card_separator_height"
+                android:background="@color/hintTextColor" />
+
+            <ListView
+                android:id="@+id/person_notes_list"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:divider="@color/listDividerColor"
+                android:dividerHeight="@dimen/note_list_divider_height"
+                android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"/>
+
+            <ListView
+                android:id="@+id/empty_person_notes"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <!-- Tooltips specified here -->
+        <LinearLayout
+            android:id="@+id/tool_tip_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="invisible">
+
+            <!-- These views cover the person name, separator and padding/margin around the profile picture -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/person_name_height"
+                android:background="@color/tooltipBackgroundTint" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/card_separator_height"
+                android:background="@color/tooltipBackgroundTint"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/activity_vertical_margin"
+                android:background="@color/tooltipBackgroundTint" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- this covers up the person image -->
+                <View
+                    android:id="@+id/person_image_overlay"
+                    android:layout_width="@dimen/person_image_size"
+                    android:layout_height="@dimen/person_image_size"
+                    android:layout_centerInParent="true"
+                    android:background="@color/tooltipBackgroundTint" />
+
+                <!-- this covers the margins for the person image -->
+                <View
+                    android:id="@+id/person_list_overlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/person_image_size"
+                    android:layout_toRightOf="@id/person_image_overlay"
+                    android:background="@color/tooltipBackgroundTint"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/person_image_size"
+                    android:layout_toLeftOf="@id/person_image_overlay"
+                    android:background="@color/tooltipBackgroundTint"/>
+
+            </RelativeLayout>
+
+            <!-- cover the rest of the card -->
+            <View
+                android:id="@+id/lower_card_overlay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/tooltipBackgroundTint"/>
+        </LinearLayout>
+
+        <!-- The tips for each action -->
+        <!-- arrow and message to tap profile picture -->
+        <RelativeLayout
+            android:id="@+id/tool_tip_one"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="235dp"
+            android:visibility="invisible">
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/up_arrow"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:textColor="@color/tutorialHintTextColor"
+                android:text="{fa-arrow-up}"
+                android:textSize="@dimen/tutorial_arrow_size"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_below="@+id/up_arrow"
+                android:gravity="center"
+                android:textColor="@color/tutorialHintTextColor"
+                android:textStyle="normal"
+                android:textSize="@dimen/tutorial_hint_text_size"
+                android:text="@string/tutorial_tap_picture_for_actions"/>
+        </RelativeLayout>
+
+        <!-- message to close menu -->
+        <TextView
+            android:id="@+id/tool_tip_two"
+            android:layout_height="@dimen/tutorial_large_text_height"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:textColor="@color/tutorialHintTextColor"
+            android:textStyle="normal"
+            android:textSize="@dimen/tutorial_hint_text_size"
+            android:text="@string/tutorial_tap_anywhere_to_hide_menu"
+            android:visibility="invisible"/>
+
+        <!-- Tips on favoriting -->
+        <RelativeLayout
+            android:id="@+id/favorite_tooltip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="52dp"
+            android:visibility="invisible">
+
+            <!-- anchor tooltip text to center -->
+            <TextView
+                android:id="@+id/favorite_btn_tooltip"
+                android:layout_height="@dimen/tutorial_tooltip_text_height"
+                android:layout_width="@dimen/person_image_size"
+                android:layout_centerHorizontal="true"
+                android:paddingRight="@dimen/tutorial_shortcut_text_padding_right"
+                android:textColor="@color/tutorialHintTextColor"
+                android:textStyle="normal"
+                android:textSize="@dimen/tutorial_hint_text_size"
+                android:text="@string/tutorial_favorite_person" />
+
+            <!-- position the shortcut -->
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/favorite_btn_cover"
+                android:layout_width="@dimen/person_card_shortcut_size"
+                android:layout_height="@dimen/person_card_shortcut_size"
+                android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                android:layout_toRightOf="@+id/favorite_btn_tooltip"
+                android:layout_marginLeft="@dimen/person_card_shortcut_left_margin"
+                android:layout_marginTop="@dimen/tutorial_shortcut_margin_top"
+                android:gravity="center"
+                android:text="{fa-heart-o}"
+                android:textSize="@dimen/favorite_icon_font_size"
+                android:textColor="@color/cardTextColor"/>
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/favorite_btn_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/favorite_btn_cover"
+                android:layout_toLeftOf="@id/favorite_btn_cover"
+                android:text="{fa-arrow-right}"
+                android:textSize="@dimen/tutorial_arrow_size"
+                android:textColor="@color/cardTextColor" />
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/favorite_btn_circle"
+                android:layout_width="@dimen/person_card_shortcut_size"
+                android:layout_height="@dimen/person_card_shortcut_size"
+                android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                android:layout_alignRight="@+id/favorite_btn_cover"
+                android:layout_marginLeft="@dimen/tutorial_shortcut_circle_margin_left"
+                android:layout_marginTop="@dimen/tutorial_shortcut_margin_top"
+                android:gravity="center"
+                android:text="{fa-circle-thin}"
+                android:textSize="@dimen/favorite_icon_font_size"
+                android:textColor="@color/cardTextColor"
+                android:scaleX="2.0"
+                android:scaleY="2.0" />
+        </RelativeLayout>
+
+        <!-- Tips on messaging -->
+        <RelativeLayout
+            android:id="@+id/message_tooltip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="116dp"
+            android:visibility="invisible">
+
+            <!-- anchor tooltip text to center -->
+            <TextView
+                android:id="@+id/message_btn_tooltip"
+                android:layout_height="@dimen/tutorial_tooltip_text_height"
+                android:layout_width="@dimen/person_image_size"
+                android:layout_centerHorizontal="true"
+                android:paddingRight="@dimen/tutorial_shortcut_text_padding_right"
+                android:textColor="@color/tutorialHintTextColor"
+                android:textStyle="normal"
+                android:textSize="@dimen/tutorial_hint_text_size"
+                android:text="@string/tutorial_send_message" />
+
+
+            <!-- position the shortcut -->
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/message_btn_cover"
+                android:layout_width="@dimen/person_card_shortcut_size"
+                android:layout_height="@dimen/person_card_shortcut_size"
+                android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                android:layout_toRightOf="@+id/message_btn_tooltip"
+                android:layout_marginLeft="@dimen/person_card_shortcut_left_margin"
+                android:layout_marginTop="@dimen/tutorial_shortcut_margin_top"
+                android:gravity="center"
+                android:text="{fa-paper-plane}"
+                android:textSize="@dimen/favorite_icon_font_size"
+                android:textColor="@color/cardTextColor" />
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/message_btn_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/message_btn_cover"
+                android:layout_toLeftOf="@id/message_btn_cover"
+                android:text="{fa-arrow-right}"
+                android:textSize="@dimen/tutorial_arrow_size"
+                android:textColor="@color/cardTextColor" />
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/message_btn_circle"
+                android:layout_width="@dimen/person_card_shortcut_size"
+                android:layout_height="@dimen/person_card_shortcut_size"
+                android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                android:layout_alignRight="@+id/message_btn_cover"
+                android:layout_marginLeft="@dimen/tutorial_shortcut_circle_margin_left"
+                android:layout_marginTop="@dimen/tutorial_shortcut_margin_top"
+                android:gravity="center"
+                android:text="{fa-circle-thin}"
+                android:textSize="@dimen/favorite_icon_font_size"
+                android:textColor="@color/cardTextColor"
+                android:scaleX="2.0"
+                android:scaleY="2.0" />
+        </RelativeLayout>
+
+        <!-- Tips on adding a note -->
+        <RelativeLayout
+            android:id="@+id/add_note_tooltip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="180dp"
+            android:visibility="invisible">
+
+            <!-- anchor tooltip text to center -->
+            <TextView
+                android:id="@+id/note_btn_tooltip"
+                android:layout_height="@dimen/tutorial_tooltip_text_height"
+                android:layout_width="@dimen/person_image_size"
+                android:layout_centerHorizontal="true"
+                android:paddingRight="@dimen/tutorial_shortcut_text_padding_right"
+                android:textColor="@color/tutorialHintTextColor"
+                android:textStyle="normal"
+                android:textSize="@dimen/tutorial_hint_text_size"
+                android:text="@string/tutorial_add_note" />
+
+            <!-- position the shortcut -->
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/note_btn_cover"
+                android:layout_width="@dimen/person_card_shortcut_size"
+                android:layout_height="@dimen/person_card_shortcut_size"
+                android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                android:layout_toRightOf="@+id/note_btn_tooltip"
+                android:layout_marginLeft="@dimen/person_card_shortcut_left_margin"
+                android:layout_marginTop="@dimen/tutorial_shortcut_margin_top"
+                android:gravity="center"
+                android:text="{fa-pencil}"
+                android:textSize="@dimen/favorite_icon_font_size"
+                android:textColor="@color/cardTextColor" />
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/note_btn_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/note_btn_cover"
+                android:layout_toLeftOf="@id/note_btn_cover"
+                android:text="{fa-arrow-right}"
+                android:textSize="@dimen/tutorial_arrow_size"
+                android:textColor="@color/cardTextColor" />
+
+            <com.joanzapata.iconify.widget.IconTextView
+                android:id="@+id/note_btn_circle"
+                android:layout_width="@dimen/person_card_shortcut_size"
+                android:layout_height="@dimen/person_card_shortcut_size"
+                android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                android:layout_alignRight="@+id/note_btn_cover"
+                android:layout_marginLeft="@dimen/tutorial_shortcut_circle_margin_left"
+                android:layout_marginTop="@dimen/tutorial_shortcut_margin_top"
+                android:gravity="center"
+                android:text="{fa-circle-thin}"
+                android:textSize="@dimen/favorite_icon_font_size"
+                android:textColor="@color/cardTextColor"
+                android:scaleX="2.0"
+                android:scaleY="2.0" />
+        </RelativeLayout>
+
+        <!-- final scene: swiping to continue -->
+        <LinearLayout
+            android:id="@+id/tool_tip_four"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="invisible">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"/>
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:id="@+id/right_arrow"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/tutorial_arrow_bottom_margin"
+                    android:textColor="@color/tutorialHintTextColor"
+                    android:text="{fa-arrow-left}"
+                    android:textSize="@dimen/tutorial_arrow_size"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/right_arrow"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/tutorial_margin_for_text_to_arrow"
+                    android:textColor="@color/tutorialHintTextColor"
+                    android:textStyle="normal"
+                    android:textSize="@dimen/tutorial_hint_text_size"
+                    android:text="@string/tutorial_swipe_to_view_progress"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/journal_item_padding"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/person_note_list_item_verticalMargin"
+        android:layout_marginBottom="@dimen/person_note_list_item_verticalMargin"
+        android:layout_marginLeft="@dimen/person_note_list_item_horizontalMargin"
+        android:layout_marginRight="@dimen/person_note_list_item_horizontalMargin"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/person_note_date"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/person_note_list_item_verticalMargin"
+            android:layout_marginBottom="@dimen/person_note_list_item_verticalMargin"
+            android:layout_marginLeft="@dimen/person_note_list_item_horizontalMargin"
+            android:layout_marginRight="@dimen/person_note_list_item_horizontalMargin"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/journal_item_content_font_size"
+            android:textColor="@color/cardTextColor" />
+        <TextView
+            android:id="@+id/person_note_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/person_note_list_item_verticalMargin"
+            android:layout_marginBottom="@dimen/person_note_list_item_verticalMargin"
+            android:layout_marginLeft="@dimen/person_note_list_item_horizontalMargin"
+            android:layout_marginRight="@dimen/person_note_list_item_horizontalMargin"
+            android:gravity="center_vertical"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:textSize="@dimen/journal_item_content_font_size"
+            android:textColor="@color/cardTextColor" />
+    </LinearLayout>
+</LinearLayout>

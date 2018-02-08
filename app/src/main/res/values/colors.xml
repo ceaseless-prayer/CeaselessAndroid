@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00012F</color>
+    <color name="colorPrimaryDark">#00012F</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <color name="controlColor">#2d3861</color>
+
+    <color name="lightGray">#CCC</color>
+    <color name="fragmentBackground">#FFFFFF</color>
+    <color name="backgroundColorFilter">#CD00012F</color>
+    <color name="hintTextColor">#50FFFFFF</color>
+
+    <color name="titleColor">#515151</color>
+    <color name="verseTextColor">#FFFFFF</color>
+    <color name="verseBackground">#00012F</color>
+
+    <color name="cardLabel">#BF00012F</color>
+    <color name="cardLabelText">#FCFCFC</color>
+
+    <color name="buttonDefault">#50FFFFFF</color>
+    <color name="buttonDefaultShadow">#FFF</color>
+    <color name="buttonTextColor">#FFFFFF</color>
+
+    <color name="cardBackground">#D000012F</color>
+    <color name="transparentBackground">#0000012F</color>
+    <color name="cardTextColor">#FFFFFF</color>
+
+    <color name="progressBackgroundTint">#D8D8D8</color>
+    <color name="progressTint">#16FA4C</color>
+
+    <color name="homeBackgroundTint">#9000012F</color>
+    <color name="homePageIndicatorSelected">#FFFFFF</color>
+    <color name="homePageIndicatorUnselected">#70FFFFFF</color>
+
+    <color name="listDividerColor">#70FFFFFF</color>
+
+    <color name="preferenceBackgroundColor">#FFFFFF</color>
+
+    <color name="peopleTabActiveBackground">#FFFFFF</color>
+    <color name="peopleTabActiveTextColor">#BF00012F</color>
+    <color name="peopleTabInactiveBackground">#00FFFFFF</color>
+    <color name="peopleTabInactiveTextColor">#FFFFFF</color>
+
+    <color name="tutorialHintTextColor">#FFFFFF</color>
+    <color name="tooltipBackgroundTint">#e100012f</color>
+
+</resources>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="org.theotech.ceaselessandroid.fragment.ProgressCardSupportFragment">
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/progress_card"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/card_vertical_margin"
+        android:layout_marginLeft="@dimen/card_horizontal_margin"
+        android:layout_marginRight="@dimen/card_horizontal_margin"
+        android:layout_marginTop="@dimen/card_vertical_margin"
+        card_view:cardBackgroundColor="@color/cardBackground"
+        card_view:cardCornerRadius="@dimen/card_corner_radius"
+        card_view:cardElevation="@dimen/card_elevation">
+
+        <ImageView
+            android:id="@+id/progress_card_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/backgroundColorFilter" />
+
+        <!--suppress NewApi -->
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/card_label_height"
+            android:background="@color/transparentBackground"
+            android:gravity="center|start"
+            android:paddingLeft="@dimen/card_label_start_margin"
+            android:paddingRight="@dimen/card_label_end_margin"
+            android:paddingStart="@dimen/card_label_start_margin"
+            android:paddingEnd="@dimen/card_label_end_margin"
+            android:text="@string/progress"
+            android:textColor="@color/cardLabelText"
+            android:textSize="@dimen/card_label_text_size" />
+
+        <TextView
+            android:id="@+id/number_of_days_praying"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/card_label_height"
+            android:background="@color/transparentBackground"
+            android:gravity="center|end"
+            android:paddingLeft="@dimen/card_label_start_margin"
+            android:paddingRight="@dimen/card_label_end_margin"
+            android:paddingStart="@dimen/card_label_start_margin"
+            android:paddingEnd="@dimen/card_label_end_margin"
+            android:textColor="@color/cardLabelText"
+            android:textSize="@dimen/card_label_text_size" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/prayed_for_text"
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:gravity="center"
+                android:textColor="@color/cardTextColor"
+                android:text="@string/prayed_for_text" />
+
+            <!--suppress UnusedAttribute-->
+            <ProgressBar
+                android:id="@+id/prayer_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/progress_bar_margin"
+                android:layout_marginRight="@dimen/progress_bar_margin"
+                android:minHeight="4dp"
+                android:maxHeight="6dp"
+                android:progress="60"
+                android:progressDrawable="@drawable/custom_progressbar" />
+
+            <LinearLayout
+                android:id="@+id/show_more_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="{fa-repeat}"
+                    android:textColor="@color/cardTextColor"
+                    android:textSize="@dimen/progress_show_more_font_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:textColor="@color/buttonTextColor"
+                    android:text="@string/show_more_people"
+                    android:textSize="@dimen/progress_show_more_font_size" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</RelativeLayout>

@@ -1,0 +1,26 @@
+language: android
+android:
+  components:
+    - tools
+    - platform-tools
+    - build-tools-26.0.2
+    - android-25
+    - extra
+
+script:
+  - ./gradlew build
+  - ./gradlew check
+
+notifications:
+  slack:
+    rooms:
+      - theotech:8ohw5Y0oeSjwtLsDp4bnyZwB
+
+after_failure:
+  - cat /home/travis/build/ceaseless-prayer/CeaselessAndroid/app/build/outputs/lint-results.xml 
+
+env:
+  - GRADLE_OPTS="-Xmx2048m -Xms256m"
+
+jdk:
+  - oraclejdk8

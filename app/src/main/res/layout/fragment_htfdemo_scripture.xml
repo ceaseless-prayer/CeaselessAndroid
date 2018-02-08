@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context=".fragment.ScriptureCardSupportFragment">
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/verse_card"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/card_vertical_margin"
+        android:layout_marginLeft="@dimen/card_horizontal_margin"
+        android:layout_marginRight="@dimen/card_horizontal_margin"
+        android:layout_marginTop="@dimen/card_vertical_margin"
+        card_view:cardCornerRadius="@dimen/card_corner_radius"
+        card_view:cardElevation="@dimen/card_elevation"
+        card_view:cardBackgroundColor="@color/transparentBackground">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/verse_image"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:contentDescription="@string/scenic_photo"/>
+
+            <RelativeLayout
+                android:id="@+id/verse_text_container"
+                android:layout_width="fill_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@color/verseBackground">
+
+                <ImageView
+                    android:id="@+id/verse_image_reflection"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleY="-1"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/backgroundColorFilter" />
+
+                <LinearLayout
+                    android:id="@+id/verse_title_and_share"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/verse_info_bar_height"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="@dimen/verse_text_padding"
+                    android:layout_marginRight="@dimen/verse_text_padding"
+                    android:layout_marginTop="@dimen/verse_text_padding"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/verse_title"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="5"
+                        android:gravity="center|start"
+                        android:textColor="@color/verseTextColor"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/verse_title_text_size" />
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:id="@+id/verse_share"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="{fa-share-alt}"
+                        android:textSize="@dimen/share_verse_text_size"
+                        android:textColor="@color/verseTextColor" />
+
+                </LinearLayout>
+
+                <ScrollView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_below="@id/verse_title_and_share"
+                    android:layout_marginLeft="@dimen/verse_text_padding"
+                    android:layout_marginRight="@dimen/verse_text_padding"
+                    android:layout_marginTop="@dimen/verse_text_padding"
+                    android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb">
+
+                    <TextView
+                        android:id="@+id/verse_text"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="end"
+                        android:textIsSelectable="true"
+                        android:textColor="@color/verseTextColor"
+                        android:textSize="@dimen/verse_text_size" />
+
+                </ScrollView>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <!-- The tooltips go here -->
+
+        <LinearLayout
+            android:id="@+id/tool_tip_layout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Top half of the card -->
+            <RelativeLayout
+                android:id="@+id/learn_from_scripture"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:background="@color/tooltipBackgroundTint">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/tutorial_margin_for_text_to_arrow"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:textColor="@color/tutorialHintTextColor"
+                    android:textStyle="normal"
+                    android:textSize="@dimen/tutorial_hint_text_size"
+                    android:text="@string/scripture_tutorial_explanation" />
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="@dimen/tutorial_arrow_bottom_margin"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:textColor="@color/tutorialHintTextColor"
+                    android:text="{fa-arrow-down}"
+                    android:textSize="@dimen/tutorial_arrow_size" />
+            </RelativeLayout>
+            <!-- Bottom half of the card -->
+            <RelativeLayout
+                android:id="@+id/swipe_to_continue"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent">
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/tutorial_margin_for_text_to_arrow"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/tutorial_margin_for_text_to_arrow"
+                    android:textColor="@color/tutorialHintTextColor"
+                    android:textStyle="normal"
+                    android:textSize="@dimen/tutorial_hint_text_size"
+                    android:text="@string/tutorial_swipe_to_see_person"/>
+                <com.joanzapata.iconify.widget.IconTextView
+                    android:id="@+id/right_arrow"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/tutorial_margin_for_text_to_arrow"
+                    android:layout_marginRight="@dimen/tutorial_arrow_bottom_margin"
+                    android:textColor="@color/tutorialHintTextColor"
+                    android:text="{fa-arrow-left}"
+                    android:textSize="@dimen/tutorial_arrow_size"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

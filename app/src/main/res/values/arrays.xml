@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_people_each_day">
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+
+    <string-array name="contact_name_blacklist">
+        <item>Directory Assistance</item>
+        <item>Conference Bridge</item>
+        <item>Verizon Wireless Accessories</item>
+        <item>Voice Mail</item>
+    </string-array>
+</resources>
