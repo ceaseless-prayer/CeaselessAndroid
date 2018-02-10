@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/activatedBackgroundIndicator">
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/person_favorite_thumbnail"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:riv_corner_radius="@dimen/person_image_corner_radius"
+        android:contentDescription="@string/person_thumbnail"
+        android:layout_width="@dimen/person_list_image_size"
+        android:layout_height="@dimen/person_list_image_size"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingEnd="@dimen/person_list_image_padding"
+        android:paddingRight="@dimen/person_list_image_padding" />
+
+    <com.joanzapata.iconify.widget.IconTextView
+        android:id="@+id/person_favorite_list_arrow"
+        android:layout_width="@dimen/person_list_image_size"
+        android:layout_height="@dimen/person_list_image_size"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="{fa-angle-right}"
+        android:textSize="@dimen/right_angle_icon_font_size"
+        android:textColor="@color/cardTextColor" />
+
+    <TextView
+        android:id="@+id/person_favorite_list_name"
+        android:paddingLeft="@dimen/person_list_name_left_padding"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/person_list_image_size"
+        android:layout_toEndOf="@id/person_favorite_thumbnail"
+        android:layout_toLeftOf="@id/person_favorite_list_arrow"
+        android:layout_toRightOf="@id/person_favorite_thumbnail"
+        android:layout_toStartOf="@id/person_favorite_list_arrow"
+        android:gravity="center|start"
+        android:textColor="@color/cardTextColor" />
+
+
+</RelativeLayout>
