@@ -80,4 +80,5 @@
     <string name="sync_contacts">連絡先を同期する</string>
     <string name="syncing_contacts">連絡先の同期中</string>
     <string name="nav_subscribe_to_newsletter">ニュースレターに登録</string>
+    <string name="people_favorite">お気に入り</string>
 </resources>

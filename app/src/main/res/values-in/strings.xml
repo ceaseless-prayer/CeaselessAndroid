@@ -92,5 +92,6 @@
     <string name="sync_contacts">Kontak Sync</string>
     <string name="syncing_contacts">Kontak sedang diperbarui...</string>
     <string name="nav_subscribe_to_newsletter">Berlangganan Milis</string>
+    <string name="people_favorite">Favorit</string>
 
 </resources>

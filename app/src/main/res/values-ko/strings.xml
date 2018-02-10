@@ -77,4 +77,5 @@
     <string name="twitter">트위터 로고 </string>
     <string name="verse_share">공유</string>
     <string name="default_verse_link">http://www.bible.is/KO1SKV/Matt/21/22</string>
+    <string name="people_favorite">중요한</string>
 </resources>
