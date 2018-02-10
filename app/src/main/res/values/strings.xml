@@ -51,6 +51,7 @@
     <string name="default_notification_time">08:30</string>
 
     <string name="people_active">Active</string>
+    <string name="people_favorite">Favorite</string>
     <string name="people_removed">Removed</string>
     <string name="person_remove">Remove</string>
     <string name="person_reactivate">Re-activate</string>

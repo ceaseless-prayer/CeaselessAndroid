@@ -232,6 +232,15 @@ public class PersonManagerImpl implements PersonManager {
     }
 
     @Override
+    public List<PersonPOJO> getFavoritePeople() {
+        return RealmUtils.toPersonPOJOs(realm.where(Person.class)
+                .equalTo(Person.Column.ACTIVE, true)
+                .equalTo(Person.Column.FAVORITE, true)
+                .equalTo(Person.Column.IGNORED, false)
+                .findAllSorted(Person.Column.NAME));
+    }
+
+    @Override
     public List<PersonPOJO> getRemovedPeople() {
         return RealmUtils.toPersonPOJOs(realm.where(Person.class)
                 .equalTo(Person.Column.ACTIVE, true)

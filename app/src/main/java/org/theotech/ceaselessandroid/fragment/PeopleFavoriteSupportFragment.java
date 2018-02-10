@@ -17,7 +17,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.joanzapata.iconify.widget.IconTextView;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 
@@ -35,17 +34,17 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PeopleActiveSupportFragment extends Fragment implements Refreshable {
-    private static final String TAG = PeopleActiveSupportFragment.class.getSimpleName();
+public class PeopleFavoriteSupportFragment extends Fragment implements Refreshable {
+    private static final String TAG = PeopleFavoriteSupportFragment.class.getSimpleName();
 
-    @BindView(R.id.people_active)
-    ListView peopleActive;
+    @BindView(R.id.people_favorite)
+    ListView peopleFavorite;
 
     private PersonManager personManager;
-    private ActivePeopleArrayAdapter adapter;
+    private FavoritePeopleArrayAdapter adapter;
     private ActionMode actionMode;
 
-    public PeopleActiveSupportFragment() {
+    public PeopleFavoriteSupportFragment() {
         // Required empty public constructor
     }
 
@@ -64,34 +63,34 @@ public class PeopleActiveSupportFragment extends Fragment implements Refreshable
         getActivity().setTitle(getString(R.string.nav_people));
 
         // create view and bind
-        final View view = inflater.inflate(R.layout.fragment_support_people_active, container, false);
+        View view = inflater.inflate(R.layout.fragment_support_people_favorite, container, false);
         ButterKnife.bind(this, view);
 
-        // populate the list of active people
-        final List<PersonPOJO> activePersons = personManager.getActivePeople();
-        adapter = new ActivePeopleArrayAdapter(getActivity(), activePersons);
-        peopleActive.setAdapter(adapter);
-        peopleActive.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        // populate the list of favorite people
+        final List<PersonPOJO> favoritePersons = personManager.getFavoritePeople();
+        adapter = new FavoritePeopleArrayAdapter(getActivity(), favoritePersons);
+        peopleFavorite.setAdapter(adapter);
+        peopleFavorite.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
-                bundle.putString(Constants.PERSON_ID_BUNDLE_ARG, activePersons.get(position).getId());
+                bundle.putString(Constants.PERSON_ID_BUNDLE_ARG, favoritePersons.get(position).getId());
                 FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null,
                         R.id.person_card, bundle, new FragmentState(getString(R.string.nav_people)));
             }
         });
-        peopleActive.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        peopleActive.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+        peopleFavorite.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        peopleFavorite.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-                final int checkedCount = peopleActive.getCheckedItemCount();
+                final int checkedCount = peopleFavorite.getCheckedItemCount();
                 mode.setTitle(String.format(getString(R.string.bulk_selected), checkedCount));
             }
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 actionMode = mode;
-                mode.getMenuInflater().inflate(R.menu.person_active_menu, menu);
+                mode.getMenuInflater().inflate(R.menu.person_favorite_menu, menu);
                 return true;
             }
 
@@ -103,13 +102,13 @@ public class PeopleActiveSupportFragment extends Fragment implements Refreshable
             @Override
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 int id = item.getItemId();
-                if (id == R.id.person_remove) {
-                    final List<PersonPOJO> persons = personManager.getActivePeople();
-                    SparseBooleanArray array = peopleActive.getCheckedItemPositions();
+                if (id == R.id.person_unfavorite) {
+                    final List<PersonPOJO> persons = personManager.getFavoritePeople();
+                    SparseBooleanArray array = peopleFavorite.getCheckedItemPositions();
                     for (int i = 0; i < array.size(); i++) {
                         int position = array.keyAt(i);
                         PersonPOJO person = persons.get(position);
-                        personManager.ignorePerson(person.getId());
+                        personManager.unfavoritePerson(person.getId());
                         adapter.remove(person.getId());
                     }
                     mode.finish();
@@ -139,12 +138,12 @@ public class PeopleActiveSupportFragment extends Fragment implements Refreshable
         }
     }
 
-    private class ActivePeopleArrayAdapter extends ArrayAdapter<PersonPOJO> {
+    private class FavoritePeopleArrayAdapter extends ArrayAdapter<PersonPOJO> {
         private final Context context;
         private final List<PersonPOJO> persons;
         private final LayoutInflater inflater;
 
-        public ActivePeopleArrayAdapter(Context context, List<PersonPOJO> persons) {
+        public FavoritePeopleArrayAdapter(Context context, List<PersonPOJO> persons) {
             super(context, -1, persons);
             this.context = context;
             this.persons = persons;
@@ -156,34 +155,14 @@ public class PeopleActiveSupportFragment extends Fragment implements Refreshable
             final ViewHolder holder;
             if (view == null) {
                 holder = new ViewHolder();
-                view = inflater.inflate(R.layout.list_item_people_active, parent, false);
-                holder.favorite = (IconTextView) view.findViewById(R.id.person_active_favorite);
-                holder.personThumbnail = (RoundedImageView) view.findViewById(R.id.person_active_thumbnail);
-                holder.personListName = (TextView) view.findViewById(R.id.person_active_list_name);
+                view = inflater.inflate(R.layout.list_item_people_favorite, parent, false);
+                holder.personThumbnail = (RoundedImageView) view.findViewById(R.id.person_favorite_thumbnail);
+                holder.personListName = (TextView) view.findViewById(R.id.person_favorite_list_name);
                 view.setTag(holder);
             } else {
                 holder = (ViewHolder) view.getTag();
             }
             final PersonPOJO person = personManager.getPerson(persons.get(position).getId());
-            // favorite
-            if (person.isFavorite()) {
-                holder.favorite.setText(getString(R.string.favorite_on));
-            } else {
-                holder.favorite.setText(getString(R.string.favorite_off));
-            }
-            holder.favorite.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PersonPOJO updatedPerson = personManager.getPerson(person.getId());
-                    if (updatedPerson.isFavorite()) {
-                        personManager.unfavoritePerson(updatedPerson.getId());
-                        holder.favorite.setText(getString(R.string.favorite_off));
-                    } else {
-                        personManager.favoritePerson(updatedPerson.getId());
-                        holder.favorite.setText(getString(R.string.favorite_on));
-                    }
-                }
-            });
             // thumbnail picture
             Picasso.with(context).load(CommonUtils.getContactUri(person.getId())).placeholder(R.drawable.placeholder_user).fit().into(holder.personThumbnail);
             // person name
@@ -194,7 +173,7 @@ public class PeopleActiveSupportFragment extends Fragment implements Refreshable
 
         public void refresh() {
             persons.clear();
-            persons.addAll(personManager.getActivePeople());
+            persons.addAll(personManager.getFavoritePeople());
             notifyDataSetChanged();
         }
 
@@ -212,7 +191,6 @@ public class PeopleActiveSupportFragment extends Fragment implements Refreshable
         }
 
         private class ViewHolder {
-            IconTextView favorite;
             RoundedImageView personThumbnail;
             TextView personListName;
         }

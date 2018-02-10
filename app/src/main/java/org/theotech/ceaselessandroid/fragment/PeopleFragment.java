@@ -41,6 +41,8 @@ public class PeopleFragment extends Fragment {
     UnderlinePageIndicator indicator;
     @BindView(R.id.people_active_tab)
     TextView activeTab;
+    @BindView(R.id.people_favorite_tab)
+    TextView favoriteTab;
     @BindView(R.id.people_removed_tab)
     TextView removedTab;
     private String[] TABS;
@@ -76,7 +78,7 @@ public class PeopleFragment extends Fragment {
         getActivity().setTitle(getString(R.string.nav_people));
 
         // set tab titles
-        TABS = new String[]{getString(R.string.people_active), getString(R.string.people_removed)};
+        TABS = new String[]{getString(R.string.people_active), getString(R.string.people_favorite), getString(R.string.people_removed)};
 
         // create view and bind
         View view = inflater.inflate(R.layout.fragment_people, container, false);
@@ -87,6 +89,7 @@ public class PeopleFragment extends Fragment {
             @Override
             public void run() {
                 final Container<Refreshable> activeRefreshable = new Container<>();
+                final Container<Refreshable> favoriteRefreshable = new Container<>();
                 final Container<Refreshable> removedRefreshable = new Container<>();
 
                 viewPager.setAdapter(new FragmentStatePagerAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager()) {
@@ -97,6 +100,10 @@ public class PeopleFragment extends Fragment {
                             activeRefreshable.set(activePeopleFragment);
                             return activePeopleFragment;
                         } else if (position == 1) {
+                            PeopleFavoriteSupportFragment favoritePeopleFragment = new PeopleFavoriteSupportFragment();
+                            favoriteRefreshable.set(favoritePeopleFragment);
+                            return favoritePeopleFragment;
+                        } else if (position == 2) {
                             PeopleRemovedSupportFragment removedPeopleFragment = new PeopleRemovedSupportFragment();
                             removedRefreshable.set(removedPeopleFragment);
                             return removedPeopleFragment;
@@ -125,17 +132,30 @@ public class PeopleFragment extends Fragment {
                         if (position == 0) {
                             activeTab.setTextColor(activeTextColor);
                             activeTab.setBackgroundColor(activeBackground);
+                            favoriteTab.setTextColor(inactiveTextColor);
+                            favoriteTab.setBackgroundColor(inactiveBackground);
                             removedTab.setTextColor(inactiveTextColor);
                             removedTab.setBackgroundColor(inactiveBackground);
                             activeRefreshable.get().refreshList();
                         } else if (position == 1) {
                             activeTab.setTextColor(inactiveTextColor);
                             activeTab.setBackgroundColor(inactiveBackground);
+                            favoriteTab.setTextColor(activeTextColor);
+                            favoriteTab.setBackgroundColor(activeBackground);
+                            removedTab.setTextColor(inactiveTextColor);
+                            removedTab.setBackgroundColor(inactiveBackground);
+                            favoriteRefreshable.get().refreshList();
+                        } else if (position == 2) {
+                            activeTab.setTextColor(inactiveTextColor);
+                            activeTab.setBackgroundColor(inactiveBackground);
+                            favoriteTab.setTextColor(inactiveTextColor);
+                            favoriteTab.setBackgroundColor(inactiveBackground);
                             removedTab.setTextColor(activeTextColor);
                             removedTab.setBackgroundColor(activeBackground);
                             removedRefreshable.get().refreshList();
                         }
                         activeRefreshable.get().dismissActionMode();
+                        favoriteRefreshable.get().dismissActionMode();
                         removedRefreshable.get().dismissActionMode();
                     }
 
@@ -148,17 +168,23 @@ public class PeopleFragment extends Fragment {
             }
         };
 
-        // wire up the active and removed tabs
+        // wire up the active, favorite, and removed tabs
         activeTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewPager.setCurrentItem(0);
             }
         });
+        favoriteTab.setOnClickListener(new View.OnClickListener() {
+           @Override
+            public void onClick(View v) {
+               viewPager.setCurrentItem(1);
+           }
+        });
         removedTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewPager.setCurrentItem(1);
+                viewPager.setCurrentItem(2);
             }
         });
 
