@@ -41,11 +41,8 @@ public class PeopleFragment extends Fragment {
     UnderlinePageIndicator indicator;
     @BindView(R.id.people_active_tab)
     TextView activeTab;
-<<<<<<< HEAD
     @BindView(R.id.people_favorite_tab)
     TextView favoriteTab;
-=======
->>>>>>> d0530bd3a86ed329dd0d60bac695424f5151c949
     @BindView(R.id.people_removed_tab)
     TextView removedTab;
     private String[] TABS;
@@ -81,11 +78,7 @@ public class PeopleFragment extends Fragment {
         getActivity().setTitle(getString(R.string.nav_people));
 
         // set tab titles
-<<<<<<< HEAD
         TABS = new String[]{getString(R.string.people_active), getString(R.string.people_favorite), getString(R.string.people_removed)};
-=======
-        TABS = new String[]{getString(R.string.people_active), getString(R.string.people_removed)};
->>>>>>> d0530bd3a86ed329dd0d60bac695424f5151c949
 
         // create view and bind
         View view = inflater.inflate(R.layout.fragment_people, container, false);
@@ -96,10 +89,7 @@ public class PeopleFragment extends Fragment {
             @Override
             public void run() {
                 final Container<Refreshable> activeRefreshable = new Container<>();
-<<<<<<< HEAD
                 final Container<Refreshable> favoriteRefreshable = new Container<>();
-=======
->>>>>>> d0530bd3a86ed329dd0d60bac695424f5151c949
                 final Container<Refreshable> removedRefreshable = new Container<>();
 
                 viewPager.setAdapter(new FragmentStatePagerAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager()) {
@@ -110,13 +100,10 @@ public class PeopleFragment extends Fragment {
                             activeRefreshable.set(activePeopleFragment);
                             return activePeopleFragment;
                         } else if (position == 1) {
-<<<<<<< HEAD
                             PeopleFavoriteSupportFragment favoritePeopleFragment = new PeopleFavoriteSupportFragment();
                             favoriteRefreshable.set(favoritePeopleFragment);
                             return favoritePeopleFragment;
                         } else if (position == 2) {
-=======
->>>>>>> d0530bd3a86ed329dd0d60bac695424f5151c949
                             PeopleRemovedSupportFragment removedPeopleFragment = new PeopleRemovedSupportFragment();
                             removedRefreshable.set(removedPeopleFragment);
                             return removedPeopleFragment;
@@ -145,18 +132,14 @@ public class PeopleFragment extends Fragment {
                         if (position == 0) {
                             activeTab.setTextColor(activeTextColor);
                             activeTab.setBackgroundColor(activeBackground);
-<<<<<<< HEAD
                             favoriteTab.setTextColor(inactiveTextColor);
                             favoriteTab.setBackgroundColor(inactiveBackground);
-=======
->>>>>>> d0530bd3a86ed329dd0d60bac695424f5151c949
                             removedTab.setTextColor(inactiveTextColor);
                             removedTab.setBackgroundColor(inactiveBackground);
                             activeRefreshable.get().refreshList();
                         } else if (position == 1) {
                             activeTab.setTextColor(inactiveTextColor);
                             activeTab.setBackgroundColor(inactiveBackground);
-<<<<<<< HEAD
                             favoriteTab.setTextColor(activeTextColor);
                             favoriteTab.setBackgroundColor(activeBackground);
                             removedTab.setTextColor(inactiveTextColor);
@@ -167,17 +150,12 @@ public class PeopleFragment extends Fragment {
                             activeTab.setBackgroundColor(inactiveBackground);
                             favoriteTab.setTextColor(inactiveTextColor);
                             favoriteTab.setBackgroundColor(inactiveBackground);
-=======
->>>>>>> d0530bd3a86ed329dd0d60bac695424f5151c949
                             removedTab.setTextColor(activeTextColor);
                             removedTab.setBackgroundColor(activeBackground);
                             removedRefreshable.get().refreshList();
                         }
                         activeRefreshable.get().dismissActionMode();
-<<<<<<< HEAD
                         favoriteRefreshable.get().dismissActionMode();
-=======
->>>>>>> d0530bd3a86ed329dd0d60bac695424f5151c949
                         removedRefreshable.get().dismissActionMode();
                     }
 
@@ -190,18 +168,13 @@ public class PeopleFragment extends Fragment {
             }
         };
 
-<<<<<<< HEAD
         // wire up the active, favorite, and removed tabs
-=======
-        // wire up the active and removed tabs
->>>>>>> d0530bd3a86ed329dd0d60bac695424f5151c949
         activeTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 viewPager.setCurrentItem(0);
             }
         });
-<<<<<<< HEAD
         favoriteTab.setOnClickListener(new View.OnClickListener() {
            @Override
             public void onClick(View v) {
@@ -212,12 +185,6 @@ public class PeopleFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 viewPager.setCurrentItem(2);
-=======
-        removedTab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewPager.setCurrentItem(1);
->>>>>>> d0530bd3a86ed329dd0d60bac695424f5151c949
             }
         });
 

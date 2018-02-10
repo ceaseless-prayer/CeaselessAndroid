@@ -21,11 +21,8 @@ public interface PersonManager {
 
     List<PersonPOJO> getActivePeople();
 
-<<<<<<< HEAD
     List<PersonPOJO> getFavoritePeople();
 
-=======
->>>>>>> d0530bd3a86ed329dd0d60bac695424f5151c949
     List<PersonPOJO> getRemovedPeople();
 
     long getNumPrayed();

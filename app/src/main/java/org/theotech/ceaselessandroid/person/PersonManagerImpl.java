@@ -232,7 +232,6 @@ public class PersonManagerImpl implements PersonManager {
     }
 
     @Override
-<<<<<<< HEAD
     public List<PersonPOJO> getFavoritePeople() {
         return RealmUtils.toPersonPOJOs(realm.where(Person.class)
                 .equalTo(Person.Column.ACTIVE, true)
@@ -242,8 +241,6 @@ public class PersonManagerImpl implements PersonManager {
     }
 
     @Override
-=======
->>>>>>> d0530bd3a86ed329dd0d60bac695424f5151c949
     public List<PersonPOJO> getRemovedPeople() {
         return RealmUtils.toPersonPOJOs(realm.where(Person.class)
                 .equalTo(Person.Column.ACTIVE, true)
