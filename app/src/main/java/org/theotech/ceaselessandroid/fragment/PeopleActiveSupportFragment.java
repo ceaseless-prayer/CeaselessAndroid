@@ -64,11 +64,7 @@ public class PeopleActiveSupportFragment extends Fragment implements Refreshable
         getActivity().setTitle(getString(R.string.nav_people));
 
         // create view and bind
-<<<<<<< HEAD
-        final View view = inflater.inflate(R.layout.fragment_support_people_active, container, false);
-=======
         View view = inflater.inflate(R.layout.fragment_support_people_active, container, false);
->>>>>>> d0530bd3a86ed329dd0d60bac695424f5151c949
         ButterKnife.bind(this, view);
 
         // populate the list of active people
