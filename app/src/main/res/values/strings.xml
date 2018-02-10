@@ -51,7 +51,10 @@
     <string name="default_notification_time">08:30</string>
 
     <string name="people_active">Active</string>
+<<<<<<< HEAD
     <string name="people_favorite">Favorite</string>
+=======
+>>>>>>> d0530bd3a86ed329dd0d60bac695424f5151c949
     <string name="people_removed">Removed</string>
     <string name="person_remove">Remove</string>
     <string name="person_reactivate">Re-activate</string>

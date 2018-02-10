@@ -29,6 +29,7 @@
             android:background="@color/peopleTabActiveBackground"/>
 
         <TextView
+<<<<<<< HEAD
             android:id="@+id/people_favorite_tab"
             android:layout_width="0dp"
             android:layout_height="@dimen/people_tab_height"
@@ -39,6 +40,8 @@
             android:background="@color/peopleTabInactiveBackground"/>
 
         <TextView
+=======
+>>>>>>> d0530bd3a86ed329dd0d60bac695424f5151c949
             android:id="@+id/people_removed_tab"
             android:layout_width="0dp"
             android:layout_height="@dimen/people_tab_height"
