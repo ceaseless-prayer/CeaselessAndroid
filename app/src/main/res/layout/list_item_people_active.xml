@@ -14,7 +14,7 @@
         android:paddingEnd="@dimen/person_list_image_padding"
         android:paddingRight="@dimen/person_list_image_padding"
         android:textSize="@dimen/favorite_icon_font_size"
-        android:textColor="@drawable/list_item" />
+        android:textColor="@color/cardTextColor" />
 
     <com.makeramen.roundedimageview.RoundedImageView
         android:id="@+id/person_active_thumbnail"
@@ -37,7 +37,7 @@
         android:gravity="center"
         android:text="{fa-angle-right}"
         android:textSize="@dimen/right_angle_icon_font_size"
-        android:textColor="@drawable/list_item" />
+        android:textColor="@color/cardTextColor" />
 
     <TextView
         android:id="@+id/person_active_list_name"
@@ -49,7 +49,7 @@
         android:layout_toRightOf="@id/person_active_thumbnail"
         android:layout_toStartOf="@id/person_active_list_arrow"
         android:gravity="center|start"
-        android:textColor="@drawable/list_item" />
+        android:textColor="@color/cardTextColor" />
 
 
 </RelativeLayout>
