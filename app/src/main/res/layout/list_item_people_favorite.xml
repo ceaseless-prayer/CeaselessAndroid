@@ -25,7 +25,7 @@
         android:gravity="center"
         android:text="{fa-angle-right}"
         android:textSize="@dimen/right_angle_icon_font_size"
-        android:textColor="@color/cardTextColor" />
+        android:textColor="@drawable/list_item" />
 
     <TextView
         android:id="@+id/person_favorite_list_name"
@@ -37,7 +37,7 @@
         android:layout_toRightOf="@id/person_favorite_thumbnail"
         android:layout_toStartOf="@id/person_favorite_list_arrow"
         android:gravity="center|start"
-        android:textColor="@color/cardTextColor" />
+        android:textColor="@drawable/list_item" />
 
 
 </RelativeLayout>
