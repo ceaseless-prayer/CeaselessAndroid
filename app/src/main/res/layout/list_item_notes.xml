@@ -52,7 +52,7 @@
                 android:layout_marginLeft="@dimen/person_note_list_item_horizontalMargin"
                 android:layout_marginRight="@dimen/person_note_list_item_horizontalMargin"
                 android:gravity="center_vertical"
-                android:textColor="@color/cardTextColor"
+                android:textColor="@drawable/list_item"
                 android:textSize="@dimen/journal_item_name_font_size"/>
 
             <TextView
@@ -64,7 +64,7 @@
                 android:layout_marginLeft="@dimen/person_note_list_item_horizontalMargin"
                 android:layout_marginRight="@dimen/person_note_list_item_horizontalMargin"
                 android:gravity="center_vertical"
-                android:textColor="@color/cardTextColor"
+                android:textColor="@drawable/list_item"
                 android:textSize="@dimen/journal_item_content_font_size" />
 
             <TextView
@@ -78,7 +78,7 @@
                 android:gravity="center_vertical"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:textColor="@color/cardTextColor"
+                android:textColor="@drawable/list_item"
                 android:textSize="@dimen/journal_item_content_font_size" />
 
         </LinearLayout>
