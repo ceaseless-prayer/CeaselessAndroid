@@ -58,6 +58,9 @@ public class CommonUtils {
                                             RoundedImageView personImage, ListView notes, View view, final String personId,
                                             String emptyNotesMessage, final FragmentManager fragmentManager, final FragmentState backStackInfo) {
         PersonPOJO personPOJO = personManager.getPerson(personId);
+        if (null == personPOJO){
+            return;
+        }
         Uri contactUri = getContactUri(personPOJO.getId());
 
         // display name and picture
