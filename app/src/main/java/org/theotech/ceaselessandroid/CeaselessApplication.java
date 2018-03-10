@@ -61,7 +61,8 @@ public class CeaselessApplication extends Application {
         Iconify.with(new FontAwesomeModule());
 
         // realm (added by T. Kopp on 2/2/16)
-        RealmConfiguration config = new RealmConfiguration.Builder(this)
+        Realm.init(this);
+        RealmConfiguration config = new RealmConfiguration.Builder()
                 .name(Constants.REALM_FILE_NAME)
                 .schemaVersion(Constants.SCHEMA_VERSION)
                 .deleteRealmIfMigrationNeeded()

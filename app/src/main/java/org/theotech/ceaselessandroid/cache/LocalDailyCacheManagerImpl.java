@@ -145,14 +145,13 @@ public class LocalDailyCacheManagerImpl implements CacheManager {
 
         LocalCacheData realmCacheData = getRealmCacheData();
         if (realmCacheData == null) {
-            realmCacheData = realm.createObject(LocalCacheData.class);
+            realmCacheData = realm.createObject(LocalCacheData.class, generateCreationDate());
         }
         populateCacheData(realmCacheData, newCacheData);
         realm.commitTransaction();
     }
 
     private void populateCacheData(LocalCacheData realmCacheData, LocalCacheDataPOJO newCacheData) {
-        realmCacheData.setCreationDate(generateCreationDate());
         if (newCacheData.getPersonIdsToPrayFor() != null) {
             List<String> personIdsToPrayFor = newCacheData.getPersonIdsToPrayFor();
             RealmList<RealmString> managedPersonIdsToPrayFor = new RealmList<>();
