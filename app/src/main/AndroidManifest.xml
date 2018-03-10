@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:amazon="http://schemas.amazon.com/apk/res/android"
     package="org.theotech.ceaselessandroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -7,6 +8,9 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.amazon.device.messaging.permission.RECEIVE" />
+    <permission android:name="org.theotech.ceaselessandroid.permission.RECEIVE_ADM_MESSAGE" android:protectionLevel="signature" />
+    <uses-permission android:name="org.theotech.ceaselessandroid.permission.RECEIVE_ADM_MESSAGE" />
 
     <!--suppress UnusedAttribute-->
     <application
@@ -88,5 +92,18 @@
             <!--</intent-filter>-->
         <!--</receiver>-->
         <!--<service android:name="com.google.android.gms.analytics.CampaignTrackingService" />-->
+
+        <!-- Registering support for Amazon Android Push Notifications -->
+        <amazon:enable-feature android:name="com.amazon.device.messaging" android:required="false"/>
+        <!-- Warnings about " is not assignable" can be safely ignored. -->
+        <service android:name="com.onesignal.ADMMessageHandler" android:exported="false" />
+        <receiver android:name="com.onesignal.ADMMessageHandler$Receiver"
+                  android:permission="com.amazon.device.messaging.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.amazon.device.messaging.intent.REGISTRATION" />
+                <action android:name="com.amazon.device.messaging.intent.RECEIVE" />
+                <category android:name="org.theotech.ceaselessandroid" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

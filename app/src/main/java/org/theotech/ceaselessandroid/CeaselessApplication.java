@@ -15,6 +15,7 @@ import org.theotech.ceaselessandroid.util.Constants;
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import com.onesignal.OneSignal;
 
 /**
  * Created by Andrew Ma on 10/5/15.
@@ -44,6 +45,12 @@ public class CeaselessApplication extends Application {
         if (!BuildConfig.DEBUG) {
             Fabric.with(this, new Crashlytics());
         }
+
+        // OneSignal setup
+        OneSignal.startInit(this)
+                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
+                .unsubscribeWhenNotificationsAreDisabled(true)
+                .init();
 
         // picasso
         Picasso.Builder builder = new Picasso.Builder(this);
