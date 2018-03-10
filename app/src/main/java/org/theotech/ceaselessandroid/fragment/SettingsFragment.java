@@ -90,7 +90,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         if ("notificationTime".equals(s) || "showNotifications".equals(s)) {
             createOrUpdateTimer();
         }
-        if("preferredBibleVersion".equals(s)){
+        if ("preferredBibleVersion".equals(s)){
            ScriptureService ss = ScriptureServiceImpl.getInstance(getActivity());
            ss.clearCache();
            ss.asyncCache();

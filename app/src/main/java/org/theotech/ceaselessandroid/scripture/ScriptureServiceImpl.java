@@ -201,7 +201,7 @@ public class ScriptureServiceImpl implements ScriptureService {
         InputStream in;
         try {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.activity.getApplicationContext());
-            String bible_version = preferences.getString("preferredBibleVersion","auto");
+            String bible_version = preferences.getString("preferredBibleVersion", "auto");
             JSONObject json = new JSONObject(ref.getJson());
             json.put("language", Locale.getDefault().toString());
             if (!bible_version.equals("auto")) {
