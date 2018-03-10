@@ -1,7 +1,9 @@
 package org.theotech.ceaselessandroid.scripture;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -28,10 +30,19 @@ import java.util.Locale;
  */
 public class ScriptureServiceImpl implements ScriptureService {
 
+
+
     private static final String TAG = "ScriptureServiceImpl";
 
-    private static final String HTTP_API_VOTD = "http://api.ceaselessprayer.com/v1/votd";
-    private static final String HTTP_API_GET_SCRIPTURE = "http://api.ceaselessprayer.com/v1/getScripture";
+    private static final String HTTP_API_OLD = "http://api.ceaselessprayer.com/";
+
+    private static final String HTTP_API_NEW = "https://mg5slzrbse.execute-api.us-east-1.amazonaws.com/";
+
+    private static final String CURRENT_API_VERSION = "v1";
+
+    private static final String HTTP_API_VOTD = HTTP_API_NEW + CURRENT_API_VERSION + "/votd";
+
+    private static final String HTTP_API_GET_SCRIPTURE = HTTP_API_NEW + CURRENT_API_VERSION + "/getScripture";
     private static final Integer SCRIPTURE_CACHE_SIZE = 5;
     private static final String SCRIPTURE_CACHE_FILE = "scriptureCacheFile";
 
@@ -189,8 +200,13 @@ public class ScriptureServiceImpl implements ScriptureService {
         // HTTP Post
         InputStream in;
         try {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.activity.getApplicationContext());
+            String bible_version = preferences.getString("preferredBibleVersion","auto");
             JSONObject json = new JSONObject(ref.getJson());
             json.put("language", Locale.getDefault().toString());
+            if (!bible_version.equals("auto")) {
+                json.put("version", bible_version);
+            }
             Log.d(TAG, json.toString());
             byte[] postDataBytes = json.toString().getBytes("UTF-8");
             URL url = new URL(HTTP_API_GET_SCRIPTURE);
@@ -248,6 +264,14 @@ public class ScriptureServiceImpl implements ScriptureService {
             return null;
         }
         return data;
+    }
+
+    public void clearCache(){
+        cachedScriptures.clear();
+    }
+
+    public void asyncCache () {
+        new ScriptureCacher().execute();
     }
 
     private class ScriptureCacher extends AsyncTask<String, Void, Void> {

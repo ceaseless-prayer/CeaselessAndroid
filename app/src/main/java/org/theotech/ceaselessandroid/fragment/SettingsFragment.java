@@ -14,6 +14,8 @@ import com.google.android.gms.analytics.Tracker;
 import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.notification.DailyNotificationReceiver;
+import org.theotech.ceaselessandroid.scripture.ScriptureService;
+import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -87,6 +89,11 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         if ("notificationTime".equals(s) || "showNotifications".equals(s)) {
             createOrUpdateTimer();
+        }
+        if("preferredBibleVersion".equals(s)){
+           ScriptureService ss = ScriptureServiceImpl.getInstance(getActivity());
+           ss.clearCache();
+           ss.asyncCache();
         }
     }
 

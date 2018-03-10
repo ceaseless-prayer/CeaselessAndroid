@@ -15,4 +15,16 @@
         <item>Verizon Wireless Accessories</item>
         <item>Voice Mail</item>
     </string-array>
+
+    <string-array name="bible_version_codes">
+        <item>auto</item>
+        <item>KJV</item>
+        <item>ESV</item>
+    </string-array>
+
+    <string-array name="bible_version_labels">
+        <item>Automatic</item>
+        <item>King James</item>
+        <item>English Standard</item>
+    </string-array>
 </resources>

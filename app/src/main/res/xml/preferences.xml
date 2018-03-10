@@ -22,4 +22,12 @@
         android:entryValues="@array/pref_people_each_day"
         android:summary="%s">
     </ListPreference>
+    <ListPreference
+        android:defaultValue="auto"
+        android:key="preferredBibleVersion"
+        android:title="@string/bible_version"
+        android:entries="@array/bible_version_labels"
+        android:entryValues="@array/bible_version_codes"
+        android:summary="%s">
+    </ListPreference>
 </PreferenceScreen>
