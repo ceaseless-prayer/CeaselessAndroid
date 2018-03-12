@@ -5,13 +5,14 @@ import java.util.Date;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
 
 /**
  * Created by uberx on 10/11/2015.
  */
 public class Note extends RealmObject {
 
-    @PrimaryKey
+    @PrimaryKey @Required
     private String id;
     private Date creationDate;
     private Date lastUpdatedDate;

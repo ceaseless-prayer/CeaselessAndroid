@@ -5,6 +5,7 @@ import java.util.Date;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
 
 /**
  * Created by Ben Johnson on 10/3/15.
@@ -12,7 +13,7 @@ import io.realm.annotations.PrimaryKey;
 
 public class Person extends RealmObject {
 
-    @PrimaryKey
+    @PrimaryKey @Required
     private String id;
     private String name;
     private String source;

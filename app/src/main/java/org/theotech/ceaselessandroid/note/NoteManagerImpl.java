@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import io.realm.Case;
 import io.realm.Realm;
 import io.realm.RealmList;
 
@@ -46,7 +47,8 @@ public class NoteManagerImpl implements NoteManager {
     public List<NotePOJO> getNotes() {
         List<NotePOJO> notes = RealmUtils.toNotePOJOs(realm.where(Note.class)
                 .equalTo(Note.Column.ACTIVE, true)
-                .findAllSorted(Note.Column.LAST_UPDATED_DATE));
+                .sort(Note.Column.LAST_UPDATED_DATE)
+                .findAll());
         // reverse collection to put most recent first
         Collections.reverse(notes);
         return notes;
@@ -55,10 +57,9 @@ public class NoteManagerImpl implements NoteManager {
     @Override
     public void addNote(String title, String text, List<PersonPOJO> personPOJOs) {
         realm.beginTransaction();
-        Note note = realm.createObject(Note.class);
+        Note note = realm.createObject(Note.class, UUID.randomUUID().toString());
         note.setCreationDate(new Date());
         note.setLastUpdatedDate(new Date());
-        note.setId(UUID.randomUUID().toString());
         note.setActive(true);
         if (title != null) {
             note.setTitle(title);
@@ -102,7 +103,7 @@ public class NoteManagerImpl implements NoteManager {
     @Override
     public void removeNote(String noteId) {
         realm.beginTransaction();
-        getRealmNote(noteId).removeFromRealm();
+        getRealmNote(noteId).deleteFromRealm();
         realm.commitTransaction();
     }
 
@@ -131,8 +132,9 @@ public class NoteManagerImpl implements NoteManager {
     public List<NotePOJO> queryNotesByText(String query) {
         List<Note> results = realm.where(Note.class)
                 .equalTo(Note.Column.ACTIVE, true)
-                .contains(Note.Column.TEXT, query, false)
-                .findAllSorted(Note.Column.LAST_UPDATED_DATE);
+                .contains(Note.Column.TEXT, query, Case.INSENSITIVE)
+                .sort(Note.Column.LAST_UPDATED_DATE)
+                .findAll();
         return RealmUtils.toNotePOJOs(results);
     }
 }

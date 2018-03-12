@@ -19,6 +19,7 @@ apply plugin: 'findbugs'
 apply plugin: 'io.fabric'
 apply plugin: 'pmd'
 apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+apply plugin: 'realm-android'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
@@ -90,14 +91,12 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.4.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
-    compile 'io.realm:realm-android:0.84.2'
     compile 'jp.wasabeef:picasso-transformations:2.1.1'
     compile 'com.google.android.gms:play-services-analytics:11.8.0'
     compile 'com.commonsware.cwac:merge:1.1.+'
     compile "com.android.support:support-v4:$supportlib_version"
     compile 'com.onesignal:OneSignal:[3.7.1, 3.99.99]'
 
-    annotationProcessor 'io.realm:realm-android:0.84.2'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
 

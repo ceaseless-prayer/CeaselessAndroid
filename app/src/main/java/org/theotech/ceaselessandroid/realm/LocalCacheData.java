@@ -3,12 +3,13 @@ package org.theotech.ceaselessandroid.realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
 
 /**
  * Created by uberx on 10/4/15.
  */
 public class LocalCacheData extends RealmObject {
-    @PrimaryKey
+    @PrimaryKey @Required
     private String creationDate;
     private String scriptureCitation;
     private String scriptureText;

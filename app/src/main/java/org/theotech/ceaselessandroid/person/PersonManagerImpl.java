@@ -32,6 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import io.realm.Case;
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmQuery;
@@ -103,7 +104,8 @@ public class PersonManagerImpl implements PersonManager {
                 .equalTo(Person.Column.ACTIVE, true)
                 .equalTo(Person.Column.IGNORED, false)
                 .equalTo(Person.Column.PRAYED, false)
-                .findAllSorted(Person.Column.LAST_PRAYED);
+                .sort(Person.Column.LAST_PRAYED)
+                .findAll();
         handleAllPrayedFor(results); // resets all the prayed flags and
                                      // throws AlreadyPrayedForAllContactsException when needed
         // We still have people available to be prayed for
@@ -176,7 +178,8 @@ public class PersonManagerImpl implements PersonManager {
                 .equalTo(Person.Column.ACTIVE, true)
                 .equalTo(Person.Column.FAVORITE, true)
                 .equalTo(Person.Column.IGNORED, false)
-                .findAllSorted(Person.Column.LAST_PRAYED);
+                .sort(Person.Column.LAST_PRAYED)
+                .findAll();
 
         if (favoritedPeople.size() > 0) {
             if (favoritedPeople.size() < RANDOM_FAVORITE_THRESHOLD) {
@@ -228,7 +231,8 @@ public class PersonManagerImpl implements PersonManager {
         return RealmUtils.toPersonPOJOs(realm.where(Person.class)
                 .equalTo(Person.Column.ACTIVE, true)
                 .equalTo(Person.Column.IGNORED, false)
-                .findAllSorted(Person.Column.NAME));
+                .sort(Person.Column.NAME)
+                .findAll());
     }
 
     @Override
@@ -237,7 +241,8 @@ public class PersonManagerImpl implements PersonManager {
                 .equalTo(Person.Column.ACTIVE, true)
                 .equalTo(Person.Column.FAVORITE, true)
                 .equalTo(Person.Column.IGNORED, false)
-                .findAllSorted(Person.Column.NAME));
+                .sort(Person.Column.NAME)
+                .findAll());
     }
 
     @Override
@@ -245,7 +250,8 @@ public class PersonManagerImpl implements PersonManager {
         return RealmUtils.toPersonPOJOs(realm.where(Person.class)
                 .equalTo(Person.Column.ACTIVE, true)
                 .equalTo(Person.Column.IGNORED, true)
-                .findAllSorted(Person.Column.NAME));
+                .sort(Person.Column.NAME)
+                .findAll());
     }
 
     @Override
@@ -358,8 +364,7 @@ public class PersonManagerImpl implements PersonManager {
 
                     if (person == null) {
 
-                        person = realm.createObject(Person.class);
-                        person.setId(id);
+                        person = realm.createObject(Person.class, id);
                         person.setName(name);
                         person.setSource(CONTACTS_SOURCE);
                         person.setActive(true);
@@ -406,7 +411,7 @@ public class PersonManagerImpl implements PersonManager {
                     // update daily cache with new ids if any persons selected for today are affected
                     peopleWithUpdatedIds.add(Pair.create(p.getId(), matchingContact));
                     // cleanup the obsolete contact (must be after we've update the cache)
-                    p.removeFromRealm();
+                    p.deleteFromRealm();
                 } else {
                     Log.v(TAG, "Marking this contact inactive because it no longer exists on the phone.");
                     p.setActive(false);
@@ -488,9 +493,10 @@ public class PersonManagerImpl implements PersonManager {
     @Override
     public List<PersonPOJO> queryPeopleByName(String query) {
         List<PersonPOJO> people = RealmUtils.toPersonPOJOs(realm.where(Person.class)
-                .contains(Person.Column.NAME, query, false)
+                .contains(Person.Column.NAME, query, Case.INSENSITIVE)
                 .equalTo(Person.Column.ACTIVE, true)
-                .findAllSorted(Person.Column.NAME));
+                .sort(Person.Column.NAME)
+                .findAll());
         return people;
     }
 
