@@ -47,7 +47,8 @@ public class NoteManagerImpl implements NoteManager {
     public List<NotePOJO> getNotes() {
         List<NotePOJO> notes = RealmUtils.toNotePOJOs(realm.where(Note.class)
                 .equalTo(Note.Column.ACTIVE, true)
-                .findAllSorted(Note.Column.LAST_UPDATED_DATE));
+                .sort(Note.Column.LAST_UPDATED_DATE)
+                .findAll());
         // reverse collection to put most recent first
         Collections.reverse(notes);
         return notes;
@@ -132,7 +133,8 @@ public class NoteManagerImpl implements NoteManager {
         List<Note> results = realm.where(Note.class)
                 .equalTo(Note.Column.ACTIVE, true)
                 .contains(Note.Column.TEXT, query, Case.INSENSITIVE)
-                .findAllSorted(Note.Column.LAST_UPDATED_DATE);
+                .sort(Note.Column.LAST_UPDATED_DATE)
+                .findAll();
         return RealmUtils.toNotePOJOs(results);
     }
 }
