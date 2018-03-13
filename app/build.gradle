@@ -29,12 +29,12 @@ repositories {
 }
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 27
     buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "org.theotech.ceaselessandroid"
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 17
         versionName "1.0.4"
         manifestPlaceholders = [onesignal_app_id: "3d054882-fde3-4bee-bf8e-723087fc3536",
