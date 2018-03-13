@@ -34,15 +34,13 @@ public class ScriptureServiceImpl implements ScriptureService {
 
     private static final String TAG = "ScriptureServiceImpl";
 
-    private static final String HTTP_API_OLD = "http://api.ceaselessprayer.com/";
-
-    private static final String HTTP_API_NEW = "https://mg5slzrbse.execute-api.us-east-1.amazonaws.com/";
+    private static final String HTTP_API = "https://api.ceaselessprayer.com/";
 
     private static final String CURRENT_API_VERSION = "v1";
 
-    private static final String HTTP_API_VOTD = HTTP_API_NEW + CURRENT_API_VERSION + "/votd";
+    private static final String HTTP_API_VOTD = HTTP_API + CURRENT_API_VERSION + "/votd";
 
-    private static final String HTTP_API_GET_SCRIPTURE = HTTP_API_NEW + CURRENT_API_VERSION + "/getScripture";
+    private static final String HTTP_API_GET_SCRIPTURE = HTTP_API + CURRENT_API_VERSION + "/getScripture";
     private static final Integer SCRIPTURE_CACHE_SIZE = 5;
     private static final String SCRIPTURE_CACHE_FILE = "scriptureCacheFile";
 
@@ -270,7 +268,7 @@ public class ScriptureServiceImpl implements ScriptureService {
         cachedScriptures.clear();
     }
 
-    public void asyncCache () {
+    public void asyncPopulateCache () {
         new ScriptureCacher().execute();
     }
 

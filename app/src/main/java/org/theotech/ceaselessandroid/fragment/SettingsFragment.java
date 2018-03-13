@@ -8,6 +8,7 @@ import android.preference.PreferenceFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.android.gms.analytics.Tracker;
 
@@ -93,7 +94,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         if ("preferredBibleVersion".equals(s)){
            ScriptureService ss = ScriptureServiceImpl.getInstance(getActivity());
            ss.clearCache();
-           ss.asyncCache();
+           ss.asyncPopulateCache();
+           Toast.makeText(getActivity(), getString(R.string.bible_version_will_change), Toast.LENGTH_LONG).show();
         }
     }
 

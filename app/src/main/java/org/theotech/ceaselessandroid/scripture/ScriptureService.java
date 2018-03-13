@@ -9,10 +9,10 @@ public interface ScriptureService {
      * This clears the cached scriptures.
      * It is used when the preferred bible version is changed.
      */
-    public void clearCache();
+    void clearCache();
 
     /**
      * This is used to fill the cached scriptures
      */
-    public void asyncCache ();
+    void asyncPopulateCache ();
 }

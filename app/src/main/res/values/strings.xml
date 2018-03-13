@@ -139,4 +139,5 @@
     <string name="tutorial_watch_progress">Watch your progress praying for others</string>
 
     <string name="bible_version">Bible Version</string>
+    <string name="bible_version_will_change">Your next Bible verse will use the version you chose.</string>
 </resources>

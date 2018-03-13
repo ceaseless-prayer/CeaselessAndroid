@@ -20,7 +20,7 @@ public class ImageURLServiceImpl implements ImageURLService {
 
     private static final String TAG = ImageURLServiceImpl.class.getSimpleName();
 
-    private static final String HTTP_API_IMAGE = "http://api.ceaselessprayer.com/v1/getAScriptureImage";
+    private static final String HTTP_API_IMAGE = "https://api.ceaselessprayer.com/v1/getAScriptureImage";
 
     private static ImageURLService instance;
 
