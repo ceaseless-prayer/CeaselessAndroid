@@ -39,3 +39,6 @@ app/fabric.properties
 
 # Node stuff
 node_modules/
+
+# ADM API Key
+app/src/main/assets/api_key.txt
