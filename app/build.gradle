@@ -28,22 +28,27 @@ repositories {
     maven { url 'https://maven.google.com' }
 }
 
-android {
-
-    Properties localProps = new Properties()
+Properties localProps = new Properties()
+File propsFile = new File('./local.properties')
+if (propsFile.isFile()) {
     localProps.load(new FileInputStream(file('../local.properties')))
     def keystoreFile = file(localProps['keystore.file'])
     def keystorePassword = localProps['keystore.password']
     def keystoreKeyPassword = localProps['keystore.keyPassword']
 
-    signingConfigs {
-        production {
-            keyAlias 'production'
-            storeFile keystoreFile
-            storePassword keystorePassword
-            keyPassword keystoreKeyPassword
+    android {
+        signingConfigs {
+            production {
+                keyAlias 'production'
+                storeFile keystoreFile
+                storePassword keystorePassword
+                keyPassword keystoreKeyPassword
+            }
         }
     }
+}
+
+android {
     compileSdkVersion 27
     buildToolsVersion "27.0.2"
     defaultConfig {
@@ -63,7 +68,7 @@ android {
             signingConfig signingConfigs.production
         }
         debug {
-            signingConfig signingConfigs.production
+
         }
     }
     lintOptions {
