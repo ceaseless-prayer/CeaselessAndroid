@@ -32,17 +32,27 @@ Properties localProps = new Properties()
 File propsFile = new File('./local.properties')
 if (propsFile.isFile()) {
     localProps.load(new FileInputStream(file('../local.properties')))
-    def keystoreFile = file(localProps['keystore.file'])
-    def keystorePassword = localProps['keystore.password']
-    def keystoreKeyPassword = localProps['keystore.keyPassword']
+    if (localProps['keystore.file']) {
+        def keystoreFile = file(localProps['keystore.file'])
+        def keystorePassword = localProps['keystore.password']
+        def keystoreKeyPassword = localProps['keystore.keyPassword']
 
-    android {
-        signingConfigs {
-            production {
-                keyAlias 'production'
-                storeFile keystoreFile
-                storePassword keystorePassword
-                keyPassword keystoreKeyPassword
+        android {
+            signingConfigs {
+                production {
+                    keyAlias 'production'
+                    storeFile keystoreFile
+                    storePassword keystorePassword
+                    keyPassword keystoreKeyPassword
+                }
+            }
+
+            buildTypes {
+                signedRelease {
+                    minifyEnabled false
+                    proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                    signingConfig signingConfigs.production
+                }
             }
         }
     }
@@ -65,10 +75,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.production
         }
         debug {
-
         }
     }
     lintOptions {
