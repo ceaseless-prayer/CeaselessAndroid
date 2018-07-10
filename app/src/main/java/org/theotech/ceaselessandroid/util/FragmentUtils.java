@@ -49,19 +49,21 @@ public class FragmentUtils {
         String fragmentTag = getFragmentTagForResourceId(activity, resourceId);
         Fragment fragmentForTag = fragmentManager.findFragmentByTag(fragmentTag);
         if (fragment != null && (fragmentForTag == null || !fragmentForTag.isVisible())) {
+            MainActivity main = (MainActivity) activity;
             if (backStackInfo != null) {
-                MainActivity main = (MainActivity) activity;
                 main.getFragmentBackStackManager().add(backStackInfo);
-
-                if (resourceId == R.id.nav_home) {
-                    // if the user tapped Home in the navigation
-                    // ensure we treat it as if it were the first time the fragment
-                    // were created (e.g. showing the first page instead of where they left off)
-                    main.setHomeFragmentCreated(false);
-                }
             }
+
+            if (resourceId == R.id.nav_home || resourceId == R.id.show_more_people) {
+                // if the user tapped Home in the navigation
+                // ensure we treat it as if it were the first time the fragment
+                // were created (e.g. showing the first page instead of where they left off)
+                main.setHomeFragmentCreated(false);
+            }
+
             fragment.setArguments(loadingFragmentState);
             fragmentManager.beginTransaction().replace(R.id.fragment, fragment, fragmentTag).commit();
+
             if (navigation != null && fragmentTag != null) {
                 navigation.setCheckedItem(getNavigationItemIdForFragmentName(activity, fragmentTag));
             }

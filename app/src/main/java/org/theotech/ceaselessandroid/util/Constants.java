@@ -25,4 +25,6 @@ public class Constants {
 
     public static final String DEMO_NAME_BUNDLE_ARG = "demoName";
     public static final String DEMO_TOOLTIP_BUNDLE_ARG = "demoShowToolTip";
+
+    public static final String DEFAULT_CEASELESS_CHANNEL_ID = "ceaselessPrayerReminders";
 }
