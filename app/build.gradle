@@ -126,7 +126,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-analytics:11.8.0'
     implementation 'com.commonsware.cwac:merge:1.1.+'
     implementation "com.android.support:support-v4:$supportlib_version"
-    implementation 'com.onesignal:OneSignal:[3.9.2, 3.99.99]'
+    implementation 'com.onesignal:OneSignal:[3.9.3, 3.99.99]'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
 
