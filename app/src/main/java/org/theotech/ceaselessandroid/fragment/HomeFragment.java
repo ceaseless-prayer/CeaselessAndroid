@@ -10,7 +10,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -72,6 +71,7 @@ public class HomeFragment extends Fragment {
 
     private SearchView searchView;
     private Integer numberOfPeopleToPrayForDaily;
+    private ZoomOutPageTransformer zoomOutPageTransformer;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -106,6 +106,7 @@ public class HomeFragment extends Fragment {
             this.useCache = true;
         }
 
+        zoomOutPageTransformer = new ZoomOutPageTransformer();
         cacheManager = LocalDailyCacheManagerImpl.getInstance(activity);
         imageService = ImageURLServiceImpl.getInstance();
         scriptureService = ScriptureServiceImpl.getInstance(activity);
@@ -186,7 +187,7 @@ public class HomeFragment extends Fragment {
         viewPager.setOffscreenPageLimit(numberOfPeopleToPrayForDaily + 1);
         final FragmentStatePagerAdapter pagerAdapter = getFragmentStatePagerAdapter();
         viewPager.setAdapter(pagerAdapter);
-        viewPager.setPageTransformer(true, new ZoomOutPageTransformer());
+        viewPager.setPageTransformer(true, zoomOutPageTransformer);
         // since this gets called multiple times, we need to clear any existing onpagechangelisteners.
         // otherwise the listeners will accumulate. For example, open a quickcontent intent and go back.
         // suddenly you have two onPageChangeListeners attached.
@@ -332,7 +333,7 @@ public class HomeFragment extends Fragment {
         SearchManager searchManager =
                 (SearchManager) activity.getSystemService(Context.SEARCH_SERVICE);
         searchView =
-                (SearchView) MenuItemCompat.getActionView(searchItem);
+                (SearchView) searchItem.getActionView();
         searchView.setSearchableInfo(
                 searchManager.getSearchableInfo(activity.getComponentName()));
         super.onCreateOptionsMenu(menu, inflater);

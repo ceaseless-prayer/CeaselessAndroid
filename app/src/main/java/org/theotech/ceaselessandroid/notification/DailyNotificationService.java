@@ -1,6 +1,5 @@
 package org.theotech.ceaselessandroid.notification;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -10,7 +9,7 @@ import android.content.res.Resources;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat.Builder;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import org.theotech.ceaselessandroid.R;
@@ -34,7 +33,6 @@ public class DailyNotificationService extends Service {
 
     @Override
     public void onCreate() {
-        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         Intent mainIntent = new Intent(this.getApplicationContext(), MainActivity.class);
         PendingIntent pIntent = PendingIntent.getActivity(this, 0, mainIntent, 0);
 
@@ -52,16 +50,18 @@ public class DailyNotificationService extends Service {
             notificationMessage = getString(R.string.reminder_notification_message_default);
         }
 
-        Notification mNotify = new Builder(this)
-                .setContentTitle(getString(R.string.reminder_notification_title))
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, Constants.DEFAULT_CEASELESS_CHANNEL_ID).setContentTitle(getString(R.string.reminder_notification_title))
                 .setContentText(notificationMessage)
                 .setSmallIcon(R.drawable.ic_notification_dove)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setContentIntent(pIntent)
-                .setAutoCancel(true)
-                .build();
+                .setAutoCancel(true);
 
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         // TODO should we set 1 as the id for all notifications from this?
-        notificationManager.notify(1, mNotify);
+        notificationManager.notify(1, mBuilder.build());
         Log.d(TAG, "notification posted.");
         stopSelf();
     }
