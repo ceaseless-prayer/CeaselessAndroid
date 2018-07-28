@@ -65,7 +65,7 @@ android {
         applicationId "org.theotech.ceaselessandroid"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 19
+        versionCode 20
         versionName "1.0.6"
         manifestPlaceholders = [onesignal_app_id               : "3d054882-fde3-4bee-bf8e-723087fc3536",
                                 // Project number pulled from dashboard, local value is ignored.
