@@ -49,7 +49,7 @@ public class CeaselessApplication extends Application {
             NotificationChannel channel = new NotificationChannel(Constants.DEFAULT_CEASELESS_CHANNEL_ID, name, importance);
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(channel);
         }
     }
