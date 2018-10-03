@@ -53,15 +53,15 @@
   <!-- do not localize -->
   <string name="person_add_note">Notiz hinzufügen</string>
   <string name="empty_notes">Es wurden keine Notizen hinzugefügt</string>
-  <string name="note_tag_hint">Tap to tag people</string>
-  <string name="note_content_hint">Enter note</string>
-  <string name="save">Save</string>
-  <string name="cancel">Cancel</string>
-  <string name="add_contact">Add Contact</string>
-  <string name="sync_contacts">Sync Contacts</string>
-  <string name="syncing_contacts">Syncing Contacts...</string>
-  <string name="contact_us_message">If you have any questions or feedback about Ceaseless, we\'d love to hear from you.</string>
-  <string name="contact_us_social">You can also connect with us on social media.</string>
+  <string name="note_tag_hint">Zum Taggen von Personen hier tippen</string>
+  <string name="note_content_hint">Notiz eingeben</string>
+  <string name="save">Speichern</string>
+  <string name="cancel">Abbrechen</string>
+  <string name="add_contact">Kontakt hinzugefügen</string>
+  <string name="sync_contacts">Kontakte synchronisieren</string>
+  <string name="syncing_contacts">Kontakte werden synchronisiert...</string>
+  <string name="contact_us_message">Du hast Fragen oder Feedback zu Ceaseless? Wir freuen uns von dir zu hören.</string>
+  <string name="contact_us_social">Du kannst Dich auch mit uns über Social Media verbinden.</string>
   <string name="contact_us_web">Visit us on the web: <a href="http://www.ceaselessprayer.com/">ceaselessprayer.com</a></string>
   <string name="contact_us_button">Email Ceaseless</string>
   <!-- TODO: Remove or change this placeholder text -->
