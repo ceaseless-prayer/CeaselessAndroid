@@ -5,6 +5,10 @@ The Ceaseless Prayer app for Android will be built natively using material desig
 
 You may want to install [Android Studio](http://developer.android.com/tools/studio/index.html).
 
+# Translating the app
+
+In order to translate the app it's not necessary to install anything on your computer - you can just use the translation platform [crowding](https://crowdin.com/project/ceaselessandroid) and we'll take care of the rest.
+
 # Working on the app
 
 Coming soon.
