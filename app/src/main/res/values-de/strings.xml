@@ -62,31 +62,31 @@
   <string name="syncing_contacts">Kontakte werden synchronisiert...</string>
   <string name="contact_us_message">Du hast Fragen oder Feedback zu Ceaseless? Wir freuen uns von dir zu hören.</string>
   <string name="contact_us_social">Du kannst Dich auch mit uns über Social Media verbinden.</string>
-  <string name="contact_us_web">Visit us on the web: <a href="http://www.ceaselessprayer.com/">ceaselessprayer.com</a></string>
-  <string name="contact_us_button">Email Ceaseless</string>
+  <string name="contact_us_web">Besuchen Sie uns im Internet: <a href="http://www.ceaselessprayer.com/">-ceaselessprayer.com-</a></string>
+  <string name="contact_us_button">Ceaseless eine E-Mail schicken</string>
   <!-- TODO: Remove or change this placeholder text -->
-  <string name="hello_blank_fragment">Sorry, something went wrong...</string>
-  <string name="show_more_people">Show more people</string>
+  <string name="hello_blank_fragment">Leider ist ein Fehler aufgetreten...</string>
+  <string name="show_more_people">Mehr Personen anzeigen</string>
   <!-- Image descriptions -->
   <string name="twitter">Twitter logo</string>
   <string name="scenic_photo">Scenic photo</string>
-  <string name="person_image">Contact photo</string>
-  <string name="person_thumbnail">Contact photo thumbnail</string>
-  <string name="ceaseless_logo">Ceaseless dove logo</string>
+  <string name="person_image">Foto des Kontakts</string>
+  <string name="person_thumbnail">Vorschaubild des Kontakts</string>
+  <string name="ceaseless_logo">Ceaseless Logo</string>
   <!-- Analytics strings -->
   <!-- default scripture -->
   <string name="default_verse_text">And whatever you ask in prayer, you will receive, if you have faith.</string>
   <string name="default_verse_citation">Matthew 21:22, ESV</string>
   <string name="default_verse_link">http://www.bible.is/ENGESV/Matt/21/22</string>
   <!-- search -->
-  <string name="no_results_msg">No results</string>
+  <string name="no_results_msg">Keine Ergebnisse</string>
   <!-- tutorial -->
-  <string name="tutorial_person_name">Your Best Friend</string>
-  <string name="start_tutorial_text">Start Tutorial</string>
-  <string name="skip_tutorial_text">Skip Tutorial</string>
-  <string name="home_tutorial_intro">Start Praying For Others</string>
-  <string name="scripture_tutorial_explanation">Learn to pray from scripture</string>
-  <string name="tutorial_swipe_to_see_person">Swipe to see who to pray for</string>
+  <string name="tutorial_person_name">Dein bester Freund</string>
+  <string name="start_tutorial_text">Einführung starten</string>
+  <string name="skip_tutorial_text">Einführung überspringen</string>
+  <string name="home_tutorial_intro">Beginne, für andere zu beten</string>
+  <string name="scripture_tutorial_explanation">Lerne, zusammen mit der Bibel zu beten</string>
+  <string name="tutorial_swipe_to_see_person">Wische um zu sehen für wen Du heute beten kannst</string>
   <string name="tutorial_tap_anywhere_to_hide_menu">Tap anywhere to continue</string>
   <string name="tutorial_favorite_person">Favorite this person if they are important</string>
   <string name="tutorial_send_message">Send a message to encourage this person</string>
