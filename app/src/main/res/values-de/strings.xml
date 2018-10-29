@@ -69,7 +69,7 @@
   <string name="show_more_people">Mehr Personen anzeigen</string>
   <!-- Image descriptions -->
   <string name="twitter">Twitter logo</string>
-  <string name="scenic_photo">Scenic photo</string>
+  <string name="scenic_photo">Landschaftsbild</string>
   <string name="person_image">Foto des Kontakts</string>
   <string name="person_thumbnail">Vorschaubild des Kontakts</string>
   <string name="ceaseless_logo">Ceaseless Logo</string>
@@ -87,10 +87,10 @@
   <string name="home_tutorial_intro">Beginne, für andere zu beten</string>
   <string name="scripture_tutorial_explanation">Lerne, zusammen mit der Bibel zu beten</string>
   <string name="tutorial_swipe_to_see_person">Wische um zu sehen für wen Du heute beten kannst</string>
-  <string name="tutorial_tap_anywhere_to_hide_menu">Tap anywhere to continue</string>
-  <string name="tutorial_favorite_person">Favorite this person if they are important</string>
-  <string name="tutorial_send_message">Send a message to encourage this person</string>
-  <string name="tutorial_add_note">Write a private note so you remember how to pray for this person</string>
+  <string name="tutorial_tap_anywhere_to_hide_menu">Tippen Sie irgendwo um fortzufahren</string>
+  <string name="tutorial_favorite_person">Markiere die Person als Favorit wenn sie dir wichtig ist</string>
+  <string name="tutorial_send_message">Sende dieser Person eine Nachricht um sie zu ermutigen</string>
+  <string name="tutorial_add_note">Schreibe eine private Notiz um dich daran zu erinnern wie Du für diese Person beten kannst</string>
   <string name="tutorial_tap_picture_for_actions">Tap the picture to see actions you can take after praying</string>
   <string name="tutorial_swipe_to_view_progress">Swipe to view progress</string>
   <string name="tutorial_watch_progress">Watch your progress praying for others</string>
