@@ -90,6 +90,6 @@
   <string name="tutorial_tap_picture_for_actions">Tekan gambar untuk melihat tindakan yang dapat dilakukan setelah berdoa</string>
   <string name="tutorial_swipe_to_view_progress">Menggesek untuk melihat kemajuan</string>
   <string name="tutorial_watch_progress">Melihat kemajuan Anda berdoa untuk orang lain</string>
-  <string name="bible_version">Bible Version</string>
-  <string name="bible_version_will_change">Your next Bible verse will use the version you chose.</string>
+  <string name="bible_version">Versión </string>
+  <string name="bible_version_will_change">Your next Bible verse will use the version you chos</string>
 </resources>
