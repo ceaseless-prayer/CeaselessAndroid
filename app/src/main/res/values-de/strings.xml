@@ -72,9 +72,9 @@
   <string name="person_thumbnail">Vorschaubild des Kontakts</string>
   <string name="ceaseless_logo">Ceaseless Logo</string>
   <!-- Analytics strings -->
-  <string name="default_verse_text">And whatever you ask in prayer, you will receive, if you have faith.</string>
-  <string name="default_verse_citation">Matthew 21:22, ESV</string>
-  <string name="default_verse_link">http://www.bible.is/ENGESV/Matt/21/22</string>
+  <string name="default_verse_text">Und alles, was ihr bittet im Gebet, so ihr glaubet, werdet ihr\'s empfangen.</string>
+  <string name="default_verse_citation">Matthäus 21,22 - LUT</string>
+  <string name="default_verse_link">http://listen.bible.is/GERL12/Matt/21/22</string>
   <!-- search -->
   <string name="no_results_msg">Keine Ergebnisse</string>
   <!-- tutorial -->
