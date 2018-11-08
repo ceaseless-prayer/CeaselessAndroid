@@ -67,13 +67,14 @@
   <string name="hello_blank_fragment">ごめんなさい！まだ実装されていません。</string>
   <string name="show_more_people">他に祈る人を表示する</string>
   <!-- Image descriptions -->
+  <!-- Image descriptions -->
   <string name="twitter">Twitterロゴ</string>
   <string name="scenic_photo">景色画像</string>
   <string name="person_image">祈る人の画像</string>
   <string name="person_thumbnail">祈る人の画像サムネイル</string>
   <string name="ceaseless_logo">Ceaseless doveロゴ</string>
   <!-- Analytics strings -->
-  <!-- default scripture -->
+  <!-- Analytics strings -->
   <string name="default_verse_text">あなたがたが信じて祈り求めるものなら、何でも与えられます。</string>
   <string name="default_verse_citation">マタイ21章22節</string>
   <string name="default_verse_link">http://www.bible.is/JPNCJV/Matt/21/22</string>
