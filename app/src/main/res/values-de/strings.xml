@@ -48,7 +48,6 @@
   <string name="person_favorite">Kontakt zu Favoriten hinzufügen</string>
   <string name="person_unfavorite">Kontakt von Favoriten entfernen</string>
   <string name="bulk_selected">%d ausgewählt</string>
-  <!-- do not localize -->
   <string name="person_add_note">Notiz hinzufügen</string>
   <string name="empty_notes">Für diesen Kontakt gibt es noch keine Notizen</string>
   <string name="note_tag_hint">Zum Markieren von Personen hier tippen</string>
@@ -62,22 +61,17 @@
   <string name="contact_us_social">Du kannst Dich auch mit uns über Social Media verbinden.</string>
   <string name="contact_us_web">Besuchen Sie uns im Internet: <a href="http://www.ceaselessprayer.com/">ceaselessprayer.com-</a></string>
   <string name="contact_us_button">Ceaseless eine E-Mail schicken</string>
-  <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_blank_fragment">Leider ist ein Fehler aufgetreten...</string>
   <string name="show_more_people">Mehr Personen anzeigen</string>
-  <!-- Image descriptions -->
   <string name="twitter">Twitter logo</string>
   <string name="scenic_photo">Landschaftsbild</string>
   <string name="person_image">Foto des Kontakts</string>
   <string name="person_thumbnail">Vorschaubild des Kontakts</string>
   <string name="ceaseless_logo">Ceaseless Logo</string>
-  <!-- Analytics strings -->
-  <string name="default_verse_text">And whatever you ask in prayer, you will receive, if you have faith.</string>
-  <string name="default_verse_citation">Matthew 21:22, ESV</string>
-  <string name="default_verse_link">http://www.bible.is/ENGESV/Matt/21/22</string>
-  <!-- search -->
+  <string name="default_verse_text">Und alles, was ihr bittet im Gebet, so ihr glaubet, werdet ihr\'s empfangen.</string>
+  <string name="default_verse_citation">Matthäus 21,22 - LUT</string>
+  <string name="default_verse_link">http://listen.bible.is/GERL12/Matt/21/22</string>
   <string name="no_results_msg">Keine Ergebnisse</string>
-  <!-- tutorial -->
   <string name="tutorial_person_name">Dein bester Freund</string>
   <string name="start_tutorial_text">Einführung starten</string>
   <string name="skip_tutorial_text">Einführung überspringen</string>
