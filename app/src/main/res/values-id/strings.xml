@@ -47,7 +47,6 @@
   <string name="person_favorite">Favorit Kontak</string>
   <string name="person_unfavorite">Tidak Favorit Kontak</string>
   <string name="bulk_selected">%d Terpilih</string>
-  <!-- do not localize -->
   <string name="person_add_note">Menambahkan Catatan</string>
   <string name="empty_notes">Tidak ada catatan</string>
   <string name="note_tag_hint">Ketuk untuk menandai orang</string>
@@ -61,22 +60,17 @@
   <string name="contact_us_social">Anda juga dapat terhubung dengan kami di media sosial.</string>
   <string name="contact_us_web">Kunjungi kami di web: <a href="http://www.ceaselessprayer.com">ceaselessprayer.com</a></string>
   <string name="contact_us_button">Email Ceaseless</string>
-  <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_blank_fragment">Maaf, ada yang tidak beres...</string>
   <string name="show_more_people">Menunjukkan orang lagi</string>
-  <!-- Image descriptions -->
   <string name="twitter">logo Twitter</string>
   <string name="scenic_photo">Foto pemandangan</string>
   <string name="person_image">Foto Kontak</string>
   <string name="person_thumbnail">Foto kontak thumbnail</string>
   <string name="ceaseless_logo">Ceaseless logo merpati</string>
-  <!-- Analytics strings -->
   <string name="default_verse_text">Dan apa saja yang kamu minta dalam doa dengan penuh kepercayaan, kamu akan menerimanya.</string>
   <string name="default_verse_citation">Matius 21:22 NTV</string>
   <string name="default_verse_link">http://www.bible.is/INZNTV/Matt/21/22</string>
-  <!-- search -->
   <string name="no_results_msg">Tidak ada hasil</string>
-  <!-- tutorial -->
   <string name="tutorial_person_name">Sahabatmu</string>
   <string name="start_tutorial_text">Mulai tutorial</string>
   <string name="skip_tutorial_text">Melewatkan tutorial</string>
@@ -90,6 +84,6 @@
   <string name="tutorial_tap_picture_for_actions">Tekan gambar untuk melihat tindakan yang dapat dilakukan setelah berdoa</string>
   <string name="tutorial_swipe_to_view_progress">Menggesek untuk melihat kemajuan</string>
   <string name="tutorial_watch_progress">Melihat kemajuan Anda berdoa untuk orang lain</string>
-  <string name="bible_version">Bible Version</string>
-  <string name="bible_version_will_change">Your next Bible verse will use the version you chose.</string>
+  <string name="bible_version">Versión </string>
+  <string name="bible_version_will_change">Your next Bible verse will use the version you chos</string>
 </resources>
