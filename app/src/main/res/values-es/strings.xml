@@ -68,13 +68,14 @@
   <string name="hello_blank_fragment">Sorry, something went wrong...</string>
   <string name="show_more_people">Show more people</string>
   <!-- Image descriptions -->
+  <!-- Image descriptions -->
   <string name="twitter">Twitter logo</string>
   <string name="scenic_photo">Scenic photo</string>
   <string name="person_image">Contact photo</string>
   <string name="person_thumbnail">Contact photo thumbnail</string>
   <string name="ceaseless_logo">Ceaseless dove logo</string>
   <!-- Analytics strings -->
-  <!-- default scripture -->
+  <!-- Analytics strings -->
   <string name="default_verse_text">And whatever you ask in prayer, you will receive, if you have faith.</string>
   <string name="default_verse_citation">Matthew 21:22, ESV</string>
   <string name="default_verse_link">http://www.bible.is/ENGESV/Matt/21/22</string>
