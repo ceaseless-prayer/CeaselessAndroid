@@ -11,7 +11,8 @@
     <item
         android:id="@+id/person_add_note"
         android:title="@string/person_add_note"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_action_add_note"
+        app:showAsAction="always" />
     <item
         android:id="@+id/skip_tutorial"
         android:title="@string/skip_tutorial_text"
