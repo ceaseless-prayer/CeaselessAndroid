@@ -59,11 +59,11 @@ if (propsFile.isFile()) {
 }
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 27
     defaultConfig {
         applicationId "org.theotech.ceaselessandroid"
         minSdkVersion 15
-        targetSdkVersion 28
+        targetSdkVersion 27
         versionCode 20
         versionName "1.0.6"
         manifestPlaceholders = [onesignal_app_id               : "3d054882-fde3-4bee-bf8e-723087fc3536",
