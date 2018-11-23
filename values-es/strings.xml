@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+  <string name="app_name">Ceaseless</string>
+  <string name="search_hint">Buscar contactos y notas</string>
+  <string name="contacts_access_required">Ceaseless requiere acceso a contactos para poder mostrar por quien orar.</string>
+  <string name="nav_home">Página de inicio</string>
+  <string name="nav_people">Personas</string>
+  <string name="nav_journal">Bloc de notas</string>
+  <string name="nav_home_tutorial">Conocer a Ceaseless</string>
+  <string name="nav_settings">Ajustes</string>
+  <string name="nav_help">Ayuda</string>
+  <string name="nav_contact_us">Contáctanos</string>
+  <string name="nav_about">Acerca de</string>
+  <string name="nav_subscribe_to_newsletter">Subscríbete al boletín de noticias</string>
+  <string name="nav_rate_this_app">Califica esta aplicación</string>
+  <string name="search_title">Buscar</string>
+  <string name="person_view">Persona</string>
+  <string name="navigation_drawer_open">Abrir navegación</string>
+  <string name="navigation_drawer_close">Cerrar navegacion</string>
+  <string name="reminder_notification_title">Recordatorio de oración</string>
+  <string name="reminder_notification_message">Ora hoy por %1$s y %2$s.</string>
+  <plurals name="number_of_other_people">
+    <item quantity="one">%d otro más</item>
+    <item quantity="other">%d otros más</item>
+  </plurals>
+  <string name="reminder_notification_message_default">Acuérdate de orar por los demás hoy.</string>
+  <string name="verse_share">Compartir</string>
+  <string name="progress">Progreso</string>
+  <string name="day">Día</string>
+  <string name="prayed_for">Ya oraste por %1$d de %2$d personas</string>
+  <string name="prayed_for_text">Ya oraste por</string>
+  <string name="prayer_reminders">Recordatorio:</string>
+  <string name="number_of_people_each_day">Número de personas por las que orar diariamente:</string>
+  <string name="reminder_time_picker_title">Tiempo de recordatorio de oración:</string>
+  <string name="reminder_time_picker_dialog_title">Editar tiempo de recordatorio:</string>
+  <string name="reminders_on_text">Recordatorios están activados</string>
+  <string name="reminders_off_text">Recordatorios están desactivados</string>
+  <string name="default_notification_time">08:30</string>
+  <string name="people_active">Activo</string>
+  <string name="people_favorite">Favorizar</string>
+  <string name="people_removed">Borrado</string>
+  <string name="person_remove">Borrar</string>
+  <string name="person_reactivate">Re-activar</string>
+  <string name="person_remove_from_ceaseless">Borrar de Ceaseless</string>
+  <string name="person_add_to_ceaseless">Agregar a Ceaseless</string>
+  <string name="person_send_message">Enviar mensaje</string>
+  <string name="person_invite">Invitar a Ceaseless</string>
+  <string name="person_favorite">Favorizar contacto</string>
+  <string name="person_unfavorite">Defavorizar contacto</string>
+  <string name="bulk_selected">%d seleccionado</string>
+  <!-- do not localize -->
+  <string name="person_add_note">Agregar nota</string>
+  <string name="empty_notes">No hay notas</string>
+  <string name="note_tag_hint">Toca para etiquetar personas</string>
+  <string name="note_content_hint">Agregar nota</string>
+  <string name="save">Guardar</string>
+  <string name="cancel">Cancelar</string>
+  <string name="add_contact">Agregar contacto</string>
+  <string name="sync_contacts">Sincronizar contactos</string>
+  <string name="syncing_contacts">Sincronizando contactos ...</string>
+  <string name="contact_us_message">Si tienes alguna pregunta o comentario sobre Ceaseless, nos encantaría saber de tí.</string>
+  <string name="contact_us_social">También puedes conectarte con nosotros en las redes sociales.</string>
+  <string name="contact_us_web">Visítanos en la web: <a href="http://www.ceaselessprayer.com/">ceaselessprayer.com</a></string>
+  <string name="contact_us_button">Contactar a Ceaseless por correo</string>
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Perdón, algo salió mal...</string>
+  <string name="show_more_people">Mostrar mas personas</string>
+  <!-- Image descriptions -->
+  <string name="twitter">Twitter logo</string>
+  <string name="scenic_photo">Foto panorámica</string>
+  <string name="person_image">Foto de contacto</string>
+  <string name="person_thumbnail">Foto de contacto en miniatura</string>
+  <string name="ceaseless_logo">Ceaseless logo</string>
+  <!-- Analytics strings -->
+  <string name="default_verse_text">Y todo lo que pidiereis en oración, creyendo, lo recibiréis.</string>
+  <string name="default_verse_citation">Matthew 21:22, Reina Valera</string>
+  <string name="default_verse_link">http://www.bible.is/SPNR60/Matt/21/22</string>
+  <!-- search -->
+  <string name="no_results_msg">No hay resultados</string>
+  <!-- tutorial -->
+  <string name="tutorial_person_name">Tu mejor amigo</string>
+  <string name="start_tutorial_text">Iniciar Tutorial</string>
+  <string name="skip_tutorial_text">Saltar Tutorial</string>
+  <string name="home_tutorial_intro">Empieza a orar por los demás</string>
+  <string name="scripture_tutorial_explanation">Aprende a orar con la escritura</string>
+  <string name="tutorial_swipe_to_see_person">Desliza para ver por quién orar</string>
+  <string name="tutorial_tap_anywhere_to_hide_menu">Toca en cualquier lugar para continuar</string>
+  <string name="tutorial_favorite_person">Favorecer a esta persona si es importante</string>
+  <string name="tutorial_send_message">Envia un mensaje para animar a esta persona</string>
+  <string name="tutorial_add_note">Escribe una nota privada para que recuerdes cómo orar por esta persona.</string>
+  <string name="tutorial_tap_picture_for_actions">Toca la foto para ver las acciones que puedes tomar después de orar.</string>
+  <string name="tutorial_swipe_to_view_progress">Desliza para ver el progreso</string>
+  <string name="tutorial_watch_progress">Observa tu progreso orando por los demás</string>
+  <string name="bible_version">Versión bíblica</string>
+  <string name="bible_version_will_change">Tu próximo versículo bíblico usará la versión que elegiste.</string>
+</resources>
