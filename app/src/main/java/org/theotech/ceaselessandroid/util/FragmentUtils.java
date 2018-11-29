@@ -48,6 +48,10 @@ public class FragmentUtils {
         Fragment fragment = getFragmentForResourceId(resourceId);
         String fragmentTag = getFragmentTagForResourceId(activity, resourceId);
         Fragment fragmentForTag = fragmentManager.findFragmentByTag(fragmentTag);
+        /*if(fragmentForTag == null) {
+            fragmentForTag = fragmentManager.findFragmentById(resourceId);
+            fragmentTag = fragmentForTag.getTag();
+        }*/
         if (fragment != null && (fragmentForTag == null || !fragmentForTag.isVisible())) {
             MainActivity main = (MainActivity) activity;
             if (backStackInfo != null) {
@@ -121,6 +125,8 @@ public class FragmentUtils {
             return context.getString(R.string.nav_about);
         } else if (resourceId == R.id.person_add_note) {
             return context.getString(R.string.person_add_note);
+        //} else if (resourceId == R.id.show_more_people) {
+          //  return context.getString(R.string.nav_home);
         }
         return null;
     }
@@ -146,6 +152,8 @@ public class FragmentUtils {
             return R.id.nav_journal;
         } else if (fragmentName.equals(context.getString(R.string.person_view))) {
             return R.id.person_card;
+        } else if (fragmentName.equals(context.getString(R.string.show_more_people))) {
+            return R.id.nav_home;
         }
         return null;
     }

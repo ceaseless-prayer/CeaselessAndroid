@@ -104,6 +104,36 @@
                         android:textColor="@color/cardTextColor"/>
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="@dimen/person_card_shortcut_size"
+                    android:layout_height="@dimen/person_image_size"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/person_image"
+                    android:layout_marginLeft="18dp"
+                    android:orientation="vertical">
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:id="@+id/invite_btn"
+                        android:layout_width="@dimen/person_card_shortcut_size"
+                        android:layout_height="@dimen/person_card_shortcut_size"
+                        android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                        android:gravity="center"
+                        android:text="{fa-envelope}"
+                        android:textSize="@dimen/favorite_icon_font_size"
+                        android:textColor="@color/cardTextColor"/>
+
+                    <com.joanzapata.iconify.widget.IconTextView
+                        android:id="@+id/delete_btn"
+                        android:layout_width="@dimen/person_card_shortcut_size"
+                        android:layout_height="@dimen/person_card_shortcut_size"
+                        android:layout_marginBottom="@dimen/person_card_shortcut_bottom_margin"
+                        android:gravity="center"
+                        android:text="{fa-trash-o}"
+                        android:textSize="@dimen/favorite_icon_font_size"
+                        android:textColor="@color/cardTextColor"/>
+
+                </LinearLayout>
             </RelativeLayout>
 
             <LinearLayout

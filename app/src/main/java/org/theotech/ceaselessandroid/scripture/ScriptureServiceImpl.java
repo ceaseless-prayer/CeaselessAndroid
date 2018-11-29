@@ -41,8 +41,8 @@ public class ScriptureServiceImpl implements ScriptureService {
     private static final String HTTP_API_VOTD = HTTP_API + CURRENT_API_VERSION + "/votd";
 
     private static final String HTTP_API_GET_SCRIPTURE = HTTP_API + CURRENT_API_VERSION + "/getScripture";
-    private static final Integer SCRIPTURE_CACHE_SIZE = 5;
-    private static final String SCRIPTURE_CACHE_FILE = "scriptureCacheFile";
+    private static final Integer SCRIPTURE_CACHE_SIZE = 6;
+    private static final String SCRIPTURE_CACHE_FILE = "scriptureCacheFile2";
 
     private static ScriptureService instance;
 
@@ -146,6 +146,7 @@ public class ScriptureServiceImpl implements ScriptureService {
         InputStream in;
         try {
             URL url = new URL(HTTP_API_VOTD + "?language=" + Locale.getDefault().toString());
+            Log.i(TAG, "myurl" + url);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             in = new BufferedInputStream(urlConnection.getInputStream());
         } catch (Exception e) {

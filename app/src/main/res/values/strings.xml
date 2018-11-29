@@ -88,6 +88,7 @@
   <string name="ga_tapped_add_note" translatable="false">tapped_add_note</string>
   <string name="ga_tapped_share_scripture" translatable="false">share_scripture</string>
   <string name="ga_tapped_invite" translatable="false">tapped_invite</string>
+  <string name="ga_tapped_delete" translatable="false">tapped_delete</string>
   <string name="ga_tapped_show_more_people" translatable="false">tapped_show_more_people</string>
   <string name="ga_address_book_sync" translatable="false">address_book_sync</string>
   <string name="ga_prayer_progress" translatable="false">prayer_progress</string>
