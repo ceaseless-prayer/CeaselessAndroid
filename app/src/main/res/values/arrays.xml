@@ -21,12 +21,14 @@
         <item>KJV</item>
         <item>ESV</item>
         <item>L12</item>
+        <item>BDA</item>
     </string-array>
 
     <string-array name="bible_version_labels">
         <item>Automatic</item>
         <item>King James</item>
         <item>English Standard</item>
-        <item>Luther 1912</item>
+        <item>Luther 1912 (DE)</item>
+        <item>Biblia de América (ES)</item>
     </string-array>
 </resources>
