@@ -88,7 +88,6 @@
   <string name="ga_tapped_add_note" translatable="false">tapped_add_note</string>
   <string name="ga_tapped_share_scripture" translatable="false">share_scripture</string>
   <string name="ga_tapped_invite" translatable="false">tapped_invite</string>
-  <string name="ga_tapped_delete" translatable="false">tapped_delete</string>
   <string name="ga_tapped_show_more_people" translatable="false">tapped_show_more_people</string>
   <string name="ga_address_book_sync" translatable="false">address_book_sync</string>
   <string name="ga_prayer_progress" translatable="false">prayer_progress</string>
@@ -117,4 +116,58 @@
   <string name="tutorial_watch_progress">Watch your progress praying for others</string>
   <string name="bible_version">Bible Version</string>
   <string name="bible_version_will_change">Your next Bible verse will use the version you chose.</string>
+  <!-- Localizable.strings
+  Ceaseless
+
+  Created by Christopher Lim on 10/22/16.
+  Copyright © 2016 Christopher Lim. All rights reserved. -->
+  <string name="contactsPermissionRequired">This app requires access to your contacts to function properly. Would you like to enable access?</string>
+  <string name="I_prayed_for_you_using_the_Ceaseless_app_today.">I prayed for you using the Ceaseless app today. You would like it. 
+
+http://ceaselessprayer.com</string>
+  <string name="I_prayed_for_you_today_when_you_came_up_in_my_Ceaseless_app._How_are_you_doing">I prayed for you today when you came up in my Ceaseless app. How are you doing?  
+
+http://ceaselessprayer.com</string>
+  <string name="Could_not_send_a_message_because_this_person_is_missing_contact_information.">Could not send a message because this person is missing contact information.</string>
+  <string name="Could_not_send_an_invitation_because_this_person_is_missing_contact_information.">Could not send an invitation because this person is missing contact information.</string>
+  <string name="Allow_access_action">Allow access</string>
+  <string name="Invited_">Invited %@</string>
+  <string name="View_in_Contacts">View in Contacts</string>
+  <string name="Send_Message">Send Message</string>
+  <string name="Add_a_New_Note">Add a New Note</string>
+  <string name="Send_Invite">Send Invite</string>
+  <string name="Error">Error</string>
+  <string name="OK">OK</string>
+  <string name="Your_device_doesnt_support_SMS">Your device doesn\'t support SMS!</string>
+  <string name="Failed_to_send_SMS">Failed to send SMS!</string>
+  <string name="Did_not_send_message.">Did not send message.</string>
+  <string name="Ceaseless_Prayer">Ceaseless Prayer</string>
+  <string name="___people" formatted="false">%@ / %@ people</string>
+  <string name="No_Internet_Connection">No Internet Connection</string>
+  <string name="Please_connect_to_the_internet_to_see_this.">Please connect to the internet to see this.</string>
+  <string name="Add_new_note">Add new note</string>
+  <string name="Add_new_contact">Add new contact</string>
+  <string name="Review_Ceaseless">Review Ceaseless</string>
+  <string name="Subscribe_to_Newsletter">Subscribe to Newsletter</string>
+  <string name="Could_not_show_Ceaseless_in_App_Store.">Could not show Ceaseless in App Store.</string>
+  <string name="Ceaseless_for_iOS_Feedback">Ceaseless for iOS Feedback</string>
+  <string name="Did_not_send_feedback.">Did not send feedback.</string>
+  <string name="Thank_you">Thank you!</string>
+  <string name="Thanks_for_your_feedback.">Thanks for your feedback.</string>
+  <string name="Ceaseless_only_syncs_contacts_that_have_at_least_a_first_name.">Ceaseless only syncs contacts that have at least a first name.</string>
+  <string name="Select_yourself">Select yourself</string>
+  <string name="Cancel"></string>
+  <string name="Sync_with_Contacts"></string>
+  <string name="Add_a_person"></string>
+  <string name="Remove"></string>
+  <string name="Add"></string>
+  <string name="Edit"></string>
+  <string name="Save"></string>
+  <string name="Add_Note"></string>
+  <string name="scriptureLanguageCode"></string>
+  <string name="Ready_to_pray_for__and__others_today_Open_the_app_to_start."></string>
+  <string name="Ready_to_pray_for__and_others_today_Open_the_app_to_start."></string>
+  <string name="Ready_to_pray_for_others_today_Open_the_app_to_start."></string>
+  <string name="Day_"></string>
+  <string name="ga_tapped_delete" translatable="false">tapped_delete</string>
 </resources>
