@@ -20,21 +20,21 @@
   <string name="reminder_notification_title">Gebets-Erinnerung</string>
   <string name="reminder_notification_message">Bete heute für %1$s und %2$s.</string>
   <plurals name="number_of_other_people">
-    <item quantity="one">%d anderen</item>
-    <item quantity="other">%d andere</item>
+    <item quantity="one">%d andere Person.</item>
+    <item quantity="other">%d andere Personen</item>
   </plurals>
-  <string name="reminder_notification_message_default">Denk\' daran, für andere heute zu beten.</string>
+  <string name="reminder_notification_message_default">Denk\' daran, heute für andere zu beten.</string>
   <string name="verse_share">Teilen</string>
   <string name="progress">Fortschritt</string>
   <string name="day">Tag</string>
-  <string name="prayed_for">Sie haben bereits für %1$d von %2$d Personen gebetet</string>
+  <string name="prayed_for">Du hast bereits für %1$d von %2$d Personen gebetet</string>
   <string name="prayed_for_text">Du hast gebetet für</string>
   <string name="prayer_reminders">Erinnerung:</string>
-  <string name="number_of_people_each_day">Anzahl der Personen für die Du täglich beten möchtest:</string>
+  <string name="number_of_people_each_day">Anzahl der Personen die täglich erscheinen:</string>
   <string name="reminder_time_picker_title">Zeitpunkt der Gebetserinnerung:</string>
   <string name="reminder_time_picker_dialog_title">Zeitpunkt der Gebetserinnerung bearbeiten:</string>
-  <string name="reminders_on_text">Erinnerungen sind an</string>
-  <string name="reminders_off_text">Erinnerungen sind aus</string>
+  <string name="reminders_on_text">Erinnerungen sind aktiv</string>
+  <string name="reminders_off_text">Erinnerungen sind inaktiv</string>
   <string name="default_notification_time">08:30</string>
   <string name="people_active">Aktiv</string>
   <string name="people_favorite">Favorit</string>
@@ -60,14 +60,14 @@
   <string name="syncing_contacts">Kontakte werden synchronisiert...</string>
   <string name="contact_us_message">Du hast Fragen oder Feedback zu Ceaseless? Wir freuen uns, von dir zu hören.</string>
   <string name="contact_us_social">Du kannst Dich auch mit uns über Social Media verbinden.</string>
-  <string name="contact_us_web">Besuchen Sie uns im Internet: <a href="http://www.ceaselessprayer.com/">ceaselessprayer.com-</a></string>
-  <string name="contact_us_button">Ceaseless eine E-Mail schicken</string>
+  <string name="contact_us_web">Besuche uns im Internet: <a href="http://www.ceaselessprayer.com/">ceaselessprayer.com</a></string>
+  <string name="contact_us_button">Ceaseless eine E-Mail senden</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_blank_fragment">Leider ist ein Fehler aufgetreten...</string>
   <string name="show_more_people">Mehr Personen anzeigen</string>
   <!-- Image descriptions -->
   <string name="twitter">Twitter logo</string>
-  <string name="scenic_photo">Landschaftsbild</string>
+  <string name="scenic_photo">Szenisches Foto</string>
   <string name="person_image">Foto des Kontakts</string>
   <string name="person_thumbnail">Vorschaubild des Kontakts</string>
   <string name="ceaseless_logo">Ceaseless Logo</string>
@@ -87,10 +87,10 @@
   <string name="tutorial_tap_anywhere_to_hide_menu">Tippe irgendwo um fortzufahren</string>
   <string name="tutorial_favorite_person">Markiere die Person als Favorit wenn sie dir wichtig ist</string>
   <string name="tutorial_send_message">Sende dieser Person eine Nachricht um sie zu ermutigen</string>
-  <string name="tutorial_add_note">Schreibe eine private Notiz um dich daran zu erinnern wie Du für diese Person beten kannst</string>
+  <string name="tutorial_add_note">Schreibe eine private Notiz, damit du später weißt wie du für diese Person beten kannst.</string>
   <string name="tutorial_tap_picture_for_actions">Tippe auf das Bild, um zu sehen welche Aktionen du nach dem Beten ausführen kannst</string>
   <string name="tutorial_swipe_to_view_progress">Wische um zu sehen für wen du bereits gebetet hast</string>
-  <string name="tutorial_watch_progress">Sieh\' hier für wie viel Personen du bereits gebetet hast</string>
+  <string name="tutorial_watch_progress">Hier siehst Du für wie viele Personen du bereits gebetet hast</string>
   <string name="bible_version">Bibelversion</string>
   <string name="bible_version_will_change">Dein nächster Bibelvers wird die von dir gewählte Version verwenden.</string>
 </resources>
