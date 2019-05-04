@@ -122,7 +122,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
     implementation 'jp.wasabeef:picasso-transformations:2.1.1'
-    implementation 'com.google.android.gms:play-services-analytics:11.8.0'
+    implementation 'com.google.android.gms:play-services-analytics:16.0.8'
     implementation 'com.commonsware.cwac:merge:1.1.+'
     implementation "com.android.support:support-v4:$supportlib_version"
     implementation 'com.onesignal:OneSignal:[3.9.3, 3.99.99]'
