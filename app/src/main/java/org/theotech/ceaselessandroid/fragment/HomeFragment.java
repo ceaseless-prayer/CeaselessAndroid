@@ -21,7 +21,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.SearchView;
 
-import com.google.android.gms.analytics.Tracker;
 import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -67,7 +66,6 @@ public class HomeFragment extends Fragment {
     private ImageURLService imageService = null;
     private ScriptureService scriptureService = null;
     private PersonManager personManager = null;
-    private Tracker mTracker;
 
     private SearchView searchView;
     private Integer numberOfPeopleToPrayForDaily;
@@ -111,8 +109,6 @@ public class HomeFragment extends Fragment {
         imageService = ImageURLServiceImpl.getInstance();
         scriptureService = ScriptureServiceImpl.getInstance(activity);
         personManager = PersonManagerImpl.getInstance(activity);
-        CeaselessApplication application = (CeaselessApplication) activity.getApplication();
-        mTracker = application.getDefaultTracker();
     }
 
     @Override
@@ -184,6 +180,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void prepareViewPager() {
+        final Activity activity = this.getActivity();
         viewPager.setOffscreenPageLimit(numberOfPeopleToPrayForDaily + 1);
         final FragmentStatePagerAdapter pagerAdapter = getFragmentStatePagerAdapter();
         viewPager.setAdapter(pagerAdapter);
@@ -202,7 +199,7 @@ public class HomeFragment extends Fragment {
             public void onPageSelected(int position) {
                 ICardPageFragment card = (ICardPageFragment) pagerAdapter.getItem(position);
                 cacheManager.cachePageIndex(viewPager.getCurrentItem());
-                AnalyticsUtils.sendScreenViewHit(mTracker, card.getCardName());
+                AnalyticsUtils.sendScreenViewHit(activity, card.getCardName());
 
                 Bundle newState = new Bundle();
                 newState.putInt(Constants.HOME_SECTION_NUMBER_BUNDLE_ARG, position);
@@ -317,7 +314,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        AnalyticsUtils.sendScreenViewHit(mTracker, "HomeScreen");
+        AnalyticsUtils.sendScreenViewHit(this.getActivity(), "HomeScreen");
         boolean searchViewFocused = searchView != null && searchView.hasFocus();
         // create the pager so we see the cards
         if (activity.getHomeFragmentCreated() && !searchViewFocused) {

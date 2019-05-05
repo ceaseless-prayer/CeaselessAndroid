@@ -6,8 +6,6 @@ import android.app.NotificationManager;
 import android.os.Build;
 
 import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.analytics.GoogleAnalytics;
-import com.google.android.gms.analytics.Tracker;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.onesignal.OneSignal;
@@ -24,21 +22,6 @@ import io.realm.RealmConfiguration;
  * Created by Andrew Ma on 10/5/15.
  */
 public class CeaselessApplication extends Application {
-
-    private Tracker mTracker;
-
-    /**
-     * Gets the default {@link Tracker} for this {@link Application}.
-     * @return tracker
-     */
-    synchronized public Tracker getDefaultTracker() {
-        if (mTracker == null) {
-            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
-            // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
-            mTracker = analytics.newTracker(R.xml.global_tracker);
-        }
-        return mTracker;
-    }
 
     private void createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
