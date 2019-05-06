@@ -130,6 +130,7 @@ dependencies {
 }
 
 task checkstyle(type: Checkstyle) {
+    configFile = new File(projectDir, "/config/checkstyle/checkstyle.xml")
     configProperties.checkstyleSuppressionsPath = new File(projectDir, "config/checkstyle/suppressions.xml")
     source 'src'
     include '**/*.java'
