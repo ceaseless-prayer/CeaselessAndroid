@@ -138,31 +138,6 @@ task checkstyle(type: Checkstyle) {
     classpath = files()
 }
 
-task findbugs(type: FindBugs, dependsOn: "assembleDebug") {
-    ignoreFailures = false
-    effort = "max"
-    reportLevel = "low"
-    classes = files(new File(buildDir, "intermediates/classes/debug/org/theotech/ceaselessandroid/"))
-    excludeFilter = new File(projectDir, "config/findbugs/exclude-filter.xml")
-
-    source 'src'
-    include '**/*.java'
-    exclude '**/gen/**'
-
-    reports {
-        xml.enabled = false
-        html.enabled = true
-        xml {
-            destination = new File(buildDir, "reports/findbugs/findbugs.xml")
-        }
-        html {
-            destination = new File(buildDir, "reports/findbugs/findbugs.html")
-        }
-    }
-
-    classpath = files()
-}
-
 
 task pmd(type: Pmd, dependsOn: "assembleDebug") {
     ignoreFailures = false
@@ -185,6 +160,6 @@ task pmd(type: Pmd, dependsOn: "assembleDebug") {
     }
 }
 
-check.dependsOn 'checkstyle', 'findbugs', 'lint', 'pmd'
+check.dependsOn 'checkstyle', 'lint', 'pmd'
 
 apply plugin: 'com.google.gms.google-services'

@@ -24,7 +24,6 @@ import android.widget.SearchView;
 import com.squareup.picasso.Picasso;
 import com.viewpagerindicator.CirclePageIndicator;
 
-import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.activity.MainActivity;
 import org.theotech.ceaselessandroid.cache.CacheManager;

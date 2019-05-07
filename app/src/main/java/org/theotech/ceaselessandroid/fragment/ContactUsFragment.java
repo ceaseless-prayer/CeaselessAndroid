@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 

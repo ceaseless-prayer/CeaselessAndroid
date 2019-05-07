@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 

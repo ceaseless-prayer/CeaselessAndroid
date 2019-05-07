@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.makeramen.roundedimageview.RoundedImageView;
 
-import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.person.PersonManager;
 import org.theotech.ceaselessandroid.person.PersonManagerImpl;
