@@ -67,13 +67,14 @@
   <string name="hello_blank_fragment">아직 구현되지 않았습니다 </string>
   <string name="show_more_people">더 많은 사람들 보기</string>
   <!-- Image descriptions -->
+  <!-- Image descriptions -->
   <string name="twitter">트위터 로고 </string>
   <string name="scenic_photo">풍경 사진</string>
   <string name="person_image">연락처 사진</string>
   <string name="person_thumbnail">연락처 사진 썸네일</string>
   <string name="ceaseless_logo">시슬리스 비둘기 로고</string>
   <!-- Analytics strings -->
-  <!-- default scripture -->
+  <!-- Analytics strings -->
   <string name="default_verse_text">너희가 기도할 때에 무엇이든지 믿고 구하는 것은 다 받으리라 하시니라</string>
   <string name="default_verse_citation">마태복음 21:22 개역개정</string>
   <string name="default_verse_link">http://www.bible.is/KO1SKV/Matt/21/22</string>

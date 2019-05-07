@@ -66,6 +66,7 @@
   <string name="hello_blank_fragment">Leider ist ein Fehler aufgetreten...</string>
   <string name="show_more_people">Mehr Personen anzeigen</string>
   <!-- Image descriptions -->
+  <!-- Image descriptions -->
   <string name="twitter">Twitter logo</string>
   <string name="scenic_photo">Szenisches Foto</string>
   <string name="person_image">Foto des Kontakts</string>
