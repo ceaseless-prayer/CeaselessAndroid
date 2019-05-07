@@ -12,10 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.analytics.Tracker;
 import com.squareup.picasso.Picasso;
 
-import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 
@@ -35,7 +33,6 @@ public class ContactUsFragment extends Fragment {
     ImageView twitterImage;
 
     private FragmentStateListener mListener;
-    private Tracker mTracker;
 
     public ContactUsFragment() {
         // Required empty public constructor
@@ -52,8 +49,6 @@ public class ContactUsFragment extends Fragment {
             throw new ClassCastException(getActivity().toString() + " must implement FragmentStateListener");
         }
         mListener.notify(new FragmentState(getString(R.string.nav_contact_us)));
-        CeaselessApplication application = (CeaselessApplication) getActivity().getApplication();
-        mTracker = application.getDefaultTracker();
     }
 
     @Override
@@ -128,6 +123,6 @@ public class ContactUsFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        AnalyticsUtils.sendScreenViewHit(mTracker, "ContactUsScreen");
+        AnalyticsUtils.sendScreenViewHit(this.getActivity(), "ContactUsScreen");
     }
 }

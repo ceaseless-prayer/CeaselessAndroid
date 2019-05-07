@@ -11,10 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.android.gms.analytics.Tracker;
 import com.tokenautocomplete.TokenCompleteTextView;
 
-import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
@@ -51,7 +49,6 @@ public class AddNoteFragment extends Fragment {
     private NoteManager noteManager = null;
     private CacheManager cacheManager = null;
     private String noteId = null;
-    private Tracker mTracker;
 
     private static final String TAG = AddNoteFragment.class.getSimpleName();
 
@@ -68,9 +65,6 @@ public class AddNoteFragment extends Fragment {
         personManager = PersonManagerImpl.getInstance(getActivity());
         noteManager = NoteManagerImpl.getInstance(getActivity());
         cacheManager = LocalDailyCacheManagerImpl.getInstance(getActivity());
-
-        CeaselessApplication application = (CeaselessApplication) getActivity().getApplication();
-        mTracker = application.getDefaultTracker();
     }
 
     @Override
@@ -153,7 +147,7 @@ public class AddNoteFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        AnalyticsUtils.sendScreenViewHit(mTracker, "NoteScreen");
+        AnalyticsUtils.sendScreenViewHit(this.getActivity(), "NoteScreen");
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
     }
 

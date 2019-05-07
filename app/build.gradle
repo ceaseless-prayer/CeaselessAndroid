@@ -122,7 +122,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
     implementation 'jp.wasabeef:picasso-transformations:2.1.1'
-    implementation 'com.google.android.gms:play-services-analytics:11.8.0'
+    implementation 'com.google.firebase:firebase-core:16.0.8'
     implementation 'com.commonsware.cwac:merge:1.1.+'
     implementation "com.android.support:support-v4:$supportlib_version"
     implementation 'com.onesignal:OneSignal:[3.9.3, 3.99.99]'
@@ -130,35 +130,11 @@ dependencies {
 }
 
 task checkstyle(type: Checkstyle) {
+    configFile = new File(projectDir, "/config/checkstyle/checkstyle.xml")
     configProperties.checkstyleSuppressionsPath = new File(projectDir, "config/checkstyle/suppressions.xml")
     source 'src'
     include '**/*.java'
     exclude '**/gen/**'
-    classpath = files()
-}
-
-task findbugs(type: FindBugs, dependsOn: "assembleDebug") {
-    ignoreFailures = false
-    effort = "max"
-    reportLevel = "low"
-    classes = files(new File(buildDir, "intermediates/classes/debug/org/theotech/ceaselessandroid/"))
-    excludeFilter = new File(projectDir, "config/findbugs/exclude-filter.xml")
-
-    source 'src'
-    include '**/*.java'
-    exclude '**/gen/**'
-
-    reports {
-        xml.enabled = false
-        html.enabled = true
-        xml {
-            destination = new File(buildDir, "reports/findbugs/findbugs.xml")
-        }
-        html {
-            destination = new File(buildDir, "reports/findbugs/findbugs.html")
-        }
-    }
-
     classpath = files()
 }
 
@@ -184,6 +160,6 @@ task pmd(type: Pmd, dependsOn: "assembleDebug") {
     }
 }
 
-check.dependsOn 'checkstyle', 'findbugs', 'lint', 'pmd'
+check.dependsOn 'checkstyle', 'lint', 'pmd'
 
 apply plugin: 'com.google.gms.google-services'

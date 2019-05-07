@@ -76,7 +76,7 @@ public class ProgressCardSupportFragment extends Fragment implements ICardPageFr
         showMorePeople.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AnalyticsUtils.sendEventWithCategory(AnalyticsUtils.getDefaultTracker(getActivity()),
+                AnalyticsUtils.sendEventWithCategory(getActivity(),
                         getString(R.string.ga_progress_card_actions),
                         getString(R.string.ga_tapped_show_more_people),
                         Installation.id(getActivity()));

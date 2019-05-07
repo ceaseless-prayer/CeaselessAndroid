@@ -11,9 +11,6 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.google.android.gms.analytics.Tracker;
-
-import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 
@@ -26,7 +23,6 @@ public class AboutFragment extends Fragment {
     WebView aboutWV;
 
     private FragmentStateListener mListener;
-    private Tracker mTracker;
 
     public AboutFragment() {
         // Required empty public constructor
@@ -43,8 +39,6 @@ public class AboutFragment extends Fragment {
             throw new ClassCastException(getActivity().toString() + " must implement FragmentStateListener");
         }
         mListener.notify(new FragmentState(getString(R.string.nav_help)));
-        CeaselessApplication application = (CeaselessApplication) getActivity().getApplication();
-        mTracker = application.getDefaultTracker();
     }
 
     @Override
@@ -78,6 +72,6 @@ public class AboutFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        AnalyticsUtils.sendScreenViewHit(mTracker, "AboutScreen");
+        AnalyticsUtils.sendScreenViewHit(this.getActivity(), "AboutScreen");
     }
 }

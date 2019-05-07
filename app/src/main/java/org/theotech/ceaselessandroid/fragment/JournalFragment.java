@@ -22,7 +22,6 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
-import com.google.android.gms.analytics.Tracker;
 import com.google.common.base.Joiner;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
@@ -60,7 +59,6 @@ public class JournalFragment extends Fragment implements Refreshable {
     private PersonManager personManager = null;
     private ActionMode actionMode;
     private NotesArrayAdapter adapter;
-    private Tracker mTracker;
 
     public JournalFragment() {
         // Required empty public constructor
@@ -83,7 +81,6 @@ public class JournalFragment extends Fragment implements Refreshable {
         personManager = PersonManagerImpl.getInstance(getActivity());
 
         CeaselessApplication application = (CeaselessApplication) getActivity().getApplication();
-        mTracker = application.getDefaultTracker();
     }
 
     @Override
@@ -170,7 +167,7 @@ public class JournalFragment extends Fragment implements Refreshable {
     @Override
     public void onResume() {
         super.onResume();
-        AnalyticsUtils.sendScreenViewHit(mTracker, "JournalScreen");
+        AnalyticsUtils.sendScreenViewHit(this.getActivity(), "JournalScreen");
     }
 
     @Override

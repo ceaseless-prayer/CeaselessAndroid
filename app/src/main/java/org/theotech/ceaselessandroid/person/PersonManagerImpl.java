@@ -10,9 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import android.util.Log;
 
-import com.google.android.gms.analytics.Tracker;
-
-import org.theotech.ceaselessandroid.CeaselessApplication;
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.cache.CacheManager;
 import org.theotech.ceaselessandroid.cache.LocalDailyCacheManagerImpl;
@@ -52,17 +49,12 @@ public class PersonManagerImpl implements PersonManager {
     private Realm realm;
     private ContentResolver contentResolver;
     private CacheManager cacheManager;
-    private Tracker mTracker;
 
     private PersonManagerImpl(Activity activity) {
         this.activity = activity;
         this.realm = Realm.getDefaultInstance();
         this.contentResolver = this.activity.getContentResolver();
         this.cacheManager = LocalDailyCacheManagerImpl.getInstance(activity);
-
-        // setup analytics
-        CeaselessApplication application = (CeaselessApplication) activity.getApplication();
-        mTracker = application.getDefaultTracker();
     }
 
     public static PersonManager getInstance(Activity activity) {
@@ -540,25 +532,25 @@ public class PersonManagerImpl implements PersonManager {
         if (random.nextInt(RANDOM_SAMPLE_POST_METRICS) == 0) {
             Log.i(TAG, "Posting contact metrics for analytics");
             String installationId = Installation.id(activity);
-            AnalyticsUtils.sendEventWithCategoryAndValue(mTracker,
+            AnalyticsUtils.sendEventWithCategoryAndValue(activity,
                     getString(R.string.ga_address_book_sync),
                     getString(R.string.ga_post_total_active_contacts),
                     installationId,
                     getNumPeople());
 
-            AnalyticsUtils.sendEventWithCategoryAndValue(mTracker,
+            AnalyticsUtils.sendEventWithCategoryAndValue(activity,
                     getString(R.string.ga_address_book_sync),
                     getString(R.string.ga_post_total_favorited),
                     installationId,
                     getNumFavoritedPeople());
 
-            AnalyticsUtils.sendEventWithCategoryAndValue(mTracker,
+            AnalyticsUtils.sendEventWithCategoryAndValue(activity,
                     getString(R.string.ga_address_book_sync),
                     getString(R.string.ga_post_total_removed_contacts),
                     installationId,
                     getNumRemovedPeople());
 
-            AnalyticsUtils.sendEventWithCategoryAndValue(mTracker,
+            AnalyticsUtils.sendEventWithCategoryAndValue(activity,
                     getString(R.string.ga_prayer_progress),
                     getString(R.string.ga_post_total_prayed_for),
                     installationId,

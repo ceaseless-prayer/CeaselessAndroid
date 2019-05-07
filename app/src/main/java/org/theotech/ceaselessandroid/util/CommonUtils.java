@@ -139,7 +139,7 @@ public class CommonUtils {
         messageShortcut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AnalyticsUtils.sendEventWithCategory(AnalyticsUtils.getDefaultTracker(activity),
+                AnalyticsUtils.sendEventWithCategory(activity,
                         activity.getString(R.string.ga_person_card_actions),
                         activity.getString(R.string.ga_tapped_send_message),
                         Installation.id(activity));
@@ -154,7 +154,7 @@ public class CommonUtils {
         inviteShortcut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AnalyticsUtils.sendEventWithCategory(AnalyticsUtils.getDefaultTracker(activity),
+                AnalyticsUtils.sendEventWithCategory(activity,
                         activity.getString(R.string.ga_person_card_actions),
                         activity.getString(R.string.ga_tapped_invite),
                         Installation.id(activity));
@@ -199,7 +199,7 @@ public class CommonUtils {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AnalyticsUtils.sendEventWithCategory(AnalyticsUtils.getDefaultTracker(activity),
+                AnalyticsUtils.sendEventWithCategory(activity,
                         activity.getString(R.string.ga_person_card_actions),
                         activity.getString(R.string.ga_tapped_add_note),
                         Installation.id(activity));
@@ -229,7 +229,7 @@ public class CommonUtils {
                         int id = item.getItemId();
                         switch (id) {
                             case R.id.person_fragment_add_note:
-                                AnalyticsUtils.sendEventWithCategory(AnalyticsUtils.getDefaultTracker(activity),
+                                AnalyticsUtils.sendEventWithCategory(activity,
                                         activity.getString(R.string.ga_person_card_actions),
                                         activity.getString(R.string.ga_tapped_add_note),
                                         Installation.id(activity));
@@ -244,7 +244,7 @@ public class CommonUtils {
                                 removedLabel.setVisibility(View.INVISIBLE);
                                 return true;
                             case R.id.person_fragment_send_message:
-                                AnalyticsUtils.sendEventWithCategory(AnalyticsUtils.getDefaultTracker(activity),
+                                AnalyticsUtils.sendEventWithCategory(activity,
                                         activity.getString(R.string.ga_person_card_actions),
                                         activity.getString(R.string.ga_tapped_send_message),
                                         Installation.id(activity));
@@ -252,7 +252,7 @@ public class CommonUtils {
                                 ContactsContract.QuickContact.showQuickContact(activity, v, contactUri, ContactsContract.QuickContact.MODE_MEDIUM, null);
                                 return true;
                             case R.id.person_fragment_invite:
-                                AnalyticsUtils.sendEventWithCategory(AnalyticsUtils.getDefaultTracker(activity),
+                                AnalyticsUtils.sendEventWithCategory(activity,
                                         activity.getString(R.string.ga_person_card_actions),
                                         activity.getString(R.string.ga_tapped_invite),
                                         Installation.id(activity));
