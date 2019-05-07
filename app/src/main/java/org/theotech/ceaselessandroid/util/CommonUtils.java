@@ -110,7 +110,7 @@ public class CommonUtils {
     public static void wireFavoriteShortcut(final Activity activity, final View view, final String personId, final PersonManager personManager) {
         PersonPOJO personPOJO = personManager.getPerson(personId);
         final IconTextView favorite = (IconTextView) view.findViewById(R.id.favorite_btn);
-        final String favoriteOn = activity.getString(R.string.favorite_on);
+        final String favoriteOn = "{fa-heart}";
         final String favoriteOff = activity.getString(R.string.favorite_off);
 
         // favorite
@@ -145,6 +145,51 @@ public class CommonUtils {
                         Installation.id(activity));
                 Uri contactUri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long.parseLong(personId));
                 ContactsContract.QuickContact.showQuickContact(activity, messageShortcut, contactUri, ContactsContract.QuickContact.MODE_MEDIUM, null);
+            }
+        });
+    }
+
+    public static void wireInvitePerson(final Activity activity, View view, final String personId) {
+        final IconTextView inviteShortcut = (IconTextView) view.findViewById(R.id.invite_btn);
+        inviteShortcut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AnalyticsUtils.sendEventWithCategory(AnalyticsUtils.getDefaultTracker(activity),
+                        activity.getString(R.string.ga_person_card_actions),
+                        activity.getString(R.string.ga_tapped_invite),
+                        Installation.id(activity));
+                Uri contactUri1 = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long.parseLong(personId));
+                ContactsContract.QuickContact.showQuickContact(activity, v, contactUri1, ContactsContract.QuickContact.MODE_MEDIUM, null);
+            }
+        });
+    }
+
+    public static void wireDeletePerson(final Activity activity, View view, final String personId, final PersonManager personManager) {
+        PersonPOJO personPOJO = personManager.getPerson(personId);
+        final IconTextView ignore = (IconTextView) view.findViewById(R.id.delete_btn);
+        final TextView removedLabel = (TextView) view.findViewById(R.id.person_removed_label);
+        final String ignoreOn = "{fa-trash}";
+        final String ignoreOff = "{fa-trash-o}";
+
+        // favorite
+        if (personPOJO.isIgnored()) {
+            ignore.setText(ignoreOn);
+        } else {
+            ignore.setText(ignoreOff);
+        }
+        ignore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PersonPOJO updatedPerson = personManager.getPerson(personId);
+                if (updatedPerson.isIgnored()) {
+                    personManager.unignorePerson(updatedPerson.getId());
+                    ignore.setText(ignoreOff);
+                    removedLabel.setVisibility(View.INVISIBLE);
+                } else {
+                    personManager.ignorePerson(updatedPerson.getId());
+                    ignore.setText(ignoreOn);
+                    removedLabel.setVisibility(View.VISIBLE);
+                }
             }
         });
     }
