@@ -1,7 +1,7 @@
 package org.theotech.ceaselessandroid.view;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,7 +33,7 @@ public class TokenLayout extends LinearLayout {
     public void setSelected(boolean selected) {
         super.setSelected(selected);
         if (selected) {
-            TextView v = (TextView) findViewById(R.id.person_tag);
+            TextView v = findViewById(R.id.person_tag);
             v.callOnClick();
         }
     }

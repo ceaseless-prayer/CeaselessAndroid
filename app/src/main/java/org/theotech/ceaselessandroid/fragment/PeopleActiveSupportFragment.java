@@ -3,7 +3,7 @@ package org.theotech.ceaselessandroid.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -157,9 +157,9 @@ public class PeopleActiveSupportFragment extends Fragment implements Refreshable
             if (view == null) {
                 holder = new ViewHolder();
                 view = inflater.inflate(R.layout.list_item_people_active, parent, false);
-                holder.favorite = (IconTextView) view.findViewById(R.id.person_active_favorite);
-                holder.personThumbnail = (RoundedImageView) view.findViewById(R.id.person_active_thumbnail);
-                holder.personListName = (TextView) view.findViewById(R.id.person_active_list_name);
+                holder.favorite = view.findViewById(R.id.person_active_favorite);
+                holder.personThumbnail = view.findViewById(R.id.person_active_thumbnail);
+                holder.personListName = view.findViewById(R.id.person_active_list_name);
                 view.setTag(holder);
             } else {
                 holder = (ViewHolder) view.getTag();

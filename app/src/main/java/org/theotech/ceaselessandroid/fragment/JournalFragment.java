@@ -5,7 +5,7 @@ import android.app.Fragment;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
+import androidx.core.view.MenuItemCompat;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
@@ -223,11 +223,11 @@ public class JournalFragment extends Fragment implements Refreshable {
             if (view == null) {
                 holder = new ViewHolder();
                 view = inflater.inflate(R.layout.list_item_notes, parent, false);
-                holder.noteDate = (TextView) view.findViewById(R.id.note_date);
-                holder.noteText = (TextView) view.findViewById(R.id.note_text);
-                holder.notePeopleTagged = (TextView) view.findViewById(R.id.note_people_tagged);
-                holder.thumbnail1 = (RoundedImageView) view.findViewById(R.id.person_tagged_thumbnail_1);
-                holder.thumbnail2 = (RoundedImageView) view.findViewById(R.id.person_tagged_thumbnail_2);
+                holder.noteDate = view.findViewById(R.id.note_date);
+                holder.noteText = view.findViewById(R.id.note_text);
+                holder.notePeopleTagged = view.findViewById(R.id.note_people_tagged);
+                holder.thumbnail1 = view.findViewById(R.id.person_tagged_thumbnail_1);
+                holder.thumbnail2 = view.findViewById(R.id.person_tagged_thumbnail_2);
                 view.setTag(holder);
             } else {
                 holder = (ViewHolder) view.getTag();

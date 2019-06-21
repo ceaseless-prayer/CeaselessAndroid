@@ -5,18 +5,18 @@
     android:layout_height="match_parent"
     tools:context="org.theotech.ceaselessandroid.tutorial.HTFDemoProgressFragment">
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/progress_card"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/card_vertical_margin"
-        android:layout_marginLeft="@dimen/card_horizontal_margin"
-        android:layout_marginRight="@dimen/card_horizontal_margin"
-        android:layout_marginTop="@dimen/card_vertical_margin"
-        card_view:cardBackgroundColor="@color/cardBackground"
-        card_view:cardCornerRadius="@dimen/card_corner_radius"
-        card_view:cardElevation="@dimen/card_elevation">
+    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                                       android:id="@+id/progress_card"
+                                       android:layout_width="fill_parent"
+                                       android:layout_height="fill_parent"
+                                       android:layout_gravity="center"
+                                       android:layout_marginBottom="@dimen/card_vertical_margin"
+                                       android:layout_marginLeft="@dimen/card_horizontal_margin"
+                                       android:layout_marginRight="@dimen/card_horizontal_margin"
+                                       android:layout_marginTop="@dimen/card_vertical_margin"
+                                       card_view:cardBackgroundColor="@color/cardBackground"
+                                       card_view:cardCornerRadius="@dimen/card_corner_radius"
+                                       card_view:cardElevation="@dimen/card_elevation">
 
         <ImageView
             android:id="@+id/progress_card_background"
@@ -157,6 +157,6 @@
 
             </RelativeLayout>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

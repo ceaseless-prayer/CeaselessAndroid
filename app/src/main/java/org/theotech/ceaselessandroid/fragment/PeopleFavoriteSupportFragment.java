@@ -3,7 +3,7 @@ package org.theotech.ceaselessandroid.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -156,8 +156,8 @@ public class PeopleFavoriteSupportFragment extends Fragment implements Refreshab
             if (view == null) {
                 holder = new ViewHolder();
                 view = inflater.inflate(R.layout.list_item_people_favorite, parent, false);
-                holder.personThumbnail = (RoundedImageView) view.findViewById(R.id.person_favorite_thumbnail);
-                holder.personListName = (TextView) view.findViewById(R.id.person_favorite_list_name);
+                holder.personThumbnail = view.findViewById(R.id.person_favorite_thumbnail);
+                holder.personListName = view.findViewById(R.id.person_favorite_list_name);
                 view.setTag(holder);
             } else {
                 holder = (ViewHolder) view.getTag();

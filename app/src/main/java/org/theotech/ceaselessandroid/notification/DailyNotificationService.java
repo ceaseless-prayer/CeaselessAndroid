@@ -9,8 +9,8 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
 import android.util.Log;
 
 import org.theotech.ceaselessandroid.R;

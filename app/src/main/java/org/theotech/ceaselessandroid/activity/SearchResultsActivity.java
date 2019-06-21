@@ -5,7 +5,7 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -134,10 +134,10 @@ public class SearchResultsActivity extends ListActivity {
             if (view == null) {
                 holder = new ViewHolder();
                 view = inflater.inflate(R.layout.list_item_people_active, parent, false);
-                holder.favorite = (IconTextView) view.findViewById(R.id.person_active_favorite);
+                holder.favorite = view.findViewById(R.id.person_active_favorite);
                 holder.favorite.setVisibility(View.GONE);
-                holder.personThumbnail = (RoundedImageView) view.findViewById(R.id.person_active_thumbnail);
-                holder.personListName = (TextView) view.findViewById(R.id.person_active_list_name);
+                holder.personThumbnail = view.findViewById(R.id.person_active_thumbnail);
+                holder.personListName = view.findViewById(R.id.person_active_list_name);
                 view.setTag(holder);
             } else {
                 holder = (ViewHolder) view.getTag();
@@ -176,11 +176,11 @@ public class SearchResultsActivity extends ListActivity {
             if (view == null) {
                 holder = new ViewHolder();
                 view = inflater.inflate(R.layout.list_item_notes, parent, false);
-                holder.noteDate = (TextView) view.findViewById(R.id.note_date);
-                holder.noteText = (TextView) view.findViewById(R.id.note_text);
-                holder.notePeopleTagged = (TextView) view.findViewById(R.id.note_people_tagged);
-                holder.thumbnail1 = (RoundedImageView) view.findViewById(R.id.person_tagged_thumbnail_1);
-                holder.thumbnail2 = (RoundedImageView) view.findViewById(R.id.person_tagged_thumbnail_2);
+                holder.noteDate = view.findViewById(R.id.note_date);
+                holder.noteText = view.findViewById(R.id.note_text);
+                holder.notePeopleTagged = view.findViewById(R.id.note_people_tagged);
+                holder.thumbnail1 = view.findViewById(R.id.person_tagged_thumbnail_1);
+                holder.thumbnail2 = view.findViewById(R.id.person_tagged_thumbnail_2);
                 view.setTag(holder);
             } else {
                 holder = (ViewHolder) view.getTag();

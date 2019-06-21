@@ -5,18 +5,18 @@
     android:layout_height="fill_parent"
     tools:context=".fragment.ScriptureCardSupportFragment">
 
-    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/verse_card"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/card_vertical_margin"
-        android:layout_marginLeft="@dimen/card_horizontal_margin"
-        android:layout_marginRight="@dimen/card_horizontal_margin"
-        android:layout_marginTop="@dimen/card_vertical_margin"
-        card_view:cardCornerRadius="@dimen/card_corner_radius"
-        card_view:cardElevation="@dimen/card_elevation"
-        card_view:cardBackgroundColor="@color/transparentBackground">
+    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                                       android:id="@+id/verse_card"
+                                       android:layout_width="fill_parent"
+                                       android:layout_height="fill_parent"
+                                       android:layout_gravity="center"
+                                       android:layout_marginBottom="@dimen/card_vertical_margin"
+                                       android:layout_marginLeft="@dimen/card_horizontal_margin"
+                                       android:layout_marginRight="@dimen/card_horizontal_margin"
+                                       android:layout_marginTop="@dimen/card_vertical_margin"
+                                       card_view:cardCornerRadius="@dimen/card_corner_radius"
+                                       card_view:cardElevation="@dimen/card_elevation"
+                                       card_view:cardBackgroundColor="@color/transparentBackground">
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -105,6 +105,6 @@
 
         </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

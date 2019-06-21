@@ -5,10 +5,10 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.core.view.MenuItemCompat;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -89,7 +89,7 @@ public class PeopleFragment extends Fragment {
 
                 viewPager.setAdapter(new FragmentStatePagerAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager()) {
                     @Override
-                    public android.support.v4.app.Fragment getItem(int position) {
+                    public androidx.fragment.app.Fragment getItem(int position) {
                         if (position == 0) {
                             PeopleActiveSupportFragment activePeopleFragment = new PeopleActiveSupportFragment();
                             activeRefreshable.set(activePeopleFragment);

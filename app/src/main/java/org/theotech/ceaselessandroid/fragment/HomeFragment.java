@@ -9,8 +9,8 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -234,8 +234,8 @@ public class HomeFragment extends Fragment {
     private FragmentStatePagerAdapter getFragmentStatePagerAdapter() {
         return new FragmentStatePagerAdapter(activity.getSupportFragmentManager()) {
             @Override
-            public android.support.v4.app.Fragment getItem(int position) {
-                android.support.v4.app.Fragment fragment;
+            public androidx.fragment.app.Fragment getItem(int position) {
+                androidx.fragment.app.Fragment fragment;
                 Bundle bundle = new Bundle();
                 if (position == 0) {
                     fragment = new ScriptureCardSupportFragment();
@@ -291,7 +291,7 @@ public class HomeFragment extends Fragment {
                 Log.d(TAG, "Updated the background image to use from " + nextBackgroundImage + " to " + currentBackgroundImage);
                 Log.d(TAG, "New image size: " + currentBackgroundImage.length());
                 Picasso.with(activity).invalidate(currentBackgroundImage); // clear the picasso cache
-                CommonUtils.setupBackgroundImage(activity, (ImageView) activity.findViewById(R.id.backgroundImageView));
+                CommonUtils.setupBackgroundImage(activity, activity.findViewById(R.id.backgroundImageView));
             } else {
                 Log.d(TAG, "Could not update the background image to use.");
             }

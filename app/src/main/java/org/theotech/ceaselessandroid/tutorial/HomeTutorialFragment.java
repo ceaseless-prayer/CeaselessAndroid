@@ -2,9 +2,9 @@ package org.theotech.ceaselessandroid.tutorial;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -73,10 +73,10 @@ public class HomeTutorialFragment extends Fragment {
 
        final FragmentStatePagerAdapter pagerAdapter =
                new FragmentStatePagerAdapter(((AppCompatActivity) getActivity()).getSupportFragmentManager()) {
-                   List<android.support.v4.app.Fragment> pages = Arrays.asList(new android.support.v4.app.Fragment[CARD_COUNT]);
+                   List<androidx.fragment.app.Fragment> pages = Arrays.asList(new androidx.fragment.app.Fragment[CARD_COUNT]);
 
                    @Override
-                   public android.support.v4.app.Fragment getItem(int i) {
+                   public androidx.fragment.app.Fragment getItem(int i) {
                        if (pages.get(i) == null) {
                            switch (i) {
                                case 0:
