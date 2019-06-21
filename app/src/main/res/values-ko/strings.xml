@@ -61,7 +61,7 @@
   <string name="syncing_contacts">Syncing Contacts...</string>
   <string name="contact_us_message">시슬리스에 대해 궁금하신 점이나 개선할 점이 있으면 연락 주세요 </string>
   <string name="contact_us_social">소셜미디어로도 연결 가능 합니다</string>
-  <string name="contact_us_web">저희 웹사이트 <a href="http://www.ceaselessprayer.com">ceaselessprayer.com</a> 를 방문 해 주세요</string>
+  <string name="contact_us_web">Visit us on the web: <a href="https://www.ceaselessprayer.com/">ceaselessprayer.com</a></string>
   <string name="contact_us_button">시슬리스에 이메일 보내기 </string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_blank_fragment">아직 구현되지 않았습니다 </string>
