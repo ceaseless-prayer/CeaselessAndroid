@@ -61,7 +61,7 @@
   <string name="syncing_contacts">連絡先の同期中</string>
   <string name="contact_us_message">このアプリについてのご質問やご意見をお待ちしています。</string>
   <string name="contact_us_social">ソーシャルメディアからもお問合せ頂けます。</string>
-  <string name="contact_us_web">公式サイト: <a href="http://www.ceaselessprayer.com/">ceaselessprayer.com</a></string>
+  <string name="contact_us_web">Visit us on the web: <a href="https://www.ceaselessprayer.com/">ceaselessprayer.com</a></string>
   <string name="contact_us_button">Ceaselessにメールを送信</string>
   <!-- TODO: Remove or change this placeholder text -->
   <string name="hello_blank_fragment">ごめんなさい！まだ実装されていません。</string>
