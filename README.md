@@ -7,7 +7,7 @@ You can download the app on the [Play Store](https://play.google.com/store/apps/
 
 # Translating the app
 
-In order to translate the app it's not necessary to install anything on your computer - you can just use the translation platform [crowdin](https://crowdin.com/project/ceaselessandroid) and we'll take care of the rest.
+In order to translate the app it's not necessary to install anything on your computer - you can just use the translation platform [lokalise](https://app.lokalise.com/project/338603745bd8cae0042d51.84066670/) and we'll take care of the rest.
 
 # Android Setup
 
