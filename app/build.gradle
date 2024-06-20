@@ -11,6 +11,10 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.android.application'
+}
+
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
@@ -57,11 +61,13 @@ if (propsFile.isFile()) {
 }
 
 android {
-    compileSdkVersion 28
+    namespace "org.theotech.ceaselessandroid"
+    compileSdk 34
+
     defaultConfig {
         applicationId "org.theotech.ceaselessandroid"
-        minSdkVersion 16
-        targetSdkVersion 28
+        minSdk 24
+        targetSdk 34
         versionCode 21
         versionName "1.0.7"
         manifestPlaceholders = [onesignal_app_id               : "3d054882-fde3-4bee-bf8e-723087fc3536",

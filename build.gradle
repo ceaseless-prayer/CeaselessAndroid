@@ -2,14 +2,14 @@
 
 buildscript {
     repositories {
-        jcenter()
-        maven {
-            url "https://jcenter.bintray.com/"
-        }
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        mavenCentral()
+//        maven {
+//            url "https://jcenter.bintray.com/"
+//        }
+//        maven {
+//            url 'https://maven.google.com/'
+//            name 'Google'
+//        }
         google()
     }
     dependencies {
@@ -17,17 +17,17 @@ buildscript {
         classpath 'com.google.gms:google-services:4.2.0'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath "io.realm:realm-gradle-plugin:4.3.3"
+        classpath "io.realm:realm-gradle-plugin:10.9.0"
     }
 }
 
 allprojects {
     repositories {
-        jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        mavenCentral()
+//        maven {
+//            url 'https://maven.google.com/'
+//            name 'Google'
+//        }
     }
 }
 
