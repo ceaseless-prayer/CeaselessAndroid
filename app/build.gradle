@@ -6,28 +6,21 @@ buildscript {
 
     dependencies {
         //noinspection GradleDynamicVersion
-        classpath 'io.fabric.tools:gradle:1.+'
+        //classpath 'io.fabric.tools:gradle:1.31.2'
         classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.11.0, 0.99.99]'
     }
-}
-
-plugins {
-    id 'com.android.application'
 }
 
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 apply plugin: 'com.android.application'
-apply plugin: 'findbugs'
-apply plugin: 'io.fabric'
+//apply plugin: 'findbugs'
+//apply plugin: 'io.fabric'
 apply plugin: 'realm-android'
 
 repositories {
-    maven { url 'https://maven.fabric.io/public' }
     mavenCentral()
-    maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
-    maven { url 'https://maven.google.com' }
 }
 
 Properties localProps = new Properties()
@@ -62,12 +55,12 @@ if (propsFile.isFile()) {
 
 android {
     namespace "org.theotech.ceaselessandroid"
-    compileSdk 34
+    compileSdkVersion 32
 
     defaultConfig {
         applicationId "org.theotech.ceaselessandroid"
-        minSdk 24
-        targetSdk 34
+        minSdkVersion 24
+        targetSdkVersion 34
         versionCode 21
         versionName "1.0.7"
         manifestPlaceholders = [onesignal_app_id               : "3d054882-fde3-4bee-bf8e-723087fc3536",
@@ -100,10 +93,6 @@ android {
     packagingOptions {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
     }
-    dexOptions {
-        // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
-        preDexLibraries = preDexEnabled && !travisBuild
-    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -129,9 +118,9 @@ dependencies {
     implementation 'com.squareup.okhttp:okhttp:2.4.0'
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
-    implementation 'jp.wasabeef:picasso-transformations:2.1.1'
+    //implementation 'jp.wasabeef:picasso-transformations:2.1.1'
     implementation 'com.google.firebase:firebase-core:17.0.0'
-    implementation 'com.commonsware.cwac:merge:1.1.+'
+    //implementation 'com.commonsware.cwac:merge:1.1.+'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.onesignal:OneSignal:[3.9.3, 3.99.99]'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
@@ -157,8 +146,8 @@ task pmd(type: Pmd, dependsOn: "assembleDebug") {
     exclude '**/gen/**'
 
     reports {
-        xml.enabled = false
-        html.enabled = true
+        xml.required = false
+        html.required = true
         xml {
             destination = new File(buildDir, "reports/pmd/pmd.xml")
         }
