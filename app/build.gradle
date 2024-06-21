@@ -1,14 +1,15 @@
 buildscript {
     repositories {
-        maven { url 'https://maven.fabric.io/public' }
         maven { url 'https://plugins.gradle.org/m2/'}
+        google()
     }
 
     dependencies {
         //noinspection GradleDynamicVersion
-        classpath 'io.fabric.tools:gradle:1.+'
         classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.11.0, 0.99.99]'
         classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:2.0.0"
+        classpath 'com.google.gms:google-services:4.3.3'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.3.0'
     }
 }
 
@@ -17,7 +18,7 @@ apply plugin: 'pmd'
 apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 apply plugin: 'com.android.application'
 apply plugin: 'com.github.spotbugs'
-apply plugin: 'io.fabric'
+apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'realm-android'
 
 repositories {
@@ -62,9 +63,9 @@ android {
     defaultConfig {
         applicationId "org.theotech.ceaselessandroid"
         minSdkVersion 16
-        targetSdkVersion 28
-        versionCode 21
-        versionName "1.0.7"
+        targetSdkVersion 33
+        versionCode 22
+        versionName "1.0.8"
         manifestPlaceholders = [onesignal_app_id               : "3d054882-fde3-4bee-bf8e-723087fc3536",
                                 // Project number pulled from dashboard, local value is ignored.
                                 onesignal_google_project_number: "REMOTE"]
@@ -107,10 +108,10 @@ android {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.google.android.gms:play-services-analytics:18.0.4'
+    implementation 'com.google.firebase:firebase-crashlytics:17.2.1'
+    implementation 'com.google.firebase:firebase-analytics:17.5.0'
     testImplementation 'junit:junit:4.12'
-    implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
-        transitive = true
-    }
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
@@ -128,7 +129,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.0.0'
     implementation 'com.commonsware.cwac:merge:1.1.+'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.onesignal:OneSignal:[3.9.3, 3.99.99]'
+    implementation 'com.onesignal:OneSignal:[5.0.0, 5.99.99]'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 }
 

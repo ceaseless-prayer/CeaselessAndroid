@@ -24,7 +24,7 @@ public class ShowNotificationReceiver extends BroadcastReceiver {
         // NOTE code is a copy of the DailyNotificationService class which is now deprecated.
         Log.d(TAG, "Creating notification");
         Intent mainIntent = new Intent(context.getApplicationContext(), MainActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(context, 0, mainIntent, 0);
+        PendingIntent pIntent = PendingIntent.getActivity(context, 0, mainIntent, PendingIntent.FLAG_MUTABLE);
 
         // get the name of the next day's person
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
