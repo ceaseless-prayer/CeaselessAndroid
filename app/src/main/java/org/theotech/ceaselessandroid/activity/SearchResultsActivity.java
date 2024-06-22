@@ -52,7 +52,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     private static final String TAG = SearchResultsActivity.class.getSimpleName();
     PersonManager personManager;
     NoteManager noteManager;
-    ListView searchListView;
+    RecyclerView recyclerView;
 
     @BindView(R.id.backgroundImageView)
     ImageView backgroundImageView;
@@ -93,29 +93,8 @@ public class SearchResultsActivity extends AppCompatActivity {
             final ConcatAdapter concatAdapter = new ConcatAdapter(
                     new PeopleSearchArrayAdapter(SearchResultsActivity.this, people),
                     new NotesSearchArrayAdapter(SearchResultsActivity.this, notes));
-            searchListView = (ListView) findViewById(R.id.searchListView);
-            searchListView.setAdapter(concatAdapter);
-
-            getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Bundle bundle = new Bundle();
-                    if (concatAdapter.getItem(position) instanceof PersonPOJO) {
-                        PersonPOJO person = (PersonPOJO) concatAdapter.getItem(position);
-                        bundle.putString(Constants.PERSON_ID_BUNDLE_ARG, person.getId());
-                        Intent intent = new Intent(Constants.SHOW_PERSON_INTENT);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                    } else if (concatAdapter.getItem(position) instanceof NotePOJO) {
-                        NotePOJO note = (NotePOJO) concatAdapter.getItem(position);
-                        bundle.putString(Constants.NOTE_ID_BUNDLE_ARG, note.getId());
-                        Intent intent = new Intent(Constants.SHOW_NOTE_INTENT);
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                    }
-
-                }
-            });
+            recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+            recyclerView.setAdapter(concatAdapter);
         }
     }
 
@@ -135,11 +114,12 @@ public class SearchResultsActivity extends AppCompatActivity {
         public PeopleSearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             PeopleSearchViewHolder holder;
             View view = inflater.inflate(R.layout.list_item_people_active, parent, false);
-            holder = new PeopleSearchViewHolder();
+            holder = new PeopleSearchViewHolder(view);
             holder.favorite = view.findViewById(R.id.person_active_favorite);
             holder.favorite.setVisibility(View.GONE);
             holder.personThumbnail = view.findViewById(R.id.person_active_thumbnail);
             holder.personListName = view.findViewById(R.id.person_active_list_name);
+            parent.setOnClickListener(holder);
             return holder;
         }
 
@@ -160,13 +140,27 @@ public class SearchResultsActivity extends AppCompatActivity {
             return persons.size();
         }
 
-        class PeopleSearchViewHolder extends ViewHolder {
+        @Override
+        public int getItemViewType (int position) {
+            return R.layout.list_item_people_active;
+        }
+
+        class PeopleSearchViewHolder extends ViewHolder implements View.OnClickListener {
             IconTextView favorite;
             RoundedImageView personThumbnail;
             TextView personListName;
 
             public PeopleSearchViewHolder(@NonNull View itemView) {
                 super(itemView);
+            }
+
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                PersonPOJO person = (PersonPOJO) persons.get(getBindingAdapterPosition());
+                bundle.putString(Constants.PERSON_ID_BUNDLE_ARG, person.getId());
+                Intent intent = new Intent(Constants.SHOW_PERSON_INTENT);
+                intent.putExtras(bundle);
             }
         }
     }
@@ -193,6 +187,7 @@ public class SearchResultsActivity extends AppCompatActivity {
             holder.notePeopleTagged = view.findViewById(R.id.note_people_tagged);
             holder.thumbnail1 = view.findViewById(R.id.person_tagged_thumbnail_1);
             holder.thumbnail2 = view.findViewById(R.id.person_tagged_thumbnail_2);
+            parent.setOnClickListener(holder);
             return holder;
         }
 
@@ -239,7 +234,12 @@ public class SearchResultsActivity extends AppCompatActivity {
             return notes.size();
         }
 
-        class NotesSearchViewHolder extends RecyclerView.ViewHolder {
+        @Override
+        public int getItemViewType (int position) {
+            return R.layout.list_item_notes;
+        }
+
+        class NotesSearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
             TextView notePeopleTagged;
             TextView noteDate;
             TextView noteText;
@@ -248,6 +248,16 @@ public class SearchResultsActivity extends AppCompatActivity {
 
             public NotesSearchViewHolder(@NonNull View itemView) {
                 super(itemView);
+            }
+
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                NotePOJO note = (NotePOJO) notes.get(getBindingAdapterPosition());
+                bundle.putString(Constants.NOTE_ID_BUNDLE_ARG, note.getId());
+                Intent intent = new Intent(Constants.SHOW_NOTE_INTENT);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         }
     }

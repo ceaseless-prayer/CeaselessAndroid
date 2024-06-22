@@ -57,13 +57,11 @@
             android:textSize="@dimen/no_results_text_size"
             android:text="@string/no_results_msg"
             android:textColor="@color/cardTextColor"/>
-        <ListView
-            android:id="@android:id/list"
-            android:layout_width="match_parent"
+        <RecyclerView android:id="@+id/recyclerView"
             android:layout_height="match_parent"
+            android:layout_width="match_parent"
             android:divider="@color/listDividerColor"
             android:dividerHeight="@dimen/note_list_divider_height"
-            android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb">
-        </ListView>
+            android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb"/>
     </RelativeLayout>
 </LinearLayout>
