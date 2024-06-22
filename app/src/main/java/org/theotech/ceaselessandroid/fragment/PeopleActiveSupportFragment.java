@@ -185,7 +185,7 @@ public class PeopleActiveSupportFragment extends Fragment implements Refreshable
                 }
             });
             // thumbnail picture
-            Picasso.with(context).load(CommonUtils.getContactUri(person.getId())).placeholder(R.drawable.placeholder_user).fit().into(holder.personThumbnail);
+            Picasso.get().load(CommonUtils.getContactUri(person.getId())).placeholder(R.drawable.placeholder_user).fit().into(holder.personThumbnail);
             // person name
             holder.personListName.setText(person.getName());
 

@@ -72,7 +72,7 @@ public class ContactUsFragment extends Fragment {
         // add click listener to contact us button
         contactUsButton.setOnClickListener(contactUsOnClickListener);
 
-        Picasso.with(getActivity()).load(R.drawable.fb_blue_512).placeholder(R.drawable.placeholder_square_scene).fit().into(fbImage);
+        Picasso.get().load(R.drawable.fb_blue_512).placeholder(R.drawable.placeholder_square_scene).fit().into(fbImage);
 
         // click listener for FB button
         fbImage.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +82,7 @@ public class ContactUsFragment extends Fragment {
             }
         });
 
-        Picasso.with(getActivity()).load(R.drawable.twitter_logo_844).placeholder(R.drawable.placeholder_square_scene).fit().into(twitterImage);
+        Picasso.get().load(R.drawable.twitter_logo_844).placeholder(R.drawable.placeholder_square_scene).fit().into(twitterImage);
 
         // click listener for Twitter button
         twitterImage.setOnClickListener(new View.OnClickListener() {

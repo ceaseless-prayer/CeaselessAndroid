@@ -5,16 +5,23 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.ConcatAdapter;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.ViewHolder;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
-import com.commonsware.cwac.merge.MergeAdapter;
 import com.google.common.base.Joiner;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -40,11 +47,12 @@ import butterknife.ButterKnife;
 /**
  * Created by chrislim on 1/14/16.
  */
-public class SearchResultsActivity extends ListActivity {
+public class SearchResultsActivity extends AppCompatActivity {
 
     private static final String TAG = SearchResultsActivity.class.getSimpleName();
     PersonManager personManager;
     NoteManager noteManager;
+    ListView searchListView;
 
     @BindView(R.id.backgroundImageView)
     ImageView backgroundImageView;
@@ -82,29 +90,24 @@ public class SearchResultsActivity extends ListActivity {
             final List<PersonPOJO> people = personManager.queryPeopleByName(query);
             final List<NotePOJO> notes = noteManager.queryNotesByText(query);
 
-            final MergeAdapter mergeAdapter = new MergeAdapter() {
-                @Override
-                public boolean isEmpty() {
-                    return people.isEmpty() && notes.isEmpty();
-                }
-            };
-
-            mergeAdapter.addAdapter(new PeopleSearchArrayAdapter(SearchResultsActivity.this, people));
-            mergeAdapter.addAdapter(new NotesSearchArrayAdapter(SearchResultsActivity.this, notes));
-            setListAdapter(mergeAdapter);
+            final ConcatAdapter concatAdapter = new ConcatAdapter(
+                    new PeopleSearchArrayAdapter(SearchResultsActivity.this, people),
+                    new NotesSearchArrayAdapter(SearchResultsActivity.this, notes));
+            searchListView = (ListView) findViewById(R.id.searchListView);
+            searchListView.setAdapter(concatAdapter);
 
             getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Bundle bundle = new Bundle();
-                    if (mergeAdapter.getItem(position) instanceof PersonPOJO) {
-                        PersonPOJO person = (PersonPOJO) mergeAdapter.getItem(position);
+                    if (concatAdapter.getItem(position) instanceof PersonPOJO) {
+                        PersonPOJO person = (PersonPOJO) concatAdapter.getItem(position);
                         bundle.putString(Constants.PERSON_ID_BUNDLE_ARG, person.getId());
                         Intent intent = new Intent(Constants.SHOW_PERSON_INTENT);
                         intent.putExtras(bundle);
                         startActivity(intent);
-                    } else if (mergeAdapter.getItem(position) instanceof NotePOJO) {
-                        NotePOJO note = (NotePOJO) mergeAdapter.getItem(position);
+                    } else if (concatAdapter.getItem(position) instanceof NotePOJO) {
+                        NotePOJO note = (NotePOJO) concatAdapter.getItem(position);
                         bundle.putString(Constants.NOTE_ID_BUNDLE_ARG, note.getId());
                         Intent intent = new Intent(Constants.SHOW_NOTE_INTENT);
                         intent.putExtras(bundle);
@@ -116,75 +119,85 @@ public class SearchResultsActivity extends ListActivity {
         }
     }
 
-    private class PeopleSearchArrayAdapter extends ArrayAdapter<PersonPOJO> {
+    private class PeopleSearchArrayAdapter extends RecyclerView.Adapter<PeopleSearchArrayAdapter.PeopleSearchViewHolder> {
         private final Context context;
         private final List<PersonPOJO> persons;
         private final LayoutInflater inflater;
 
-        public PeopleSearchArrayAdapter(Context context, List<PersonPOJO> persons) {
-            super(context, -1, persons);
+        public PeopleSearchArrayAdapter(Context context, List<PersonPOJO> persons)  {
             this.context = context;
             this.persons = persons;
             this.inflater = LayoutInflater.from(context);
         }
 
+        @NonNull
         @Override
-        public View getView(int position, View view, ViewGroup parent) {
-            final ViewHolder holder;
-            if (view == null) {
-                holder = new ViewHolder();
-                view = inflater.inflate(R.layout.list_item_people_active, parent, false);
-                holder.favorite = view.findViewById(R.id.person_active_favorite);
-                holder.favorite.setVisibility(View.GONE);
-                holder.personThumbnail = view.findViewById(R.id.person_active_thumbnail);
-                holder.personListName = view.findViewById(R.id.person_active_list_name);
-                view.setTag(holder);
-            } else {
-                holder = (ViewHolder) view.getTag();
-            }
-            final PersonPOJO person = personManager.getPerson(persons.get(position).getId());
-            // thumbnail picture
-            Picasso.with(context).load(CommonUtils.getContactUri(person.getId())).placeholder(R.drawable.placeholder_user).fit().into(holder.personThumbnail);
-            // person name
-            holder.personListName.setText(person.getName());
-
-            return view;
+        public PeopleSearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            PeopleSearchViewHolder holder;
+            View view = inflater.inflate(R.layout.list_item_people_active, parent, false);
+            holder = new PeopleSearchViewHolder();
+            holder.favorite = view.findViewById(R.id.person_active_favorite);
+            holder.favorite.setVisibility(View.GONE);
+            holder.personThumbnail = view.findViewById(R.id.person_active_thumbnail);
+            holder.personListName = view.findViewById(R.id.person_active_list_name);
+            return holder;
         }
 
-        private class ViewHolder {
+        @Override
+        public void onBindViewHolder(@NonNull PeopleSearchViewHolder holder, int position) {
+            final PersonPOJO person = personManager.getPerson(persons.get(position).getId());
+            // thumbnail picture
+            Picasso.get()
+                    .load(CommonUtils.getContactUri(person.getId()))
+                    .placeholder(R.drawable.placeholder_user)
+                    .fit().into(holder.personThumbnail);
+            // person name
+            holder.personListName.setText(person.getName());
+        }
+
+        @Override
+        public int getItemCount() {
+            return persons.size();
+        }
+
+        class PeopleSearchViewHolder extends ViewHolder {
             IconTextView favorite;
             RoundedImageView personThumbnail;
             TextView personListName;
+
+            public PeopleSearchViewHolder(@NonNull View itemView) {
+                super(itemView);
+            }
         }
     }
 
-    private class NotesSearchArrayAdapter extends ArrayAdapter<NotePOJO> {
+    private class NotesSearchArrayAdapter extends RecyclerView.Adapter<NotesSearchArrayAdapter.NotesSearchViewHolder> {
         private final Context context;
         private final List<NotePOJO> notes;
         private final LayoutInflater inflater;
 
         public NotesSearchArrayAdapter(Context context, List<NotePOJO> notes) {
-            super(context, -1, notes);
             this.context = context;
             this.notes = notes;
             this.inflater = LayoutInflater.from(context);
         }
 
+        @NonNull
         @Override
-        public View getView(int position, View view, ViewGroup parent) {
-            final ViewHolder holder;
-            if (view == null) {
-                holder = new ViewHolder();
-                view = inflater.inflate(R.layout.list_item_notes, parent, false);
-                holder.noteDate = view.findViewById(R.id.note_date);
-                holder.noteText = view.findViewById(R.id.note_text);
-                holder.notePeopleTagged = view.findViewById(R.id.note_people_tagged);
-                holder.thumbnail1 = view.findViewById(R.id.person_tagged_thumbnail_1);
-                holder.thumbnail2 = view.findViewById(R.id.person_tagged_thumbnail_2);
-                view.setTag(holder);
-            } else {
-                holder = (ViewHolder) view.getTag();
-            }
+        public NotesSearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            NotesSearchViewHolder holder;
+            View view = inflater.inflate(R.layout.list_item_notes, parent, false);
+            holder = new NotesSearchViewHolder(view);
+            holder.noteDate = view.findViewById(R.id.note_date);
+            holder.noteText = view.findViewById(R.id.note_text);
+            holder.notePeopleTagged = view.findViewById(R.id.note_people_tagged);
+            holder.thumbnail1 = view.findViewById(R.id.person_tagged_thumbnail_1);
+            holder.thumbnail2 = view.findViewById(R.id.person_tagged_thumbnail_2);
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull NotesSearchViewHolder holder, int position) {
             NotePOJO note = notes.get(position);
             DateFormat formatter = SimpleDateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.SHORT);
             holder.noteDate.setText(formatter.format(note.getLastUpdatedDate()));
@@ -202,7 +215,7 @@ public class SearchResultsActivity extends ListActivity {
                 holder.thumbnail2.setVisibility(View.VISIBLE);
 
                 if (peopleTagged.size() > 0) {
-                    Picasso.with(context)
+                    Picasso.get()
                             .load(CommonUtils.getContactUri(note.getPeopleTagged().get(0)))
                             .placeholder(R.drawable.placeholder_user)
                             .fit()
@@ -210,7 +223,7 @@ public class SearchResultsActivity extends ListActivity {
                 }
 
                 if (peopleTagged.size() > 1) {
-                    Picasso.with(context)
+                    Picasso.get()
                             .load(CommonUtils.getContactUri(note.getPeopleTagged().get(1)))
                             .placeholder(R.drawable.placeholder_user)
                             .fit()
@@ -219,16 +232,23 @@ public class SearchResultsActivity extends ListActivity {
                     holder.thumbnail2.setVisibility(View.INVISIBLE);
                 }
             }
-
-            return view;
         }
 
-        private class ViewHolder {
+        @Override
+        public int getItemCount() {
+            return notes.size();
+        }
+
+        class NotesSearchViewHolder extends RecyclerView.ViewHolder {
             TextView notePeopleTagged;
             TextView noteDate;
             TextView noteText;
             RoundedImageView thumbnail1;
             RoundedImageView thumbnail2;
+
+            public NotesSearchViewHolder(@NonNull View itemView) {
+                super(itemView);
+            }
         }
     }
 }

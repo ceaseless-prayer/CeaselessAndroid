@@ -65,7 +65,7 @@ public class CommonUtils {
 
         // display name and picture
         personName.setText(personPOJO.getName());
-        Picasso.with(activity).load(contactUri).placeholder(R.drawable.placeholder_user)
+        Picasso.get().load(contactUri).placeholder(R.drawable.placeholder_user)
                 .fit().centerInside().into(personImage);
 
         TextView removedLabel = (TextView) view.findViewById(R.id.person_removed_label);
@@ -299,14 +299,14 @@ public class CommonUtils {
         transformations.add(new BlurTransformation(context, 25, 4));
 
         if (currentBackgroundImage.exists()) {
-            Picasso.with(context).load(currentBackgroundImage)
+            Picasso.get().load(currentBackgroundImage)
                     .placeholder(R.drawable.placeholder_rectangle_scene)
                     .fit()
                     .centerCrop()
                     .transform(transformations)
                     .into(target);
         } else {
-            Picasso.with(context).load(R.drawable.at_the_beach)
+            Picasso.get().load(R.drawable.at_the_beach)
                     .placeholder(R.drawable.placeholder_rectangle_scene)
                     .fit()
                     .centerCrop()
@@ -318,14 +318,14 @@ public class CommonUtils {
     public static void setupBackgroundImage(Context context, ImageView target) {
         File currentBackgroundImage = new File(context.getCacheDir(), Constants.CURRENT_BACKGROUND_IMAGE);
         if (currentBackgroundImage.exists()) {
-            Picasso.with(context)
+            Picasso.get()
                     .load(currentBackgroundImage)
                     .transform(new BlurTransformation(context, 25, 3))
                     .into(target);
             Log.d(TAG, "Background image has been set to " + currentBackgroundImage);
         } else {
             Log.d(TAG, "Showing default background image");
-            Picasso.with(context)
+            Picasso.get()
                     .load(R.drawable.at_the_beach)
                     .transform(new BlurTransformation(context, 25, 3))
                     .into(target);

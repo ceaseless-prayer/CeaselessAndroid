@@ -289,7 +289,7 @@ public class HomeFragment extends Fragment {
             if (nextBackgroundImage.renameTo(currentBackgroundImage)) {
                 Log.d(TAG, "Updated the background image to use from " + nextBackgroundImage + " to " + currentBackgroundImage);
                 Log.d(TAG, "New image size: " + currentBackgroundImage.length());
-                Picasso.with(activity).invalidate(currentBackgroundImage); // clear the picasso cache
+                Picasso.get().invalidate(currentBackgroundImage); // clear the picasso cache
                 CommonUtils.setupBackgroundImage(activity, activity.findViewById(R.id.backgroundImageView));
             } else {
                 Log.d(TAG, "Could not update the background image to use.");

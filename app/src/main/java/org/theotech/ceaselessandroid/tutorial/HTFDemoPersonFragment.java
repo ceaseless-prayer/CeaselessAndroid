@@ -114,7 +114,7 @@ public class HTFDemoPersonFragment extends Fragment implements HTFDemoFragment {
         // display name and picture
 
         personName.setText(name);
-        Picasso.with(activity).load(R.drawable.placeholder_user)
+        Picasso.get().load(R.drawable.placeholder_user)
                 .fit().centerInside().into(personImage);
         // display (empty) notes
         ListView emptyNotes = (ListView) view.findViewById(R.id.empty_person_notes);

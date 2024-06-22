@@ -249,7 +249,7 @@ public class JournalFragment extends Fragment implements Refreshable {
                 holder.thumbnail2.setVisibility(View.VISIBLE);
 
                 if (peopleTagged.size() > 0) {
-                    Picasso.with(context)
+                    Picasso.get()
                             .load(CommonUtils.getContactUri(note.getPeopleTagged().get(0)))
                             .placeholder(R.drawable.placeholder_user)
                             .fit()
@@ -257,7 +257,7 @@ public class JournalFragment extends Fragment implements Refreshable {
                 }
 
                 if (peopleTagged.size() > 1) {
-                    Picasso.with(context)
+                    Picasso.get()
                             .load(CommonUtils.getContactUri(note.getPeopleTagged().get(1)))
                             .placeholder(R.drawable.placeholder_user)
                             .fit()
