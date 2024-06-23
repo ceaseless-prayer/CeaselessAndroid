@@ -37,14 +37,14 @@ public class DailyNotificationReceiver extends BroadcastReceiver {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Log.d(TAG, "Using a broadcast receiver to show notification");
             Intent notificationIntent = new Intent(context, ShowNotificationReceiver.class);
-            pendingIntent = PendingIntent.getBroadcast(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            pendingIntent = PendingIntent.getBroadcast(context, 0, notificationIntent, PendingIntent.FLAG_MUTABLE);
         } else {
             // TODO cleanup this code path.
             // We should be using getBroadcast instead of kicking off a service to show notifications anyway.
             // However, we keep this here to ensure notifications on older versions of the app continue to
             // function. It's tricky to test
             Intent notificationIntent = new Intent(context, DailyNotificationService.class);
-            pendingIntent = PendingIntent.getService(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            pendingIntent = PendingIntent.getService(context, 0, notificationIntent, PendingIntent.FLAG_MUTABLE);
         }
         // always clear existing repeating alarm before we set a new one.
         alarmManager.cancel(pendingIntent);

@@ -7,9 +7,9 @@ import android.os.Build;
 
 import com.crashlytics.android.BuildConfig;
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
-import com.onesignal.OneSignal;
 import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
@@ -42,17 +42,12 @@ public class CeaselessApplication extends Application {
     public void onCreate() {
         super.onCreate();
         // crashlytics
-        if (!BuildConfig.DEBUG) {
-            Fabric.with(this, new Crashlytics());
-        }
+//        Crashlytics crashlyticsKit = new Crashlytics.Builder()
+//                .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
+//                .build();
+//        Fabric.with(this, crashlyticsKit);
 
         createNotificationChannel();
-
-        // OneSignal setup
-        OneSignal.startInit(this)
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
 
         // picasso
         Picasso.Builder builder = new Picasso.Builder(this);

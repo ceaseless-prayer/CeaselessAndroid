@@ -5,15 +5,14 @@ buildscript {
 
     dependencies {
         //noinspection GradleDynamicVersion
-        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.11.0, 0.99.99]'
     }
 }
 
 apply plugin: 'checkstyle'
 apply plugin: 'pmd'
-apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 apply plugin: 'com.android.application'
 //apply plugin: 'findbugs'
+apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'realm-android'
 
 repositories {
@@ -60,9 +59,6 @@ android {
         targetSdkVersion 34
         versionCode 21
         versionName "1.0.7"
-        manifestPlaceholders = [onesignal_app_id               : "3d054882-fde3-4bee-bf8e-723087fc3536",
-                                // Project number pulled from dashboard, local value is ignored.
-                                onesignal_google_project_number: "REMOTE"]
     }
     buildTypes {
         release {
@@ -120,8 +116,8 @@ dependencies {
     implementation 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
     implementation 'jp.wasabeef:picasso-transformations:2.4.0'
     implementation 'com.google.firebase:firebase-core:17.0.0'
+    implementation 'com.google.firebase:firebase-crashlytics:19.0.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.onesignal:OneSignal:[3.9.3, 3.99.99]'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 }
 

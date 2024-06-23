@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ConcatAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.ViewHolder;
 
@@ -95,6 +96,7 @@ public class SearchResultsActivity extends AppCompatActivity {
                     new NotesSearchArrayAdapter(SearchResultsActivity.this, notes));
             recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
             recyclerView.setAdapter(concatAdapter);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
     }
 

@@ -101,21 +101,5 @@
 
         <!-- Registering support for Amazon Android Push Notifications -->
         <amazon:enable-feature android:name="com.amazon.device.messaging" android:required="false"/>
-        <!-- Warnings about " is not assignable" can be safely ignored. -->
-        <service android:name="com.onesignal.ADMMessageHandler" android:exported="false" />
-        <receiver android:name="com.onesignal.ADMMessageHandler$Receiver"
-            android:permission="com.amazon.device.messaging.permission.SEND"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.amazon.device.messaging.intent.REGISTRATION" />
-                <action android:name="com.amazon.device.messaging.intent.RECEIVE" />
-                <category android:name="org.theotech.ceaselessandroid" />
-            </intent-filter>
-        </receiver>
-
-        <activity android:name="com.onesignal.NotificationOpenedActivityHMS" android:exported="true"></activity>
-        <receiver android:name="com.onesignal.GcmBroadcastReceiver" android:exported="true"></receiver>
-        <receiver android:name="com.onesignal.BootUpReceiver" android:exported="true"></receiver>
-        <receiver android:name="com.onesignal.UpgradeReceiver" android:exported="true"></receiver>
     </application>
 </manifest>
