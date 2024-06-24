@@ -65,7 +65,7 @@ public class NotesSearchArrayAdapter extends ListAdapter<NotePOJO, NotesSearchAr
         holder.notePeopleTagged = view.findViewById(R.id.note_people_tagged);
         holder.thumbnail1 = view.findViewById(R.id.person_tagged_thumbnail_1);
         holder.thumbnail2 = view.findViewById(R.id.person_tagged_thumbnail_2);
-        parent.setOnClickListener(holder);
+        view.setOnClickListener(holder);
         return holder;
     }
 
