@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.joanzapata.iconify.widget.IconTextView;
 
@@ -86,8 +87,18 @@ public class SearchResultsActivity extends AppCompatActivity {
             final ConcatAdapter concatAdapter = new ConcatAdapter(
                     peopleSearchAdapter,
                     notesSearchAdapter);
-            RecyclerView recyclerView = findViewById(R.id.recyclerView);
-            recyclerView.setAdapter(concatAdapter);
+
+            TextView searchEmptyView = findViewById(R.id.search_empty);
+            RecyclerView searchResultsView = findViewById(R.id.search_results);
+            searchResultsView.setAdapter(concatAdapter);
+
+            if(concatAdapter.getItemCount() == 0) {
+                searchEmptyView.setVisibility(View.VISIBLE);
+                searchResultsView.setVisibility(View.GONE);
+            } else {
+                searchEmptyView.setVisibility(View.GONE);
+                searchResultsView.setVisibility(View.VISIBLE);
+            }
         }
     }
 }

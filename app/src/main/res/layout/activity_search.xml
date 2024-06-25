@@ -49,15 +49,15 @@
             android:src="@drawable/at_the_beach"
             android:contentDescription="@string/scenic_photo"
             android:tint="@color/homeBackgroundTint" />
-        <!--TextView
-            android:id="@android:id/empty"
+        <TextView
+            android:id="@+id/search_empty"
             android:layout_height="@dimen/no_results_height"
             android:layout_width="match_parent"
             android:textAlignment="center"
             android:textSize="@dimen/no_results_text_size"
             android:text="@string/no_results_msg"
-            android:textColor="@color/cardTextColor"/-->
-        <androidx.recyclerview.widget.RecyclerView android:id="@+id/recyclerView"
+            android:textColor="@color/cardTextColor"/>
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/search_results"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:divider="@color/listDividerColor"
