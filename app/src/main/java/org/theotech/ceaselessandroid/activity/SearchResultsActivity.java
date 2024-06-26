@@ -4,6 +4,7 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.ConcatAdapter;
@@ -30,6 +31,7 @@ import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.NotesDiffCallback;
 import org.theotech.ceaselessandroid.util.PeopleDiffCallback;
 
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -43,6 +45,9 @@ public class SearchResultsActivity extends AppCompatActivity {
     private static final String TAG = SearchResultsActivity.class.getSimpleName();
     PersonManager personManager;
     NoteManager noteManager;
+
+    ListAdapter mPeopleSearchAdapter;
+    ListAdapter mNotesSearchAdapter;
 
     @BindView(R.id.backgroundImageView)
     ImageView backgroundImageView;
@@ -69,6 +74,18 @@ public class SearchResultsActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == Constants.ACTIVITY_SEARCH && resultCode == Constants.RESULT_NOTE_EDITED) {
+            int notePos = data.getIntExtra(Constants.NOTE_POSITION_BUNDLE_ARG, -1);
+            NotePOJO editedNote = (NotePOJO) mNotesSearchAdapter.getCurrentList().get(notePos);
+            editedNote.setText(data.getStringExtra(Constants.NOTE_TEXT_BUNDLE_ARG));
+            editedNote.setLastUpdatedDate(new Date());
+            mNotesSearchAdapter.notifyItemChanged(notePos);
+        }
+    }
+
+    @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         handleIntent(intent);
@@ -80,17 +97,18 @@ public class SearchResultsActivity extends AppCompatActivity {
             final List<PersonPOJO> people = personManager.queryPeopleByName(query);
             final List<NotePOJO> notes = noteManager.queryNotesByText(query);
 
-            ListAdapter peopleSearchAdapter = new PeopleSearchArrayAdapter(new PeopleDiffCallback());
-            peopleSearchAdapter.submitList(people);
-            ListAdapter notesSearchAdapter = new NotesSearchArrayAdapter(new NotesDiffCallback());
-            notesSearchAdapter.submitList(notes);
+            mPeopleSearchAdapter = new PeopleSearchArrayAdapter(new PeopleDiffCallback());
+            mPeopleSearchAdapter.submitList(people);
+            mNotesSearchAdapter = new NotesSearchArrayAdapter(new NotesDiffCallback());
+            mNotesSearchAdapter.submitList(notes);
             final ConcatAdapter concatAdapter = new ConcatAdapter(
-                    peopleSearchAdapter,
-                    notesSearchAdapter);
+                    mPeopleSearchAdapter,
+                    mNotesSearchAdapter);
 
             TextView searchEmptyView = findViewById(R.id.search_empty);
             RecyclerView searchResultsView = findViewById(R.id.search_results);
             searchResultsView.setAdapter(concatAdapter);
+
 
             if(concatAdapter.getItemCount() == 0) {
                 searchEmptyView.setVisibility(View.VISIBLE);
