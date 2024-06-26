@@ -2,6 +2,7 @@ package org.theotech.ceaselessandroid.fragment;
 
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +50,7 @@ public class AddNoteFragment extends Fragment {
     private NoteManager noteManager = null;
     private CacheManager cacheManager = null;
     private String noteId = null;
+    private int notePosition = -1;
 
     private static final String TAG = AddNoteFragment.class.getSimpleName();
 
@@ -90,6 +92,7 @@ public class AddNoteFragment extends Fragment {
                 noteId = bundle.getString(Constants.NOTE_ID_BUNDLE_ARG);
                 NotePOJO note = noteManager.getNote(noteId);
                 noteText.setText(note.getText());
+                notePosition = bundle.getInt(Constants.NOTE_POSITION_BUNDLE_ARG);
                 if (note.getPeopleTagged() != null) {
                     for (String personId : note.getPeopleTagged()) {
                         noteTags.addObject(personManager.getPerson(personId));
@@ -119,12 +122,17 @@ public class AddNoteFragment extends Fragment {
             public void onClick(View v) {
                 hideKeyboard();
                 if (noteId != null) {
-                    noteManager.editNote(noteId, null, noteText.getText().toString(), taggedPeople);
+                    String editedNoteTextString = noteText.getText().toString();
+                    noteManager.editNote(noteId, null, editedNoteTextString, taggedPeople);
+                    Intent intent = new Intent();
+                    intent.putExtra(Constants.NOTE_ID_BUNDLE_ARG, noteId);
+                    intent.putExtra(Constants.NOTE_POSITION_BUNDLE_ARG, notePosition);
+                    intent.putExtra(Constants.NOTE_TEXT_BUNDLE_ARG, editedNoteTextString);
+                    getActivity().setResult(Constants.RESULT_NOTE_EDITED, intent);
                 } else {
                     noteManager.addNote(null, noteText.getText().toString(), taggedPeople);
                 }
-                // simulate back button press to exit this fragment
-                getActivity().onBackPressed();
+                getActivity().finish();
             }
         });
         cancelNote.setOnClickListener(new View.OnClickListener() {
