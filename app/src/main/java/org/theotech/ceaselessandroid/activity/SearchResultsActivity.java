@@ -31,6 +31,7 @@ import org.theotech.ceaselessandroid.util.Constants;
 import org.theotech.ceaselessandroid.util.NotesDiffCallback;
 import org.theotech.ceaselessandroid.util.PeopleDiffCallback;
 
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -79,6 +80,7 @@ public class SearchResultsActivity extends AppCompatActivity {
             int notePos = data.getIntExtra(Constants.NOTE_POSITION_BUNDLE_ARG, -1);
             NotePOJO editedNote = (NotePOJO) mNotesSearchAdapter.getCurrentList().get(notePos);
             editedNote.setText(data.getStringExtra(Constants.NOTE_TEXT_BUNDLE_ARG));
+            editedNote.setLastUpdatedDate(new Date());
             mNotesSearchAdapter.notifyItemChanged(notePos);
         }
     }
