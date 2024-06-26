@@ -76,7 +76,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == Constants.RESULT_NOTE_EDITED) {
+        if(requestCode == Constants.ACTIVITY_SEARCH && resultCode == Constants.RESULT_NOTE_EDITED) {
             int notePos = data.getIntExtra(Constants.NOTE_POSITION_BUNDLE_ARG, -1);
             NotePOJO editedNote = (NotePOJO) mNotesSearchAdapter.getCurrentList().get(notePos);
             editedNote.setText(data.getStringExtra(Constants.NOTE_TEXT_BUNDLE_ARG));
