@@ -9,11 +9,11 @@ public class PeopleDiffCallback extends DiffUtil.ItemCallback<PersonPOJO> {
 
     @Override
     public boolean areItemsTheSame(@NonNull PersonPOJO oldPerson, @NonNull PersonPOJO newPerson) {
-        return oldPerson.equals(newPerson);
+        return oldPerson.getId().equals(newPerson.getId());
     }
 
     @Override
     public boolean areContentsTheSame(@NonNull PersonPOJO oldPerson, @NonNull PersonPOJO newPerson) {
-        return oldPerson.getId().equals(newPerson.getId());
+        return oldPerson.getName().equals(newPerson.getName());
     }
 }

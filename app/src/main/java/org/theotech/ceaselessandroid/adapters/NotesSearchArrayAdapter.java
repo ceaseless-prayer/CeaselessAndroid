@@ -1,5 +1,6 @@
 package org.theotech.ceaselessandroid.adapters;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -43,9 +44,10 @@ public class NotesSearchArrayAdapter extends ListAdapter<NotePOJO, NotesSearchAr
             Bundle bundle = new Bundle();
             NotePOJO note = (NotePOJO) getItem(getBindingAdapterPosition());
             bundle.putString(Constants.NOTE_ID_BUNDLE_ARG, note.getId());
+            bundle.putInt(Constants.NOTE_POSITION_BUNDLE_ARG, getBindingAdapterPosition());
             Intent intent = new Intent(Constants.SHOW_NOTE_INTENT);
             intent.putExtras(bundle);
-            view.getContext().startActivity(intent);
+            ((Activity)view.getContext()).startActivityForResult(intent, Constants.ACTIVITY_SEARCH);
         }
     }
 
