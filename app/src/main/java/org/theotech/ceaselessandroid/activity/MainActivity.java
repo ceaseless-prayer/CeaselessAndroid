@@ -47,8 +47,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentStateListener,
         ActivityCompat.OnRequestPermissionsResultCallback {
     private static final String TAG = MainActivity.class.getSimpleName();
-    private static final int POPULATE_CONTACTS_REQUEST_CODE = 1;
-    private static final int ADD_CONTACT_REQUEST_CODE = 2;
     private boolean homeFragmentCreated = false;
 
     @BindView(R.id.toolbar)
@@ -172,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         switch (requestCode) {
-            case POPULATE_CONTACTS_REQUEST_CODE:
+            case Constants.REQUEST_CODE_POPULATE_CONTACTS:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     PersonManagerImpl.getInstance(this).populateContacts();
                 } else {
@@ -238,7 +236,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.add_contact) {
             Intent intent = new Intent(ContactsContract.Intents.Insert.ACTION);
             intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
-            startActivityForResult(intent, ADD_CONTACT_REQUEST_CODE);
+            startActivityForResult(intent, Constants.REQUEST_CODE_ADD_CONTACT);
             return true;
         }
 
@@ -254,7 +252,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ADD_CONTACT_REQUEST_CODE) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.REQUEST_CODE_ADD_CONTACT) {
             // pick up any new contacts that have been added.
             // TODO make this more efficient by adding just the one that has been added.
             // I did this because I noticed that the data was coming back null even though a contact was added.
@@ -291,13 +290,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             public void onClick(DialogInterface dialog, int which) {
                                 ActivityCompat.requestPermissions(MainActivity.this,
                                         new String[]{Manifest.permission.READ_CONTACTS},
-                                        POPULATE_CONTACTS_REQUEST_CODE);
+                                        Constants.REQUEST_CODE_POPULATE_CONTACTS);
                             }
                         });
             } else {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.READ_CONTACTS},
-                        POPULATE_CONTACTS_REQUEST_CODE);
+                        Constants.REQUEST_CODE_POPULATE_CONTACTS);
             }
             return;
         }

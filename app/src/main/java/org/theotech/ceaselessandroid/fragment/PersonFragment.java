@@ -36,6 +36,7 @@ public class PersonFragment extends Fragment {
 
     private FragmentStateListener mListener;
     private PersonManager personManager;
+    private int requestingActivity;
 
     public PersonFragment() {
         // Required empty public constructor
@@ -69,6 +70,7 @@ public class PersonFragment extends Fragment {
         // display person
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG)) {
+            requestingActivity = bundle.getInt(Constants.REQUESTING_ACTIVITY, Constants.UNKNOWN_ACTIVITY);
             final String personId = bundle.getString(Constants.PERSON_ID_BUNDLE_ARG);
             final FragmentState backStackInfo = new FragmentState(getString(R.string.person_view));
             Bundle currentState = new Bundle();

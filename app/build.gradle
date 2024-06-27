@@ -12,6 +12,7 @@ apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'com.android.application'
 //apply plugin: 'findbugs'
+apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.firebase.crashlytics'
 apply plugin: 'realm-android'
 
@@ -101,6 +102,11 @@ dependencies {
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
         transitive = true
     }
+
+    implementation platform('com.google.firebase:firebase-bom:33.1.1')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-crashlytics'
+
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.activity:activity:1.9.0'
     implementation 'com.google.android.material:material:1.0.0'
@@ -116,8 +122,6 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.5.2'
     implementation 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
     implementation 'jp.wasabeef:picasso-transformations:2.4.0'
-    implementation 'com.google.firebase:firebase-core:17.0.0'
-    implementation 'com.google.firebase:firebase-crashlytics:19.0.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 }
@@ -155,4 +159,4 @@ task pmd(type: Pmd, dependsOn: "assembleDebug") {
 
 check.dependsOn 'checkstyle', 'lint', 'pmd'
 
-apply plugin: 'com.google.gms.google-services'
+

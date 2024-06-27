@@ -191,8 +191,15 @@ public class PeopleFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG)) {
+            FragmentState backState;
+            // Set the backState to people only if the requesting activity is not SearchResults
+            if(bundle.getInt(Constants.REQUESTING_ACTIVITY) == Constants.REQUEST_CODE_ACTIVITY_SEARCH) {
+                backState = null;
+            } else {
+                backState = new FragmentState(getString(R.string.nav_people));
+            }
             FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null,
-                    R.id.person_card, bundle, new FragmentState(getString(R.string.nav_people)));
+                    R.id.person_card, bundle, backState);
             showingPerson = true;
         } else {
             showingPerson = false;

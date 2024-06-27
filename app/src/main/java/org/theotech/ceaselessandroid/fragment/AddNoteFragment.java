@@ -49,6 +49,10 @@ public class AddNoteFragment extends Fragment {
     private PersonManager personManager = null;
     private NoteManager noteManager = null;
     private CacheManager cacheManager = null;
+
+    // The following three need to be member variables
+    // since they are passed to an inner class
+    private int requestingActivity;
     private String noteId = null;
     private int notePosition = -1;
 
@@ -82,6 +86,7 @@ public class AddNoteFragment extends Fragment {
         // add current person to the list of taggedPeople (if we're on a page that shows a person)
         Bundle bundle = getArguments();
         if (bundle != null) {
+            requestingActivity = bundle.getInt(Constants.REQUESTING_ACTIVITY, Constants.UNKNOWN_ACTIVITY);
             if (bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG)) {
                 String personId = bundle.getString(Constants.PERSON_ID_BUNDLE_ARG);
                 if (personId != null) {
@@ -124,15 +129,21 @@ public class AddNoteFragment extends Fragment {
                 if (noteId != null) {
                     String editedNoteTextString = noteText.getText().toString();
                     noteManager.editNote(noteId, null, editedNoteTextString, taggedPeople);
+
                     Intent intent = new Intent();
                     intent.putExtra(Constants.NOTE_ID_BUNDLE_ARG, noteId);
                     intent.putExtra(Constants.NOTE_POSITION_BUNDLE_ARG, notePosition);
                     intent.putExtra(Constants.NOTE_TEXT_BUNDLE_ARG, editedNoteTextString);
-                    getActivity().setResult(Constants.RESULT_NOTE_EDITED, intent);
+                    if(requestingActivity == Constants.REQUEST_CODE_ACTIVITY_SEARCH) {
+                        getActivity().setResult(Constants.RESULT_CODE_NOTE_EDITED, intent);
+                        getActivity().finish();
+                    } else {
+                        getActivity().onBackPressed();
+                    }
                 } else {
                     noteManager.addNote(null, noteText.getText().toString(), taggedPeople);
+                    getActivity().onBackPressed();
                 }
-                getActivity().finish();
             }
         });
         cancelNote.setOnClickListener(new View.OnClickListener() {

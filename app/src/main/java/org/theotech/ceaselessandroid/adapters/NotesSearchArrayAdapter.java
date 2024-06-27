@@ -43,11 +43,12 @@ public class NotesSearchArrayAdapter extends ListAdapter<NotePOJO, NotesSearchAr
         public void onClick(View view) {
             Bundle bundle = new Bundle();
             NotePOJO note = (NotePOJO) getItem(getBindingAdapterPosition());
+            bundle.putInt(Constants.REQUESTING_ACTIVITY, Constants.REQUEST_CODE_ACTIVITY_SEARCH);
             bundle.putString(Constants.NOTE_ID_BUNDLE_ARG, note.getId());
             bundle.putInt(Constants.NOTE_POSITION_BUNDLE_ARG, getBindingAdapterPosition());
             Intent intent = new Intent(Constants.SHOW_NOTE_INTENT);
             intent.putExtras(bundle);
-            ((Activity)view.getContext()).startActivityForResult(intent, Constants.ACTIVITY_SEARCH);
+            ((Activity)view.getContext()).startActivityForResult(intent, Constants.REQUEST_CODE_ACTIVITY_SEARCH);
         }
     }
 

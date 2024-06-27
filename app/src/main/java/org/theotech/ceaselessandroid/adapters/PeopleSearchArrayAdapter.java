@@ -1,5 +1,6 @@
 package org.theotech.ceaselessandroid.adapters;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -36,10 +37,11 @@ public class PeopleSearchArrayAdapter extends ListAdapter<PersonPOJO, PeopleSear
         public void onClick(View view) {
             Bundle bundle = new Bundle();
             PersonPOJO person = (PersonPOJO) getItem(getBindingAdapterPosition());
+            bundle.putInt(Constants.REQUESTING_ACTIVITY, Constants.REQUEST_CODE_ACTIVITY_SEARCH);
             bundle.putString(Constants.PERSON_ID_BUNDLE_ARG, person.getId());
             Intent intent = new Intent(Constants.SHOW_PERSON_INTENT);
             intent.putExtras(bundle);
-            view.getContext().startActivity(intent);
+            ((Activity)view.getContext()).startActivityForResult(intent, Constants.REQUEST_CODE_ACTIVITY_SEARCH);
         }
     }
 

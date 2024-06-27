@@ -6,8 +6,12 @@ package org.theotech.ceaselessandroid.util;
 public class Constants {
     public static final int NUM_AUXILIARY_CARDS = 2;
     public static final int SCHEMA_VERSION = 0;
-    public static final int RESULT_NOTE_EDITED = 1;
-    public static final int ACTIVITY_SEARCH = 2;
+    public static final int RESULT_CODE_NOTE_EDITED = 1;
+    public static final int UNKNOWN_ACTIVITY = -1;
+
+    public static final int REQUEST_CODE_POPULATE_CONTACTS = 1;
+    public static final int REQUEST_CODE_ADD_CONTACT = 2;
+    public static final int REQUEST_CODE_ACTIVITY_SEARCH = 5;
     public static final String REALM_FILE_NAME = "org.theotech.ceaselessandroid";
 
     public static final String HOME_SECTION_NUMBER_BUNDLE_ARG = "homeSectionNumber";
@@ -31,4 +35,6 @@ public class Constants {
     public static final String DEMO_TOOLTIP_BUNDLE_ARG = "demoShowToolTip";
 
     public static final String DEFAULT_CEASELESS_CHANNEL_ID = "ceaselessPrayerReminders";
+    public static final String REQUESTING_ACTIVITY = "requestingActivity";
+
 }
