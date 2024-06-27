@@ -129,7 +129,6 @@ public class AddNoteFragment extends Fragment {
                 if (noteId != null) {
                     String editedNoteTextString = noteText.getText().toString();
                     noteManager.editNote(noteId, null, editedNoteTextString, taggedPeople);
-
                     Intent intent = new Intent();
                     intent.putExtra(Constants.NOTE_ID_BUNDLE_ARG, noteId);
                     intent.putExtra(Constants.NOTE_POSITION_BUNDLE_ARG, notePosition);

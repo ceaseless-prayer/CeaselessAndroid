@@ -102,11 +102,9 @@ dependencies {
     implementation('com.crashlytics.sdk.android:crashlytics:2.9.4@aar') {
         transitive = true
     }
-
     implementation platform('com.google.firebase:firebase-bom:33.1.1')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-crashlytics'
-
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.activity:activity:1.9.0'
     implementation 'com.google.android.material:material:1.0.0'
