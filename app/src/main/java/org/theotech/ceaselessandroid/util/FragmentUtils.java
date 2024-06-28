@@ -85,7 +85,7 @@ public class FragmentUtils {
         } else if (resourceId == R.id.nav_journal) {
             return new JournalFragment();
         } else if (resourceId == R.id.nav_settings) {
-            return null; // TODO: new SettingsFragment();
+            return new SettingsFragment();
         } else if (resourceId == R.id.nav_help) {
             return new HelpFragment();
         } else if (resourceId == R.id.nav_contact_us) {

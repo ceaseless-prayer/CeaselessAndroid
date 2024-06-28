@@ -11,7 +11,7 @@ import android.preference.PreferenceManager;
 import androidx.annotation.NonNull;
 import android.util.Log;
 
-import org.theotech.ceaselessandroid.prefs.TimePickerDialogPreference;
+import org.theotech.ceaselessandroid.prefs.TimePreference;
 
 import java.util.Calendar;
 
@@ -90,8 +90,8 @@ public class DailyNotificationReceiver extends BroadcastReceiver {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MILLISECOND, 0);
         calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MINUTE, TimePickerDialogPreference.getMinute(time));
-        calendar.set(Calendar.HOUR_OF_DAY, TimePickerDialogPreference.getHour(time));
+        calendar.set(Calendar.MINUTE, TimePreference.parseMinute(time));
+        calendar.set(Calendar.HOUR_OF_DAY, TimePreference.parseHour(time));
 //        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 1);
         return calendar;
     }
