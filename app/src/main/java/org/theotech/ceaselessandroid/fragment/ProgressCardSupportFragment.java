@@ -90,7 +90,7 @@ public class ProgressCardSupportFragment extends Fragment implements ICardPageFr
     private void showMorePeople() {
         Bundle bundle = new Bundle();
         bundle.putBoolean(Constants.USE_CACHE_BUNDLE_ARG, false);
-        FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null, R.id.show_more_people, bundle, null);
+        FragmentUtils.loadFragment(getActivity(), getActivity().getSupportFragmentManager(), null, R.id.show_more_people, bundle, null);
     }
 
     public String getCardName() {

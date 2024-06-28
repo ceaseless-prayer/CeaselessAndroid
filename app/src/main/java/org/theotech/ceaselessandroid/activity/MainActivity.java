@@ -1,7 +1,7 @@
 package org.theotech.ceaselessandroid.activity;
 
 import android.Manifest;
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.app.backup.BackupManager;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -100,14 +100,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private void handleIntent(Intent intent) {
         // if we were called with a special action, load the right fragment
         if (Constants.SHOW_PERSON_INTENT.equals(intent.getAction())) {
-            PeopleFragment peopleFragment = new PeopleFragment();
+            Fragment peopleFragment = new PeopleFragment();
             peopleFragment.setArguments(intent.getExtras());
-            getFragmentManager().beginTransaction().replace(R.id.fragment, peopleFragment,
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment, peopleFragment,
                     getString(R.string.nav_people)).commit();
         } else if (Constants.SHOW_NOTE_INTENT.equals(intent.getAction())) {
-            AddNoteFragment addNoteFragment = new AddNoteFragment();
+            Fragment addNoteFragment = new AddNoteFragment();
             addNoteFragment.setArguments(intent.getExtras());
-            getFragmentManager().beginTransaction().replace(R.id.fragment, addNoteFragment,
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment, addNoteFragment,
                     getString(R.string.nav_journal)).commit();
         } else if (Tutorial.shouldShowTutorial(this)) {
             loadHomeTutorialFragment();
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void loadMainFragment() {
-        getFragmentManager().beginTransaction().replace(R.id.fragment, new HomeFragment(),
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new HomeFragment(),
                 getString(R.string.nav_home)).commit();
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -162,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void loadHomeTutorialFragment() {
         Fragment frag = new HomeTutorialFragment();
         String title = getString(R.string.nav_home_tutorial);
-        getFragmentManager().beginTransaction().replace(R.id.fragment, frag, title).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, frag, title).commit();
         drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
     }
 
@@ -191,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             if (!backStackManager.isEmpty()) {
                 FragmentState fragmentState = backStackManager.pop();
-                FragmentUtils.loadFragment(this, getFragmentManager(), navigation, FragmentUtils.getNavigationItemIdForFragmentName(this, fragmentState.getFragmentName()),
+                FragmentUtils.loadFragment(this, getSupportFragmentManager(), navigation, FragmentUtils.getNavigationItemIdForFragmentName(this, fragmentState.getFragmentName()),
                         fragmentState.getState());
             } else {
                 super.onBackPressed();
@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         } else {
             // replace fragment if it's not already visible
-            FragmentUtils.loadFragment(this, getFragmentManager(), navigation, id, currentFragment);
+            FragmentUtils.loadFragment(this, getSupportFragmentManager(), navigation, id, currentFragment);
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         if (id == R.id.person_add_note) {
-            FragmentUtils.loadFragment(this, getFragmentManager(), navigation, id, currentFragment.getState(),
+            FragmentUtils.loadFragment(this, getSupportFragmentManager(), navigation, id, currentFragment.getState(),
                     currentFragment);
             return true;
         }

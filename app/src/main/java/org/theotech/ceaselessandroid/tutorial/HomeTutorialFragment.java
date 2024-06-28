@@ -1,7 +1,8 @@
 package org.theotech.ceaselessandroid.tutorial;
 
-import android.app.Fragment;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;

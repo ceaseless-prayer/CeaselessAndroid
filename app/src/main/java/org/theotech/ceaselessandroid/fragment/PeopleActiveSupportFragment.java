@@ -76,7 +76,7 @@ public class PeopleActiveSupportFragment extends Fragment implements Refreshable
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Bundle bundle = new Bundle();
                 bundle.putString(Constants.PERSON_ID_BUNDLE_ARG, activePersons.get(position).getId());
-                FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null,
+                FragmentUtils.loadFragment(getActivity(), getActivity().getSupportFragmentManager(), null,
                         R.id.person_card, bundle, new FragmentState(getString(R.string.nav_people)));
             }
         });

@@ -1,7 +1,7 @@
 package org.theotech.ceaselessandroid.fragment;
 
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,7 +78,7 @@ public class PersonFragment extends Fragment {
             backStackInfo.setState(currentState);
 
             CommonUtils.injectPersonIntoView(getActivity(), personManager, personName, personImage,
-                    notes, view, personId, getString(R.string.empty_notes), getActivity().getFragmentManager(),
+                    notes, view, personId, getString(R.string.empty_notes), getActivity().getSupportFragmentManager(),
                     backStackInfo);
 
             CommonUtils.wireAddNote(noteButton, personId, getActivity(), backStackInfo);

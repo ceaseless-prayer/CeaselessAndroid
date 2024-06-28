@@ -1,6 +1,6 @@
 package org.theotech.ceaselessandroid.fragment;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
@@ -198,7 +198,7 @@ public class PeopleFragment extends Fragment {
             } else {
                 backState = new FragmentState(getString(R.string.nav_people));
             }
-            FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null,
+            FragmentUtils.loadFragment(getActivity(), getActivity().getSupportFragmentManager(), null,
                     R.id.person_card, bundle, backState);
             showingPerson = true;
         } else {

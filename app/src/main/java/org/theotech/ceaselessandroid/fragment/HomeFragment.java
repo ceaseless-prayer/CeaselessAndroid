@@ -2,7 +2,7 @@ package org.theotech.ceaselessandroid.fragment;
 
 
 import android.app.Activity;
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -231,7 +231,7 @@ public class HomeFragment extends Fragment {
     }
 
     private FragmentStatePagerAdapter getFragmentStatePagerAdapter() {
-        return new FragmentStatePagerAdapter(activity.getSupportFragmentManager()) {
+        return new FragmentStatePagerAdapter(getChildFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             @Override
             public androidx.fragment.app.Fragment getItem(int position) {
                 androidx.fragment.app.Fragment fragment;

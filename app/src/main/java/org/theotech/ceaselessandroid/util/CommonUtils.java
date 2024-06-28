@@ -1,7 +1,6 @@
 package org.theotech.ceaselessandroid.util;
 
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.content.ContentUris;
 import android.content.Context;
 import android.net.Uri;
@@ -20,6 +19,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 
 import com.joanzapata.iconify.widget.IconTextView;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -54,7 +56,7 @@ public class CommonUtils {
         return ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, Long.parseLong(contactId));
     }
 
-    public static void injectPersonIntoView(final Activity activity, final PersonManager personManager, TextView personName,
+    public static void injectPersonIntoView(final FragmentActivity activity, final PersonManager personManager, TextView personName,
                                             RoundedImageView personImage, ListView notes, View view, final String personId,
                                             String emptyNotesMessage, final FragmentManager fragmentManager, final FragmentState backStackInfo) {
         PersonPOJO personPOJO = personManager.getPerson(personId);
@@ -100,7 +102,7 @@ public class CommonUtils {
                     Log.d(TAG, "item has been clicked");
                     Bundle bundle = new Bundle();
                     bundle.putString(Constants.NOTE_ID_BUNDLE_ARG, notePOJOs.get(position).getId());
-                    FragmentUtils.loadFragment(activity, activity.getFragmentManager(), null,
+                    FragmentUtils.loadFragment(activity, activity.getSupportFragmentManager(), null,
                             R.id.add_note_fragment, bundle, backStackInfo);
                 }
             });
@@ -195,7 +197,7 @@ public class CommonUtils {
     }
 
     // wire the add note icon
-    public static void wireAddNote(final View view, final String personId, final Activity activity, final FragmentState backStackInfo) {
+    public static void wireAddNote(final View view, final String personId, final FragmentActivity activity, final FragmentState backStackInfo) {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,18 +205,18 @@ public class CommonUtils {
                         activity.getString(R.string.ga_person_card_actions),
                         activity.getString(R.string.ga_tapped_add_note),
                         Installation.id(activity));
-                CommonUtils.loadAddNote(personId, activity, activity.getFragmentManager(), backStackInfo);
+                CommonUtils.loadAddNote(personId, activity, activity.getSupportFragmentManager(), backStackInfo);
             }
         });
     }
 
-    public static void loadAddNote(String personId, Activity activity, FragmentManager fragmentManager, FragmentState backStackInfo) {
+    public static void loadAddNote(String personId, FragmentActivity activity, FragmentManager fragmentManager, FragmentState backStackInfo) {
         Bundle addNoteBundle = new Bundle();
         addNoteBundle.putString(Constants.PERSON_ID_BUNDLE_ARG, personId);
         FragmentUtils.loadFragment(activity, fragmentManager, null, R.id.person_add_note, addNoteBundle, backStackInfo);
     }
 
-    public static void wireShowPersonMenu(View view, final String personId, final Activity activity, final FragmentState backStackInfo, final PersonManager personManager) {
+    public static void wireShowPersonMenu(View view, final String personId, final FragmentActivity activity, final FragmentState backStackInfo, final PersonManager personManager) {
         final ImageView personImage = (ImageView) view.findViewById(R.id.person_image);
         final IconTextView favorite = (IconTextView) view.findViewById(R.id.favorite_btn);
         final TextView removedLabel = (TextView) view.findViewById(R.id.person_removed_label);
@@ -233,7 +235,7 @@ public class CommonUtils {
                                         activity.getString(R.string.ga_person_card_actions),
                                         activity.getString(R.string.ga_tapped_add_note),
                                         Installation.id(activity));
-                                CommonUtils.loadAddNote(personId, activity, activity.getFragmentManager(), backStackInfo);
+                                CommonUtils.loadAddNote(personId, activity, activity.getSupportFragmentManager(), backStackInfo);
                                 return true;
                             case R.id.person_fragment_remove:
                                 personManager.ignorePerson(personId);
