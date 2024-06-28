@@ -29,8 +29,14 @@ public class PeopleSearchArrayAdapter extends ListAdapter<PersonPOJO, PeopleSear
         RoundedImageView personThumbnail;
         TextView personListName;
 
-        public PeopleSearchViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public PeopleSearchViewHolder(@NonNull View view) {
+            super(view);
+            favorite = view.findViewById(R.id.person_active_favorite);
+            favorite.setVisibility(View.GONE);
+            personThumbnail = view.findViewById(R.id.person_active_thumbnail);
+            personListName = view.findViewById(R.id.person_active_list_name);
+            view.setOnClickListener(this);
+
         }
 
         @Override
@@ -52,16 +58,9 @@ public class PeopleSearchArrayAdapter extends ListAdapter<PersonPOJO, PeopleSear
     @NonNull
     @Override
     public PeopleSearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        PeopleSearchViewHolder holder;
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_people_active, parent, false);
-        holder = new PeopleSearchViewHolder(view);
-        holder.favorite = view.findViewById(R.id.person_active_favorite);
-        holder.favorite.setVisibility(View.GONE);
-        holder.personThumbnail = view.findViewById(R.id.person_active_thumbnail);
-        holder.personListName = view.findViewById(R.id.person_active_list_name);
-        view.setOnClickListener(holder);
-        return holder;
+        return new PeopleSearchViewHolder(view);
     }
 
     @Override

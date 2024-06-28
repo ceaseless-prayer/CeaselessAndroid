@@ -29,14 +29,20 @@ import java.util.List;
 public class NotesSearchArrayAdapter extends ListAdapter<NotePOJO, NotesSearchArrayAdapter.NotesSearchViewHolder> {
 
     class NotesSearchViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView notePeopleTagged;
         TextView noteDate;
         TextView noteText;
+        TextView notePeopleTagged;
         RoundedImageView thumbnail1;
         RoundedImageView thumbnail2;
 
-        public NotesSearchViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public NotesSearchViewHolder(@NonNull View view) {
+            super(view);
+            noteDate = view.findViewById(R.id.note_date);
+            noteText = view.findViewById(R.id.note_text);
+            notePeopleTagged = view.findViewById(R.id.note_people_tagged);
+            thumbnail1 = view.findViewById(R.id.person_tagged_thumbnail_1);
+            thumbnail2 = view.findViewById(R.id.person_tagged_thumbnail_2);
+            view.setOnClickListener(this);
         }
 
         @Override
@@ -59,17 +65,9 @@ public class NotesSearchArrayAdapter extends ListAdapter<NotePOJO, NotesSearchAr
     @NonNull
     @Override
     public NotesSearchViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        NotesSearchViewHolder holder;
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_item_notes, parent, false);
-        holder = new NotesSearchViewHolder(view);
-        holder.noteDate = view.findViewById(R.id.note_date);
-        holder.noteText = view.findViewById(R.id.note_text);
-        holder.notePeopleTagged = view.findViewById(R.id.note_people_tagged);
-        holder.thumbnail1 = view.findViewById(R.id.person_tagged_thumbnail_1);
-        holder.thumbnail2 = view.findViewById(R.id.person_tagged_thumbnail_2);
-        view.setOnClickListener(holder);
-        return holder;
+        return new NotesSearchViewHolder(view);
     }
 
     @Override

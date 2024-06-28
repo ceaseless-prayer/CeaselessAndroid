@@ -12,8 +12,8 @@ public class Constants {
     public static final int REQUEST_CODE_POPULATE_CONTACTS = 1;
     public static final int REQUEST_CODE_ADD_CONTACT = 2;
     public static final int REQUEST_CODE_ACTIVITY_SEARCH = 5;
-    public static final String REALM_FILE_NAME = "org.theotech.ceaselessandroid";
 
+    public static final String REALM_FILE_NAME = "org.theotech.ceaselessandroid";
     public static final String HOME_SECTION_NUMBER_BUNDLE_ARG = "homeSectionNumber";
     public static final String USE_CACHE_BUNDLE_ARG = "useCache";
     public static final String PERSON_ID_BUNDLE_ARG = "personId";
