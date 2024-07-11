@@ -40,7 +40,7 @@ public class DailyNotificationService extends Service {
     public void onCreate() {
         Log.d(TAG, "Creating notification");
         Intent mainIntent = new Intent(this.getApplicationContext(), MainActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, mainIntent, 0);
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, mainIntent, PendingIntent.FLAG_IMMUTABLE);
 
         // get the name of the next day's person
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
