@@ -8,14 +8,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.preference.PreferenceManager;
+
 import androidx.core.app.NotificationCompat;
+import androidx.preference.PreferenceManager;
+
+import android.os.Bundle;
 import android.util.Log;
 
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.activity.MainActivity;
 import org.theotech.ceaselessandroid.util.Constants;
 
+/**
+ * This class is invoked when the notification actually triggers.
+ */
 public class ShowNotificationReceiver extends BroadcastReceiver {
     private static final String TAG = ShowNotificationReceiver.class.getSimpleName();
 
@@ -24,7 +30,7 @@ public class ShowNotificationReceiver extends BroadcastReceiver {
         // NOTE code is a copy of the DailyNotificationService class which is now deprecated.
         Log.d(TAG, "Creating notification");
         Intent mainIntent = new Intent(context.getApplicationContext(), MainActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(context, 0, mainIntent, 0);
+        PendingIntent pIntent = PendingIntent.getActivity(context, 0, mainIntent, PendingIntent.FLAG_IMMUTABLE);
 
         // get the name of the next day's person
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
@@ -56,6 +62,15 @@ public class ShowNotificationReceiver extends BroadcastReceiver {
         // TODO should we set 1 as the id for all notifications from this?
         notificationManager.notify(1, notification);
         Log.d(TAG, "notification posted.");
+
+        // Not using repeating alarms. So whenever the notification fires, we reset the alarm
+        resetAlarmForTomorrow(context);
+    }
+
+    private void resetAlarmForTomorrow(Context context) {
+        Intent dailyNotificationReceiver = new Intent(context, DailyNotificationReceiver.class);
+        dailyNotificationReceiver.putExtra("tomorrow", true);
+        context.sendBroadcast(dailyNotificationReceiver);
     }
 }
 
