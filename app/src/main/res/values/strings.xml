@@ -34,7 +34,7 @@
   <string name="prayed_for_text">You have prayed for</string>
   <string name="prayer_reminders">Reminder:</string>
   <string name="number_of_people_each_day">Number of people to pray for daily:</string>
-  <string name="reminder_time_picker_title">Prayer reminder time: </string>
+  <string name="reminder_time_picker_title">Prayer reminder time:</string>
   <string name="reminder_time_picker_dialog_title">Edit reminder time:</string>
   <string name="reminders_on_text">Reminders are on</string>
   <string name="reminders_off_text">Reminders are off</string>
