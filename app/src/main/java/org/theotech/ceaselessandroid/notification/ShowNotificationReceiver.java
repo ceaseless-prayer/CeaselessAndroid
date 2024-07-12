@@ -63,6 +63,7 @@ public class ShowNotificationReceiver extends BroadcastReceiver {
         notificationManager.notify(1, notification);
         Log.d(TAG, "notification posted.");
 
+        // Not using repeating alarms. So whenever the notification fires, we reset the alarm
         resetAlarmForTomorrow(context);
     }
 
