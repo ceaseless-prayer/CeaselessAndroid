@@ -50,7 +50,7 @@ public class DailyNotificationReceiver extends BroadcastReceiver {
             pendingIntent = PendingIntent.getService(context, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
         }
         // always clear existing alarm before we set a new one.
-        alarmManager.cancel(pendingIntent);
+        // alarmManager.cancel(pendingIntent);
 
         if (showNotifications) {
             String notificationTime = preferences.getString("notificationTime", "08:00");
@@ -89,7 +89,7 @@ public class DailyNotificationReceiver extends BroadcastReceiver {
         calendar.set(Calendar.MINUTE, TimePreference.parseMinute(time));
         calendar.set(Calendar.HOUR_OF_DAY, TimePreference.parseHour(time));
         if (intent.getBooleanExtra("tomorrow", false)) {
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            calendar.add(Calendar.MINUTE, 15);
         }
         return calendar;
     }

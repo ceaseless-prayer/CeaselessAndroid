@@ -63,11 +63,11 @@ public class ShowNotificationReceiver extends BroadcastReceiver {
         notificationManager.notify(1, notification);
         Log.d(TAG, "notification posted.");
 
-        // Not using repeating alarms. So whenever the notification fires, we reset the alarm
         resetAlarmForTomorrow(context);
     }
 
     private void resetAlarmForTomorrow(Context context) {
+        Log.d(TAG, "Creating next notification for tomorrow");
         Intent dailyNotificationReceiver = new Intent(context, DailyNotificationReceiver.class);
         dailyNotificationReceiver.putExtra("tomorrow", true);
         context.sendBroadcast(dailyNotificationReceiver);
