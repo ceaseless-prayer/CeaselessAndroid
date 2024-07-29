@@ -1,7 +1,7 @@
 package org.theotech.ceaselessandroid.fragment;
 
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
@@ -108,7 +108,7 @@ public class JournalFragment extends Fragment implements Refreshable {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Bundle bundle = new Bundle();
                     bundle.putString(Constants.NOTE_ID_BUNDLE_ARG, notePOJOs.get(position).getId());
-                    FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null,
+                    FragmentUtils.loadFragment(getActivity(), getActivity().getSupportFragmentManager(), null,
                             R.id.add_note_fragment, bundle, new FragmentState(getString(R.string.nav_journal)));
                 }
             });
@@ -188,7 +188,7 @@ public class JournalFragment extends Fragment implements Refreshable {
         super.onActivityCreated(savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey(Constants.NOTE_ID_BUNDLE_ARG)) {
-            FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null,
+            FragmentUtils.loadFragment(getActivity(), getActivity().getSupportFragmentManager(), null,
                     R.id.add_note_fragment, bundle, new FragmentState(getString(R.string.nav_journal)));
         }
     }
@@ -249,7 +249,7 @@ public class JournalFragment extends Fragment implements Refreshable {
                 holder.thumbnail2.setVisibility(View.VISIBLE);
 
                 if (peopleTagged.size() > 0) {
-                    Picasso.with(context)
+                    Picasso.get()
                             .load(CommonUtils.getContactUri(note.getPeopleTagged().get(0)))
                             .placeholder(R.drawable.placeholder_user)
                             .fit()
@@ -257,7 +257,7 @@ public class JournalFragment extends Fragment implements Refreshable {
                 }
 
                 if (peopleTagged.size() > 1) {
-                    Picasso.with(context)
+                    Picasso.get()
                             .load(CommonUtils.getContactUri(note.getPeopleTagged().get(1)))
                             .placeholder(R.drawable.placeholder_user)
                             .fit()

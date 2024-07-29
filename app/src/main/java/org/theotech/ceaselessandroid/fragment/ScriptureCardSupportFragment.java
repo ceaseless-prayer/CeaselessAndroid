@@ -109,24 +109,24 @@ public class ScriptureCardSupportFragment extends Fragment implements ICardPageF
         if (currentBackgroundImage.exists()) {
             Log.d(TAG, "Showing verse image");
 
-            Picasso.with(getActivity()).load(currentBackgroundImage)
+            Picasso.get().load(currentBackgroundImage)
                     .fit()
                     .centerCrop()
                     .into(verseImage);
 
-            Picasso.with(getActivity()).load(currentBackgroundImage)
+            Picasso.get().load(currentBackgroundImage)
                     .fit()
                     .centerCrop()
                     .transform(transformations)
                     .into(verseImageReflection);
         } else {
             Log.d(TAG, "Showing default verse image");
-            Picasso.with(getActivity()).load(R.drawable.at_the_beach)
+            Picasso.get().load(R.drawable.at_the_beach)
                     .fit()
                     .centerCrop()
                     .into(verseImage);
 
-            Picasso.with(getActivity()).load(R.drawable.at_the_beach)
+            Picasso.get().load(R.drawable.at_the_beach)
                     .fit()
                     .centerCrop()
                     .transform(transformations)

@@ -40,7 +40,7 @@ public class BlankSupportFragment extends Fragment implements ICardPageFragment 
         ButterKnife.bind(this, view);
         contactUsButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null,
+                FragmentUtils.loadFragment(getActivity(), getActivity().getSupportFragmentManager(), null,
                         R.id.nav_contact_us, new FragmentState(getString(R.string.nav_home)));
             }
         });

@@ -2,32 +2,27 @@
 
 buildscript {
     repositories {
-        jcenter()
-        maven {
-            url "https://jcenter.bintray.com/"
-        }
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        mavenCentral()
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.0'
-        classpath 'com.google.gms:google-services:4.2.0'
+        classpath 'com.android.tools.build:gradle:8.1.2'
+        classpath 'com.google.gms:google-services:4.3.8'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-        classpath "io.realm:realm-gradle-plugin:4.3.3"
+        classpath "io.realm:realm-gradle-plugin:10.15.1"
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:3.0.2'
     }
+}
+
+plugins {
+    id 'com.google.firebase.crashlytics' version '3.0.2' apply false
 }
 
 allprojects {
     repositories {
-        jcenter()
-        maven {
-            url 'https://maven.google.com/'
-            name 'Google'
-        }
+        mavenCentral()
+        google()
     }
 }
 

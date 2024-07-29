@@ -1,6 +1,6 @@
 package org.theotech.ceaselessandroid.fragment;
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
@@ -191,8 +191,15 @@ public class PeopleFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG)) {
-            FragmentUtils.loadFragment(getActivity(), getActivity().getFragmentManager(), null,
-                    R.id.person_card, bundle, new FragmentState(getString(R.string.nav_people)));
+            FragmentState backState;
+            // Set the backState to people only if the requesting activity is not SearchResults
+            if(bundle.getInt(Constants.REQUESTING_ACTIVITY) == Constants.REQUEST_CODE_ACTIVITY_SEARCH) {
+                backState = null;
+            } else {
+                backState = new FragmentState(getString(R.string.nav_people));
+            }
+            FragmentUtils.loadFragment(getActivity(), getActivity().getSupportFragmentManager(), null,
+                    R.id.person_card, bundle, backState);
             showingPerson = true;
         } else {
             showingPerson = false;

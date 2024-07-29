@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:amazon="http://schemas.amazon.com/apk/res/android"
-    package="org.theotech.ceaselessandroid">
+          xmlns:amazon="http://schemas.amazon.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -27,7 +26,8 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing"
             android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -45,7 +45,8 @@
                 android:value=".activity.SearchResultsActivity" />
         </activity>
 
-        <activity android:name=".activity.SearchResultsActivity" android:launchMode="singleTop">
+        <activity android:name=".activity.SearchResultsActivity" android:launchMode="singleTop"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -60,7 +61,7 @@
         <receiver android:name=".notification.ShowNotificationReceiver">
         </receiver>
 
-        <receiver android:name=".notification.DailyNotificationReceiver">
+        <receiver android:name=".notification.DailyNotificationReceiver" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.QUICKBOOT_POWERON" />
@@ -78,7 +79,8 @@
         <!-- Optionally, register AnalyticsReceiver and AnalyticsService to support background
       dispatching on non-Google Play devices -->
         <!-- http://stackoverflow.com/questions/30154057/analyticsservice-not-registered-in-the-app-manifest-error/30164011 -->
-        <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver" android:enabled="true">
+        <receiver android:name="com.google.android.gms.analytics.AnalyticsReceiver" android:enabled="true"
+            android:exported="true">
             <intent-filter>
                 <action android:name="com.google.android.gms.analytics.ANALYTICS_DISPATCH" />
             </intent-filter>
@@ -99,15 +101,5 @@
 
         <!-- Registering support for Amazon Android Push Notifications -->
         <amazon:enable-feature android:name="com.amazon.device.messaging" android:required="false"/>
-        <!-- Warnings about " is not assignable" can be safely ignored. -->
-        <service android:name="com.onesignal.ADMMessageHandler" android:exported="false" />
-        <receiver android:name="com.onesignal.ADMMessageHandler$Receiver"
-                  android:permission="com.amazon.device.messaging.permission.SEND" >
-            <intent-filter>
-                <action android:name="com.amazon.device.messaging.intent.REGISTRATION" />
-                <action android:name="com.amazon.device.messaging.intent.RECEIVE" />
-                <category android:name="org.theotech.ceaselessandroid" />
-            </intent-filter>
-        </receiver>
     </application>
 </manifest>

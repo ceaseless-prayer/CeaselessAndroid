@@ -4,19 +4,24 @@ package org.theotech.ceaselessandroid.fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.fragment.app.DialogFragment;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
+
 import org.theotech.ceaselessandroid.R;
 import org.theotech.ceaselessandroid.notification.DailyNotificationReceiver;
+import org.theotech.ceaselessandroid.prefs.TimePreference;
+import org.theotech.ceaselessandroid.prefs.TimePreferenceDialog;
 import org.theotech.ceaselessandroid.scripture.ScriptureService;
 import org.theotech.ceaselessandroid.scripture.ScriptureServiceImpl;
 import org.theotech.ceaselessandroid.util.AnalyticsUtils;
 
-public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String TAG = SettingsFragment.class.getSimpleName();
 
     private FragmentStateListener mListener;
@@ -26,8 +31,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.preferences);
         setHasOptionsMenu(true);
         // notify fragment state
@@ -55,6 +59,22 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         View v = super.onCreateView(inflater, container, savedInstanceState);
         v.setBackgroundColor(getResources().getColor(R.color.preferenceBackgroundColor));
         return v;
+    }
+
+    @Override
+    public void onDisplayPreferenceDialog(Preference preference) {
+        DialogFragment dialogFragment = null;
+        if (preference instanceof TimePreference) {
+            dialogFragment = new TimePreferenceDialog();
+            Bundle bundle = new Bundle(1);
+            bundle.putString("key", preference.getKey());
+            dialogFragment.setArguments(bundle);
+            dialogFragment.setTargetFragment(this, 0);
+            dialogFragment.show(getActivity().getSupportFragmentManager(),
+                    TimePreferenceDialog.class.getName());
+        } else {
+            super.onDisplayPreferenceDialog(preference);
+        }
     }
 
     @Override

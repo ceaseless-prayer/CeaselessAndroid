@@ -5,16 +5,13 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
-import com.crashlytics.android.Crashlytics;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
-import com.onesignal.OneSignal;
-import com.squareup.picasso.OkHttpDownloader;
+import com.squareup.picasso.OkHttp3Downloader;
 import com.squareup.picasso.Picasso;
 
 import org.theotech.ceaselessandroid.util.Constants;
 
-import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -41,21 +38,16 @@ public class CeaselessApplication extends Application {
     public void onCreate() {
         super.onCreate();
         // crashlytics
-        if (!BuildConfig.DEBUG) {
-            Fabric.with(this, new Crashlytics());
-        }
+//        Crashlytics crashlyticsKit = new Crashlytics.Builder()
+//                .core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
+//                .build();
+//        Fabric.with(this, crashlyticsKit);
 
         createNotificationChannel();
 
-        // OneSignal setup
-        OneSignal.startInit(this)
-                .inFocusDisplaying(OneSignal.OSInFocusDisplayOption.Notification)
-                .unsubscribeWhenNotificationsAreDisabled(true)
-                .init();
-
         // picasso
         Picasso.Builder builder = new Picasso.Builder(this);
-        builder.downloader(new OkHttpDownloader(this, Integer.MAX_VALUE));
+        builder.downloader(new OkHttp3Downloader(this, Integer.MAX_VALUE));
         Picasso picasso = builder.build();
         Picasso.setSingletonInstance(picasso);
 

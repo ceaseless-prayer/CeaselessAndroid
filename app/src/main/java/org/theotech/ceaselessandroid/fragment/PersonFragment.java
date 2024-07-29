@@ -1,7 +1,7 @@
 package org.theotech.ceaselessandroid.fragment;
 
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,6 +36,7 @@ public class PersonFragment extends Fragment {
 
     private FragmentStateListener mListener;
     private PersonManager personManager;
+    private int requestingActivity;
 
     public PersonFragment() {
         // Required empty public constructor
@@ -69,6 +70,7 @@ public class PersonFragment extends Fragment {
         // display person
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG)) {
+            requestingActivity = bundle.getInt(Constants.REQUESTING_ACTIVITY, Constants.UNKNOWN_ACTIVITY);
             final String personId = bundle.getString(Constants.PERSON_ID_BUNDLE_ARG);
             final FragmentState backStackInfo = new FragmentState(getString(R.string.person_view));
             Bundle currentState = new Bundle();
@@ -76,7 +78,7 @@ public class PersonFragment extends Fragment {
             backStackInfo.setState(currentState);
 
             CommonUtils.injectPersonIntoView(getActivity(), personManager, personName, personImage,
-                    notes, view, personId, getString(R.string.empty_notes), getActivity().getFragmentManager(),
+                    notes, view, personId, getString(R.string.empty_notes), getActivity().getSupportFragmentManager(),
                     backStackInfo);
 
             CommonUtils.wireAddNote(noteButton, personId, getActivity(), backStackInfo);

@@ -1,7 +1,8 @@
 package org.theotech.ceaselessandroid.fragment;
 
 
-import android.app.Fragment;
+import androidx.fragment.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +49,12 @@ public class AddNoteFragment extends Fragment {
     private PersonManager personManager = null;
     private NoteManager noteManager = null;
     private CacheManager cacheManager = null;
+
+    // The following three need to be member variables
+    // since they are passed to an inner class
+    private int requestingActivity;
     private String noteId = null;
+    private int notePosition = -1;
 
     private static final String TAG = AddNoteFragment.class.getSimpleName();
 
@@ -80,6 +86,7 @@ public class AddNoteFragment extends Fragment {
         // add current person to the list of taggedPeople (if we're on a page that shows a person)
         Bundle bundle = getArguments();
         if (bundle != null) {
+            requestingActivity = bundle.getInt(Constants.REQUESTING_ACTIVITY, Constants.UNKNOWN_ACTIVITY);
             if (bundle.containsKey(Constants.PERSON_ID_BUNDLE_ARG)) {
                 String personId = bundle.getString(Constants.PERSON_ID_BUNDLE_ARG);
                 if (personId != null) {
@@ -90,6 +97,7 @@ public class AddNoteFragment extends Fragment {
                 noteId = bundle.getString(Constants.NOTE_ID_BUNDLE_ARG);
                 NotePOJO note = noteManager.getNote(noteId);
                 noteText.setText(note.getText());
+                notePosition = bundle.getInt(Constants.NOTE_POSITION_BUNDLE_ARG);
                 if (note.getPeopleTagged() != null) {
                     for (String personId : note.getPeopleTagged()) {
                         noteTags.addObject(personManager.getPerson(personId));
@@ -119,12 +127,22 @@ public class AddNoteFragment extends Fragment {
             public void onClick(View v) {
                 hideKeyboard();
                 if (noteId != null) {
-                    noteManager.editNote(noteId, null, noteText.getText().toString(), taggedPeople);
+                    String editedNoteTextString = noteText.getText().toString();
+                    noteManager.editNote(noteId, null, editedNoteTextString, taggedPeople);
+                    Intent intent = new Intent();
+                    intent.putExtra(Constants.NOTE_ID_BUNDLE_ARG, noteId);
+                    intent.putExtra(Constants.NOTE_POSITION_BUNDLE_ARG, notePosition);
+                    intent.putExtra(Constants.NOTE_TEXT_BUNDLE_ARG, editedNoteTextString);
+                    if(requestingActivity == Constants.REQUEST_CODE_ACTIVITY_SEARCH) {
+                        getActivity().setResult(Constants.RESULT_CODE_NOTE_EDITED, intent);
+                        getActivity().finish();
+                    } else {
+                        getActivity().onBackPressed();
+                    }
                 } else {
                     noteManager.addNote(null, noteText.getText().toString(), taggedPeople);
+                    getActivity().onBackPressed();
                 }
-                // simulate back button press to exit this fragment
-                getActivity().onBackPressed();
             }
         });
         cancelNote.setOnClickListener(new View.OnClickListener() {

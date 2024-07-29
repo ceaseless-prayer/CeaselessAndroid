@@ -1,8 +1,8 @@
 package org.theotech.ceaselessandroid.util;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import com.google.android.material.navigation.NavigationView;
@@ -27,22 +27,22 @@ import org.theotech.ceaselessandroid.fragment.SettingsFragment;
 public class FragmentUtils {
     private static final String TAG = FragmentUtils.class.getSimpleName();
 
-    public static void loadFragment(Activity activity, FragmentManager fragmentManager, NavigationView navigation,
+    public static void loadFragment(FragmentActivity activity, FragmentManager fragmentManager, NavigationView navigation,
                                     int resourceId) {
         loadFragment(activity, fragmentManager, navigation, resourceId, (Bundle) null);
     }
 
-    public static void loadFragment(Activity activity, FragmentManager fragmentManager, NavigationView navigation,
+    public static void loadFragment(FragmentActivity activity, FragmentManager fragmentManager, NavigationView navigation,
                                     int resourceId, Bundle loadingFragmentState /* state of the fragment being loaded */) {
         loadFragment(activity, fragmentManager, navigation, resourceId, loadingFragmentState, null);
     }
 
-    public static void loadFragment(Activity activity, FragmentManager fragmentManager, NavigationView navigation,
+    public static void loadFragment(FragmentActivity activity, FragmentManager fragmentManager, NavigationView navigation,
                                     int resourceId, FragmentState backStackInfo) {
         loadFragment(activity, fragmentManager, navigation, resourceId, null, backStackInfo);
     }
 
-    public static void loadFragment(Activity activity, FragmentManager fragmentManager, NavigationView navigation,
+    public static void loadFragment(FragmentActivity activity, FragmentManager fragmentManager, NavigationView navigation,
                                     int resourceId, Bundle loadingFragmentState /* state of the fragment being loaded */,
                                     FragmentState backStackInfo) {
         Fragment fragment = getFragmentForResourceId(resourceId);

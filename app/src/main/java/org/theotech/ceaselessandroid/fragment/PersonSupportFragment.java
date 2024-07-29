@@ -78,7 +78,7 @@ public class PersonSupportFragment extends Fragment implements ICardPageFragment
             backStackInfo.setState(currentState);
 
             CommonUtils.injectPersonIntoView(getActivity(), personManager, personName, personImage,
-                    notes, view, personId, getString(R.string.empty_notes), getActivity().getFragmentManager(),
+                    notes, view, personId, getString(R.string.empty_notes), getActivity().getSupportFragmentManager(),
                     backStackInfo);
 
             CommonUtils.wireAddNote(noteButton, personId, getActivity(), backStackInfo);

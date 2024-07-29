@@ -11,7 +11,7 @@ import android.preference.PreferenceManager;
 import androidx.annotation.NonNull;
 import android.util.Log;
 
-import org.theotech.ceaselessandroid.prefs.TimePickerDialogPreference;
+import org.theotech.ceaselessandroid.prefs.TimePreference;
 
 import java.util.Calendar;
 
@@ -37,14 +37,14 @@ public class DailyNotificationReceiver extends BroadcastReceiver {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             Log.d(TAG, "Using a broadcast receiver to show notification");
             Intent notificationIntent = new Intent(context, ShowNotificationReceiver.class);
-            pendingIntent = PendingIntent.getBroadcast(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            pendingIntent = PendingIntent.getBroadcast(context, 0, notificationIntent, PendingIntent.FLAG_MUTABLE);
         } else {
             // TODO cleanup this code path.
             // We should be using getBroadcast instead of kicking off a service to show notifications anyway.
             // However, we keep this here to ensure notifications on older versions of the app continue to
             // function. It's tricky to test
             Intent notificationIntent = new Intent(context, DailyNotificationService.class);
-            pendingIntent = PendingIntent.getService(context, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            pendingIntent = PendingIntent.getService(context, 0, notificationIntent, PendingIntent.FLAG_MUTABLE);
         }
         // always clear existing repeating alarm before we set a new one.
         alarmManager.cancel(pendingIntent);
@@ -90,8 +90,8 @@ public class DailyNotificationReceiver extends BroadcastReceiver {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.MILLISECOND, 0);
         calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MINUTE, TimePickerDialogPreference.getMinute(time));
-        calendar.set(Calendar.HOUR_OF_DAY, TimePickerDialogPreference.getHour(time));
+        calendar.set(Calendar.MINUTE, TimePreference.parseMinute(time));
+        calendar.set(Calendar.HOUR_OF_DAY, TimePreference.parseHour(time));
 //        calendar.set(Calendar.MINUTE, calendar.get(Calendar.MINUTE) + 1);
         return calendar;
     }
