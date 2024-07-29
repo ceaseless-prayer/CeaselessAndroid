@@ -18,6 +18,9 @@ import org.theotech.ceaselessandroid.activity.MainActivity;
 import org.theotech.ceaselessandroid.util.Constants;
 
 /**
+ * This class is now deprecated and replaced by ShowNotificationReceiver. Old versions of SDK
+ * still use it.
+ *
  * Created by jprobert on 10/3/2015.
  * This class is responsible for showing notifications to the user at the time they specify.
  * It is called by an alarm that is installed in {@link DailyNotificationReceiver}.
@@ -37,7 +40,7 @@ public class DailyNotificationService extends Service {
     public void onCreate() {
         Log.d(TAG, "Creating notification");
         Intent mainIntent = new Intent(this.getApplicationContext(), MainActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, mainIntent, 0);
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, mainIntent, PendingIntent.FLAG_IMMUTABLE);
 
         // get the name of the next day's person
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);

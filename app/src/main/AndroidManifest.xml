@@ -7,7 +7,10 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
     <uses-permission android:name="com.amazon.device.messaging.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <permission android:name="org.theotech.ceaselessandroid.permission.RECEIVE_ADM_MESSAGE" android:protectionLevel="signature" />
     <uses-permission android:name="org.theotech.ceaselessandroid.permission.RECEIVE_ADM_MESSAGE" />
 
@@ -58,8 +61,9 @@
             android:name=".notification.DailyNotificationService"
             android:enabled="true" />
 
-        <receiver android:name=".notification.ShowNotificationReceiver">
-        </receiver>
+        <receiver android:name=".notification.ShowNotificationReceiver"
+            android:enabled="true"
+            android:exported="true"/>
 
         <receiver android:name=".notification.DailyNotificationReceiver" android:exported="true">
             <intent-filter>
