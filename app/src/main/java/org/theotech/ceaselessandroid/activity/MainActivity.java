@@ -19,6 +19,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -146,8 +148,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void loadMainFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment, new HomeFragment(),
-                getString(R.string.nav_home)).commit();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().replace(
+                R.id.fragment, new HomeFragment(), getString(R.string.nav_home));
+        try {
+            /**
+             * This try-catch block is to avoid IllegalStateException
+             * causing the application to crash when a notification
+             * goes off but the Ceaseless application was terminated
+             * by the Android OS and so the commit fails. Attempting
+             * then to commit with state loss. Which means that any
+             * unsaved state from the application might be lost.
+             * Read: https://www.androiddesignpatterns.com/2013/08/fragment-transaction-commit-state-loss.html
+            */
+            transaction.commit();
+        } catch (IllegalStateException e) {
+            Log.d(TAG, "Unable to commit without losing state", e);
+            // If commit fails
+            transaction.commitAllowingStateLoss();
+        }
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
